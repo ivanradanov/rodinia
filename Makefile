@@ -10,9 +10,10 @@ CUDA_DIRS := backprop bfs cfd gaussian heartwall hotspot kmeans lavaMD leukocyte
 OMP_DIRS  := backprop bfs cfd		   heartwall hotspot kmeans lavaMD leukocyte lud nn nw srad streamcluster particlefilter pathfinder mummergpu
 OCL_DIRS  := backprop bfs cfd gaussian heartwall hotspot kmeans lavaMD leukocyte lud nn	nw srad streamcluster particlefilter pathfinder
 
-all: CUDA OMP OPENCL
+#all: CUDA OMP OPENCL
+all: CUDA OMP
 
-CUDA: 
+CUDA:
 	cd cuda/backprop;		make;	cp backprop $(CUDA_BIN_DIR)
 	cd cuda/bfs;			make;	cp bfs $(CUDA_BIN_DIR)
 	cd cuda/cfd;			make;	cp euler3d euler3d_double pre_euler3d pre_euler3d_double $(CUDA_BIN_DIR)
@@ -28,13 +29,12 @@ CUDA:
 	cd cuda/srad/srad_v1;		make;	cp srad $(CUDA_BIN_DIR)/srad_v1
 	cd cuda/srad/srad_v2;		make;   cp srad $(CUDA_BIN_DIR)/srad_v2
 	cd cuda/streamcluster;		make;	cp sc_gpu $(CUDA_BIN_DIR)
-	cd cuda/particlefilter;		make;	cp particlefilter_naive particlefilter_float $(CUDA_BIN_DIR)       
+	cd cuda/particlefilter;		make;	cp particlefilter_naive particlefilter_float $(CUDA_BIN_DIR)
 	cd cuda/pathfinder;		make;	cp pathfinder $(CUDA_BIN_DIR)
 	cd cuda/mummergpu;		make;	cp bin/mummergpu $(CUDA_BIN_DIR)
 	cd cuda/hybridsort;              make;   cp hybridsort $(CUDA_BIN_DIR)
 	cd cuda/dwt2d;                   make;   cp dwt2d  $(CUDA_BIN_DIR)
-	
-	
+
 OMP:
 	cd openmp/backprop;				make;	cp backprop $(OMP_BIN_DIR)
 	cd openmp/bfs;					make;	cp bfs $(OMP_BIN_DIR)
@@ -75,13 +75,13 @@ OPENCL:
 	cd opencl/heartwall;		        make;	cp heartwall	$(OPENCL_BIN_DIR)
 	cd opencl/hybridsort;              	make;   cp hybridsort $(CUDA_BIN_DIR)
 	cd opencl/dwt2d;                   	make;   cp dwt2d  $(CUDA_BIN_DIR)
-	
+
 clean: CUDA_clean OMP_clean OCL_clean
 
 CUDA_clean:
 	cd $(CUDA_BIN_DIR); rm -f *
 	for dir in $(CUDA_DIRS) ; do cd cuda/$$dir ; make clean ; cd ../.. ; done
-	
+
 OMP_clean:
 	cd $(OMP_BIN_DIR); rm -f *
 	for dir in $(OMP_DIRS) ; do cd openmp/$$dir ; make clean ; cd ../.. ; done
