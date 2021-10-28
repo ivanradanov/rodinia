@@ -1,7 +1,7 @@
 include ../../common/make.config
 
-CUDA_LIB =	-lcuda -lcudart
-CUDA_FLAG = -arch sm_20
+#CUDA_LIB =	-lcuda -lcudart
+#CUDA_FLAG = -arch sm_20
 
 # ====================================================================================================100
 #	END
@@ -51,7 +51,8 @@ CUDA_FLAG = -arch sm_20
 #	GCC
 # ====================================================================================================100
 
-C_C = gcc
+C_C = $(CC)
+#C_C = gcc
 # OMP_LIB = -lgomp
 # OMP_FLAG = -fopenmp
 # OCL_LIB = -lOpenCL
@@ -60,7 +61,8 @@ C_C = gcc
 #	NVCC
 # ====================================================================================================100
 
-CUD_C = nvcc
+CUD_C = $(NVCC)
+#CUD_C = nvcc
 # OMP_FLAG = 	-Xcompiler paste_one_here
 
 # ====================================================================================================100
@@ -91,15 +93,14 @@ b+tree.out:	./main.o \
 		./util/timer/timer.o \
 		./util/num/num.o \
 		./util/cuda/cuda.o
-	$(C_C)	./main.o \
+	$(LINKER)	./main.o \
 			./kernel/kernel_gpu_cuda_wrapper.o \
 			./kernel/kernel_gpu_cuda_wrapper_2.o \
 			./util/timer/timer.o \
 			./util/num/num.o \
 			./util/cuda/cuda.o \
 			-lm \
-			-L$(CUDA_LIB_DIR) \
-			$(CUDA_LIB)\
+			$(LINKER_FLAGS)\
                        -o b+tree.out
 
 
@@ -117,11 +118,13 @@ main.o:	./common.h \
 	$(C_C)	$(KERNEL_DIM) ./main.c \
 			-c \
 			-o ./main.o \
-			-O3
+			-O3 $(CC_FLAGS)
 
 # ======================================================================================================================================================150
 #	KERNELS
 # ======================================================================================================================================================150
+
+CUDA_FLAG = $(NVCC_FLAGS)
 
 ./kernel/kernel_gpu_cuda_wrapper.o:	./common.h \
 									./kernel/kernel_gpu_cuda_wrapper.h \
@@ -151,7 +154,7 @@ main.o:	./common.h \
 	$(C_C)	./util/timer/timer.c \
 			-c \
 			-o ./util/timer/timer.o \
-			-O3
+			-O3 $(CC_FLAGS)
 
 ./util/num/num.o:	./common.h \
 					./util/num/num.h \
@@ -159,7 +162,7 @@ main.o:	./common.h \
 	$(C_C)	./util/num/num.c \
 			-c \
 			-o ./util/num/num.o \
-			-O3
+			-O3 $(CC_FLAGS)
 
 ./util/cuda/cuda.o:	./common.h \
 					./util/cuda/cuda.h \

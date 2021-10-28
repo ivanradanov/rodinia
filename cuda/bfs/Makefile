@@ -1,15 +1,16 @@
 include ../../common/make.config
 
-CC := $(CUDA_DIR)/bin/nvcc
-
-INCLUDE := $(CUDA_DIR)/include
+#CC := $(CUDA_DIR)/bin/nvcc
+#
+#INCLUDE := $(CUDA_DIR)/include
+#
 
 SRC = bfs.cu
 
 EXE = bfs.out
 
 release: $(SRC)
-	$(CC) $(SRC) -o $(EXE) -I$(INCLUDE) -I../util -L$(CUDA_LIB_DIR) -DTIMING
+	$(NVCC) $(NVCC_FLAGS) $(SRC) -o $(EXE) -I../util $(LINKER_FLAGS)
 
 clang: $(SRC)
 	clang++ $(SRC) -o $(EXE) -I../util --cuda-gpu-arch=sm_20 \
