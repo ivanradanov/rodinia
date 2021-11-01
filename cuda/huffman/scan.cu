@@ -35,6 +35,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include "cutil.h"
+#include <algorithm>
 
 inline bool
 isPowerOfTwo(int n)
@@ -75,7 +76,7 @@ static void preallocBlockSums(unsigned int maxNumElements)
     int level = 0;
 
     do {       
-        unsigned int numBlocks = max(1, (int)ceil((float)numElts / (2.f * blockSize)));
+        unsigned int numBlocks = (unsigned)std::max(1, (int)ceil((float)numElts / (2.f * blockSize)));
         if (numBlocks > 1) level++;
         numElts = numBlocks;
     } while (numElts > 1);
@@ -86,7 +87,7 @@ static void preallocBlockSums(unsigned int maxNumElements)
     level = 0;
     
     do {       
-        unsigned int numBlocks = max(1, (int)ceil((float)numElts / (2.f * blockSize)));
+        unsigned int numBlocks = std::max(1, (int)ceil((float)numElts / (2.f * blockSize)));
         if (numBlocks > 1) 
             CUDA_SAFE_CALL(cudaMalloc((void**) &g_scanBlockSums[level++], numBlocks * sizeof(unsigned int)));
         numElts = numBlocks;
@@ -118,7 +119,7 @@ static void prescanArrayRecursive(unsigned int *outArray,
 {
     unsigned int blockSize = BLOCK_SIZE; // max size of the thread blocks
     unsigned int numBlocks = 
-        max(1, (int)ceil((float)numElements / (2.f * blockSize)));
+        std::max(1, (int)ceil((float)numElements / (2.f * blockSize)));
     unsigned int numThreads;
 
     if (numBlocks > 1)
@@ -134,7 +135,7 @@ static void prescanArrayRecursive(unsigned int *outArray,
     // compute the smallest power of 2 able to compute its scan.
     unsigned int numEltsLastBlock = 
         numElements - (numBlocks-1) * numEltsPerBlock;
-    unsigned int numThreadsLastBlock = max(1, numEltsLastBlock / 2);
+    unsigned int numThreadsLastBlock = (unsigned)std::max((unsigned)1, numEltsLastBlock / 2);
     unsigned int np2LastBlock = 0;
     unsigned int sharedMemLastBlock = 0;
     
@@ -164,7 +165,7 @@ static void prescanArrayRecursive(unsigned int *outArray,
 
     // setup execution parameters
     // if NP2, we process the last block separately
-    dim3  grid(max(1, numBlocks - np2LastBlock), 1, 1); 
+    dim3  grid((unsigned)std::max((unsigned)1, numBlocks - np2LastBlock), 1, 1); 
     dim3  threads(numThreads, 1, 1);
 
     // make sure there are no CUDA errors before we start
