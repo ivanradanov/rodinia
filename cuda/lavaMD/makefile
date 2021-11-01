@@ -12,13 +12,15 @@ ifdef OUTPUT
 override OUTPUT = -DOUTPUT
 endif
 
-C_C = gcc
-OMP_LIB = -lgomp
-OMP_FLAG = -fopenmp
-
-CUD_C = $(CUDA_DIR)/bin/nvcc
-# OMP_FLAG = 	-Xcompiler paste_one_here
-CUDA_FLAG = -arch sm_13
+#C_C = gcc
+C_C = $(CC)
+#OMP_LIB = -lgomp
+#OMP_FLAG = -fopenmp
+#
+#CUD_C = $(CUDA_DIR)/bin/nvcc
+CUD_C = $(NVCC)
+## OMP_FLAG = 	-Xcompiler paste_one_here
+CUDA_FLAG = $(NVCC_FLAGS)
 
 # link objects (binaries) together
 a.out:		main.o \
@@ -26,15 +28,13 @@ a.out:		main.o \
 			./util/num/num.o \
 			./util/timer/timer.o \
 			./util/device/device.o
-	$(C_C)	$(KERNEL_DIM) main.o \
+	$(LINKER)	$(KERNEL_DIM) main.o \
 			./kernel/kernel_gpu_cuda_wrapper.o \
 			./util/num/num.o \
 			./util/timer/timer.o \
 			./util/device/device.o \
 			-lm \
-			-L/usr/local/cuda/lib64 \
-			-lcuda -lcudart \
-			$(OMP_LIB) \
+			$(LINKER_FLAGS) \
 			-o lavaMD
 
 # compile function files into objects (binaries)
@@ -51,7 +51,7 @@ main.o:		main.h \
 	$(C_C)	$(KERNEL_DIM) $(OUTPUT) main.c \
 			-c \
 			-o main.o \
-			-O3
+			-O3 $(CC_FLAGS)
 
 ./kernel/kernel_gpu_cuda_wrapper.o:	./kernel/kernel_gpu_cuda_wrapper.h \
 									./kernel/kernel_gpu_cuda_wrapper.cu
@@ -66,21 +66,21 @@ main.o:		main.h \
 	$(C_C)			./util/num/num.c \
 					-c \
 					-o ./util/num/num.o \
-					-O3
+					-O3 $(CC_FLAGS)
 
 ./util/timer/timer.o:	./util/timer/timer.h \
 						./util/timer/timer.c
 	$(C_C)				./util/timer/timer.c \
 						-c \
 						-o ./util/timer/timer.o \
-						-O3
+						-O3 $(CC_FLAGS)
 
 ./util/device/device.o:	./util/device/device.h \
 						./util/device/device.cu
 	$(CUD_C)			./util/device/device.cu \
 						-c \
 						-o ./util/device/device.o \
-						-O3
+						-O3 $(CUDA_FLAG)
 
 # delete all object and executable files
 clean:
