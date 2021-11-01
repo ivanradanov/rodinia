@@ -1,16 +1,20 @@
-CC = gcc
-NVCC = nvcc
+include ../../../common/make.config
+
+#CC = gcc
+#NVCC = nvcc
 
 DEFS += \
 		-DGPU_TIMER \
 		$(SPACE)
 
-NVCCFLAGS += -I../common \
+NVCC_FLAGS += -I../common \
 			 -O3 \
 			 -use_fast_math \
 			 -arch=sm_20 \
 			 -lm \
 			 $(SPACE)
+
+NVCCFLAGS = $(NVCC_FLAGS)
 
 CFLAGS += -I../common \
 					-I/usr/include/cuda \
@@ -42,7 +46,7 @@ clang: $(SRC)
 		-L/usr/local/cuda/lib64 -lcudart_static -ldl -lrt -pthread -DTIMING
 
 $(EXECUTABLE) : $(OBJS)
-	$(NVCC) $(NVCCFLAGS) -o $@  $?
+	$(NVCC) -o $@  $? $(NVCCFLAGS) 
 
 clean:
 	rm -f $(EXECUTABLE) $(OBJS) *.linkinfo
