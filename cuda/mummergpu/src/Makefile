@@ -8,10 +8,11 @@ include ../experiments/test_rule.mk
 CUDA_INSTALL_PATH := $(CUDA_DIR)
 
 # Compilers
-NVCC       := $(CUDA_INSTALL_PATH)/bin/nvcc 
-CXX        := g++ -fopenmp $(PROFILE)
-CC         := gcc 
-LINK       := g++ -fopenmp -m64 -fPIC $(PROFILE)
+#NVCC       := $(CUDA_INSTALL_PATH)/bin/nvcc 
+#CXX        := g++ -fopenmp $(PROFILE)
+#CC         := gcc 
+#LINK       := g++ -fopenmp -m64 -fPIC $(PROFILE)
+LINK = $(LINKER)
 
 # Add source files here
 STATIC_LIB := libmummergpu.a
@@ -64,13 +65,18 @@ CWARN_FLAGS := $(CXXWARN_FLAGS) \
 	-Wmain \
 
 # Compiler-specific flags
-NVCCFLAGS := -Xcompiler "-m64"
-CXXFLAGS  := -m64 $(CXXWARN_FLAGS)
-CFLAGS    := -m64 $(CWARN_FLAGS)
+#NVCCFLAGS := -Xcompiler "-m64"
+#CXXFLAGS  := -m64 $(CXXWARN_FLAGS)
+#CFLAGS    := -m64 $(CWARN_FLAGS)
+NVCCFLAGS := $(NVCC_FLAGS)
+CXXFLAGS  := $(CXX_FLAGS)
+CFLAGS    := $(CC_FLAGS)
+
+CXXFLAGS += -std=c++98
 
 # Common flags
-COMMONFLAGS ?= 
-COMMONFLAGS += $(INCLUDES) -DUNIX
+COMMONFLAGS ?=
+#COMMONFLAGS += $(INCLUDES) -DUNIX
 
 # Debug/release configuration
 ifeq ($(dbg),1)
@@ -96,7 +102,7 @@ ifeq ($(fastmath), 1)
 endif
 
 # Add cudacc flags
-NVCCFLAGS += -Xcompiler "$(CUDACCFLAGS)"
+#NVCCFLAGS += -Xcompiler "$(CUDACCFLAGS)"
 
 # Add common flags
 NVCCFLAGS += $(COMMONFLAGS)
@@ -144,7 +150,6 @@ BINOBJS= \
 
 $(BINDIR)/mummergpu: makedirectories $(LIBDIR)/libmummergpu$(LIBSUFFIX).a $(BINOBJS)
 	$(LINK) -o $(BINDIR)/$(BINNAME)  $(BINOBJS) -lmummergpu$(LIBSUFFIX) $(LIB) 
-		
 
 ##############################################################################
 #                               Auto Generated rules go here                 #
@@ -157,7 +162,7 @@ include ../experiments/rules.mk
 ##############################################################################
 
 
-clean: 
+clean:
 	rm -f $(LIBOBJS)
 	rm -f $(LIBDIR)/libmummergpu$(LIBSUFFIX).a
 	rm -f $(BINOBJS)
