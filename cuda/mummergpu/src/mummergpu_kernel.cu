@@ -2,7 +2,7 @@
 #define _MUMMERGPU_KERNEL_H_
 
 #include <stdio.h>
-#include <common.cu>
+#include "common.cu"
 
 #ifdef  n__DEVICE_EMULATION__
 
