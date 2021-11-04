@@ -1,14 +1,14 @@
 include ../../common/make.config
 
-CC := $(CUDA_DIR)/bin/nvcc
-INCLUDE := $(CUDA_DIR)/include
+CC := $(NVCC)
+INCLUDE :=
 
 SRC = pathfinder.cu
 
 EXE = pathfinder
 
 release:
-	$(CC) $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 
+	$(CC) $(SRC) -o $(EXE) $(NVCC_FLAGS)
 
 clang: $(SRC)
 	clang++ $(SRC) -o $(EXE) -I../util --cuda-gpu-arch=sm_20 \
