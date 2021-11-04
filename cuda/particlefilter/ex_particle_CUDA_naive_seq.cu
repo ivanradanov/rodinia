@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include <float.h>
 #include <sys/time.h>
+#include <time.h>
 #define PI 3.1415926535897932
 #define BLOCK_X 16
 #define BLOCK_Y 16
