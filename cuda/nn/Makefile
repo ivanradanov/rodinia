@@ -1,16 +1,19 @@
 include ../../common/make.config
 
-LOCAL_CC = gcc -g -O3 -Wall
-CC := $(CUDA_DIR)/bin/nvcc
+LOCAL_CC = $(CC)
+CC := $(NVCC)
 
 all : nn hurricane_gen
 
 clean :
 	rm -rf *.o nn hurricane_gen
 
+#nn : nn_cuda.cu
+#	$(CC) -cuda nn_cuda.cu
+#	$(CC) -o nn nn_cuda.cu
+
 nn : nn_cuda.cu
-	$(CC) -cuda nn_cuda.cu
-	$(CC) -o nn nn_cuda.cu
+	$(CC) -o nn nn_cuda.cu $(NVCC_FLAGS)
 
 clang: $(SRC)
 	clang++ nn_cuda.cu -o nn -I../util --cuda-gpu-arch=sm_20 \
