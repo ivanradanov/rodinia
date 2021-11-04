@@ -1,15 +1,16 @@
 include ../../common/make.config
 
-CC := $(CUDA_DIR)/bin/nvcc
+CC := $(NVCC)
 
-INCLUDE := $(CUDA_DIR)/include
+#INCLUDE := $(CUDA_DIR)/include
+INCLUDE :=
 
 SRC = needle.cu
 
 EXE = needle
 
 release: $(SRC)
-	$(CC) ${KERNEL_DIM} $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 
+	$(CC) ${KERNEL_DIM} $(SRC) -o $(EXE) $(NVCC_FLAGS)
 
 clang: $(SRC)
 	clang++ $(SRC) -o $(EXE) -I../util --cuda-gpu-arch=sm_20 \
