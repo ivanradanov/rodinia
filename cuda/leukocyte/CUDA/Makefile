@@ -1,35 +1,37 @@
 include ../../../common/make.config
 
-ifdef OUTPUT
-override OUTPUT = -DOUTPUT
-endif
-
-# C compiler
-CC = gcc
-CC_FLAGS = -g -O3 -Wall -I$(MATRIX_DIR)
-
-# CUDA compiler
-NVCC = $(CUDA_DIR)/bin/nvcc
-NVCC_FLAGS = -I$(CUDA_DIR)/include -I$(SDK_DIR)/common/inc
+#ifdef OUTPUT
+#override OUTPUT = -DOUTPUT
+#endif
+#
+## C compiler
+#CC = gcc
+#CC_FLAGS = -g -O3 -Wall -I$(MATRIX_DIR)
+#
+## CUDA compiler
+#NVCC = $(CUDA_DIR)/bin/nvcc
+#NVCC_FLAGS = -I$(CUDA_DIR)/include -I$(SDK_DIR)/common/inc
 
 # Matrix library path
 MATRIX_DIR = ../meschach_lib
 
-# 'make dbg=1' enables NVCC debugging
-ifeq ($(dbg),1)
-	NVCC_FLAGS += -g -O0
-else
-	NVCC_FLAGS += -O3
-endif
+CC_FLAGS += -I$(MATRIX_DIR)
 
-# 'make emu=1' compiles the CUDA kernels for emulation
-ifeq ($(emu),1)
-	NVCC_FLAGS += -deviceemu
-endif
+## 'make dbg=1' enables NVCC debugging
+#ifeq ($(dbg),1)
+#	NVCC_FLAGS += -g -O0
+#else
+#	NVCC_FLAGS += -O3
+#endif
+#
+## 'make emu=1' compiles the CUDA kernels for emulation
+#ifeq ($(emu),1)
+#	NVCC_FLAGS += -deviceemu
+#endif
 
 
 leukocyte: detect_main.o avilib.o find_ellipse.o find_ellipse_kernel.o track_ellipse.o track_ellipse_kernel.o misc_math.o $(MATRIX_DIR)/meschach.a
-	$(CC) $(CC_FLAGS) -lm avilib.o find_ellipse.o find_ellipse_kernel.o track_ellipse.o track_ellipse_kernel.o misc_math.o detect_main.o -o leukocyte $(MATRIX_DIR)/meschach.a -L$(CUDA_LIB_DIR) -lm -lcuda -lcudart
+	$(LINKER) -lm avilib.o find_ellipse.o find_ellipse_kernel.o track_ellipse.o track_ellipse_kernel.o misc_math.o detect_main.o -o leukocyte $(MATRIX_DIR)/meschach.a $(LINKER_FLAGS)
 
 %.o: %.[ch]
 	$(CC)  $(OUTPUT) $(CC_FLAGS) $< -c
