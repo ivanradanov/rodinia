@@ -659,7 +659,9 @@ int main(int argc, char *argv []){
 		cudaMemcpyToSymbol(d_common_change, &common_change, sizeof(params_common_change));
 
 		// launch GPU kernel
+		MY_START_CLOCK(heartwall);
 		kernel<<<blocks, threads>>>();
+		MY_STOP_CLOCK(heartwall);
 
 		// free frame after each loop iteration, since AVI library allocates memory for every frame fetched
 		free(frame);
