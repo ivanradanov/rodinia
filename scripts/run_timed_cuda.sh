@@ -2,6 +2,8 @@
 
 #set -x
 
+TIMEOUT_CMD="timeout 1m"
+
 DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 RODINIA_ROOT_DIR="$DIR/../"
@@ -27,6 +29,6 @@ for b in $bm; do
     echo -------------- running "$b" @ "$(date -Ins)" -------------- | tee -a "$LOGFILE"
     cd "$RODINIA_CUDA_DIR/$b"
 
-    ./run &>> "$LOGFILE" || echo "FAILED"
+    $TIMEOUT_CMD ./run &>> "$LOGFILE" || echo "FAILED OR TIMED OUT"
 done
 
