@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <omp.h>
 
 #define MY_START_CLOCK(CLOCK_ID)                                        \
   double ___my_clock_start##CLOCK_ID; \
@@ -34,7 +35,21 @@ inline void MY_WRITE_TIME_TO_FILE(const char *clock_id, double elapsed) {
     printf("could not open timing file %s\n", output);
   }
 
-  fprintf(f, "%s, %f\n", clock_id, elapsed);
+  char empty[1] = "";
+
+  char *hostname = getenv("HOSTNAME");
+  if (!hostname)
+	  hostname = empty;
+
+  int omp_threads = omp_get_max_threads();
+
+  #ifdef _MY_COMPILER_NAME_
+  const char *compilername = _MY_COMPILER_NAME_;
+  #else
+  const char *compilername = "unidetified_compiler";
+  #endif
+
+  fprintf(f, "%s, %lf, %s, %s, %d,\n", clock_id, elapsed, hostname, compilername, omp_threads);
 }
 
 #endif // __MY_TIMING_H_
