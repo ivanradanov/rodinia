@@ -206,6 +206,8 @@ void BFSGraph( int argc, char** argv)
 	printf("Start traversing the tree\n");
 	bool stop;
 	//Call the Kernel untill all the elements of Frontier are not false
+
+	MY_START_CLOCK(bfs);
 	do
 	{
 		//if no thread changes this value then the loop stops
@@ -243,6 +245,7 @@ void BFSGraph( int argc, char** argv)
 		k++;
 	}
 	while(stop);
+	MY_STOP_CLOCK(bfs);
 
 
 	printf("Kernel Executed %d times\n",k);

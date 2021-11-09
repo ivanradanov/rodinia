@@ -23,6 +23,8 @@
 
 inline void MY_WRITE_TIME_TO_FILE(const char *clock_id, double elapsed) {
 	char *output = getenv("MY_TIMING_FILE");
+	if (!output)
+		return;
 	if (*output == '\0')
 		return;
 
