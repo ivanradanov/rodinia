@@ -49,7 +49,7 @@ static inline void MY_WRITE_TIME_TO_FILE(const char *clock_id, double elapsed) {
   const char *compilername = "unidetified_compiler";
   #endif
 
-  fprintf(f, "%s, %lf, %s, %s, %d,\n", clock_id, elapsed, hostname, compilername, omp_threads);
+  fprintf(f, "%s, %.17g, %s, %s, %d,\n", clock_id, elapsed, hostname, compilername, omp_threads);
 }
 
 #endif // __MY_TIMING_H_
