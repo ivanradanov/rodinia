@@ -213,6 +213,7 @@ int work_2(	int xmax,
 		blocks.y = 1;
 	}
 
+	MY_START_CLOCK(myocyte, solver_2);
 	solver_2<<<blocks, threads>>>(	workload,
 																xmax,
 
@@ -226,6 +227,7 @@ int work_2(	int xmax,
 																d_yy,
 																d_initvalu_temp,
 																d_finavalu_temp);
+	MY_STOP_CLOCK(myocyte, solver_2);
 
 	// cudaThreadSynchronize();
 	// printf("CUDA error: %s\n", cudaGetErrorString(cudaGetLastError()));

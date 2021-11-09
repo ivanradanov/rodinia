@@ -385,7 +385,7 @@ void ForwardSub()
     // begin timing kernels
     struct timeval time_start;
     gettimeofday(&time_start, NULL);
-    MY_START_CLOCK(gaussian);
+    MY_START_CLOCK(gaussian, );
 	for (t=0; t<(Size-1); t++) {
 		Fan1<<<dimGrid,dimBlock>>>(m_cuda,a_cuda,Size,t);
 		cudaThreadSynchronize();
@@ -393,7 +393,7 @@ void ForwardSub()
 		cudaThreadSynchronize();
 		checkCUDAError("Fan2");
 	}
-	MY_STOP_CLOCK(gaussian);
+	MY_STOP_CLOCK(gaussian, );
 	// end timing kernels
 	struct timeval time_end;
     gettimeofday(&time_end, NULL);

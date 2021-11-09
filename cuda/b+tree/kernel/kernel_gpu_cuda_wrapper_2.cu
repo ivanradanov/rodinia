@@ -260,7 +260,7 @@ kernel_gpu_cuda_wrapper_2(	knode *knodes,
 	//======================================================================================================================================================150
 
 	// [GPU] findRangeK kernel
-	MY_START_CLOCK(bptree_findRangeK);
+	MY_START_CLOCK(bptree, findRangeK);
 	findRangeK<<<numBlocks, threadsPerBlock>>>(	maxheight,
 												knodesD,
 												knodes_elem,
@@ -273,7 +273,7 @@ kernel_gpu_cuda_wrapper_2(	knode *knodes,
 												endD,
 												ansDStart,
 												ansDLength);
-	MY_STOP_CLOCK(bptree_findRangeK);
+	MY_STOP_CLOCK(bptree, findRangeK);
 	cudaThreadSynchronize();
 	checkCUDAError("findRangeK");
 

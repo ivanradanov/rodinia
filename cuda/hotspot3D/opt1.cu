@@ -82,6 +82,7 @@ void hotspot_opt1(float *p, float *tIn, float *tOut,
     dim3 grid_dim(nx / 64, ny / 4, 1);
 
     long long start = get_time();
+    MY_START_CLOCK(hotspot3D, );
     for (int i = 0; i < numiter; ++i) {
         hotspotOpt1<<<grid_dim, block_dim>>>
             (p_d, tIn_d, tOut_d, stepDivCap, nx, ny, nz, ce, cw, cn, cs, ct, cb, cc);
@@ -89,6 +90,7 @@ void hotspot_opt1(float *p, float *tIn, float *tOut,
         tIn_d = tOut_d;
         tOut_d = t;
     }
+    MY_STOP_CLOCK(hotspot3D, );
     cudaDeviceSynchronize();
     long long stop = get_time();
     float time = (float)((stop - start)/(1000.0 * 1000.0));

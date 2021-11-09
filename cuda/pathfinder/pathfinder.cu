@@ -175,6 +175,7 @@ int calc_path(int *gpuWall, int *gpuResult[2], int rows, int cols, \
         dim3 dimGrid(blockCols);  
 	
         int src = 1, dst = 0;
+        MY_START_CLOCK(pathfinder, );
 	for (int t = 0; t < rows-1; t+=pyramid_height) {
             int temp = src;
             src = dst;
@@ -187,6 +188,7 @@ int calc_path(int *gpuWall, int *gpuResult[2], int rows, int cols, \
             // for the measurement fairness
             cudaDeviceSynchronize();
 	}
+	MY_STOP_CLOCK(pathfinder, );
         return dst;
 }
 

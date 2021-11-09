@@ -308,10 +308,12 @@ int main(int argc, char *argv []){
 	// fflush(NULL);
 
 		// execute square kernel
+		MY_START_CLOCK(srad_v1, prepare);
 		prepare<<<blocks, threads>>>(	Ne,
 										d_I,
 										d_sums,
 										d_sums2);
+		MY_STOP_CLOCK(srad_v1, prepare);
 
 		checkCUDAError("prepare");
 
@@ -326,11 +328,13 @@ int main(int argc, char *argv []){
 			checkCUDAError("before reduce");
 
 			// run kernel
+			MY_START_CLOCK(srad_v1, reduce);
 			reduce<<<blocks2, threads>>>(	Ne,
 											no,
 											mul,
 											d_sums, 
 											d_sums2);
+			MY_STOP_CLOCK(srad_v1, reduce);
 
 			checkCUDAError("reduce");
 
@@ -369,6 +373,7 @@ int main(int argc, char *argv []){
 		q0sqr = varROI / meanROI2;											// gets standard deviation of ROI
 
 		// execute srad kernel
+		MY_START_CLOCK(srad_v1, srad);
 		srad<<<blocks, threads>>>(	lambda,									// SRAD coefficient 
 									Nr,										// # of rows in input image
 									Nc,										// # of columns in input image
@@ -384,10 +389,12 @@ int main(int argc, char *argv []){
 									q0sqr,									// standard deviation of ROI 
 									d_c,									// diffusion coefficient
 									d_I);									// output image
+		MY_STOP_CLOCK(srad_v1, srad);
 
 		checkCUDAError("srad");
 
 		// execute srad2 kernel
+		MY_START_CLOCK(srad_v1, srad2);
 		srad2<<<blocks, threads>>>(	lambda,									// SRAD coefficient 
 									Nr,										// # of rows in input image
 									Nc,										// # of columns in input image
@@ -402,6 +409,7 @@ int main(int argc, char *argv []){
 									d_dE,									// East derivative
 									d_c,									// diffusion coefficient
 									d_I);									// output image
+		MY_STOP_CLOCK(srad_v1, srad2);
 
 		checkCUDAError("srad2");
 
@@ -415,8 +423,10 @@ int main(int argc, char *argv []){
 	// 	SCALE IMAGE UP FROM 0-1 TO 0-255 AND COMPRESS
 	//================================================================================80
 
+	MY_START_CLOCK(srad_v1, compress);
 	compress<<<blocks, threads>>>(	Ne,
 									d_I);
+	MY_STOP_CLOCK(srad_v1, compress);
 
 	checkCUDAError("compress");
 

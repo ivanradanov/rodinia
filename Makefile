@@ -12,7 +12,33 @@ OCL_DIRS  := backprop bfs cfd gaussian heartwall hotspot kmeans lavaMD leukocyte
 
 #all: CUDA OMP OPENCL
 #all: CUDA OMP
-all: CUDA
+all: TIMED_CUDA
+
+TIMED_CUDA:
+	cd cuda/backprop;		make;
+	cd cuda/bfs;			make;
+	cd cuda/b+tree;			make;
+	cd cuda/cfd;			make;
+	cd cuda/dwt2d;			make;
+	cd cuda/gaussian;		make;
+	cd cuda/heartwall;		make;
+	cd cuda/hotspot;		make;
+	cd cuda/hotspot3D;		make;
+	cd cuda/huffman;		make;
+	#cd cuda/hybridsort;              make;
+	#cd cuda/kmeans;			make;
+	cd cuda/lavaMD;			make;
+	#cd cuda/leukocyte;		make;
+	cd cuda/lud;			make;
+	#cd cuda/mummergpu;		make;
+	cd cuda/myocyte;		make;
+	cd cuda/nn;				make;
+	cd cuda/nw;			make;
+	cd cuda/particlefilter;		make;
+	cd cuda/pathfinder;		make;
+	cd cuda/srad/srad_v1;		make;
+	cd cuda/srad/srad_v2;		make;
+	cd cuda/streamcluster;		make;
 
 # commented out benchmarks that use opengl headers of cuda textures
 CUDA:
@@ -22,6 +48,7 @@ CUDA:
 	cd cuda/gaussian;		make;	cp gaussian $(CUDA_BIN_DIR)
 	cd cuda/heartwall;		make;	cp heartwall $(CUDA_BIN_DIR)
 	cd cuda/hotspot;		make;	cp hotspot $(CUDA_BIN_DIR)
+	cd cuda/hotspot3D;		make;	cp 3D $(CUDA_BIN_DIR)
 	#cd cuda/kmeans;			make;	cp kmeans $(CUDA_BIN_DIR)
 	cd cuda/lavaMD;			make;	cp lavaMD $(CUDA_BIN_DIR)
 	#cd cuda/leukocyte;		make;	cp CUDA/leukocyte $(CUDA_BIN_DIR)

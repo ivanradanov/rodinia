@@ -228,7 +228,9 @@ static void prescanArrayRecursive(unsigned int *outArray,
 
 static void prescanArray(unsigned int *outArray, unsigned int *inArray, int numElements)
 {
+	MY_START_CLOCK(huffman, prescanArray);
     prescanArrayRecursive(outArray, inArray, numElements, 0);
+    MY_STOP_CLOCK(huffman, prescanArray);
 }
 
 #endif // _PRESCAN_CU_

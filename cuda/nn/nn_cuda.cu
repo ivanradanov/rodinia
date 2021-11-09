@@ -164,7 +164,9 @@ int main(int argc, char* argv[])
   gettimeofday(&tv_kernel_start, NULL);
 #endif
 
+  MY_START_CLOCK(nn, euclid);
     euclid<<< gridDim, threadsPerBlock >>>(d_locations,d_distances,numRecords,lat,lng);
+    MY_STOP_CLOCK(nn, euclid);
     cudaThreadSynchronize();
 
 #ifdef  TIMING

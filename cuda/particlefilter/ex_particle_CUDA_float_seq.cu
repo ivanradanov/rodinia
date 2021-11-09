@@ -728,6 +728,7 @@ void particleFilter(unsigned char * I, int IszX, int IszY, int Nfr, int * seed, 
     int num_blocks = ceil((double) Nparticles / (double) threads_per_block);
 
 
+    MY_START_CLOCK(particlefilter, float);
     for (k = 1; k < Nfr; k++) {
         
         likelihood_kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, xj_GPU, yj_GPU, CDF_GPU, ind_GPU, objxy_GPU, likelihood_GPU, I_GPU, u_GPU, weights_GPU, Nparticles, countOnes, max_size, k, IszY, Nfr, seed_GPU, partial_sums);
@@ -739,6 +740,7 @@ void particleFilter(unsigned char * I, int IszX, int IszY, int Nfr, int * seed, 
         find_index_kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, CDF_GPU, u_GPU, xj_GPU, yj_GPU, weights_GPU, Nparticles);
 
     }//end loop
+    MY_STOP_CLOCK(particlefilter, float);
 
     //block till kernels are finished
     cudaThreadSynchronize();

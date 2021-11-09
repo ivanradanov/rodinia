@@ -138,6 +138,7 @@ void runVLCTest(char *file_name, uint num_block_threads, uint num_blocks) {
     cudaEventCreate(&stop);
 
     cudaEventRecord( start, 0 );
+    MY_START_CLOCK(huffman, vlc_encode_kernel_sm64huff);
         for (int i=0; i<NT; i++) {
             vlc_encode_kernel_sm64huff<<<grid_size, block_size, sm_size>>>(d_sourceData, d_codewords, d_codewordlens,  
 #ifdef TESTING
@@ -145,6 +146,7 @@ void runVLCTest(char *file_name, uint num_block_threads, uint num_blocks) {
 #endif
                     d_destData, d_cindex); //testedOK2
         }
+        MY_STOP_CLOCK(huffman, vlc_encode_kernel_sm64huff);
     cudaThreadSynchronize();
     cudaEventRecord( stop, 0 ) ;
     cudaEventSynchronize( stop ) ;

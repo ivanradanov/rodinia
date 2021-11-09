@@ -242,6 +242,7 @@ float pgain( long x, Points *points, float z, long int *numcenters, int kmax, bo
 	int num_blocks_x = (int) ((float) (num_blocks+num_blocks_y - 1) / (float) num_blocks_y);	
 	dim3 grid_size(num_blocks_x, num_blocks_y, 1);
 
+	MY_START_CLOCK(streamcluster, kernel_compute_cost);
 	kernel_compute_cost<<<grid_size, THREADS_PER_BLOCK>>>(	
 															num,					// in:	# of data
 															dim,					// in:	dimension of point coordinates
@@ -254,6 +255,7 @@ float pgain( long x, Points *points, float z, long int *numcenters, int kmax, bo
 															center_table_d,			// in:	center index table
 															switch_membership_d		// out:  changes in membership
 															);
+	MY_STOP_CLOCK(streamcluster, kernel_compute_cost);
 	cudaThreadSynchronize();
 	
 	// error check

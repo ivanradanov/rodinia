@@ -50,11 +50,13 @@ void master(fp timeinst,
 	threads.y = 1;
 	blocks.x = 2;
 	blocks.y = 1;
+	MY_START_CLOCK(myocyte, kernel);
 	kernel<<<blocks, threads>>>(	timeinst,
 															d_initvalu,
 															d_finavalu,
 															d_params,
 															d_com);
+	MY_STOP_CLOCK(myocyte, kernel);
 
 	cudaMemcpy(finavalu, d_finavalu, d_finavalu_mem, cudaMemcpyDeviceToHost);
 	cudaMemcpy(com, d_com, d_com_mem, cudaMemcpyDeviceToHost);

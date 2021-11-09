@@ -196,6 +196,7 @@ void lud_cuda(float *m, int matrix_dim)
   dim3 dimBlock(BLOCK_SIZE, BLOCK_SIZE);
   float *m_debug = (float*)malloc(matrix_dim*matrix_dim*sizeof(float));
 
+  MY_START_CLOCK(lud, );
   for (i=0; i < matrix_dim-BLOCK_SIZE; i += BLOCK_SIZE) {
       lud_diagonal<<<1, BLOCK_SIZE>>>(m, matrix_dim, i);
       lud_perimeter<<<(matrix_dim-i)/BLOCK_SIZE-1, BLOCK_SIZE*2>>>(m, matrix_dim, i);
@@ -203,5 +204,6 @@ void lud_cuda(float *m, int matrix_dim)
       lud_internal<<<dimGrid, dimBlock>>>(m, matrix_dim, i); 
   }
   lud_diagonal<<<1,BLOCK_SIZE>>>(m, matrix_dim, i);
+  MY_STOP_CLOCK(lud, );
 }
 

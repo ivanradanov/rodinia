@@ -240,7 +240,7 @@ int compute_tran_temp(float *MatrixPower,float *MatrixTemp[2], int col, int row,
 
         int src = 1, dst = 0;
 	
-        MY_START_CLOCK(hotspot);
+        MY_START_CLOCK(hotspot, );
 	for (t = 0; t < total_iterations; t+=num_iterations) {
             int temp = src;
             src = dst;
@@ -248,7 +248,7 @@ int compute_tran_temp(float *MatrixPower,float *MatrixTemp[2], int col, int row,
             calculate_temp<<<dimGrid, dimBlock>>>(MIN(num_iterations, total_iterations-t), MatrixPower,MatrixTemp[src],MatrixTemp[dst],\
 		col,row,borderCols, borderRows, Cap,Rx,Ry,Rz,step,time_elapsed);
 	}
-	MY_STOP_CLOCK(hotspot);
+	MY_STOP_CLOCK(hotspot, );
         return dst;
 }
 

@@ -168,20 +168,24 @@ void runTest( int argc, char** argv)
 
 	printf("Processing top-left matrix\n");
 	//process top-left matrix
+	MY_START_CLOCK(nw, needle_cuda_shared_1);
 	for( int i = 1 ; i <= block_width ; i++){
 		dimGrid.x = i;
 		dimGrid.y = 1;
 		needle_cuda_shared_1<<<dimGrid, dimBlock>>>(referrence_cuda, matrix_cuda
 		                                      ,max_cols, penalty, i, block_width); 
 	}
+	MY_STOP_CLOCK(nw, needle_cuda_shared_1);
 	printf("Processing bottom-right matrix\n");
     //process bottom-right matrix
+	MY_START_CLOCK(nw, needle_cuda_shared_2);
 	for( int i = block_width - 1  ; i >= 1 ; i--){
 		dimGrid.x = i;
 		dimGrid.y = 1;
 		needle_cuda_shared_2<<<dimGrid, dimBlock>>>(referrence_cuda, matrix_cuda
 		                                      ,max_cols, penalty, i, block_width); 
 	}
+	MY_STOP_CLOCK(nw, needle_cuda_shared_2);
 
 #ifdef  TIMING
     gettimeofday(&tv_kernel_end, NULL);

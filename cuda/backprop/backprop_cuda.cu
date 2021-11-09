@@ -120,7 +120,7 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 
   
   
-  MY_START_CLOCK(backprop_layerforward);
+  MY_START_CLOCK(backprop, layerforward);
   bpnn_layerforward_CUDA<<< grid, threads >>>(input_cuda,
 	                                          output_hidden_cuda,
 											  input_hidden_cuda,
@@ -129,7 +129,7 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 											  hid);
  
   cudaThreadSynchronize();
-  MY_STOP_CLOCK(backprop_layerforward);
+  MY_STOP_CLOCK(backprop, layerforward);
   
   cudaError_t error = cudaGetLastError();
 	if (error != cudaSuccess) {
@@ -171,7 +171,7 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
   cudaMemcpy(input_hidden_cuda, input_weights_one_dim, (in + 1) * (hid + 1) * sizeof(float), cudaMemcpyHostToDevice);
 
 
-  MY_START_CLOCK(backprop_adjust_weights);
+  MY_START_CLOCK(backprop, adjust_weights);
   bpnn_adjust_weights_cuda<<< grid, threads >>>(hidden_delta_cuda,  
 												hid, 
 												input_cuda, 
@@ -179,7 +179,7 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 												input_hidden_cuda, 
 												input_prev_weights_cuda
 												);
-  MY_STOP_CLOCK(backprop_adjust_weights);
+  MY_STOP_CLOCK(backprop, adjust_weights);
 
   cudaMemcpy(net->input_units, input_cuda, (in + 1) * sizeof(float), cudaMemcpyDeviceToHost);
   cudaMemcpy(input_weights_one_dim, input_hidden_cuda, (in + 1) * (hid + 1) * sizeof(float), cudaMemcpyDeviceToHost);

@@ -95,6 +95,7 @@ int runHisto(char* file, unsigned int* freq, unsigned int memSize, unsigned int 
     ( cudaEventRecord( start, 0 ) );
 
 
+    MY_START_CLOCK(huffman, histo_kernel);
     for(int i = 0; i < totalNum; i+=partialNum*2)
     {
 
@@ -106,6 +107,7 @@ int runHisto(char* file, unsigned int* freq, unsigned int memSize, unsigned int 
         histo_kernel<<<blocks*2,256,0,stream0>>>( dev_buffer0, partSize, dev_histo );
         histo_kernel<<<blocks*2,256,0,stream1>>>( dev_buffer1, partSize, dev_histo );
     }
+    MY_STOP_CLOCK(huffman, histo_kernel);
     CHECK(cudaStreamSynchronize(stream0));
     CHECK(cudaStreamSynchronize(stream1));
     cudaMemcpy( freq, dev_histo, 256 * sizeof( int ), cudaMemcpyDeviceToHost );

@@ -228,8 +228,12 @@ runTest( int argc, char** argv)
 	cudaMemcpy(J_cuda, J, sizeof(float) * size_I, cudaMemcpyHostToDevice);
 
 	//Run kernels
+	MY_START_CLOCK(srad_v2, srad_cuda_1);
 	srad_cuda_1<<<dimGrid, dimBlock>>>(E_C, W_C, N_C, S_C, J_cuda, C_cuda, cols, rows, q0sqr); 
+	MY_STOP_CLOCK(srad_v2, srad_cuda_1);
+	MY_START_CLOCK(srad_v2, srad_cuda_2);
 	srad_cuda_2<<<dimGrid, dimBlock>>>(E_C, W_C, N_C, S_C, J_cuda, C_cuda, cols, rows, lambda, q0sqr); 
+	MY_STOP_CLOCK(srad_v2, srad_cuda_2);
 
 	//Copy data from device memory to main memory
     cudaMemcpy(J, J_cuda, sizeof(float) * size_I, cudaMemcpyDeviceToHost);
