@@ -133,7 +133,7 @@ OPENCL:
 clean: TIMED_CUDA_clean
 
 TIMED_CUDA_clean:
-	for dir in $(TIMED_CUDA_DIRS) ; do cd cuda/$$dir && make clean ; cd ../.. ; done
+	for dir in $(TIMED_CUDA_DIRS) ; do cd cuda/$$dir ; make clean ; cd - ; done
 
 CUDA_clean:
 	cd $(CUDA_BIN_DIR) && rm -f *
