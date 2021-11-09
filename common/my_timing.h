@@ -7,12 +7,12 @@
 #include <string.h>
 #include <omp.h>
 
-#define MY_START_CLOCK(CLOCK_ID)                                        \
+#define MY_START_CLOCK(APP_ID, CLOCK_ID)        \
   struct timespec ___my_clock_start##CLOCK_ID; \
   struct timespec ___my_clock_end##CLOCK_ID; \
   clock_gettime(CLOCK_MONOTONIC, &___my_clock_start##CLOCK_ID); \
 
-#define MY_STOP_CLOCK(CLOCK_ID)                                         \
+#define MY_STOP_CLOCK(APP_ID, CLOCK_ID)                                  \
   do { \
     cudaDeviceSynchronize(); \
     clock_gettime(CLOCK_MONOTONIC, &___my_clock_end##CLOCK_ID); \
@@ -20,10 +20,10 @@
       {___my_clock_end##CLOCK_ID.tv_sec - ___my_clock_start##CLOCK_ID.tv_sec, \
        ___my_clock_end##CLOCK_ID.tv_nsec - ___my_clock_start##CLOCK_ID.tv_nsec}; \
     double ___my_clock_elapsed##CLOCK_ID = (___my_clock_tmp##CLOCK_ID.tv_sec + ((double) ___my_clock_tmp##CLOCK_ID.tv_nsec) * .000000001); \
-    MY_WRITE_TIME_TO_FILE(#CLOCK_ID, ___my_clock_elapsed##CLOCK_ID); \
+    MY_WRITE_TIME_TO_FILE(#APP_ID, #CLOCK_ID, ___my_clock_elapsed##CLOCK_ID); \
   } while (0)
 
-static inline void MY_WRITE_TIME_TO_FILE(const char *clock_id, double elapsed) {
+static inline void MY_WRITE_TIME_TO_FILE(const char *app_id, const char *clock_id, double elapsed) {
   char *output = getenv("MY_TIMING_FILE");
 
   FILE *f;
@@ -49,7 +49,7 @@ static inline void MY_WRITE_TIME_TO_FILE(const char *clock_id, double elapsed) {
   const char *compilername = "unidetified_compiler";
   #endif
 
-  fprintf(f, "%s, %.17g, %s, %s, %d,\n", clock_id, elapsed, hostname, compilername, omp_threads);
+  fprintf(f, "%s, %s, %.17g, %s, %s, %d,\n", app_id, clock_id, elapsed, hostname, compilername, omp_threads);
 }
 
 #endif // __MY_TIMING_H_
