@@ -23,7 +23,7 @@
     MY_WRITE_TIME_TO_FILE(#CLOCK_ID, ___my_clock_elapsed##CLOCK_ID); \
   } while (0)
 
-inline void MY_WRITE_TIME_TO_FILE(const char *clock_id, double elapsed) {
+static inline void MY_WRITE_TIME_TO_FILE(const char *clock_id, double elapsed) {
   char *output = getenv("MY_TIMING_FILE");
 
   FILE *f;
