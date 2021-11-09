@@ -565,6 +565,7 @@ int main(int argc, char** argv)
 	sdkCreateTimer(&timer); 
 	sdkStartTimer(&timer); 
 	// Begin iterations
+	MY_START_CLOCK(cfd);
 	for(int i = 0; i < iterations; i++)
 	{
 		copy<float>(old_variables, variables, nelr*NVAR);
@@ -581,6 +582,7 @@ int main(int argc, char** argv)
 			getLastCudaError("time_step failed");			
 		}
 	}
+	MY_STOP_CLOCK(cfd);
 
 	cudaThreadSynchronize();
 	//	CUT_SAFE_CALL( cutStopTimer(timer) );  
