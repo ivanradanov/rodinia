@@ -350,9 +350,9 @@ namespace dwt_cuda {
     
     // run kernel, possibly measure time and finally check the call
     // PERF_BEGIN
-    MY_START_CLOCK(dwt2d_fdwt53Kernel);
+    MY_START_CLOCK(dwt2d, fdwt53Kernel);
     fdwt53Kernel<WIN_SX, WIN_SY><<<gSize, WIN_SX>>>(in, out, sx, sy, steps);
-    MY_STOP_CLOCK(dwt2d_fdwt53Kernel);
+    MY_STOP_CLOCK(dwt2d, fdwt53Kernel);
     // PERF_END("        FDWT53", sx, sy)
     // CudaDWTTester::checkLastKernelCall("FDWT 5/3 kernel");
     printf("fdwt53Kernel in launchFDWT53Kernel has finished");

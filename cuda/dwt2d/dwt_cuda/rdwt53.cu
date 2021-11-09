@@ -320,9 +320,9 @@ namespace dwt_cuda {
     
     // finally transform this level
     PERF_BEGIN
-	  MY_START_CLOCK(dwt2d_rdwt53Kernel);
+	  MY_START_CLOCK(dwt2d, rdwt53Kernel);
     rdwt53Kernel<WIN_SX, WIN_SY><<<gSize, WIN_SX>>>(in, out, sx, sy, steps);
-    MY_STOP_CLOCK(dwt2d_rdwt53Kernel);
+    MY_STOP_CLOCK(dwt2d, rdwt53Kernel);
     PERF_END("        RDWT53", sx, sy)
     CudaDWTTester::checkLastKernelCall("RDWT 5/3 kernel");
   }

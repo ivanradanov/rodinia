@@ -2,7 +2,7 @@
 
 #set -x
 
-TIMEOUT_CMD="timeout 1m"
+TIMEOUT_CMD="timeout 3m"
 
 DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
