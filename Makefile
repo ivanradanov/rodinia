@@ -6,6 +6,29 @@ CUDA_BIN_DIR := $(RODINIA_BASE_DIR)/bin/linux/cuda
 OMP_BIN_DIR := $(RODINIA_BASE_DIR)/bin/linux/omp
 OPENCL_BIN_DIR := $(RODINIA_BASE_DIR)/bin/linux/opencl
 
+TIMED_CUDA_DIRS := backprop \
+		   bfs \
+		   b+tree \
+		   cfd \
+		   dwt2d \
+		   gaussian \
+		   heartwall \
+		   hotspot \
+		   hotspot3D \
+		   huffman \
+		   lavaMD \
+		   lud \
+		   myocyte \
+		   nn	\
+		   nw \
+		   particlefilter \
+		   pathfinder \
+		   srad/srad_v1 \
+		   srad/srad_v2 \
+		   streamcluster
+# not included:
+# hybridsort kmeans leukocyte mummergpu
+
 CUDA_DIRS := backprop bfs cfd gaussian heartwall hotspot kmeans lavaMD leukocyte lud nn	nw srad streamcluster particlefilter pathfinder mummergpu
 OMP_DIRS  := backprop bfs cfd		   heartwall hotspot kmeans lavaMD leukocyte lud nn nw srad streamcluster particlefilter pathfinder mummergpu
 OCL_DIRS  := backprop bfs cfd gaussian heartwall hotspot kmeans lavaMD leukocyte lud nn	nw srad streamcluster particlefilter pathfinder
@@ -15,30 +38,31 @@ OCL_DIRS  := backprop bfs cfd gaussian heartwall hotspot kmeans lavaMD leukocyte
 all: TIMED_CUDA
 
 TIMED_CUDA:
-	cd cuda/backprop;		make;
-	cd cuda/bfs;			make;
-	cd cuda/b+tree;			make;
-	cd cuda/cfd;			make;
-	cd cuda/dwt2d;			make;
-	cd cuda/gaussian;		make;
-	cd cuda/heartwall;		make;
-	cd cuda/hotspot;		make;
-	cd cuda/hotspot3D;		make;
-	cd cuda/huffman;		make;
-	#cd cuda/hybridsort;              make;
-	#cd cuda/kmeans;			make;
-	cd cuda/lavaMD;			make;
-	#cd cuda/leukocyte;		make;
-	cd cuda/lud;			make;
-	#cd cuda/mummergpu;		make;
-	cd cuda/myocyte;		make;
-	cd cuda/nn;				make;
-	cd cuda/nw;			make;
-	cd cuda/particlefilter;		make;
-	cd cuda/pathfinder;		make;
-	cd cuda/srad/srad_v1;		make;
-	cd cuda/srad/srad_v2;		make;
-	cd cuda/streamcluster;		make;
+	for dir in $(TIMED_CUDA_DIRS) ; do cd cuda/$$dir ; make ; cd - ; done
+#	cd cuda/backprop;		make;
+#	cd cuda/bfs;			make;
+#	cd cuda/b+tree;			make;
+#	cd cuda/cfd;			make;
+#	cd cuda/dwt2d;			make;
+#	cd cuda/gaussian;		make;
+#	cd cuda/heartwall;		make;
+#	cd cuda/hotspot;		make;
+#	cd cuda/hotspot3D;		make;
+#	cd cuda/huffman;		make;
+#	#cd cuda/hybridsort;              make;
+#	#cd cuda/kmeans;			make;
+#	cd cuda/lavaMD;			make;
+#	#cd cuda/leukocyte;		make;
+#	cd cuda/lud;			make;
+#	#cd cuda/mummergpu;		make;
+#	cd cuda/myocyte;		make;
+#	cd cuda/nn;				make;
+#	cd cuda/nw;			make;
+#	cd cuda/particlefilter;		make;
+#	cd cuda/pathfinder;		make;
+#	cd cuda/srad/srad_v1;		make;
+#	cd cuda/srad/srad_v2;		make;
+#	cd cuda/streamcluster;		make;
 
 # commented out benchmarks that use opengl headers of cuda textures
 CUDA:
@@ -106,11 +130,14 @@ OPENCL:
 	cd opencl/dwt2d;                   	make;   cp dwt2d  $(CUDA_BIN_DIR)
 
 #clean: CUDA_clean OMP_clean OCL_clean
-clean: CUDA_clean
+clean: TIMED_CUDA_clean
+
+TIMED_CUDA_clean:
+	for dir in $(TIMED_CUDA_DIRS) ; do cd cuda/$$dir && make clean ; cd ../.. ; done
 
 CUDA_clean:
-	cd $(CUDA_BIN_DIR); rm -f *
-	for dir in $(CUDA_DIRS) ; do cd cuda/$$dir ; make clean ; cd ../.. ; done
+	cd $(CUDA_BIN_DIR) && rm -f *
+	for dir in $(CUDA_DIRS) ; do cd cuda/$$dir && make clean ; cd ../.. ; done
 
 OMP_clean:
 	cd $(OMP_BIN_DIR); rm -f *
