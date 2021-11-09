@@ -1,7 +1,7 @@
 include ../../../common/make.config
 
 all: mummergpu
-.SUFFIXES : .cu .cu_dbg_o .c_dbg_o .cpp_dbg_o .cu_rel_o .c_rel_o .cpp_rel_o .cubin
+.SUFFIXES : .cu .cu_dbg.o .c_dbg.o .cpp_dbg.o .cu_rel.o .c_rel.o .cpp_rel.o .cubin
 
 include ../experiments/test_rule.mk
 
@@ -111,16 +111,16 @@ CFLAGS    += $(COMMONFLAGS)
 
 OBJDIR := $(ROOTOBJDIR)/$(BINSUBDIR)
 
-#.c.c_$(APPEND)_o:
-$(OBJDIR)/%.c_o : $(SRCDIR)%.c
+#.c.c_$(APPEND).o:
+$(OBJDIR)/%.c.o : $(SRCDIR)%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-#.cpp.cpp_$(APPEND)_o:
-$(OBJDIR)/%.cpp_o : $(SRCDIR)%.cpp
+#.cpp.cpp_$(APPEND).o:
+$(OBJDIR)/%.cpp.o : $(SRCDIR)%.cpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-#.cu.cu_$(APPEND)_o:
-$(OBJDIR)/%.cu_o : $(SRCDIR)%.cu
+#.cu.cu_$(APPEND).o:
+$(OBJDIR)/%.cu.o : $(SRCDIR)%.cu
 	$(NVCC) -o $@ -c $< $(NVCCFLAGS)
 
 #.cu.cubin
@@ -137,19 +137,20 @@ makedirectories:
 	@mkdir -p $(BINDIR)
 
 LIBOBJS= \
-    $(OBJDIR)/mummergpu_gold.cpp_o \
-    $(OBJDIR)/suffix-tree.cpp_o \
-    $(OBJDIR)/PoolMalloc.cpp_o \
-    $(OBJDIR)/mummergpu.cu_o \
+    $(OBJDIR)/mummergpu_gold.cpp.o \
+    $(OBJDIR)/suffix-tree.cpp.o \
+    $(OBJDIR)/PoolMalloc.cpp.o \
+    $(OBJDIR)/mummergpu.cu.o \
 
 $(LIBDIR)/libmummergpu$(LIBSUFFIX).a: $(LIBOBJS)
 	ar qv $@ $(LIBOBJS)
 
 BINOBJS= \
-    $(OBJDIR)/mummergpu_main.cpp_o
+    $(OBJDIR)/mummergpu_main.cpp.o
 
 $(BINDIR)/mummergpu: makedirectories $(LIBDIR)/libmummergpu$(LIBSUFFIX).a $(BINOBJS)
-	$(LINK) -o $(BINDIR)/$(BINNAME)  $(BINOBJS) -lmummergpu$(LIBSUFFIX) $(LIB) 
+	$(LINK) -o $(BINDIR)/$(BINNAME)  $(BINOBJS) $(LIB) ../lib/libmummergpu.a -lgomp
+#$(LINK) -o $(BINDIR)/$(BINNAME)  $(BINOBJS) $(LIB) -lmummergpu$(LIBSUFFIX) 
 
 ##############################################################################
 #                               Auto Generated rules go here                 #
