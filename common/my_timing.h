@@ -6,13 +6,15 @@
 #include <time.h>
 #include <string.h>
 #include <omp.h>
+#include <errno.h>
 
-#define MY_START_CLOCK(APP_ID, CLOCK_ID)        \
+#define MY_START_CLOCK(APP_ID, CLOCK_ID)                                \
   struct timespec ___my_clock_start##CLOCK_ID; \
   struct timespec ___my_clock_end##CLOCK_ID; \
-  clock_gettime(CLOCK_MONOTONIC, &___my_clock_start##CLOCK_ID); \
+  cudaDeviceSynchronize(); \
+  clock_gettime(CLOCK_MONOTONIC, &___my_clock_start##CLOCK_ID)
 
-#define MY_STOP_CLOCK(APP_ID, CLOCK_ID)                                  \
+#define MY_STOP_CLOCK(APP_ID, CLOCK_ID)                                 \
   do { \
     cudaDeviceSynchronize(); \
     clock_gettime(CLOCK_MONOTONIC, &___my_clock_end##CLOCK_ID); \
@@ -32,24 +34,28 @@ static inline void MY_WRITE_TIME_TO_FILE(const char *app_id, const char *clock_i
   else
     f = fopen(output, "a");
   if (!f) {
-    printf("could not open timing file %s\n", output);
+    fprintf(stderr, "could not open timing file %s, errno %d, %s\n", output, errno, strerror(errno));
+    exit(1);
   }
 
   char empty[1] = "";
 
   char *hostname = getenv("HOSTNAME");
   if (!hostname)
-	  hostname = empty;
+    hostname = empty;
 
   int omp_threads = omp_get_max_threads();
 
-  #ifdef _MY_COMPILER_NAME_
+#ifdef _MY_COMPILER_NAME_
   const char *compilername = _MY_COMPILER_NAME_;
-  #else
+#else
   const char *compilername = "unidetified_compiler";
-  #endif
+#endif
 
   fprintf(f, "%s, %s, %.17g, %s, %s, %d,\n", app_id, clock_id, elapsed, hostname, compilername, omp_threads);
+
+  if (f != stdout && f != stderr)
+    fclose(f);
 }
 
 #endif // __MY_TIMING_H_
