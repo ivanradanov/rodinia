@@ -392,6 +392,9 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 	
 	printf("TIME TO SET ARRAYS TOOK: %f\n", elapsed_time(get_weights, get_time()));
 	int indX, indY;
+
+
+	MY_START_CLOCK(particlefilter, float);
 	for(k = 1; k < Nfr; k++){
 		long long set_arrays = get_time();
 		//apply motion model
@@ -505,6 +508,7 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		long long reset = get_time();
 		printf("TIME TO RESET WEIGHTS TOOK: %f\n", elapsed_time(xyj_time, reset));
 	}
+	MY_STOP_CLOCK(particlefilter, float);
 	free(disk);
 	free(objxy);
 	free(weights);
