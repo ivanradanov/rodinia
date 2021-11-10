@@ -25,19 +25,19 @@ backprop: backprop.o facetrain.o imagenet.o backprop_cuda.o
 	$(LINKER) backprop.o facetrain.o imagenet.o backprop_cuda.o -o backprop $(CC_FLAGS) $(LINKER_FLAGS)
 
 %.o: %.[ch]
-	$(CC) $(CC_FLAGS) $< -c
+	$(CC) $(CC_FLAGS) $< -c -o $@
 
 facetrain.o: facetrain.c backprop.h
-	$(CC) $(CC_FLAGS) facetrain.c -c
+	$(CC) $(CC_FLAGS) facetrain.c -c -o facetrain.o
 
 backprop.o: backprop.c backprop.h
-	$(CC) $(CC_FLAGS) backprop.c -c
+	$(CC) $(CC_FLAGS) backprop.c -c -o $@
 
 backprop_cuda.o: backprop_cuda.cu backprop.h
-	$(NVCC) $(NVCC_FLAGS) -c backprop_cuda.cu
+	$(NVCC) $(NVCC_FLAGS) -c backprop_cuda.cu -o $@
 
 imagenet.o: imagenet.c backprop.h
-	$(CC) $(CC_FLAGS) imagenet.c -c
+	$(CC) $(CC_FLAGS) imagenet.c -c -o $@
 
 
 clean:
