@@ -60,6 +60,8 @@ void master(fp timeinst,
 		}
 
 		// run pieces of work in parallel
+
+		MY_START_CLOCK(myocyte, kernel);
 		#pragma omp parallel private(th_id)
 		{
 
@@ -126,6 +128,7 @@ void master(fp timeinst,
 			}
 
 		}
+		MY_STOP_CLOCK(myocyte, kernel);
 
 	}
 

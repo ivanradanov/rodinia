@@ -206,7 +206,7 @@ int main(int argc, char *argv []){
 			printf("ERROR: %d is the incorrect number of threads, use numbers > 0\n", threads);
 			return 0;
 		}
-		omp_set_num_threads(threads);
+		//omp_set_num_threads(threads);
 
 	}
 
@@ -297,6 +297,7 @@ int main(int argc, char *argv []){
 	}
 	else{
 
+		MY_START_CLOCK(myocyte, solver_2);
 		#pragma omp parallel for private(i, status) shared(y, x, xmax, params, mode)
 		for(i=0; i<workload; i++){
 
@@ -311,6 +312,7 @@ int main(int argc, char *argv []){
 			// }
 
 		}
+		MY_STOP_CLOCK(myocyte, solver_2);
 
 	}
 
