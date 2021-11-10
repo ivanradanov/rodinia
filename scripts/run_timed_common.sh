@@ -4,7 +4,7 @@
 
 SUBDIR="$1"
 
-bm="backprop bfs b+tree cfd dwt2d gaussian heartwall hotspot hotspot3D huffman lavaMD lud myocyte nn nw particlefilter pathfinder srad/srad_v1 srad/srad_v2 streamcluster"
+bm="$2"
 
 TIMEOUT_CMD="timeout 3m"
 
