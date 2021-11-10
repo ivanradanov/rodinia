@@ -1,3 +1,5 @@
+include ../../common/openmp.make.config
+
 PREFIX=${PARSECDIR}/pkgs/kernels/streamcluster/inst/${PARSECPLAT}
 
 TARGET_C = sc_cpu
@@ -12,13 +14,14 @@ endif
 
 all: cpu omp
 
-cpu:
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) streamcluster_original.cpp -o $(TARGET_C) $(LIBS) -DENABLE_THREADS -pthread
+cpu: $(TARGET_C)
+$(TARGET_C):
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) streamcluster_original.cpp -o $(TARGET_C) $(LIBS) -DENABLE_THREADS -pthread $(MY_ADDITIONAL_FLAGS)
 
-omp:
-	g++ -O3 -fopenmp -o $(TARGET_O) streamcluster_omp.cpp
+omp: $(TARGET_O)
+$(TARGET_O):
+	g++ -O3 -fopenmp -o $(TARGET_O) streamcluster_omp.cpp $(MY_ADDITIONAL_FLAGS)
 
 
 clean:
 	rm -f *.o *~ *.txt sc_cpu sc_omp
-	

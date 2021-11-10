@@ -1,6 +1,9 @@
+include ../../common/openmp.make.config
+
 C_C = gcc
 OMP_LIB = -lgomp
 OMP_FLAG = -fopenmp
+OMP_FLAGS += $(MY_ADDITIONAL_FLAGS)
 
 # ========================================================================================================================================================================================================200
 #	EXECUTABLES (LINK OBJECTS TOGETHER INTO BINARY)
@@ -33,7 +36,7 @@ main.o:	./common.h \
 	$(C_C)	./main.c \
 			-c \
 			-o ./main.o \
-			-O3
+			-O3 $(MY_ADDITIONAL_FLAGS)
 
 # ======================================================================================================================================================150
 #	KERNELS
@@ -46,7 +49,7 @@ main.o:	./common.h \
 			-c \
 			-o ./kernel/kernel_cpu.o \
 			-O3 \
-			$(OMP_FLAG)
+			$(OMP_FLAG) $(MY_ADDITIONAL_FLAGS)
 
 ./kernel/kernel_cpu_2.o:./common.h \
 						./kernel/kernel_cpu_2.h \
@@ -55,7 +58,7 @@ main.o:	./common.h \
 			-c \
 			-o ./kernel/kernel_cpu_2.o \
 			-O3 \
-			$(OMP_FLAG)
+			$(OMP_FLAG) $(MY_ADDITIONAL_FLAGS)
 
 # ======================================================================================================================================================150
 #	UTILITIES
@@ -67,7 +70,7 @@ main.o:	./common.h \
 	$(C_C)	./util/timer/timer.c \
 			-c \
 			-o ./util/timer/timer.o \
-			-O3
+			-O3 $(MY_ADDITIONAL_FLAGS)
 
 ./util/num/num.o:	./common.h \
 					./util/num/num.h \
@@ -75,7 +78,7 @@ main.o:	./common.h \
 	$(C_C)	./util/num/num.c \
 			-c \
 			-o ./util/num/num.o \
-			-O3
+			-O3 $(MY_ADDITIONAL_FLAGS)
 
 # ======================================================================================================================================================150
 #	END

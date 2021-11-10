@@ -65,7 +65,7 @@ kernel_cpu(	int cores_arg,
 	int max_nthreads;
 	max_nthreads = omp_get_max_threads();
 	// printf("max # of threads = %d\n", max_nthreads);
-	omp_set_num_threads(cores_arg);
+	//omp_set_num_threads(cores_arg);
 	// printf("set # of threads = %d\n", cores_arg);
 
 	int threadsPerBlock;
@@ -82,6 +82,7 @@ kernel_cpu(	int cores_arg,
 	int bid;
 	int i;
 
+	MY_START_CLOCK(b+tree, findK);
 	// process number of querries
 	#pragma omp parallel for private (i, thid)
 	for(bid = 0; bid < count; bid++){
@@ -121,6 +122,7 @@ kernel_cpu(	int cores_arg,
 		}
 
 	}
+	MY_STOP_CLOCK(b+tree, findK);
 
 	time2 = get_time();
 

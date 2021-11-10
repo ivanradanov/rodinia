@@ -448,6 +448,7 @@ double pgain(long x, Points *points, double z, long int *numcenters, int pid, pt
 	
 	// OpenMP parallelization
 //	#pragma omp parallel for 
+  MY_START_CLOCK(streamcluster, kernel_compute_cost);
 	#pragma omp parallel for reduction(+: cost_of_opening_x)
   for ( i = k1; i < k2; i++ ) {
     float x_cost = dist(points->p[i], points->p[x], points->dim) 
@@ -474,6 +475,7 @@ double pgain(long x, Points *points, double z, long int *numcenters, int pid, pt
       lower[center_table[assign]] += current_cost - x_cost;			
     }
   }
+  MY_STOP_CLOCK(streamcluster, kernel_compute_cost);
 
 #ifdef ENABLE_THREADS
   pthread_barrier_wait(barrier);
@@ -1250,7 +1252,7 @@ int main(int argc, char **argv)
 	
 	ompthreads = nproc;
 	nproc = 1;
-	omp_set_num_threads(ompthreads);
+	//omp_set_num_threads(ompthreads);
 	
   srand48(SEED);
   PStream* stream;

@@ -475,6 +475,7 @@ int main(int argc, char** argv)
     #endif
 #endif
 	// Begin iterations
+	MY_START_CLOCK(cfd, );
 	for(int i = 0; i < iterations; i++)
 	{
                 copy<float>(old_variables, variables, nelr*NVAR);
@@ -488,6 +489,7 @@ int main(int argc, char** argv)
 			time_step(j, nelr, old_variables, variables, step_factors, fluxes);
 		}
 	}
+	MY_STOP_CLOCK(cfd, );
 
 #ifdef _OPENMP
 	double end = omp_get_wtime();

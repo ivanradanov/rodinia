@@ -20,7 +20,7 @@ void BFSGraph(int argc, char** argv);
 
 void Usage(int argc, char**argv){
 
-fprintf(stderr,"Usage: %s <num_threads> <input_file>\n", argv[0]);
+fprintf(stderr,"Usage: %s <input_file>\n", argv[0]);
 
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,15 +41,13 @@ void BFSGraph( int argc, char** argv)
         int no_of_nodes = 0;
         int edge_list_size = 0;
         char *input_f;
-	int	 num_omp_threads;
 	
-	if(argc!=3){
+	if(argc!=2){
 	Usage(argc, argv);
 	exit(0);
 	}
     
-	num_omp_threads = atoi(argv[1]);
-	input_f = argv[2];
+	input_f = argv[1];
 	
 	printf("Reading File\n");
 	//Read in Graph from a file
@@ -122,13 +120,14 @@ void BFSGraph( int argc, char** argv)
 #endif 
 #endif
 	bool stop;
+
+	MY_START_CLOCK(bfs, );
 	do
         {
             //if no thread changes this value then the loop stops
             stop=false;
 
 #ifdef OPEN
-            //omp_set_num_threads(num_omp_threads);
     #ifdef OMP_OFFLOAD
     #pragma omp target
     #endif
@@ -168,6 +167,9 @@ void BFSGraph( int argc, char** argv)
             k++;
         }
 	while(stop);
+
+	MY_STOP_CLOCK(bfs, );
+
 #ifdef OPEN
         double end_time = omp_get_wtime();
         printf("Compute time: %lf\n", (end_time - start_time));
