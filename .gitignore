@@ -21,5 +21,15 @@ cuda/backprop/backprop
 cuda/cfd/density
 cuda/cfd/density_energy
 cuda/cfd/momentum
+cuda/cfd/euler3d
+
 openmp/backprop/backprop
 openmp/bfs/bfs
+openmp/b+tree/output.txt
+openmp/cfd/density
+openmp/cfd/density_energy
+openmp/cfd/euler3d_cpu
+openmp/cfd/momentum
+openmp/streamcluster/output.txt
+openmp/streamcluster/sc_cpu
+openmp/streamcluster/sc_omp
