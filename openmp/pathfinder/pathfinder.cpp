@@ -91,6 +91,7 @@ void run(int argc, char** argv)
     src = new int[cols];
 
     pin_stats_reset();
+    MY_START_CLOCK(pathfinder, );
     for (int t = 0; t < rows-1; t++) {
         temp = src;
         src = dst;
@@ -105,6 +106,7 @@ void run(int argc, char** argv)
           dst[n] = wall[t+1][n]+min;
         }
     }
+    MY_STOP_CLOCK(pathfinder, );
 
     pin_stats_pause(cycles);
     pin_stats_dump(cycles);
