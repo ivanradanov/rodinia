@@ -4,7 +4,7 @@ SRC = pathfinder.cpp
 EXE = pathfinder
 FLAGS = -fopenmp
 
-release:
+$(EXE):
 	$(CC) $(SRC) $(FLAGS) -o $(EXE) $(MY_ADDITIONAL_FLAGS)
 
 debug:
