@@ -1,3 +1,4 @@
+include ../../../common/openmp.make.config
 # Makefile for LU Decomposition
 #
 #
@@ -91,23 +92,23 @@ OBJECTS         = $(addsuffix .o,$(BASENAMES))
 # ------------  make the executable (the default goal)  ------------------------
 $(EXECUTABLE):	$(OBJECTS)
 ifeq ($(strip $(CPP_SOURCES)),)
-	$(CC)  $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS)
+	$(CC)  $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS) $(MY_ADDITIONAL_FLAGS)
 else
-	$(CXX) $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS)
+	$(CXX) $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS) $(MY_ADDITIONAL_FLAGS)
 endif
 
 # ------------  make the objects  ----------------------------------------------
 %.o:		%.c
-				$(CC)  -c $(ALL_CFLAGS) $< -o $@
+				$(CC)  -c $(ALL_CFLAGS) $< -o $@ $(MY_ADDITIONAL_FLAGS)
 
 %.o:		%.cc
-				$(CXX) -c $(ALL_CFLAGS) $< -o $@
+				$(CXX) -c $(ALL_CFLAGS) $< -o $@ $(MY_ADDITIONAL_FLAGS)
 
 %.o:		%.cpp
-				$(CXX) -c $(ALL_CFLAGS) $< -o $@
+				$(CXX) -c $(ALL_CFLAGS) $< -o $@ $(MY_ADDITIONAL_FLAGS)
 
 %.o:		%.C
-				$(CXX) -c $(ALL_CFLAGS) $< -o $@
+				$(CXX) -c $(ALL_CFLAGS) $< -o $@ $(MY_ADDITIONAL_FLAGS)
 
 clean:
 	-rm --force $(EXECUTABLE) $(OBJECTS) *~

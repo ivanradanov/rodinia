@@ -1,4 +1,4 @@
-all: lud_omp lud_omp_offload
+all: lud_omp #lud_omp_offload
 
 lud_omp:
 	cd omp; make

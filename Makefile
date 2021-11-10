@@ -37,12 +37,11 @@ TIMED_OPENMP_DIRS := backprop \
        hotspot \
        hotspot3D \
        lavaMD \
+       lud \
        streamcluster
 # not included:
-#      hotspot3D \
 #      kmeans \
 #      leukocyte \
-#      lud \
 #      mummergpu \
 #      myocyte \
 #      nn \

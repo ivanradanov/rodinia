@@ -203,7 +203,7 @@ void lud_cuda(float *m, int matrix_dim)
       dim3 dimGrid((matrix_dim-i)/BLOCK_SIZE-1, (matrix_dim-i)/BLOCK_SIZE-1);
       lud_internal<<<dimGrid, dimBlock>>>(m, matrix_dim, i); 
   }
-  lud_diagonal<<<1,BLOCK_SIZE>>>(m, matrix_dim, i);
   MY_STOP_CLOCK(lud, );
+  lud_diagonal<<<1,BLOCK_SIZE>>>(m, matrix_dim, i);
 }
 

@@ -1,2 +1,4 @@
 # ./omp/lud_omp -n 4 -i ../../data/lud/512.dat 
-./omp/lud_omp -s 8000 
+#
+#./omp/lud_omp -s 8000 
+./omp/lud_omp -s 256 -v

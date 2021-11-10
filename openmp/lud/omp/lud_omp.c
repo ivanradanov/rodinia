@@ -53,8 +53,9 @@ void lud_omp(float *a, int size)
     omp_set_num_threads(224);
 #else
     printf("running OMP on host\n");
-    omp_set_num_threads(omp_num_threads);
+    //omp_set_num_threads(omp_num_threads);
 #endif
+    MY_START_CLOCK(lud, );
     for (offset = 0; offset < size - BS ; offset += BS)
     {
         // lu factorization of left-top corner block diagonal matrix 
@@ -156,6 +157,7 @@ void lud_omp(float *a, int size)
             }
         }
     }
+    MY_STOP_CLOCK(lud, );
 
     lud_diagonal_omp(a, size, offset);
 #ifdef OMP_OFFLOAD
