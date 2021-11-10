@@ -543,14 +543,16 @@ int main(int argc, char *argv []){
 	//	PROCESSING
 	//====================================================================================================
 
-		omp_set_num_threads(omp_num_threads);
+		//omp_set_num_threads(omp_num_threads);
 		
 
+		MY_START_CLOCK(heartwall, );
 		#pragma omp parallel for
 		for(i=0; i<public.allPoints; i++){
 			kernel(	public,
 						private[i]);
 		}
+	MY_STOP_CLOCK(heartwall, );
 
 	//====================================================================================================
 	//	FREE MEMORY FOR FRAME
