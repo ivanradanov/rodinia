@@ -8,15 +8,22 @@
 #include <omp.h>
 #include <errno.h>
 
+
+#ifdef _MY_IS_NOT_CUDA_
+#define CUDA_DEVICE_SYNCHRONIZE do { } while(0)
+#else
+#define CUDA_DEVICE_SYNCHRONIZE cudaDeviceSynchronize()
+#endif
+
 #define MY_START_CLOCK(APP_ID, CLOCK_ID)                                \
   struct timespec ___my_clock_start##CLOCK_ID; \
   struct timespec ___my_clock_end##CLOCK_ID; \
-  cudaDeviceSynchronize(); \
+  CUDA_DEVICE_SYNCHRONIZE; \
   clock_gettime(CLOCK_MONOTONIC, &___my_clock_start##CLOCK_ID)
 
 #define MY_STOP_CLOCK(APP_ID, CLOCK_ID)                                 \
   do { \
-    cudaDeviceSynchronize(); \
+    CUDA_DEVICE_SYNCHRONIZE; \
     clock_gettime(CLOCK_MONOTONIC, &___my_clock_end##CLOCK_ID); \
     struct timespec ___my_clock_tmp##CLOCK_ID = \
       {___my_clock_end##CLOCK_ID.tv_sec - ___my_clock_start##CLOCK_ID.tv_sec, \

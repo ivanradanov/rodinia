@@ -1,9 +1,11 @@
+include ../../common/openmp.make.config
+
 # C compiler
 CC = gcc
 CC_FLAGS = -g -fopenmp  -O2
+CC_FLAGS += $(MY_ADDITIONAL_FLAGS)
 
-
-backprop: backprop.o facetrain.o imagenet.o backprop_kernel.o 
+backprop: backprop.o facetrain.o imagenet.o backprop_kernel.o
 	$(CC) $(CC_FLAGS) backprop.o facetrain.o imagenet.o backprop_kernel.o -o backprop -lm
 
 %.o: %.[ch]
@@ -11,7 +13,7 @@ backprop: backprop.o facetrain.o imagenet.o backprop_kernel.o
 
 facetrain.o: facetrain.c backprop.h
 	$(CC) $(CC_FLAGS) facetrain.c -c
-	
+
 backprop.o: backprop.c backprop.h
 	$(CC) $(CC_FLAGS) backprop.c -c
 

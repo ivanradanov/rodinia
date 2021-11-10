@@ -9,7 +9,7 @@ SRC = bfs.cu
 
 EXE = bfs.out
 
-release: $(SRC)
+$(EXE): $(SRC)
 	$(NVCC) $(NVCC_FLAGS) $(SRC) -o $(EXE) -I../util $(LINKER_FLAGS)
 
 clang: $(SRC)

@@ -29,13 +29,37 @@ TIMED_CUDA_DIRS := backprop \
 # not included:
 # hybridsort kmeans leukocyte mummergpu
 
+TIMED_OPENMP_DIRS := backprop
+# not included:
+#      bfs \
+#      b+tree \
+#      cfd \
+#      heartwall \
+#      hotspot \
+#      hotspot3D \
+#      kmeans \
+#      lavaMD \
+#      leukocyte \
+#      lud \
+#      mummergpu \
+#      myocyte \
+#      nn \
+#      nw \
+#      particlefilter \
+#      pathfinder \
+#      srad \
+#      streamcluster
+
 CUDA_DIRS := backprop bfs cfd gaussian heartwall hotspot kmeans lavaMD leukocyte lud nn	nw srad streamcluster particlefilter pathfinder mummergpu
 OMP_DIRS  := backprop bfs cfd		   heartwall hotspot kmeans lavaMD leukocyte lud nn nw srad streamcluster particlefilter pathfinder mummergpu
 OCL_DIRS  := backprop bfs cfd gaussian heartwall hotspot kmeans lavaMD leukocyte lud nn	nw srad streamcluster particlefilter pathfinder
 
 #all: CUDA OMP OPENCL
 #all: CUDA OMP
-all: TIMED_CUDA
+all: TIMED_CUDA TIMED_OPENMP
+
+TIMED_OPENMP:
+	for dir in $(TIMED_OPENMP_DIRS) ; do cd openmp/$$dir ; make ; cd - ; done
 
 TIMED_CUDA:
 	for dir in $(TIMED_CUDA_DIRS) ; do cd cuda/$$dir ; make ; cd - ; done
@@ -130,7 +154,10 @@ OPENCL:
 	cd opencl/dwt2d;                   	make;   cp dwt2d  $(CUDA_BIN_DIR)
 
 #clean: CUDA_clean OMP_clean OCL_clean
-clean: TIMED_CUDA_clean
+clean: TIMED_CUDA_clean TIMED_OPENMP_clean
+
+TIMED_OPENMP_clean:
+	for dir in $(TIMED_OPENMP_DIRS) ; do cd openmp/$$dir ; make clean ; cd - ; done
 
 TIMED_CUDA_clean:
 	for dir in $(TIMED_CUDA_DIRS) ; do cd cuda/$$dir ; make clean ; cd - ; done
