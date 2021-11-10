@@ -21,9 +21,12 @@ def plot_summaries(summaries, normalize = -1):
 
     data_point_i_s = [i for i in range(len(data_points)) if i != normalize]
 
-    width = (1.0 - 0.2) / len(data_points)
+    width = (1.0 - 0.2) / len(data_point_i_s)
 
-    rects = [ax.bar(x + i * width, data_points[data_point_i_s[i]], width, label = str(summaries[data_point_i_s[i]][0]))
+    rects = [ax.bar(x + i * width - len(data_point_i_s) * width / 2 + width / 2,
+                    data_points[data_point_i_s[i]],
+                    width,
+                    label = str(summaries[data_point_i_s[i]][0]))
              for i in range(len(data_point_i_s))]
 
     if normalize != -1:
