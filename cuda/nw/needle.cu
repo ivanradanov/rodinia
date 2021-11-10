@@ -168,6 +168,7 @@ void runTest( int argc, char** argv)
 
 	printf("Processing top-left matrix\n");
 	//process top-left matrix
+	MY_START_CLOCK(nw, _total);
 	MY_START_CLOCK(nw, needle_cuda_shared_1);
 	for( int i = 1 ; i <= block_width ; i++){
 		dimGrid.x = i;
@@ -186,6 +187,7 @@ void runTest( int argc, char** argv)
 		                                      ,max_cols, penalty, i, block_width); 
 	}
 	MY_STOP_CLOCK(nw, needle_cuda_shared_2);
+	MY_STOP_CLOCK(nw, _total);
 
 #ifdef  TIMING
     gettimeofday(&tv_kernel_end, NULL);

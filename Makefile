@@ -39,13 +39,13 @@ TIMED_OPENMP_DIRS := backprop \
        lavaMD \
        lud \
        myocyte \
+       nw \
        streamcluster
 # not included:
 #      kmeans \
 #      leukocyte \
 #      mummergpu \
 #      nn \
-#      nw \
 #      particlefilter \
 #      pathfinder \
 #      srad \

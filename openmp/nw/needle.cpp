@@ -304,8 +304,11 @@ runTest( int argc, char** argv)
    
     long long start_time = get_time();
 
+
+    MY_START_CLOCK(nw, _total);
     nw_optimized( input_itemsets, output_itemsets, referrence,
         max_rows, max_cols, penalty );
+    MY_STOP_CLOCK(nw, _total);
 
     long long end_time = get_time();
 
