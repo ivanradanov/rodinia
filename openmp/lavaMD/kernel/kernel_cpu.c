@@ -92,7 +92,7 @@ void  kernel_cpu(	par_str par,
 	//	MCPU SETUP
 	//======================================================================================================================================================150
 
-	omp_set_num_threads(dim.cores_arg);
+	//omp_set_num_threads(dim.cores_arg);
 
 	time2 = get_time();
 
@@ -109,6 +109,7 @@ void  kernel_cpu(	par_str par,
 	//	PROCESS INTERACTIONS
 	//======================================================================================================================================================150
 
+	MY_START_CLOCK(lavaMD, );
 	#pragma omp	parallel for \
 				private(i, j, k) \
 				private(first_i, rA, fA) \
@@ -194,6 +195,7 @@ void  kernel_cpu(	par_str par,
 		} // for k
 
 	} // for l
+	MY_STOP_CLOCK(lavaMD, );
 
 	time4 = get_time();
 

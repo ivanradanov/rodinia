@@ -1,3 +1,4 @@
+include ../../common/openmp.make.config
 # Example
 # target: dependencies
 	# command 1
@@ -15,7 +16,7 @@ OMP_LIB = -lgomp
 OMP_FLAG = -fopenmp
 
 # link objects (binaries) together
-a.out:		main.o \
+lavaMD:		main.o \
 			./kernel/kernel_cpu.o \
 			./util/num/num.o \
 			./util/timer/timer.o
@@ -25,7 +26,7 @@ a.out:		main.o \
 			./util/timer/timer.o \
 			-lm \
 			$(OMP_LIB) \
-			-o lavaMD
+			-o lavaMD $(MY_ADDITIONAL_FLAGS)
 # compile function files into objects (binaries)
 main.o:		main.h \
 			main.c \
@@ -38,7 +39,7 @@ main.o:		main.h \
 	$(C_C)	${OUTPUT} main.c \
 			-c \
 			-o main.o \
-			-O3
+			-O3 $(MY_ADDITIONAL_FLAGS)
 
 ./kernel/kernel_cpu.o:	./kernel/kernel_cpu.h \
 						./kernel/kernel_cpu.c
@@ -46,21 +47,21 @@ main.o:		main.h \
 						-c \
 						-o ./kernel/kernel_cpu.o \
 						-O3 \
-						$(OMP_FLAG)
+						$(OMP_FLAG) $(MY_ADDITIONAL_FLAGS)
 
 ./util/num/num.o:	./util/num/num.h \
 					./util/num/num.c
 	$(C_C)			./util/num/num.c \
 					-c \
 					-o ./util/num/num.o \
-					-O3
+					-O3 $(MY_ADDITIONAL_FLAGS)
 
 ./util/timer/timer.o:	./util/timer/timer.h \
 						./util/timer/timer.c
 	$(C_C)				./util/timer/timer.c \
 						-c \
 						-o ./util/timer/timer.o \
-						-O3
+						-O3 $(MY_ADDITIONAL_FLAGS)
 
 # delete all object and executable files
 clean:
