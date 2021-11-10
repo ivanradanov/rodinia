@@ -22,6 +22,7 @@ cuda/cfd/density
 cuda/cfd/density_energy
 cuda/cfd/momentum
 cuda/cfd/euler3d
+cuda/hotspot/hotspot
 
 openmp/backprop/backprop
 openmp/bfs/bfs
@@ -33,3 +34,5 @@ openmp/cfd/momentum
 openmp/streamcluster/output.txt
 openmp/streamcluster/sc_cpu
 openmp/streamcluster/sc_omp
+openmp/heartwall/heartwall
+openmp/hotspot/hotspot

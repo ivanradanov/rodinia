@@ -33,10 +33,11 @@ TIMED_OPENMP_DIRS := backprop \
        bfs \
        b+tree \
        cfd \
+       heartwall \
+       hotspot \
+       hotspot3D \
        streamcluster
 # not included:
-#      heartwall \
-#      hotspot \
 #      hotspot3D \
 #      kmeans \
 #      lavaMD \

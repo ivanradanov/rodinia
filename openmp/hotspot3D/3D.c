@@ -147,6 +147,8 @@ void computeTempOMP(float *pIn, float* tIn, float *tOut,
     cc = 1.0 - (2.0*ce + 2.0*cn + 3.0*ct);
 
 
+
+    MY_START_CLOCK(hotspot3D, );
 #pragma omp parallel
     {
         int count = 0;
@@ -183,6 +185,7 @@ void computeTempOMP(float *pIn, float* tIn, float *tOut,
             count++;
         } while (count < numiter);
     } 
+    MY_STOP_CLOCK(hotspot3D, );
     return; 
 } 
 

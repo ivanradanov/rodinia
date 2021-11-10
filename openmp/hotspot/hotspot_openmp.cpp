@@ -64,7 +64,7 @@ void single_iteration(FLOAT *result, FLOAT *temp, FLOAT *power, int row, int col
 
 #ifdef OPEN
     #ifndef __MIC__
-	omp_set_num_threads(num_omp_threads);
+    //omp_set_num_threads(num_omp_threads);
     #endif
     #pragma omp parallel for shared(power, temp, result) private(chunk, r, c, delta) firstprivate(row, col, num_chunk, chunks_in_row) schedule(static)
 #endif
@@ -182,6 +182,8 @@ void compute_tran_temp(FLOAT *result, int num_iterations, FLOAT *temp, FLOAT *po
 	fprintf(stdout, "Rx: %g\tRy: %g\tRz: %g\tCap: %g\n", Rx, Ry, Rz, Cap);
 	#endif
 
+
+	MY_START_CLOCK(hotspot, );
 #ifdef OMP_OFFLOAD
         int array_size = row*col;
 #pragma omp target \
@@ -203,6 +205,7 @@ void compute_tran_temp(FLOAT *result, int num_iterations, FLOAT *temp, FLOAT *po
                 r = tmp;
             }	
         }
+        MY_STOP_CLOCK(hotspot, );
 	#ifdef VERBOSE
 	fprintf(stdout, "iteration %d\n", i++);
 	#endif
