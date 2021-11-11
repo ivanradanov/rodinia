@@ -24,6 +24,25 @@ cuda/cfd/density_energy
 cuda/cfd/momentum
 cuda/cfd/euler3d
 cuda/hotspot/hotspot
+cuda/cfd/euler3d_double
+cuda/cfd/pre_euler3d
+cuda/cfd/pre_euler3d_double
+cuda/dwt2d/dwt2d
+cuda/gaussian/gaussian
+cuda/heartwall/heartwall
+cuda/hotspot3D/3D
+cuda/huffman/pavle
+cuda/lavaMD/lavaMD
+cuda/lud/cuda/lud_cuda
+cuda/myocyte/output.txt
+cuda/nn/hurricane_gen
+cuda/nn/nn
+cuda/nw/needle
+cuda/particlefilter/particlefilter_float
+cuda/particlefilter/particlefilter_naive
+cuda/pathfinder/pathfinder
+cuda/srad/srad_v2/srad
+cuda/streamcluster/sc_gpu
 
 openmp/backprop/backprop
 openmp/bfs/bfs
@@ -37,3 +56,11 @@ openmp/streamcluster/sc_cpu
 openmp/streamcluster/sc_omp
 openmp/heartwall/heartwall
 openmp/hotspot/hotspot
+openmp/hotspot3D/3D
+openmp/lavaMD/lavaMD
+openmp/lud/omp/lud_omp
+openmp/nn/nn
+openmp/nw/needle
+openmp/particlefilter/particle_filter
+openmp/pathfinder/out
+openmp/pathfinder/pathfinder
