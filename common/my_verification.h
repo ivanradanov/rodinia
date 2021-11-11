@@ -40,7 +40,7 @@
           fprintf(stderr, "Could not open file %s, errno %d, %s\n", verification_file, errno, strerror(errno)); \
           exit(1); \
         } \
-        fwrite((void *)array, type_size, size, f); \
+        fwrite((void *) array, type_size, size, f); \
         fclose(f); \
       } else { \
         FILE *f = fopen(verification_file, "rb"); \
@@ -49,7 +49,10 @@
           exit(1); \
         } \
         void *data = malloc(array_size); \
-        for (TYPE *el = (TYPE *) array, *correct = (TYPE *) data; el < ((TYPE *) array) + size; el += type_size, correct += type_size) { \
+        fread((void *) array, tyhpe_size, size, f); \
+        for (TYPE *el = (TYPE *) array, *correct = (TYPE *) data; \
+             el < ((TYPE *) array) + size;                         \
+             el++, correct++) {              \
           if (!(*el - *correct >= eps && *correct - *el >= eps)) { \
             fprintf(stderr, "Verification failed at %s:%s\n", __FILE__, S__LINE__); \
             if (halt_when_incorrect) { \
