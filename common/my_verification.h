@@ -28,6 +28,8 @@
       TYPE eps = (TYPE) (EPSILON); \
       char *array = (char *) (ARRAY_PTR); \
       const char *src_filename = strrchr(__FILE__, '/'); \
+      if (!src_filename) \
+        src_filename = __FILE__; \
       char verification_id[strlen(src_filename) + strlen(S__LINE__) + 2]; \
       sprintf(verification_id, "%s:%s", src_filename, S__LINE__); \
       char verification_file[strlen(verification_id) + strlen(verification_dir) + 2]; \
@@ -43,8 +45,8 @@
       } else { \
         FILE *f = fopen(verification_file, "rb"); \
         if (!f) { \
-	        fprintf(stderr, "Could not open file %s, errno %d, %s\n", verification_file, errno, strerror(errno)); \
-	        exit(1); \
+          fprintf(stderr, "Could not open file %s, errno %d, %s\n", verification_file, errno, strerror(errno)); \
+          exit(1); \
         } \
         void *data = malloc(array_size); \
         for (TYPE *el = (TYPE *) array, *correct = (TYPE *) data; el < ((TYPE *) array) + size; el += type_size, correct += type_size) { \
