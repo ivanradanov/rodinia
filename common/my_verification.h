@@ -1,5 +1,5 @@
-#ifndef __MY_VERIFIER_H_
-#define __MY_VERIFIER_H_
+#ifndef __MY_VERIFICATION_H_
+#define __MY_VERIFICATION_H_
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -83,4 +83,4 @@
     } \
   } while (0)
 
-#endif // __MY_VERIFIER_H_
+#endif // __MY_VERIFICATION_H_
