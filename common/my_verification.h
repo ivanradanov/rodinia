@@ -49,7 +49,7 @@
           exit(1); \
         } \
         void *data = malloc(array_size); \
-        fread((void *) array, tyhpe_size, size, f); \
+        fread((void *) array, type_size, size, f); \
         for (TYPE *el = (TYPE *) array, *correct = (TYPE *) data; \
              el < ((TYPE *) array) + size;                         \
              el++, correct++) {              \
