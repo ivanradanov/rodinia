@@ -7,16 +7,15 @@
 #include <string.h>
 #include <omp.h>
 #include <errno.h>
+#include <float.h>
 
-#define MY_VERIFY_INT(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, int, MY_INT_STYLE_EQ, 0, 0)
-#define MY_VERIFY_RAW(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, 0, 0)
-#define MY_VERIFY_CHAR(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, 0, 0)
+#define MY_VERIFY_INT(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, int, MY_INT_STYLE_EQ, 0, 0, 0)
+#define MY_VERIFY_RAW(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, 0, 0, 0)
+#define MY_VERIFY_CHAR(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, 0, 0, 0)
 #define MY_VERIFY_FLOAT_EXACT(ARRAY_PTR, SIZE)                                \
 	MY_VERIFY(ARRAY_PTR, SIZE, float, MY_FP_STYLE_EQ, FLT_MIN, (FLT_EPSILON * 256), FLT_MAX)
 #define MY_VERIFY_DOUBLE_EXACT(ARRAY_PTR, SIZE)                               \
 	MY_VERIFY(ARRAY_PTR, SIZE, double, MY_FP_STYLE_EQ, DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
-//#define MY_VERIFY_FLOAT_EXACT(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, float, 0.0)
-//#define MY_VERIFY_DOUBLE_EXACT(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, double, 0.0)
 
 #define MY_S(x) #x
 #define MY_S_(x) MY_S(x)
@@ -27,12 +26,12 @@
 #define MY_ABS(X) ((X) > 0 ? (X) : -(X))
 
 #define MY_FP_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                          \
-	(((X) == (Y)) || (MY_ABS((X) - (Y)) < MY_MAX((MY_ABS_TH), (EPSILON) * MY_MIN((MY_ABS(X) + MY_ABS(Y)), FP_MAX))))
+	(((X) == (Y)) || (MY_ABS((X) - (Y)) < MY_MAX((ABS_TH), (EPSILON) * MY_MIN((MY_ABS(X) + MY_ABS(Y)), FP_MAX))))
 
-#define MY_INT_STYLE_EQ(X, Y, ABS_TH, EPSILON)                           \
+#define MY_INT_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                         \
 	((X) == (Y))
 
-#define MY_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, ABS_TH, EPSILON)            \
+#define MY_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, ABS_TH, EPSILON, FP_MAX)          \
   do { \
     char *verification_dir = getenv("MY_VERIFICATION_DIR"); \
     if (verification_dir && strcmp(verification_dir, "")) { \
@@ -40,7 +39,6 @@
       size_t size = (SIZE); \
       size_t type_size = sizeof(TYPE); \
       size_t array_size = type_size * size; \
-      TYPE eps = (TYPE) (EPSILON); \
       char *array = (char *) (ARRAY_PTR); \
       const char *src_filename = strrchr(__FILE__, '/'); \
       if (!src_filename) \
@@ -69,7 +67,7 @@
         for (TYPE *el = (TYPE *) array, *correct = (TYPE *) data; \
              el < ((TYPE *) array) + size;                         \
              el++, correct++) {              \
-          if (!EQ(*el, *correct, ABS_TH, EPSILON)) { \
+          if (!EQ(*el, *correct, ABS_TH, EPSILON, FP_MAX)) { \
             fprintf(stderr, "Verification failed at %s:%s\n", __FILE__, MY_S__LINE__); \
             pass = 0; \
             if (halt_when_incorrect) { \
