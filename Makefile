@@ -6,28 +6,7 @@ CUDA_BIN_DIR := $(RODINIA_BASE_DIR)/bin/linux/cuda
 OMP_BIN_DIR := $(RODINIA_BASE_DIR)/bin/linux/omp
 OPENCL_BIN_DIR := $(RODINIA_BASE_DIR)/bin/linux/opencl
 
-TIMED_CUDA_DIRS := backprop \
-		   bfs \
-		   b+tree \
-		   cfd \
-		   dwt2d \
-		   gaussian \
-		   heartwall \
-		   hotspot \
-		   hotspot3D \
-		   huffman \
-		   lavaMD \
-		   lud \
-		   myocyte \
-		   nn	\
-		   nw \
-		   particlefilter \
-		   pathfinder \
-		   srad/srad_v1 \
-		   srad/srad_v2 \
-		   streamcluster
-# not included:
-# hybridsort kmeans leukocyte mummergpu
+TIMED_CUDA_DIRS := $(shell $(RODINIA_BASE_DIR)/scripts/cuda_apps.sh)
 
 TIMED_OPENMP_DIRS := backprop \
        bfs \
