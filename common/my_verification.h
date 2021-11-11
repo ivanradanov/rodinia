@@ -50,17 +50,20 @@
         } \
         void *data = malloc(array_size); \
         fread((void *) data, type_size, size, f); \
+        int pass = 1; \
         for (TYPE *el = (TYPE *) array, *correct = (TYPE *) data; \
              el < ((TYPE *) array) + size;                         \
              el++, correct++) {              \
           if (!(*el - *correct >= eps && *correct - *el >= eps)) { \
             fprintf(stderr, "Verification failed at %s:%s\n", __FILE__, S__LINE__); \
+            pass = 0; \
             if (halt_when_incorrect) { \
               fprintf(stderr, "Halting\n"); \
               exit(1); \
             } \
           } \
         } \
+        fprintf(stderr, "Verification of %s ended, result: %s\n", #ARRAY_PTR, pass ? "PASS" : "FAIL"); \
         free(data); \
         fclose(f); \
       } \
