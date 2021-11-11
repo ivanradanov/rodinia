@@ -48,9 +48,11 @@ unsigned int num_blocks = 0;
 ////////////////////////////////////////////////////////////////////////////////
 // Program main
 ////////////////////////////////////////////////////////////////////////////////
+static char **global_argv;
 int
 main( int argc, char** argv) 
 {
+	global_argv = argv;
 	setup(argc, argv);
 }
 
@@ -138,6 +140,8 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 	}
   
   cudaMemcpy(partial_sum, hidden_partial_sum, num_blocks * WIDTH * sizeof(float), cudaMemcpyDeviceToHost);
+
+  MY_VERIFY_FLOAT_EXACT(partial_sum, num_blocks * WIDTH);
      
   for (int j = 1; j <= hid; j++) {
     sum = 0.0;
@@ -183,6 +187,9 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 
   cudaMemcpy(net->input_units, input_cuda, (in + 1) * sizeof(float), cudaMemcpyDeviceToHost);
   cudaMemcpy(input_weights_one_dim, input_hidden_cuda, (in + 1) * (hid + 1) * sizeof(float), cudaMemcpyDeviceToHost);
+
+  MY_VERIFY_FLOAT_EXACT(net->input_units, atoi(global_argv[1]) + 1);
+  MY_VERIFY_FLOAT_EXACT(input_weights_one_dim, (in + 1) * (hid + 1));
     
   cudaFree(input_cuda);
   cudaFree(output_hidden_cuda);

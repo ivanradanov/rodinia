@@ -10,8 +10,8 @@
 
 #define MY_VERIFY_INT(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, int, 0)
 #define MY_VERIFY_CHAR(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, char, 0)
-#define MY_VERIFY_FLOAT(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, float, 0.001)
-#define MY_VERIFY_DOUBLE(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, double, 0.001)
+#define MY_VERIFY_FLOAT_EXACT(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, float, 0.0)
+#define MY_VERIFY_DOUBLE_EXACT(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, double, 0.0)
 
 #define S(x) #x
 #define S_(x) S(x)
@@ -53,7 +53,7 @@
         for (TYPE *el = (TYPE *) array, *correct = (TYPE *) data; \
              el < ((TYPE *) array) + size;                         \
              el++, correct++) {              \
-          if (!(*el - *correct >= eps && *correct - *el >= eps)) { \
+          if (!(*el - *correct <= eps && *correct - *el <= eps)) { \
             fprintf(stderr, "Verification failed at %s:%s\n", __FILE__, S__LINE__); \
             if (halt_when_incorrect) { \
               fprintf(stderr, "Halting\n"); \
