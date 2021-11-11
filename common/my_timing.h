@@ -41,7 +41,7 @@ static inline void MY_WRITE_TIME_TO_FILE(const char *app_id, const char *clock_i
   else
     f = fopen(output, "a");
   if (!f) {
-    fprintf(stderr, "could not open timing file %s, errno %d, %s\n", output, errno, strerror(errno));
+    fprintf(stderr, "Could not open timing file %s, errno %d, %s\n", output, errno, strerror(errno));
     exit(1);
   }
 

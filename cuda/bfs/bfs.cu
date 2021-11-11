@@ -261,6 +261,8 @@ void BFSGraph( int argc, char** argv)
 	d2h_time += tv.tv_sec * 1000.0 + (float) tv.tv_usec / 1000.0;
 #endif
 
+	MY_VERIFY_INT(h_cost, no_of_nodes);
+
 	//Store the result into a file
 	FILE *fpo = fopen("result.txt","w");
 	for(int i=0;i<no_of_nodes;i++)
