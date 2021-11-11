@@ -171,6 +171,7 @@ void runVLCTest(char *file_name, uint num_block_threads, uint num_blocks) {
 
     CUDA_SAFE_CALL(cudaMemcpy(destData, d_destDataPacked, mem_size, cudaMemcpyDeviceToHost));
     compare_vectors((unsigned int*)crefData, (unsigned int*)destData, num_ints);
+    MY_VERIFY_INT(destData, mem_size / sizeof(int));
 #endif 
 
     free(sourceData); free(destData);  	free(codewords);  	free(codewordlens); free(cw32);  free(cw32len); free(crefData); 

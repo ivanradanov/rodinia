@@ -113,6 +113,9 @@ int runHisto(char* file, unsigned int* freq, unsigned int memSize, unsigned int 
     cudaMemcpy( freq, dev_histo, 256 * sizeof( int ), cudaMemcpyDeviceToHost );
     ( cudaEventRecord( stop, 0 ) );
     ( cudaEventSynchronize( stop ) );
+
+    MY_VERIFY_INT(freq, 256);
+
     float   elapsedTime;
     ( cudaEventElapsedTime( &elapsedTime,
                                         start, stop ) );

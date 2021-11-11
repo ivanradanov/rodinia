@@ -178,6 +178,8 @@ int main(int argc, char* argv[])
     //Copy data from device memory to host memory
     cudaMemcpy( distances, d_distances, sizeof(float)*numRecords, cudaMemcpyDeviceToHost );
 
+    MY_VERIFY_FLOAT_EXACT(distances, numRecords);
+
 	// find the resultsCount least distances
     findLowest(records,distances,numRecords,resultsCount);
 

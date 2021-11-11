@@ -196,6 +196,8 @@ void runTest( int argc, char** argv)
 #endif
 
     cudaMemcpy(output_itemsets, matrix_cuda, sizeof(int) * size, cudaMemcpyDeviceToHost);
+
+    MY_VERIFY_INT(output_itemsets, size);
 	
 //#define TRACEBACK
 #ifdef TRACEBACK

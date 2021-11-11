@@ -239,6 +239,8 @@ void run(int argc, char** argv)
 
     cudaMemcpy(result, gpuResult[final_ret], sizeof(int)*cols, cudaMemcpyDeviceToHost);
 
+    MY_VERIFY_INT(result, cols);
+
 #ifdef BENCH_PRINT
     for (int i = 0; i < cols; i++)
             printf("%d ",data[i]) ;

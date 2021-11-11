@@ -96,6 +96,8 @@ void hotspot_opt1(float *p, float *tIn, float *tOut,
     float time = (float)((stop - start)/(1000.0 * 1000.0));
     printf("Time: %.3f (s)\n",time);
     cudaMemcpy(tOut, tOut_d, s, cudaMemcpyDeviceToHost);
+    MY_VERIFY_FLOAT_EXACT(tOut, s / sizeof(float));
+
     cudaFree(p_d);
     cudaFree(tIn_d);
     cudaFree(tOut_d);

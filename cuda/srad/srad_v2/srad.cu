@@ -238,6 +238,9 @@ runTest( int argc, char** argv)
 	//Copy data from device memory to main memory
     cudaMemcpy(J, J_cuda, sizeof(float) * size_I, cudaMemcpyDeviceToHost);
 
+    MY_VERIFY_FLOAT_EXACT(J, size_I);
+
+
 #endif   
 }
 

@@ -583,6 +583,9 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		printf("SENDING BACK FROM GPU TOOK: %lf\n", elapsed_time(start_copy_back, end_copy_back));
 		long long xyj_time = get_time();
 		printf("TIME TO CALC NEW ARRAY X AND Y TOOK: %f\n", elapsed_time(u_time, xyj_time));
+
+		MY_VERIFY_DOUBLE_EXACT(yj, Nparticles);
+		MY_VERIFY_DOUBLE_EXACT(xj, Nparticles);
 		
 		for(x = 0; x < Nparticles; x++){
 			//reassign arrayX and arrayY

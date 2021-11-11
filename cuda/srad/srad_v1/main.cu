@@ -440,6 +440,8 @@ int main(int argc, char *argv []){
 
 	checkCUDAError("copy back");
 
+	MY_VERIFY(image, mem_size / sizeof(fp), fp, 0.0);
+
 	time10 = get_time();
 
 	//================================================================================80

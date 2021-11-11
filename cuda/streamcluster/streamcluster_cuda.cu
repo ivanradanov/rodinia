@@ -129,7 +129,7 @@ void freeHostMem()
 //=======================================
 // pgain Entry - CUDA SETUP + CUDA CALL
 //=======================================
-float pgain( long x, Points *points, float z, long int *numcenters, int kmax, bool *is_center, int *center_table, bool *switch_membership, bool isCoordChanged,
+float pgain(int ___i, long x, Points *points, float z, long int *numcenters, int kmax, bool *is_center, int *center_table, bool *switch_membership, bool isCoordChanged,
 							double *serial_t, double *cpu_to_gpu_t, double *gpu_to_cpu_t, double *alloc_t, double *kernel_t, double *free_t)
 {	
 #ifdef CUDATIME
@@ -280,7 +280,12 @@ float pgain( long x, Points *points, float z, long int *numcenters, int kmax, bo
 	//=======================================
 	CUDA_SAFE_CALL( cudaMemcpy(work_mem_h, 		  work_mem_d, 	stride * (nThread + 1) * sizeof(float), cudaMemcpyDeviceToHost) );
 	CUDA_SAFE_CALL( cudaMemcpy(switch_membership, switch_membership_d,	 num * sizeof(bool),  cudaMemcpyDeviceToHost) );
-	
+
+	if (___i == 0) {
+    MY_VERIFY_FLOAT_EXACT(work_mem_h, stride * (nThread + 1));
+    MY_VERIFY_RAW(switch_membership, num);
+  }
+  
 #ifdef CUDATIME
 	cudaEventRecord(stop,0);
 	cudaEventSynchronize(stop);
