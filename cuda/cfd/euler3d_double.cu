@@ -87,6 +87,8 @@ void dump(double* variables, int nel, int nelr)
 	double* h_variables = new double[nelr*NVAR];
 	download(h_variables, variables, nelr*NVAR);
 
+	MY_VERIFY_DOUBLE_EXACT(h_variables, nelr*NVAR);
+
 	{
 		std::ofstream file("density");
 		file << nel << " " << nelr << std::endl;

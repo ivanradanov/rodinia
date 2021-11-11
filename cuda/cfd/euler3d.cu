@@ -135,6 +135,8 @@ void dump(float* variables, int nel, int nelr)
 	float* h_variables = new float[nelr*NVAR];
 	download(h_variables, variables, nelr*NVAR);
 
+	MY_VERIFY_FLOAT_EXACT(h_variables, nelr*NVAR);
+
 	{
 		std::ofstream file("density");
 		file << nel << " " << nelr << std::endl;
