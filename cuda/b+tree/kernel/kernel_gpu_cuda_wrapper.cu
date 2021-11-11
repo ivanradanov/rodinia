@@ -245,6 +245,8 @@ kernel_gpu_cuda_wrapper(record *records,
 	cudaMemcpy(ans, ansD, count*sizeof(record), cudaMemcpyDeviceToHost);
 	checkCUDAError("cudaMemcpy ansD");
 
+	MY_VERIFY_INT(ans, count);
+
 	time5 = get_time();
 
 	//======================================================================================================================================================150

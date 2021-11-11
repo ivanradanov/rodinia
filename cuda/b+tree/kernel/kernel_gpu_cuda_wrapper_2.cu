@@ -294,12 +294,16 @@ kernel_gpu_cuda_wrapper_2(	knode *knodes,
 	cudaMemcpy(recstart, ansDStart, count*sizeof(int), cudaMemcpyDeviceToHost);
 	checkCUDAError("cudaMemcpy ansDStart");
 
+	MY_VERIFY_INT(recstart, count);
+
 	//==================================================50
 	//	ansDLength
 	//==================================================50
 
 	cudaMemcpy(reclength, ansDLength, count*sizeof(int), cudaMemcpyDeviceToHost);
 	checkCUDAError("cudaMemcpy ansDLength");
+
+	MY_VERIFY_INT(reclength, count);
 
 	time5 = get_time();
 
