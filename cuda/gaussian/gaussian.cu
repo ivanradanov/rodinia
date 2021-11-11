@@ -408,6 +408,12 @@ void ForwardSub()
 	cudaMemcpy(m, m_cuda, Size * Size * sizeof(float),cudaMemcpyDeviceToHost );
 	cudaMemcpy(a, a_cuda, Size * Size * sizeof(float),cudaMemcpyDeviceToHost );
 	cudaMemcpy(b, b_cuda, Size * sizeof(float),cudaMemcpyDeviceToHost );
+
+	MY_VERIFY_FLOAT_EXACT(m, Size * Size);
+	MY_VERIFY_FLOAT_EXACT(a, Size * Size);
+	MY_VERIFY_FLOAT_EXACT(b, Size);
+
+
 	cudaFree(m_cuda);
 	cudaFree(a_cuda);
 	cudaFree(b_cuda);

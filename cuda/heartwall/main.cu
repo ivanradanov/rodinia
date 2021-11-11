@@ -689,6 +689,12 @@ int main(int argc, char *argv []){
 	cudaMemcpy(common.tEpiRowLoc, common.d_tEpiRowLoc, common.epi_mem * common.no_frames, cudaMemcpyDeviceToHost);
 	cudaMemcpy(common.tEpiColLoc, common.d_tEpiColLoc, common.epi_mem * common.no_frames, cudaMemcpyDeviceToHost);
 
+	MY_VERIFY_INT(common.tEndoRowLoc, common.endo_mem * common.no_frames / sizeof(int));
+	MY_VERIFY_INT(common.tEndoColLoc, common.endo_mem * common.no_frames / sizeof(int));
+
+	MY_VERIFY_INT(common.tEpiRowLoc, common.epi_mem * common.no_frames / sizeof(int));
+	MY_VERIFY_INT(common.tEpiColLoc, common.epi_mem * common.no_frames / sizeof(int));
+
 
 
 #ifdef OUTPUT
