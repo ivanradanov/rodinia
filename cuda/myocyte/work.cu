@@ -164,11 +164,7 @@ int work(	int xmax,
 
 	}
 
-#if fp == double
-	MY_VERIFY_DOUBLE_EXACT(y[0][0], EQUATIONS);
-#else
 	MY_VERIFY_FLOAT_EXACT(y[0][0], EQUATIONS);
-#endif
 
 
 	  FILE * pFile;
