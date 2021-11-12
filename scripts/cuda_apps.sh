@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# no verification: dwt2d huffman hybridsort kmeans leukocyte mummergpu
-# no timing: dwt2d huffman hybridsort kmeans leukocyte mummergpu
+# no verification: dwt2d hybridsort kmeans leukocyte mummergpu
+# no timing: dwt2d hybridsort kmeans leukocyte mummergpu
 # not working with cpucuda: dwt2d huffman hybridsort kmeans leukocyte mummergpu srad/srad_v1
 
 echo -n backprop ""
