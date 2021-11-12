@@ -33,6 +33,8 @@
 
 #define MY_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, ABS_TH, EPSILON, FP_MAX)   \
   do { \
+	  static int done = 0; \
+	  if (done) break; else done = 1; \
     char *verification_dir = getenv("MY_VERIFICATION_DIR"); \
     if (verification_dir && strcmp(verification_dir, "")) { \
       char *halt_when_incorrect = getenv("MY_VERIFICATION_HALT_WHEN_INCORRECT"); \

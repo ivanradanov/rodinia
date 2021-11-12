@@ -23,4 +23,4 @@ echo -n pathfinder ""
 #echo -n srad/srad_v1 "" # cpucuda hangs
 echo -n srad/srad_v2 ""
 echo -n streamcluster ""
-echo
+exit
