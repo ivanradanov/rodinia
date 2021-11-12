@@ -12,10 +12,10 @@
 #define MY_VERIFY_INT(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, int, MY_INT_STYLE_EQ, 0, 0, 0)
 #define MY_VERIFY_RAW(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, 0, 0, 0)
 #define MY_VERIFY_CHAR(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, 0, 0, 0)
-#define MY_VERIFY_FLOAT_EXACT(ARRAY_PTR, SIZE)                                \
-	MY_VERIFY(ARRAY_PTR, SIZE, float, MY_FP_STYLE_EQ, FLT_MIN, (FLT_EPSILON * 256), FLT_MAX)
-#define MY_VERIFY_DOUBLE_EXACT(ARRAY_PTR, SIZE)                               \
-	MY_VERIFY(ARRAY_PTR, SIZE, double, MY_FP_STYLE_EQ, DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
+#define MY_VERIFY_FLOAT_EXACT(ARRAY_PTR, SIZE)                          \
+  MY_VERIFY(ARRAY_PTR, SIZE, float, MY_FP_STYLE_EQ, FLT_MIN, (FLT_EPSILON * 256), FLT_MAX)
+#define MY_VERIFY_DOUBLE_EXACT(ARRAY_PTR, SIZE)                         \
+  MY_VERIFY(ARRAY_PTR, SIZE, double, MY_FP_STYLE_EQ, DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
 
 #define MY_S(x) #x
 #define MY_S_(x) MY_S(x)
@@ -25,13 +25,13 @@
 #define MY_MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 #define MY_ABS(X) ((X) > 0 ? (X) : -(X))
 
-#define MY_FP_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                          \
-	(((X) == (Y)) || (MY_ABS((X) - (Y)) < MY_MAX((ABS_TH), (EPSILON) * MY_MIN((MY_ABS(X) + MY_ABS(Y)), FP_MAX))))
+#define MY_FP_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                   \
+  (((X) == (Y)) || (MY_ABS((X) - (Y)) < MY_MAX((ABS_TH), (EPSILON) * MY_MIN((MY_ABS(X) + MY_ABS(Y)), FP_MAX))))
 
-#define MY_INT_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                         \
-	((X) == (Y))
+#define MY_INT_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                  \
+  ((X) == (Y))
 
-#define MY_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, ABS_TH, EPSILON, FP_MAX)          \
+#define MY_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, ABS_TH, EPSILON, FP_MAX)   \
   do { \
     char *verification_dir = getenv("MY_VERIFICATION_DIR"); \
     if (verification_dir && strcmp(verification_dir, "")) { \
@@ -48,6 +48,7 @@
       char verification_file[strlen(verification_id) + strlen(verification_dir) + 2]; \
       sprintf(verification_file, "%s/%s", verification_dir, verification_id); \
       if (getenv("MY_VERIFICATION_DUMP")) { \
+        fprintf(stderr, "Dumping verification info of %s to file %s\n", #ARRAY_PTR, verification_file); \
         FILE *f = fopen(verification_file, "wb"); \
         if (!f) { \
           fprintf(stderr, "Could not open file %s, errno %d, %s\n", verification_file, errno, strerror(errno)); \
@@ -56,6 +57,7 @@
         fwrite((void *) array, type_size, size, f); \
         fclose(f); \
       } else { \
+        fprintf(stderr, "Starting verification of %s from file %s\n", #ARRAY_PTR, verification_file); \
         FILE *f = fopen(verification_file, "rb"); \
         if (!f) { \
           fprintf(stderr, "Could not open file %s, errno %d, %s\n", verification_file, errno, strerror(errno)); \
@@ -65,10 +67,10 @@
         fread((void *) data, type_size, size, f); \
         int pass = 1; \
         for (TYPE *el = (TYPE *) array, *correct = (TYPE *) data; \
-             el < ((TYPE *) array) + size;                         \
-             el++, correct++) {              \
+             el < ((TYPE *) array) + size; \
+             el++, correct++) { \
           if (!EQ(*el, *correct, ABS_TH, EPSILON, FP_MAX)) { \
-            fprintf(stderr, "Verification failed at %s:%s\n", __FILE__, MY_S__LINE__); \
+            fprintf(stderr, "Verification of %s failed at %s:%s, el %d\n", #ARRAY_PTR, __FILE__, MY_S__LINE__, (int) ((TYPE*)el - (TYPE*)array)); \
             pass = 0; \
             if (halt_when_incorrect) { \
               fprintf(stderr, "Halting\n"); \
