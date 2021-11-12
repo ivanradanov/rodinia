@@ -864,10 +864,11 @@ int main(int argc, char * argv[]) {
         return 0;
     }
     //establish seed
+    srand(7);
     int * seed = (int *) malloc(sizeof (int) *Nparticles);
     int i;
     for (i = 0; i < Nparticles; i++)
-        seed[i] = time(0) * i;
+	    seed[i] = rand() * i;
     //malloc matrix
     unsigned char * I = (unsigned char *) malloc(sizeof (unsigned char) *IszX * IszY * Nfr);
     long long start = get_time();
