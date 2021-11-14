@@ -94,16 +94,18 @@ COBJS=$(CFILES:.c=.c.o)
 CXXOBJS=$(CXXFILES:.cpp=.cpp.o)
 CUOBJS=$(CUFILES:.cu=.cu.o)
 
+OUTPUT = -DOUTPUT
+
 .SUFFIXES: .c.o .cpp.o .cu.o .cu
 
 %.c.o: %.c
-	$(CC) $(CC_FLAGS) -c $< -o $@
+	$(CC) $(OUTPUT) $(CC_FLAGS) -c $< -o $@
 
 %.cu.o: %.cu
 	$(NVCC) $(OUTPUT) $(NVCC_FLAGS) -c $< -o $@
 
 %.cpp.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(OUTPUT) $(CXXFLAGS) -c $< -o $@
 
 $(EXECUTABLE): $(COBJS) $(CXXOBJS) $(CUOBJS)
 	$(LINKER) -o $(EXECUTABLE) $(COBJS) $(CXXOBJS) $(CUOBJS) $(LINKER_FLAGS)
