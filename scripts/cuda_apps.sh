@@ -1,14 +1,10 @@
 #!/bin/bash
 
-# no verification: dwt2d hybridsort kmeans leukocyte mummergpu
-# no timing: dwt2d hybridsort kmeans leukocyte mummergpu
-# not working with cpucuda: dwt2d huffman hybridsort kmeans leukocyte mummergpu srad/srad_v1
-
 echo -n backprop ""
 echo -n bfs ""
 echo -n b+tree ""
 echo -n cfd ""
-#echo -n dwt2d "" # cpucuda hangs
+#echo -n dwt2d "" # horribly slow compilation
 echo -n gaussian ""
 echo -n heartwall ""
 echo -n hotspot ""
