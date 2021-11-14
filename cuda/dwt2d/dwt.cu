@@ -31,6 +31,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 #include <error.h>
+#include <typeinfo>
 #include "dwt_cuda/dwt.h"
 #include "dwt_cuda/common.h"
 #include "dwt.h"
@@ -198,6 +199,15 @@ int writeLinear(T *component_cuda, int pixWidth, int pixHeight,
     memset(gpu_output, 0, size);
     result = (unsigned char *)malloc(samplesNum);
     cudaMemcpy(gpu_output, component_cuda, size, cudaMemcpyDeviceToHost);
+    if (typeid(T) == typeid(int)) {
+	    MY_VERIFY_INT(gpu_output, size / sizeof(T));
+    } else if (typeid(T) == typeid(float)) {
+	    MY_VERIFY_FLOAT_EXACT(gpu_output, size / sizeof(T));
+    } else {
+	    printf("Unsupported verification type\n");
+	    exit(1);
+    }
+
     cudaCheckError("Memcopy device to host");
 
     /* T to char */
@@ -292,6 +302,14 @@ int writeNStage2DDWT(T *component_cuda, int pixWidth, int pixHeight,
     memset(dst, 0, size);
     result = (unsigned char *)malloc(samplesNum);
     cudaMemcpy(src, component_cuda, size, cudaMemcpyDeviceToHost);
+    if (typeid(T) == typeid(int)) {
+	    MY_VERIFY_INT(src, size / sizeof(T));
+    } else if (typeid(T) == typeid(float)) {
+	    MY_VERIFY_FLOAT_EXACT(src, size / sizeof(T));
+    } else {
+	    printf("Unsupported verification type\n");
+	    exit(1);
+    }
     cudaCheckError("Memcopy device to host");
 
     // LL Band
