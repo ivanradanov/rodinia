@@ -28,36 +28,5 @@
 | hybridsort     |                      |             | x                   |                   | Why OpenGL headers???                                        |
 | kmeans         |                      |             | x                   |                   | uses textures????                                            |
 | leukocyte      |                      |             |                     |                   |                                                              |
+|----------------+----------------------+-------------+---------------------+-------------------+--------------------------------------------------------------|
 
-
-* before fp fuzzy comparison
-
-|----------------+----------------------+-------------------+-------------+-------+--------------------------------------------------------------|
-| app            | cpucuda verification | cuda verification | compilation | run   | notes                                                        |
-|----------------+----------------------+-------------------+-------------+-------+--------------------------------------------------------------|
-| backprop       | o                    | o                 | o           | o     |                                                              |
-| bfs            | o                    | o                 | o           | o     |                                                              |
-| b+tree         | x                    | o                 | o           | o     |                                                              |
-| gaussian       | x                    | o                 | o           | o     |                                                              |
-| heartwall      | x                    | o                 | o           | o     |                                                              |
-| hotspot        | o                    | o                 | o           | o     |                                                              |
-| hotspot3D      | x                    | o                 | o           | o     |                                                              |
-| lud            | x                    | o                 | o           | o     | verification errors in output                                |
-| nn             | x                    | o                 | o           | o     |                                                              |
-| nw             | o                    | o                 | o           | o     |                                                              |
-| pathfinder     | o                    | o                 | o           | o     |                                                              |
-| srad/srad_v2   | x                    | o                 | o           | o     |                                                              |
-|----------------+----------------------+-------------------+-------------+-------+--------------------------------------------------------------|
-| huffman        |                      | o                 | o           | hangs | bug in clang with max() function when compiling in cuda mode |
-| srad/srad_v1   |                      | o                 | o           | hangs |                                                              |
-| dwt2d          |                      |                   | o           | hangs |                                                              |
-| myocyte        |                      |                   | o           | o     |                                                              |
-|----------------+----------------------+-------------------+-------------+-------+--------------------------------------------------------------|
-| cfd            |                      | x                 | o           | o     |                                                              |
-| lavaMD         |                      | x                 | o           | o     |                                                              |
-| particlefilter |                      | x                 | o           | o     |                                                              |
-| streamcluster  |                      | x                 | o           | o     | weird cuda timing output                                     |
-|----------------+----------------------+-------------------+-------------+-------+--------------------------------------------------------------|
-| mummergpu      |                      |                   | x           |       | uses tex2D                                                   |
-| hybridsort     |                      |                   | x           |       | Why OpenGL headers???                                        |
-| kmeans         |                      |                   | x           |       | uses textures????                                            |
