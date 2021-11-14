@@ -13,7 +13,7 @@ echo -n gaussian ""
 echo -n heartwall ""
 echo -n hotspot ""
 echo -n hotspot3D ""
-#echo -n huffman "" # cpucuda hangs
+echo -n huffman ""
 #echo -n hybridsort "" # cpucuda unable to compile
 #echo -n kmeans "" # cpucuda ubable to compile
 echo -n lavaMD ""
@@ -25,7 +25,7 @@ echo -n nn ""
 echo -n nw ""
 echo -n particlefilter ""
 echo -n pathfinder ""
-#echo -n srad/srad_v1 "" # cpucuda hangs
+echo -n srad/srad_v1 ""
 echo -n srad/srad_v2 ""
 echo -n streamcluster ""
 

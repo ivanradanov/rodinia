@@ -10,19 +10,19 @@
 | nw             | o                    | o           | o                   | o                 |                                                              |
 | pathfinder     | o                    | o           | o                   | o                 |                                                              |
 | myocyte        | o                    | o           | o                   | o                 |                                                              |
+| srad/srad_v1   | o                    | o           | o                   | o                 |                                                              |
+| srad/srad_v2   | o                    | o           | o                   | o                 |                                                              |
+| b+tree         | o                    | o           | o                   | o                 |                                                              |
 |----------------+----------------------+-------------+---------------------+-------------------+--------------------------------------------------------------|
-| b+tree         | x                    | o           | o                   | o                 |                                                              |
 | cfd            | x                    | o           | o                   | o                 |                                                              |
 | gaussian       | x                    | o           | o                   | o                 |                                                              |
 | heartwall      | x                    | o           | o                   | o                 |                                                              |
-| lud            | x                    | o           | o                   | o                 | verification errors in output                                |
+| huffman        | x                    | o           | o                   | o                 | bug in clang with max() function when compiling in cuda mode |
 | lavaMD         | x                    | o           | o                   | o                 |                                                              |
-| srad/srad_v2   | x                    | o           | o                   | o                 |                                                              |
+| lud            | x                    | o           | o                   | o                 | verification errors in output                                |
 | particlefilter | x                    | o           | o                   | o                 |                                                              |
 | streamcluster  | x                    | o           | o                   | o                 | weird cuda timing output                                     |
 |----------------+----------------------+-------------+---------------------+-------------------+--------------------------------------------------------------|
-| huffman        |                      | hangs       | o                   | o                 | bug in clang with max() function when compiling in cuda mode |
-| srad/srad_v1   |                      | hangs       | o                   | o                 |                                                              |
 | dwt2d          |                      | hangs       | o                   |                   |                                                              |
 |----------------+----------------------+-------------+---------------------+-------------------+--------------------------------------------------------------|
 | mummergpu      |                      |             | x                   |                   | uses tex2D                                                   |
