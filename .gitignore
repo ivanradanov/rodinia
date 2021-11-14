@@ -41,6 +41,7 @@ cuda/nw/needle
 cuda/particlefilter/particlefilter_float
 cuda/particlefilter/particlefilter_naive
 cuda/pathfinder/pathfinder
+cuda/srad/srad_v1/srad
 cuda/srad/srad_v2/srad
 cuda/streamcluster/sc_gpu
 
