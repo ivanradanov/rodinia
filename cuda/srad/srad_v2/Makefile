@@ -8,7 +8,8 @@ SRC = srad.cu
 
 EXE = srad
 
-release: $(SRC)
+release: $(EXE)
+$(EXE): $(SRC)
 	$(NVCC) $(KERNEL_DIM) $(SRC) -o $(EXE) $(NVCC_FLAGS)
 
 enum: $(SRC)

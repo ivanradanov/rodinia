@@ -7,7 +7,9 @@ INCLUDE := $(CUDA_DIR)/include
 SRC = gaussian.cu
 EXE = gaussian
 
-release: $(SRC)
+release: $(EXE)
+
+$(EXE): $(SRC)
 	$(NVCC) $(KERNEL_DIM) $(SRC) -o $(EXE) $(NVCC_FLAGS)
 
 clang: $(SRC)

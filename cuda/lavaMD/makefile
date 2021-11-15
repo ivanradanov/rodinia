@@ -23,7 +23,7 @@ CUD_C = $(NVCC)
 CUDA_FLAG = $(NVCC_FLAGS)
 
 # link objects (binaries) together
-a.out:		main.o \
+lavaMD:		main.o \
 			./kernel/kernel_gpu_cuda_wrapper.o \
 			./util/num/num.o \
 			./util/timer/timer.o \

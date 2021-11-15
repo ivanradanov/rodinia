@@ -7,7 +7,9 @@ SRC = pathfinder.cu
 
 EXE = pathfinder
 
-release:
+release: $(EXE)
+
+$(EXE):
 	$(CC) $(SRC) -o $(EXE) $(NVCC_FLAGS)
 
 clang: $(SRC)

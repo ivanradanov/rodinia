@@ -9,7 +9,8 @@ SRC = needle.cu
 
 EXE = needle
 
-release: $(SRC)
+release: $(EXE)
+$(EXE): $(SRC)
 	$(CC) ${KERNEL_DIM} $(SRC) -o $(EXE) $(NVCC_FLAGS)
 
 clang: $(SRC)

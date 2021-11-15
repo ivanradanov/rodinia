@@ -11,7 +11,8 @@ EXE = 3D
 OUTPUT = *.out
 
 FLAGS = -g -G #-arch sm_20 --ptxas-options=-v
-release: $(SRC)
+release: $(EXE)
+$(EXE): $(SRC)
 	$(NVCC) $(KERNEL_DIM) $(SRC) -o $(EXE) $(NVCC_FLAGS)
 
 enum: $(SRC)
