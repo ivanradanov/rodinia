@@ -9,13 +9,17 @@
 #include <errno.h>
 #include <float.h>
 
-#define MY_VERIFY_INT(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, int, MY_INT_STYLE_EQ, 0, 0, 0)
-#define MY_VERIFY_RAW(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, 0, 0, 0)
-#define MY_VERIFY_CHAR(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, 0, 0, 0)
+#define MY_INT_EQ_PRINTER(a, b) fprintf(stderr, "%d != %d expected\n", (int)(a), (int)(b))
+#define MY_FP_EQ_PRINTER(a, b) fprintf(stderr, "%.17g != %.17g expected\n", (a), (b))
+#define MY_NULL_EQ_PRINTER(a, b) do {} while(0)
+
+#define MY_VERIFY_INT(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, int, MY_INT_STYLE_EQ, MY_INT_EQ_PRINTER, 0, 0, 0)
+#define MY_VERIFY_RAW(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, MY_INT_EQ_PRINTER, 0, 0, 0)
+#define MY_VERIFY_CHAR(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, MY_INT_EQ_PRINTER, 0, 0, 0)
 #define MY_VERIFY_FLOAT_EXACT(ARRAY_PTR, SIZE)                          \
-  MY_VERIFY(ARRAY_PTR, SIZE, float, MY_FP_STYLE_EQ, FLT_MIN, (FLT_EPSILON * 256), FLT_MAX)
+  MY_VERIFY(ARRAY_PTR, SIZE, float, MY_FP_STYLE_EQ, MY_FP_EQ_PRINTER, FLT_MIN, (FLT_EPSILON * 256), FLT_MAX)
 #define MY_VERIFY_DOUBLE_EXACT(ARRAY_PTR, SIZE)                         \
-  MY_VERIFY(ARRAY_PTR, SIZE, double, MY_FP_STYLE_EQ, DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
+  MY_VERIFY(ARRAY_PTR, SIZE, double, MY_FP_STYLE_EQ, MY_FP_EQ_PRINTER, DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
 
 #define MY_S(x) #x
 #define MY_S_(x) MY_S(x)
@@ -31,7 +35,7 @@
 #define MY_INT_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                  \
   ((X) == (Y))
 
-#define MY_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, ABS_TH, EPSILON, FP_MAX)   \
+#define MY_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, EQ_PRINTER, ABS_TH, EPSILON, FP_MAX) \
   do { \
 	  static int done = 0; \
 	  if (done) break; else done = 1; \
@@ -73,6 +77,7 @@
              el++, correct++) { \
           if (!EQ(*el, *correct, ABS_TH, EPSILON, FP_MAX)) { \
             fprintf(stderr, "Verification of %s failed at %s:%s, el %d\n", #ARRAY_PTR, __FILE__, MY_S__LINE__, (int) ((TYPE*)el - (TYPE*)array)); \
+            EQ_PRINTER(*el, *correct); \
             pass = 0; \
             if (halt_when_incorrect) { \
               fprintf(stderr, "Halting\n"); \
