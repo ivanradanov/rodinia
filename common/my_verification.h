@@ -66,7 +66,7 @@
       char verification_file[strlen(verification_id) + strlen(verification_dir) + 2]; \
       sprintf(verification_file, "%s/%s", verification_dir, verification_id); \
       if (getenv("MY_VERIFICATION_DUMP")) { \
-        fprintf(stderr, "Dumping verification info of %s to file %s\n", #ARRAY_PTR, verification_file); \
+        fprintf(stderr, "Dumping verification info of %s of type %s to file %s\n", #ARRAY_PTR, #TYPE, verification_file); \
         FILE *f = fopen(verification_file, "wb"); \
         if (!f) { \
           fprintf(stderr, "Could not open file %s, errno %d, %s\n", verification_file, errno, strerror(errno)); \
@@ -75,7 +75,7 @@
         fwrite((void *) array, type_size, size, f); \
         fclose(f); \
       } else { \
-        fprintf(stderr, "Starting verification of %s from file %s\n", #ARRAY_PTR, verification_file); \
+        fprintf(stderr, "Starting verification of %s of type %s from file %s\n", #ARRAY_PTR, #TYPE, verification_file); \
         FILE *f = fopen(verification_file, "rb"); \
         if (!f) { \
           fprintf(stderr, "Could not open file %s, errno %d, %s\n", verification_file, errno, strerror(errno)); \
