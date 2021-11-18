@@ -16,7 +16,7 @@
 #define _PACK_KERNELS_H_
 #include "parameters.h"
 
-#define LOG_INT(A) printf("pack2 %d, %d, %d; %d, %d, %d; %d; " #A " %08x\n", blockIdx.x, blockIdx.y, blockIdx.z, threadIdx.x, threadIdx.y, threadIdx.z, log_id++, A)
+#define SHIFT_32_MINUS(VAR, BIT) (((BIT) == 0) ? 0 : ((VAR) << (32 - (BIT))))
 
 __global__ static void pack2(unsigned int *srcData, unsigned int *cindex, unsigned int *cindex2, unsigned int *dstData, unsigned int original_num_block_elements) {
 	int log_id = 0;
@@ -33,20 +33,14 @@ __global__ static void pack2(unsigned int *srcData, unsigned int *cindex, unsign
 
 	unsigned int i, dw, tmp;
 	dw = srcData[offset];			// load the first dword from srcData[]
-	LOG_INT(dw);
 	tmp = dw >> bit;				// cut off those bits that do not fit into the initial location in destData[]
-	LOG_INT(tmp);
 	atomicOr(&dstData[dword], tmp);	// fill up this initial location
-	tmp = dw << 32-bit;				// save the remaining bits that were cut off earlier in tmp
-	LOG_INT(tmp);
+	tmp = SHIFT_32_MINUS(dw, bit);
 	for (i=1; i<bitsize/32; i++) {	// from now on, we have exclusive access to destData[]
 		dw = srcData[offset+i];		// load next dword from srcData[]
-		//LOG_INT(dw);
 		tmp |= dw >> bit;			// fill up tmp
-		//LOG_INT(tmp);
 		dstData[dword+i] = tmp;		// write complete dword to destData[]
-		tmp = dw << 32-bit;			// save the remaining bits in tmp (like before)
-		//LOG_INT(tmp);
+    tmp = SHIFT_32_MINUS(dw, bit);
 	}
 	// exclusive access to dstData[] ends here
 	// the remaining block can, or rather should be further optimized
@@ -56,7 +50,7 @@ __global__ static void pack2(unsigned int *srcData, unsigned int *cindex, unsign
 	if (bitsize % 32 != 0) {
 		dw = srcData[offset+i];
 		atomicOr(&dstData[dword+i], dw >> bit);
-		atomicOr(&dstData[dword+i+1], dw << 32-bit);
+		atomicOr(&dstData[dword+i+1], SHIFT_32_MINUS(dw, bit));
 	}
 }
 
