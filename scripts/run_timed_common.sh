@@ -35,7 +35,7 @@ for b in $bm; do
     echo -------------- running "$b" @ "$(date -Ins)" -------------- | tee -a "$LOGFILE"
     cd "$RODINIA_APP_DIR/$b"
 
-    export MY_APP_NAME="$b"
+    export MY_APP_NAME="$(echo -n "$b" | tr / .)"
 
     $TIMEOUT_CMD ./run &>> "$LOGFILE" || echo "FAILED OR TIMED OUT"
 done
