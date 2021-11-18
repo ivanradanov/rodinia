@@ -84,7 +84,8 @@
         void *data = malloc(array_size); \
         fread((void *) data, type_size, size, f); \
         int pass = 1; \
-        for (TYPE *el = (TYPE *) array, *correct = (TYPE *) data; \
+        TYPE *el, *correct;                                \
+        for (el = (TYPE *) array, correct = (TYPE *) data; \
              el < ((TYPE *) array) + size; \
              el++, correct++) { \
           if (!EQ(*el, *correct, ABS_TH, EPSILON, FP_MAX)) { \
