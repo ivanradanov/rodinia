@@ -583,6 +583,13 @@ int main(int argc, char** argv)
 			time_step(j, nelr, old_variables, variables, step_factors, fluxes);
 			getLastCudaError("time_step failed");			
 		}
+
+		MY_DEVICE_VERIFY_FLOAT(variables, nelr * NVAR);
+		MY_DEVICE_VERIFY_FLOAT(old_variables, nelr * NVAR);
+		MY_DEVICE_VERIFY_FLOAT(fluxes, nelr * NVAR);
+		MY_DEVICE_VERIFY_FLOAT(step_factors, nelr);
+		MY_DEVICE_VERIFY_FLOAT(normals, nelr * NDIM * NNB);
+		MY_DEVICE_VERIFY_INT(elements_surrounding_elements, nelr * NNB);
 	}
 	MY_STOP_CLOCK(cfd, );
 
