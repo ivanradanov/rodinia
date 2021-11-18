@@ -41,3 +41,5 @@ Verify against already dumped verification info:
 ```sh
 ./scripts/check_cuda_correctness.sh
 ```
+
+The default location of the verification files is `verification_data/`.
