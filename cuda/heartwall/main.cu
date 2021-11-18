@@ -658,10 +658,21 @@ int main(int argc, char *argv []){
 		cudaMemcpy(common_change.d_frame, frame, common.frame_mem, cudaMemcpyHostToDevice);
 		cudaMemcpyToSymbol(d_common_change, &common_change, sizeof(params_common_change));
 
+		MY_DEVICE_VERIFY_FLOAT(common_change.d_frame, common.frame_mem / sizeof(fp));
+
 		// launch GPU kernel
 		MY_START_CLOCK(heartwall, );
 		kernel<<<blocks, threads>>>();
 		MY_STOP_CLOCK(heartwall, );
+
+		MY_DEVICE_VERIFY_INT(common.d_endoRow, common.endo_mem / sizeof(int));
+		MY_DEVICE_VERIFY_INT(common.d_endoCol, common.endo_mem / sizeof(int));
+		MY_DEVICE_VERIFY_INT(common.d_epiRow, common.epi_mem / sizeof(int));
+		MY_DEVICE_VERIFY_INT(common.d_epiCol, common.epi_mem / sizeof(int));
+		MY_DEVICE_VERIFY_INT(common.d_tEndoRowLoc, common.endo_mem * common.no_frames / sizeof(int));
+		MY_DEVICE_VERIFY_INT(common.d_tEndoColLoc, common.endo_mem * common.no_frames / sizeof(int));
+		MY_DEVICE_VERIFY_INT(common.d_tEpiRowLoc, common.epi_mem * common.no_frames / sizeof(int));
+		MY_DEVICE_VERIFY_INT(common.d_tEpiColLoc, common.epi_mem * common.no_frames / sizeof(int));
 
 		// free frame after each loop iteration, since AVI library allocates memory for every frame fetched
 		free(frame);
