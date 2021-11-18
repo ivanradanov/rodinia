@@ -178,6 +178,7 @@ void runVLCTest(char *file_name, uint num_block_threads, uint num_blocks) {
     pack2<<< num_scan_elements/16, 16>>>((unsigned int*)d_destData, d_cindex, d_cindex2, (unsigned int*)d_destDataPacked, num_elements/num_scan_elements);
     CUT_CHECK_ERROR("Pack2 Kernel execution failed\n");
     MY_DEVICE_VERIFY_INT(d_destData, mem_size / sizeof(int));
+    MY_DEVICE_VERIFY_INT(d_destDataPacked, mem_size / sizeof(int));
     MY_DEVICE_VERIFY_INT(d_cindex2, num_blocks);
     MY_DEVICE_VERIFY_INT(d_cindex, num_blocks);
     deallocBlockSums();
