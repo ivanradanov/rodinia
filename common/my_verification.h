@@ -8,6 +8,7 @@
 #include <omp.h>
 #include <errno.h>
 #include <float.h>
+#include <sys/stat.h>
 
 #define MY_INT_EQ_PRINTER(a, b) fprintf(stderr, "%d != %d expected\n", (int)(a), (int)(b))
 #define MY_FP_EQ_PRINTER(a, b) fprintf(stderr, "%.17g != %.17g expected\n", (a), (b))
@@ -49,8 +50,8 @@
 
 #define MY_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, EQ_PRINTER, ABS_TH, EPSILON, FP_MAX) \
   do { \
-	  static int done = 0; \
-	  if (done) break; else done = 1; \
+    static int done = 0; \
+    if (done) break; else done = 1; \
     char *verification_dir = getenv("MY_VERIFICATION_DIR"); \
     if (verification_dir && strcmp(verification_dir, "")) { \
       char *halt_when_incorrect = getenv("MY_VERIFICATION_HALT_WHEN_INCORRECT"); \
@@ -61,11 +62,20 @@
       const char *src_filename = strrchr(__FILE__, '/'); \
       if (!src_filename) \
         src_filename = __FILE__; \
+      char *app_name = getenv("MY_APP_NAME"); \
+      char empty[1] = ""; \
+      if (!app_name) { \
+        fprintf(stderr, "MY_APP_NAME not defined, using empty string\n"); \
+        app_name = empty; \
+      } \
       char verification_id[strlen(src_filename) + strlen(MY_S__LINE__) + 2]; \
       sprintf(verification_id, "%s:%s", src_filename, MY_S__LINE__); \
-      char verification_file[strlen(verification_id) + strlen(verification_dir) + 2]; \
-      sprintf(verification_file, "%s/%s", verification_dir, verification_id); \
+      char verification_file[strlen(verification_id) + strlen(verification_dir) + strlen(app_name) + 3]; \
+      sprintf(verification_file, "%s/%s/%s", verification_dir, app_name, verification_id); \
+      char verification_app_dir[strlen(verification_dir) + strlen(app_name) + 2]; \
+      sprintf(verification_app_dir, "%s/%s", verification_dir, app_name); \
       if (getenv("MY_VERIFICATION_DUMP")) { \
+        mkdir(verification_app_dir, 0777); \
         fprintf(stderr, "Dumping verification info of %s of type %s to file %s\n", #ARRAY_PTR, #TYPE, verification_file); \
         FILE *f = fopen(verification_file, "wb"); \
         if (!f) { \
@@ -84,7 +94,7 @@
         void *data = malloc(array_size); \
         fread((void *) data, type_size, size, f); \
         int pass = 1; \
-        TYPE *el, *correct;                                \
+        TYPE *el, *correct; \
         for (el = (TYPE *) array, correct = (TYPE *) data; \
              el < ((TYPE *) array) + size; \
              el++, correct++) { \
