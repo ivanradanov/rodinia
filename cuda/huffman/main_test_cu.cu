@@ -147,6 +147,13 @@ void runVLCTest(char *file_name, uint num_block_threads, uint num_blocks) {
                     d_destData, d_cindex); //testedOK2
         }
         MY_STOP_CLOCK(huffman, vlc_encode_kernel_sm64huff);
+        MY_DEVICE_VERIFY_INT(d_sourceData, mem_size / sizeof(int));
+        MY_DEVICE_VERIFY_INT(d_destData, mem_size / sizeof(int));
+        MY_DEVICE_VERIFY_INT(d_cw32, mem_size / sizeof(int));
+        MY_DEVICE_VERIFY_INT(d_cw32len, mem_size / sizeof(int));
+        MY_DEVICE_VERIFY_INT(d_cw32idx, mem_size / sizeof(int));
+        MY_DEVICE_VERIFY_INT(d_codewords, NUM_SYMBOLS * symbol_type_size / sizeof(int));
+        MY_DEVICE_VERIFY_INT(d_codewordlens, NUM_SYMBOLS * symbol_type_size / sizeof(int));
     cudaThreadSynchronize();
     cudaEventRecord( stop, 0 ) ;
     cudaEventSynchronize( stop ) ;

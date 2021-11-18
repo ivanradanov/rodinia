@@ -13,6 +13,18 @@
 #define MY_FP_EQ_PRINTER(a, b) fprintf(stderr, "%.17g != %.17g expected\n", (a), (b))
 #define MY_NULL_EQ_PRINTER(a, b) do {} while(0)
 
+#define MY_DEVICE_VERIFY_INT(ARRAY_PTR, SIZE) MY_ON_DEVICE(MY_VERIFY_INT, ARRAY_PTR, SIZE, int)
+#define MY_DEVICE_VERIFY_FLOAT(ARRAY_PTR, SIZE) MY_ON_DEVICE(MY_VERIFY_FLOAT, ARRAY_PTR, SIZE, float)
+#define MY_DEVICE_VERIFY_RAW(ARRAY_PTR, SIZE) MY_ON_DEVICE(MY_VERIFY_RAW, ARRAY_PTR, SIZE, char)
+
+#define MY_ON_DEVICE(VERIFIER, ARRAY_PTR, SIZE, TYPE)                   \
+  do { \
+    void *host_##ARRAY_PTR = malloc(sizeof(TYPE) * SIZE); \
+    cudaMemcpy(host_##ARRAY_PTR, ARRAY_PTR, sizeof(TYPE) * SIZE, cudaMemcpyDeviceToHost); \
+    VERIFIER(host_##ARRAY_PTR, SIZE); \
+    free(host_##ARRAY_PTR); \
+  } while (0)
+
 #define MY_VERIFY_INT(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, int, MY_INT_STYLE_EQ, MY_INT_EQ_PRINTER, 0, 0, 0)
 #define MY_VERIFY_RAW(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, MY_INT_EQ_PRINTER, 0, 0, 0)
 #define MY_VERIFY_CHAR(ARRAY_PTR, SIZE) MY_VERIFY(ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, MY_INT_EQ_PRINTER, 0, 0, 0)
