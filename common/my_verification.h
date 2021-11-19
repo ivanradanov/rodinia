@@ -10,6 +10,12 @@
 #include <float.h>
 #include <sys/stat.h>
 
+#define MY_FP_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                   \
+	(((X) == (Y)) || (MY_ABS((X) - (Y)) < MY_MAX((ABS_TH), (EPSILON) * MY_MIN((MY_ABS(X) + MY_ABS(Y)), FP_MAX))))
+
+#define MY_INT_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                  \
+	((X) == (Y))
+
 #define MY_DEVICE_VERIFY_INT(ARRAY_PTR, SIZE)                           \
   _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, int, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
 #define MY_DEVICE_VERIFY_RAW(ARRAY_PTR, SIZE)                           \
@@ -47,12 +53,6 @@
 #define MY_MIN(X, Y) (((X) > (Y)) ? (Y) : (X))
 #define MY_MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 #define MY_ABS(X) ((X) > 0 ? (X) : -(X))
-
-#define MY_FP_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                   \
-  (((X) == (Y)) || (MY_ABS((X) - (Y)) < MY_MAX((ABS_TH), (EPSILON) * MY_MIN((MY_ABS(X) + MY_ABS(Y)), FP_MAX))))
-
-#define MY_INT_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                  \
-  ((X) == (Y))
 
 #define _MY_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
   do { \
