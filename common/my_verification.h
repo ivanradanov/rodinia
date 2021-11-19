@@ -38,11 +38,11 @@
 #define MY_VERIFY_DOUBLE_EXACT(ARRAY_PTR, SIZE)                        \
 	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, double, MY_FP_STYLE_EQ, "%.17g", DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
 
-#define MY_DEVICE_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
+#define _MY_DEVICE_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
   do { \
 		void *host_mem = malloc(sizeof(TYPE) * SIZE); \
 		cudaMemcpy(host_mem, ARRAY_PTR, sizeof(TYPE) * SIZE, cudaMemcpyDeviceToHost); \
-		_MY_VERIFY(host_mem, #ARRAY_PTR, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX); \
+		_MY_VERIFY(host_mem, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX); \
 		free(host_mem); \
 	} while (0)
 
