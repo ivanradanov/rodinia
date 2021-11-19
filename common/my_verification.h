@@ -58,7 +58,7 @@
 #define MY_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, EQ_PRINTER, ABS_TH, EPSILON, FP_MAX) \
   _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, TYPE, EQ, EQ_PRINTER, ABS_TH, EPSILON, FP_MAX)
 
-#define _MY_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, EQ_PRINTER, ABS_TH, EPSILON, FP_MAX) \
+#define _MY_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
   do { \
     static int done = 0; \
     if (done) break; else done = 1; \
@@ -104,13 +104,19 @@
         void *data = malloc(array_size); \
         fread((void *) data, type_size, size, f); \
         int pass = 1; \
-        TYPE *el, *correct; \
+        TYPE *el, *correct, largest_absolute_error = 0, largest_relative_error = 0; \
         for (el = (TYPE *) array, correct = (TYPE *) data; \
              el < ((TYPE *) array) + size; \
              el++, correct++) { \
           if (!EQ(*el, *correct, ABS_TH, EPSILON, FP_MAX)) { \
+            TYPE relative_error = MY_ABS(*el - *correct) / (MY_ABS(*el) + MY_ABS(*correct)); \
+            largest_relative_error = MY_MAX(relative_error, largest_relative_error); \
+            TYPE absolute_error = MY_ABS(*el - *correct); \
+            largest_absolute_error = MY_MAX(absolute_error, largest_absolute_error); \
             fprintf(stderr, "Verification of %s failed at %s:%s, el %d\n", #ARRAY_PTR, __FILE__, MY_S__LINE__, (int) ((TYPE*)el - (TYPE*)array)); \
-            EQ_PRINTER(*el, *correct); \
+            fprintf(stderr, TYPE_PRINTF_SPECIFIER " != " TYPE_PRINTF_SPECIFIER " expected\n", *el, *correct); \
+            fprintf(stderr, "relative error: " TYPE_PRINTF_SPECIFIER ", absolute_error: " TYPE_PRINTF_SPECIFIER "\n", \
+                    relative_error, absolute_error); \
             pass = 0; \
             if (halt_when_incorrect) { \
               fprintf(stderr, "Halting\n"); \
@@ -118,6 +124,7 @@
             } \
           } \
         } \
+        fprintf(stderr, "Verification of %s ended\nresult: %s\nlargest absolute error: " TYPE_PRINTF_SPECIFIER "\nlargest relative error: " TYPE_PRINTF_SPECIFIER "\n", #ARRAY_PTR, pass ? "PASS" : "FAIL", largest_absolute_error, largest_relative_error); \
         fprintf(stderr, "Verification of %s ended, result: %s\n", #ARRAY_PTR, pass ? "PASS" : "FAIL"); \
         free(data); \
         fclose(f); \

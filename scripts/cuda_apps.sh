@@ -4,7 +4,7 @@ echo -n backprop ""
 echo -n bfs ""
 echo -n b+tree ""
 echo -n cfd ""
-#echo -n dwt2d "" # horribly slow compilation
+echo -n dwt2d "" # horribly slow compilation
 echo -n gaussian ""
 echo -n heartwall ""
 echo -n hotspot ""
