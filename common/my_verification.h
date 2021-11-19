@@ -21,11 +21,11 @@
 #define MY_DEVICE_VERIFY_DOUBLE(ARRAY_PTR, SIZE)                        \
   _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, double, MY_FP_STYLE_EQ, "%.17g", DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
 
-#define MY_DEVICE_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, EQ_PRINTER, ABS_TH, EPSILON, FP_MAX) \
+#define MY_DEVICE_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
   do { \
 		void *host_mem = malloc(sizeof(TYPE) * SIZE); \
 		cudaMemcpy(host_mem, ARRAY_PTR, sizeof(TYPE) * SIZE, cudaMemcpyDeviceToHost); \
-		_MY_VERIFY(host_mem, #ARRAY_PTR, SIZE, EQ, EQ_PRINTER, ABS_TH, EPSILON, FP_MAX) \
+		_MY_VERIFY(host_mem, #ARRAY_PTR, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX); \
 		free(host_mem); \
 	} while (0)
 
@@ -82,7 +82,7 @@
       sprintf(verification_app_dir, "%s/%s", verification_dir, app_name); \
       if (getenv("MY_VERIFICATION_DUMP")) { \
         mkdir(verification_app_dir, 0777); \
-        fprintf(stderr, "Dumping verification info of %s of type %s to file %s\n", #ARRAY_PTR, #TYPE, verification_file); \
+        fprintf(stderr, "Dumping verification info of %s of type %s to file %s\n", ARRAY_NAME, #TYPE, verification_file); \
         FILE *f = fopen(verification_file, "wb"); \
         if (!f) { \
           fprintf(stderr, "Could not open file %s, errno %d, %s\n", verification_file, errno, strerror(errno)); \
@@ -91,7 +91,7 @@
         fwrite((void *) array, type_size, size, f); \
         fclose(f); \
       } else { \
-        fprintf(stderr, "Starting verification of %s of type %s from file %s\n", #ARRAY_PTR, #TYPE, verification_file); \
+        fprintf(stderr, "Starting verification of %s of type %s from file %s\n", ARRAY_NAME, #TYPE, verification_file); \
         FILE *f = fopen(verification_file, "rb"); \
         if (!f) { \
           fprintf(stderr, "Could not open file %s, errno %d, %s\n", verification_file, errno, strerror(errno)); \
@@ -109,7 +109,7 @@
             largest_relative_error = MY_MAX(relative_error, largest_relative_error); \
             TYPE absolute_error = MY_ABS(*el - *correct); \
             largest_absolute_error = MY_MAX(absolute_error, largest_absolute_error); \
-            fprintf(stderr, "Verification of %s failed at %s:%s, el %d\n", #ARRAY_PTR, __FILE__, MY_S__LINE__, (int) ((TYPE*)el - (TYPE*)array)); \
+            fprintf(stderr, "Verification of %s failed at %s:%s, el %d\n", ARRAY_NAME, __FILE__, MY_S__LINE__, (int) ((TYPE*)el - (TYPE*)array)); \
             fprintf(stderr, TYPE_PRINTF_SPECIFIER " != " TYPE_PRINTF_SPECIFIER " expected\n", *el, *correct); \
             fprintf(stderr, "relative error: " TYPE_PRINTF_SPECIFIER ", absolute_error: " TYPE_PRINTF_SPECIFIER "\n", \
                     relative_error, absolute_error); \
@@ -120,8 +120,7 @@
             } \
           } \
         } \
-        fprintf(stderr, "Verification of %s ended\nresult: %s\nlargest absolute error: " TYPE_PRINTF_SPECIFIER "\nlargest relative error: " TYPE_PRINTF_SPECIFIER "\n", #ARRAY_PTR, pass ? "PASS" : "FAIL", largest_absolute_error, largest_relative_error); \
-        fprintf(stderr, "Verification of %s ended, result: %s\n", #ARRAY_PTR, pass ? "PASS" : "FAIL"); \
+        fprintf(stderr, "Verification of %s ended\nresult: %s\nlargest absolute error: " TYPE_PRINTF_SPECIFIER "\nlargest relative error: " TYPE_PRINTF_SPECIFIER "\n", ARRAY_NAME, pass ? "PASS" : "FAIL", largest_absolute_error, largest_relative_error); \
         free(data); \
         fclose(f); \
       } \
