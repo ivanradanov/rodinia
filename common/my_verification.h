@@ -100,19 +100,19 @@
         void *data = malloc(array_size); \
         fread((void *) data, type_size, size, f); \
         int pass = 1; \
-        TYPE *el, *correct, largest_absolute_error = 0, largest_relative_error = 0; \
+        TYPE *el, *correct; \
+        double largest_absolute_error = 0, largest_relative_error = 0; \
         for (el = (TYPE *) array, correct = (TYPE *) data; \
              el < ((TYPE *) array) + size; \
              el++, correct++) { \
           if (!EQ(*el, *correct, ABS_TH, EPSILON, FP_MAX)) { \
-            TYPE relative_error = MY_ABS(*el - *correct) / (MY_ABS(*el) + MY_ABS(*correct)); \
+            double relative_error = ((double) MY_ABS(*el - *correct)) / (MY_ABS(*el) + MY_ABS(*correct)); \
             largest_relative_error = MY_MAX(relative_error, largest_relative_error); \
-            TYPE absolute_error = MY_ABS(*el - *correct); \
+            double absolute_error = MY_ABS(*el - *correct); \
             largest_absolute_error = MY_MAX(absolute_error, largest_absolute_error); \
             fprintf(stderr, "Verification of %s failed at %s:%s, el %d\n", ARRAY_NAME, __FILE__, MY_S__LINE__, (int) ((TYPE*)el - (TYPE*)array)); \
             fprintf(stderr, TYPE_PRINTF_SPECIFIER " != " TYPE_PRINTF_SPECIFIER " expected\n", *el, *correct); \
-            fprintf(stderr, "relative error: " TYPE_PRINTF_SPECIFIER ", absolute_error: " TYPE_PRINTF_SPECIFIER "\n", \
-                    relative_error, absolute_error); \
+            fprintf(stderr, "relative error: %.17g, absolute_error: %.17g\n", relative_error, absolute_error); \
             pass = 0; \
             if (halt_when_incorrect) { \
               fprintf(stderr, "Halting\n"); \
@@ -120,7 +120,7 @@
             } \
           } \
         } \
-        fprintf(stderr, "Verification of %s ended\nresult: %s\nlargest absolute error: " TYPE_PRINTF_SPECIFIER "\nlargest relative error: " TYPE_PRINTF_SPECIFIER "\n", ARRAY_NAME, pass ? "PASS" : "FAIL", largest_absolute_error, largest_relative_error); \
+        fprintf(stderr, "Verification of %s ended\nresult: %s\nlargest absolute error: %.17g\nlargest relative error: %.17g\n", ARRAY_NAME, pass ? "PASS" : "FAIL", largest_absolute_error, largest_relative_error); \
         free(data); \
         fclose(f); \
       } \
