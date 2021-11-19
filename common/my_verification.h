@@ -14,15 +14,22 @@
 #define MY_FP_EQ_PRINTER(a, b) fprintf(stderr, "%.17g != %.17g expected\n", (a), (b))
 #define MY_NULL_EQ_PRINTER(a, b) do {} while(0)
 
-#define MY_DEVICE_VERIFY_INT(ARRAY_PTR, SIZE) MY_ON_DEVICE(MY_VERIFY_INT, ARRAY_PTR, SIZE, int)
-#define MY_DEVICE_VERIFY_FLOAT(ARRAY_PTR, SIZE) MY_ON_DEVICE(MY_VERIFY_FLOAT_EXACT, ARRAY_PTR, SIZE, float)
-#define MY_DEVICE_VERIFY_RAW(ARRAY_PTR, SIZE) MY_ON_DEVICE(MY_VERIFY_RAW, ARRAY_PTR, SIZE, char)
+#define MY_DEVICE_VERIFY_INT(ARRAY_PTR, SIZE)                           \
+  _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, int, MY_INT_STYLE_EQ, MY_INT_EQ_PRINTER, 0, 0, 0)
+#define MY_DEVICE_VERIFY_RAW(ARRAY_PTR, SIZE)                           \
+  _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, MY_INT_EQ_PRINTER, 0, 0, 0)
+#define MY_DEVICE_VERIFY_CHAR(ARRAY_PTR, SIZE)                          \
+  _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, MY_INT_EQ_PRINTER, 0, 0, 0)
+#define MY_DEVICE_VERIFY_FLOAT(ARRAY_PTR, SIZE)                         \
+  _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, float, MY_FP_STYLE_EQ, MY_FP_EQ_PRINTER, FLT_MIN, (FLT_EPSILON * 256), FLT_MAX)
+#define MY_DEVICE_VERIFY_DOUBLE(ARRAY_PTR, SIZE)                        \
+  _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, double, MY_FP_STYLE_EQ, MY_FP_EQ_PRINTER, DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
 
-#define MY_ON_DEVICE(VERIFIER, ARRAY_PTR, SIZE, TYPE)                   \
-	do { \
+#define MY_DEVICE_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, EQ_PRINTER, ABS_TH, EPSILON, FP_MAX) \
+  do { \
 		void *host_mem = malloc(sizeof(TYPE) * SIZE); \
 		cudaMemcpy(host_mem, ARRAY_PTR, sizeof(TYPE) * SIZE, cudaMemcpyDeviceToHost); \
-		VERIFIER(host_mem, SIZE); \
+		_MY_VERIFY(host_mem, #ARRAY_PTR, SIZE, EQ, EQ_PRINTER, ABS_TH, EPSILON, FP_MAX) \
 		free(host_mem); \
 	} while (0)
 
@@ -49,6 +56,9 @@
   ((X) == (Y))
 
 #define MY_VERIFY(ARRAY_PTR, SIZE, TYPE, EQ, EQ_PRINTER, ABS_TH, EPSILON, FP_MAX) \
+  _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, TYPE, EQ, EQ_PRINTER, ABS_TH, EPSILON, FP_MAX)
+
+#define _MY_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, EQ_PRINTER, ABS_TH, EPSILON, FP_MAX) \
   do { \
     static int done = 0; \
     if (done) break; else done = 1; \
