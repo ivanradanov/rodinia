@@ -255,12 +255,19 @@ void compute_step_factor(int nelr, float* variables, float* areas, float* step_f
 	getLastCudaError("compute_step_factor failed");
 }
 
+#define LOG_INT(A) if (it < 3 && blockIdx.x == 0 && blockIdx.y == 0 && blockIdx.z == 0) printf("pack2 %d; %d, %d, %d; %d, %d, %d; %05d; " #A " %d\n", it, blockIdx.x, blockIdx.y, blockIdx.z, threadIdx.x, threadIdx.y, threadIdx.z, log_id++, A)
+#define LOG_HEX(A) if (it < 3 && blockIdx.x == 0 && blockIdx.y == 0 && blockIdx.z == 0) printf("pack2 %d; %d, %d, %d; %d, %d, %d; %05d; " #A " %08x\n", it, blockIdx.x, blockIdx.y, blockIdx.z, threadIdx.x, threadIdx.y, threadIdx.z, log_id++, A)
+#define LOG_FP(A) if (it < 3 && blockIdx.x == 0 && blockIdx.y == 0 && blockIdx.z == 0) printf("pack2 %d; %d, %d, %d; %d, %d, %d; %05d; " #A " %.17g\n", it, blockIdx.x, blockIdx.y, blockIdx.z, threadIdx.x, threadIdx.y, threadIdx.z, log_id++, A)
+//#define LOG_INT(A) if (it == 0) printf("pack2 %d, %d, %d; %d, %d, %d; %05d; " #A " %d\n", blockIdx.x, blockIdx.y, blockIdx.z, threadIdx.x, threadIdx.y, threadIdx.z, log_id++, A)
+//#define LOG_HEX(A) if (it == 0) printf("pack2 %d, %d, %d; %d, %d, %d; %05d; " #A " %08x\n", blockIdx.x, blockIdx.y, blockIdx.z, threadIdx.x, threadIdx.y, threadIdx.z, log_id++, A)
+//#define LOG_FP(A) if (it == 0) printf("pack2 %d, %d, %d; %d, %d, %d; %05d; " #A " %.17g\n", blockIdx.x, blockIdx.y, blockIdx.z, threadIdx.x, threadIdx.y, threadIdx.z, log_id++, A)
 /*
  *
  *
 */
-__global__ void cuda_compute_flux(int nelr, int* elements_surrounding_elements, float* normals, float* variables, float* fluxes)
+__global__ void cuda_compute_flux(int it, int nelr, int* elements_surrounding_elements, float* normals, float* variables, float* fluxes)
 {
+	int log_id = 0;
 	const float smoothing_coefficient = float(0.2f);
 	const int i = (blockDim.x*blockIdx.x + threadIdx.x);
 	
@@ -279,11 +286,33 @@ __global__ void cuda_compute_flux(int nelr, int* elements_surrounding_elements, 
 	float3 velocity_i;             				compute_velocity(density_i, momentum_i, velocity_i);
 	float speed_sqd_i                          = compute_speed_sqd(velocity_i);
 	float speed_i                              = sqrtf(speed_sqd_i);
+	LOG_FP(density_i);
+	LOG_FP(density_energy_i);
+	LOG_FP(speed_sqd_i);
 	float pressure_i                           = compute_pressure(density_i, density_energy_i, speed_sqd_i);
 	float speed_of_sound_i                     = compute_speed_of_sound(density_i, pressure_i);
 	float3 flux_contribution_i_momentum_x, flux_contribution_i_momentum_y, flux_contribution_i_momentum_z;
 	float3 flux_contribution_i_density_energy;	
+	LOG_FP(pressure_i);
+	LOG_FP(momentum_i.x);
+	LOG_FP(momentum_i.y);
+	LOG_FP(momentum_i.z);
+	LOG_FP(velocity_i.x);
+	LOG_FP(velocity_i.y);
+	LOG_FP(velocity_i.z);
 	compute_flux_contribution(density_i, momentum_i, density_energy_i, pressure_i, velocity_i, flux_contribution_i_momentum_x, flux_contribution_i_momentum_y, flux_contribution_i_momentum_z, flux_contribution_i_density_energy);
+	LOG_FP(flux_contribution_i_momentum_x.x);
+	LOG_FP(flux_contribution_i_momentum_x.y);
+	LOG_FP(flux_contribution_i_momentum_x.z);
+	LOG_FP(flux_contribution_i_momentum_y.x);
+	LOG_FP(flux_contribution_i_momentum_y.y);
+	LOG_FP(flux_contribution_i_momentum_y.z);
+	LOG_FP(flux_contribution_i_momentum_z.x);
+	LOG_FP(flux_contribution_i_momentum_z.y);
+	LOG_FP(flux_contribution_i_momentum_z.z);
+	LOG_FP(flux_contribution_i_density_energy.x);
+	LOG_FP(flux_contribution_i_density_energy.y);
+	LOG_FP(flux_contribution_i_density_energy.z);
 	
 	float flux_i_density = float(0.0f);
 	float3 flux_i_momentum;
@@ -389,10 +418,10 @@ __global__ void cuda_compute_flux(int nelr, int* elements_surrounding_elements, 
 	fluxes[i + (VAR_MOMENTUM+2)*nelr] = flux_i_momentum.z;
 	fluxes[i + VAR_DENSITY_ENERGY*nelr] = flux_i_density_energy;
 }
-void compute_flux(int nelr, int* elements_surrounding_elements, float* normals, float* variables, float* fluxes)
+void compute_flux(int it, int nelr, int* elements_surrounding_elements, float* normals, float* variables, float* fluxes)
 {
 	dim3 Dg(nelr / BLOCK_SIZE_3), Db(BLOCK_SIZE_3);
-	cuda_compute_flux<<<Dg,Db>>>(nelr, elements_surrounding_elements, normals, variables, fluxes);
+	cuda_compute_flux<<<Dg,Db>>>(it, nelr, elements_surrounding_elements, normals, variables, fluxes);
 	getLastCudaError("compute_flux failed");
 }
 
@@ -578,11 +607,31 @@ int main(int argc, char** argv)
 		
 		for(int j = 0; j < RK; j++)
 		{
-			compute_flux(nelr, elements_surrounding_elements, normals, variables, fluxes);
+			MY_DEVICE_VERIFY_FLOAT(fluxes, nelr * NVAR);
+			compute_flux(i + j, nelr, elements_surrounding_elements, normals, variables, fluxes);
+			MY_DEVICE_VERIFY_FLOAT(variables, nelr * NVAR);
+			MY_DEVICE_VERIFY_FLOAT(old_variables, nelr * NVAR);
+			MY_DEVICE_VERIFY_FLOAT(fluxes, nelr * NVAR); // wrong
+			MY_DEVICE_VERIFY_FLOAT(step_factors, nelr);
+			MY_DEVICE_VERIFY_FLOAT(normals, nelr * NDIM * NNB);
+			MY_DEVICE_VERIFY_INT(elements_surrounding_elements, nelr * NNB);
 			getLastCudaError("compute_flux failed");			
 			time_step(j, nelr, old_variables, variables, step_factors, fluxes);
 			getLastCudaError("time_step failed");			
+			MY_DEVICE_VERIFY_FLOAT(variables, nelr * NVAR); // wrong
+			MY_DEVICE_VERIFY_FLOAT(old_variables, nelr * NVAR);
+			MY_DEVICE_VERIFY_FLOAT(fluxes, nelr * NVAR); // wrong
+			MY_DEVICE_VERIFY_FLOAT(step_factors, nelr);
+			MY_DEVICE_VERIFY_FLOAT(normals, nelr * NDIM * NNB);
+			MY_DEVICE_VERIFY_INT(elements_surrounding_elements, nelr * NNB);
 		}
+
+		MY_DEVICE_VERIFY_FLOAT(variables, nelr * NVAR); // wrong
+		MY_DEVICE_VERIFY_FLOAT(old_variables, nelr * NVAR);
+		MY_DEVICE_VERIFY_FLOAT(fluxes, nelr * NVAR); // wrong
+		MY_DEVICE_VERIFY_FLOAT(step_factors, nelr);
+		MY_DEVICE_VERIFY_FLOAT(normals, nelr * NDIM * NNB);
+		MY_DEVICE_VERIFY_INT(elements_surrounding_elements, nelr * NNB);
 	}
 	MY_STOP_CLOCK(cfd, );
 
