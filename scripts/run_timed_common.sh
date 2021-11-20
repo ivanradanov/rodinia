@@ -37,6 +37,7 @@ for b in $bm; do
 
     export MY_APP_NAME="$(echo -n "$b" | tr / .)"
 
-    $TIMEOUT_CMD ./run &>> "$LOGFILE" || echo "FAILED OR TIMED OUT"
+    ( $TIMEOUT_CMD ./run || echo "FAILED OR TIMED OUT" ) 2>&1 | tee -a "$LOGFILE" | tee >( grep "FAILED OR TIMED OUT" > /dev/null && echo "FAILED OR TIMED OUT" > /dev/tty ) | (grep "result: FAIL" > /dev/null && echo "VERIFICATION FAILED")
+    true
 done
 
