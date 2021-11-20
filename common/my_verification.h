@@ -10,6 +10,8 @@
 #include <float.h>
 #include <sys/stat.h>
 
+// #define MY_VERIFICATION_DISABLE to disable verification code
+
 #define MY_FP_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                   \
 	(((X) == (Y)) || (MY_ABS((X) - (Y)) < MY_MAX((ABS_TH), (EPSILON) * MY_MIN((MY_ABS(X) + MY_ABS(Y)), FP_MAX))))
 
@@ -38,6 +40,10 @@
 #define MY_VERIFY_DOUBLE_EXACT(ARRAY_PTR, SIZE)                        \
 	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, double, MY_FP_STYLE_EQ, "%.17g", DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
 
+#ifdef MY_VERIFICATION_DISABLE
+#define _MY_DEVICE_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
+	do {} while (0)
+#else
 #define _MY_DEVICE_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
   do { \
 		void *host_mem = malloc(sizeof(TYPE) * SIZE); \
@@ -45,6 +51,7 @@
 		_MY_VERIFY(host_mem, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX); \
 		free(host_mem); \
 	} while (0)
+#endif
 
 #define MY_S(x) #x
 #define MY_S_(x) MY_S(x)
@@ -54,6 +61,10 @@
 #define MY_MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 #define MY_ABS(X) ((X) > 0 ? (X) : -(X))
 
+#ifdef MY_VERIFICATION_DISABLE
+#define _MY_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
+	do {} while (0)
+#else
 #define _MY_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
   do { \
     static int done = 0; \
@@ -130,5 +141,6 @@
       } \
     } \
   } while (0)
+#endif
 
 #endif // __MY_VERIFICATION_H_
