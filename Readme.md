@@ -24,6 +24,13 @@ make TIMED_CUDA_clean
 make TIMED_CUDA
 ```
 
+To build with disabled verification code:
+```sh
+make TIMED_CUDA_clean
+make MY_VERIFICATION_DISABLE=1 TIMED_CUDA
+```
+
+
 ### Running
 #### Timing:
 ```sh
@@ -40,6 +47,16 @@ Dump verification information (can be done when running the benchmarks natively 
 Verify against already dumped verification info:
 ```sh
 ./scripts/check_cuda_correctness.sh
+```
+
+Verify against already dumped verification info but don't stop at a mismatch, continue to the end and log all mismatches:
+```sh
+./scripts/log_cuda_correctness.sh
+```
+
+To check the last log:
+```sh
+./scripts/vim_last_log.sh
 ```
 
 The default location of the verification files is `verification_data/`.
