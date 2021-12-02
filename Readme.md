@@ -4,7 +4,8 @@
 ## Running the cuda benchmarks
 
 ### Dataset
-Download and place the `data/` contents from http://lava.cs.virginia.edu/Rodinia/download_links.htm in `data/`.
+Download and place the `data/` contents from the 3.1 release from
+http://lava.cs.virginia.edu/Rodinia/download_links.htm in `data/`.
 
 ### Compiler setup
 Create a file defining Makefile variables used in compilation (refer to [common/epyc02.polygeist.host.make.config](common/epyc02.polygeist.host.make.config) or [common/kiev0.nvcc.host.make.config](common/kiev0.nvcc.host.make.config) for an example) and link it to `common/host.make.config`
