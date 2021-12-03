@@ -135,7 +135,10 @@
             } \
           } \
         } \
-        fprintf(stderr, "Verification of %s ended\nresult: %s\nlargest absolute error: %.17g\nlargest relative error: %.17g\nlargest relative error (between non-zero): %.17g\n", ARRAY_NAME, pass ? "PASS" : "FAIL", largest_absolute_error, largest_relative_error, largest_relative_error_nonzero); \
+        const char *pass_string; \
+        if (pass) pass_string = "PASS"; \
+        else pass_string = "FAIL"; \
+        fprintf(stderr, "Verification of %s ended\nresult: %s\nlargest absolute error: %.17g\nlargest relative error: %.17g\nlargest relative error (between non-zero): %.17g\n", ARRAY_NAME, pass_string, largest_absolute_error, largest_relative_error, largest_relative_error_nonzero); \
         free(data); \
         fclose(f); \
       } \
