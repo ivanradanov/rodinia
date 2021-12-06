@@ -1,0 +1,27 @@
+|----------------+-------------+----------------------------------------------------------------------------------------------|
+| app            | timing code | notes                                                                                        |
+|----------------+-------------+----------------------------------------------------------------------------------------------|
+| backprop       | yes         |                                                                                              |
+| bfs            | yes         |                                                                                              |
+| b+tree         | yes         |                                                                                              |
+| cfd            | yes         |                                                                                              |
+| heartwall      | yes         |                                                                                              |
+| hotspot        | yes         |                                                                                              |
+| hotspot3D      | yes         |                                                                                              |
+| lavaMD         | yes         |                                                                                              |
+| lud            | yes         |                                                                                              |
+| myocyte        | yes         |                                                                                              |
+| nw             | yes         |                                                                                              |
+| particlefilter | yes         |                                                                                              |
+| pathfinder     | yes         |                                                                                              |
+| streamcluster  | yes         |                                                                                              |
+|----------------+-------------+----------------------------------------------------------------------------------------------|
+| nn             | no          | TODO could not easily pinpoint the sections equivalent to the timed code in the cuda version |
+| srad/srad_v1   | no          | TODO could not easily pinpoint the sections equivalent to the timed code in the cuda version |
+| srad/srad_v2   | no          | TODO could not easily pinpoint the sections equivalent to the timed code in the cuda version |
+|----------------+-------------+----------------------------------------------------------------------------------------------|
+| leukocyte      | no          | no working cpucuda version currently (uses textures)                                         |
+| kmeans         | no          | no working cpucuda version currently (uses textures)                                         |
+| mummergpu      | no          | no working cpucuda version currently (uses textures)                                         |
+|----------------+-------------+----------------------------------------------------------------------------------------------|
+
