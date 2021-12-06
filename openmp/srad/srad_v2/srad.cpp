@@ -108,6 +108,7 @@ int main(int argc, char* argv[])
 	printf("Start the SRAD main loop\n");
 
 #ifdef ITERATION
+	MY_START_CLOCK(srad_v2, total);
 	for (iter=0; iter< niter; iter++){
 #endif        
 		sum=0; sum2=0;     
@@ -191,6 +192,7 @@ int main(int argc, char* argv[])
 
 #ifdef ITERATION
 	}
+	MY_STOP_CLOCK(srad_v2, total);
 #endif
 
 

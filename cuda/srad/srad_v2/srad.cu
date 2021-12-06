@@ -146,6 +146,8 @@ runTest( int argc, char** argv)
      	J[k] = (float)exp(I[k]) ;
     }
 	printf("Start the SRAD main loop\n");
+	MY_START_CLOCK(srad_v2, total);
+
  for (iter=0; iter< niter; iter++){     
 		sum=0; sum2=0;
         for (int i=r1; i<=r2; i++) {
@@ -243,6 +245,8 @@ runTest( int argc, char** argv)
 
 #endif   
 }
+
+ MY_STOP_CLOCK(srad_v2, total);
 
     cudaThreadSynchronize();
 
