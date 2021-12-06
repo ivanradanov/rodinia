@@ -11,7 +11,7 @@ echo -n lud ""
 echo -n backprop ""
 echo -n bfs ""
 echo -n b+tree ""
-#echo -n dwt2d "" # horribly slow compilation
+echo -n dwt2d "" # horribly slow compilation
 echo -n hotspot ""
 echo -n hotspot3D ""
 echo -n huffman ""
