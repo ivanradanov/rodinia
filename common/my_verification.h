@@ -75,7 +75,7 @@
       size_t size = (SIZE); \
       size_t type_size = sizeof(TYPE); \
       size_t array_size = type_size * size; \
-      TYPE *array = (ARRAY_PTR); \
+      TYPE *array = (TYPE *)(ARRAY_PTR); \
       const char *src_filename = strrchr(__FILE__, '/'); \
       if (!src_filename) \
         src_filename = __FILE__; \
