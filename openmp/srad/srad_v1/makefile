@@ -1,4 +1,4 @@
-include ../../common/openmp.make.config
+include ../../../common/openmp.make.config
 # Example
 # target: dependencies
 	# command 1
