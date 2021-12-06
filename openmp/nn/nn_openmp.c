@@ -65,6 +65,7 @@ int main(int argc, char* argv[]) {
 		exit(0);
 	}
 
+	MY_START_CLOCK(nn, total);
 	fp = fopen(dbname, "r");
 	if(!fp) {
 		printf("error opening flist\n");
@@ -74,6 +75,7 @@ int main(int argc, char* argv[]) {
 	float *z;
 	z  = (float *) malloc(REC_WINDOW * sizeof(float));
 
+	
 	while(!done) {
 		//Read in REC_WINDOW number of records
 		rec_count = fread(sandbox, REC_LENGTH, REC_WINDOW, fp);
@@ -142,6 +144,8 @@ int main(int argc, char* argv[]) {
 			}
 		}
 	}//End while loop
+
+	MY_STOP_CLOCK(nn, total);
 
 	fprintf(stderr, "The %d nearest neighbors are:\n", k);
 	for( j = 0 ; j < k ; j++ ) {

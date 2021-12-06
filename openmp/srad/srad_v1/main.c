@@ -228,6 +228,7 @@ int main(int argc, char *argv []){
 	//================================================================================80
 
 	// printf("iterations: ");
+		MY_START_CLOCK(srad_v1, total);
 
     // primary loop
     for (iter=0; iter<niter; iter++){										// do for the number of iterations input parameter
@@ -319,6 +320,7 @@ int main(int argc, char *argv []){
         }
 
 	}
+    MY_STOP_CLOCK(srad_v1, total);
 
 	// printf("\n");
 

@@ -93,6 +93,7 @@ int main(int argc, char* argv[])
       return 0;
     }
 
+    MY_START_CLOCK(nn, total);
     int numRecords = loadData(filename,records,locations);
     if (resultsCount > numRecords) resultsCount = numRecords;
 
@@ -182,6 +183,7 @@ int main(int argc, char* argv[])
 
 	// find the resultsCount least distances
     findLowest(records,distances,numRecords,resultsCount);
+    MY_STOP_CLOCK(nn, total);
 
     // print out results
     if (!quiet)

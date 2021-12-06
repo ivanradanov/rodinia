@@ -301,6 +301,7 @@ int main(int argc, char *argv []){
 
 	// printf("iterations: ");
 
+	MY_START_CLOCK(srad_v1, total);
 	// execute main loop
 	for (iter=0; iter<niter; iter++){										// do for the number of iterations input parameter
 
@@ -414,6 +415,8 @@ int main(int argc, char *argv []){
 		checkCUDAError("srad2");
 
 	}
+
+	MY_STOP_CLOCK(srad_v1, total);
 
 	// printf("\n");
 

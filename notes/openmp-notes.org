@@ -15,9 +15,9 @@
 | particlefilter | yes         |                                                                                              |
 | pathfinder     | yes         |                                                                                              |
 | streamcluster  | yes         |                                                                                              |
+| nn             | yes         | timing total time including reading in input file                                            |
+| srad/srad_v1   | yes         |                                                                                              |
 |----------------+-------------+----------------------------------------------------------------------------------------------|
-| nn             | no          | TODO could not easily pinpoint the sections equivalent to the timed code in the cuda version |
-| srad/srad_v1   | no          | TODO could not easily pinpoint the sections equivalent to the timed code in the cuda version |
 | srad/srad_v2   | no          | TODO could not easily pinpoint the sections equivalent to the timed code in the cuda version |
 |----------------+-------------+----------------------------------------------------------------------------------------------|
 | leukocyte      | no          | no working cpucuda version currently (uses textures)                                         |
