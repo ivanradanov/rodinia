@@ -123,7 +123,7 @@ int main(int argc, char *argv []){
 		threads = atoi(argv[5]);
 	}
 
-	omp_set_num_threads(threads);
+	//omp_set_num_threads(threads);
 	// printf("THREAD %d\n", omp_get_thread_num());
 	// printf("NUMBER OF THREADS: %d\n", omp_get_num_threads());
 

@@ -21,13 +21,14 @@ TIMED_OPENMP_DIRS := backprop \
        nw \
        particlefilter \
        pathfinder \
-       streamcluster
+       streamcluster \
+       nn \
+       srad/srad_v1 \
+       srad/srad_v2
 # not included:
 #      kmeans \
 #      leukocyte \
 #      mummergpu \
-#      nn \
-#      srad \
 
 CUDA_DIRS := backprop bfs cfd gaussian heartwall hotspot kmeans lavaMD leukocyte lud nn	nw srad streamcluster particlefilter pathfinder mummergpu
 OMP_DIRS  := backprop bfs cfd		   heartwall hotspot kmeans lavaMD leukocyte lud nn nw srad streamcluster particlefilter pathfinder mummergpu
