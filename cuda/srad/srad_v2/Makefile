@@ -10,7 +10,7 @@ EXE = srad
 
 release: $(EXE)
 $(EXE): $(SRC)
-	$(NVCC) $(KERNEL_DIM) $(SRC) -o $(EXE) $(NVCC_FLAGS)
+	$(NVCC) $(KERNEL_DIM) $(SRC) -o $(EXE) $(NVCC_FLAGS) $(LINKER_FLAGS)
 
 enum: $(SRC)
 	$(CC) $(KERNEL_DIM) -deviceemu $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 

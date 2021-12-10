@@ -11,7 +11,7 @@ EXE = needle
 
 release: $(EXE)
 $(EXE): $(SRC)
-	$(CC) ${KERNEL_DIM} $(SRC) -o $(EXE) $(NVCC_FLAGS)
+	$(CC) ${KERNEL_DIM} $(SRC) -o $(EXE) $(NVCC_FLAGS) $(LINKER_FLAGS)
 
 clang: $(SRC)
 	clang++ $(SRC) -o $(EXE) -I../util --cuda-gpu-arch=sm_20 \
