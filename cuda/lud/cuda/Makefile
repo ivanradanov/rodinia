@@ -9,7 +9,6 @@ DEFS += \
 
 NVCC_FLAGS += -I../common \
 			 -O3 \
-			 -use_fast_math \
 			 -lm \
 			 $(SPACE)
 
