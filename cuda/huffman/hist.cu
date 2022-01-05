@@ -68,7 +68,7 @@ int runHisto(char* file, unsigned int* freq, unsigned int memSize, unsigned int 
     int blocks = prop.multiProcessorCount;
     if(!prop.deviceOverlap)
     {
-        cout << "No overlaps, so no speedup from streams" << endl;
+        cout << "No overlaps, so no speedup from streams\n";
         return 0;
     }
 

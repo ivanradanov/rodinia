@@ -1,6 +1,6 @@
 include ../../../common/make.config
 
-CC := $(CUDA_DIR)/bin/nvcc
+CC := $(NVCC)
 
 INCLUDE := $(CUDA_DIR)/include
 

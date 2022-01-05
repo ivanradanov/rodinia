@@ -41,8 +41,7 @@ float dpn1()
 
 /*** The squashing function.  Currently, it's a sigmoid. ***/
 
-float squash(x)
-float x;
+float squash(float x)
 {
   float m;
   //x = -x;

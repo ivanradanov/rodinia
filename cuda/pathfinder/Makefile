@@ -10,7 +10,7 @@ EXE = pathfinder
 release: $(EXE)
 
 $(EXE):
-	$(CC) $(SRC) -o $(EXE) $(NVCC_FLAGS)
+	$(CC) $(SRC) -o $(EXE) $(NVCC_FLAGS) $(LINKER_FLAGS)
 
 clang: $(SRC)
 	clang++ $(SRC) -o $(EXE) -I../util --cuda-gpu-arch=sm_20 \

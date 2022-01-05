@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-OCLDIR=$DIR/gpu-rodinia/opencl
+OCLDIR=$DIR/gpu-rodinia/cuda
 
 bm="backprop bfs cfd gaussian hotspot hotspot3D hybridsort lud \
     nn nw pathfinder srad streamcluster"

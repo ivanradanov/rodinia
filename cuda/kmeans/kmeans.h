@@ -44,6 +44,10 @@
 #define FLT_MAX 3.40282347e+38
 #endif
 
+#include <unistd.h>
+
+extern  int     getopt(int, char* const*, const char*);
+
 /* rmse.c */
 float   euclid_dist_2        (float*, float*, int);
 int     find_nearest_point   (float* , int, float**, int);
@@ -54,5 +58,19 @@ int     cluster(int, int, float**, int, int, float, int*, float***, float*, int,
 
 /* kmeans_clustering.c */
 float **kmeans_clustering(float**, int, int, int, float, int*);
+
+#ifdef __cplusplus
+extern "C"
+#endif
+int	// delta -- had problems when return value was of float type
+kmeansCuda(float  **feature,				/* in: [npoints][nfeatures] */
+           int      nfeatures,				/* number of attributes for each point */
+           int      npoints,				/* number of data points */
+           int      nclusters,				/* number of clusters */
+           int     *membership,				/* which cluster the point belongs to */
+		   float  **clusters,				/* coordinates of cluster centers */
+		   int     *new_centers_len,		/* number of elements in each cluster */
+           float  **new_centers				/* sum of elements in each cluster */
+		   );
 
 #endif

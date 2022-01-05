@@ -78,7 +78,7 @@ extern "C" {
 #define SEEK_END 2	/* Set file pointer to EOF plus "offset" */
 #endif /* SEEK_SET */
 
-#ifdef _NO_PROTO
+#if 0
 
 #ifndef _KERNEL
 extern int access();
@@ -285,7 +285,7 @@ extern ssize_t write(int, const void *, size_t);
 extern  char    *optarg;
 extern  int     optind, opterr, optopt;
 
-#ifdef _NO_PROTO
+#if 0
 	extern	size_t	confstr();
 	extern  char    *crypt();
 	extern  void    encrypt();
