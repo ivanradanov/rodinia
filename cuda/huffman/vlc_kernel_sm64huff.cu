@@ -52,7 +52,7 @@ __global__ static void vlc_encode_kernel_sm64huff(unsigned int* data,
 
 	extern __shared__ unsigned int sm[];
 	__shared__ unsigned int kcmax;
-
+#if 0
 #ifdef CACHECWLUT
 	unsigned int* codewords		= (unsigned int*) sm; 
 	unsigned int* codewordlens	= (unsigned int*)(sm+NUM_SYMBOLS); 
@@ -84,6 +84,8 @@ __global__ static void vlc_encode_kernel_sm64huff(unsigned int* data,
 	as[k] = codewordlen;
 	__syncthreads();
 
+#endif
+	unsigned int* as			= (unsigned int*) sm;
 	/* Prefix sum of codeword lengths (denoted in bits) [inplace implementation] */ 
 	unsigned int offset = 1;
 
@@ -97,7 +99,7 @@ __global__ static void vlc_encode_kernel_sm64huff(unsigned int* data,
         }
         offset *= 2;
     }
-
+#if 0
     /* scan back down the tree */
     /* clear the last element */
     if (k == 0) as[blockDim.x - 1] = 0;    
@@ -156,7 +158,7 @@ __global__ static void vlc_encode_kernel_sm64huff(unsigned int* data,
 	__syncthreads();
 
 	if (k<=kcmax) out[kn] = as[k];
-
+#endif
 }
 //////////////////////////////////////////////////////////////////////////////								  
 #endif
