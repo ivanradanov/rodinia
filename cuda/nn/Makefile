@@ -13,7 +13,7 @@ clean :
 #	$(CC) -o nn nn_cuda.cu
 
 nn : nn_cuda.cu
-	$(CC) -o nn nn_cuda.cu $(NVCC_FLAGS) $(LINKER_FLAGS)
+	$(CC) -o nn nn_cuda.cu $(NVCC_FLAGS) $(LINKER_FLAGS) -lstdc++
 
 clang: $(SRC)
 	clang++ nn_cuda.cu -o nn -I../util --cuda-gpu-arch=sm_20 \

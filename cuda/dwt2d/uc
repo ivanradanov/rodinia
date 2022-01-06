@@ -1,0 +1,36 @@
+warning: argument unused during compilation: '--cuda-gpu-arch=sm_60'
+Emitting fn: _Z16writeNStage2DDWTP10dimensions
+writeNStage2DDWT
+CompoundStmt 0x55c9466888d8
+`-CallExpr 0x55c946688880 'void'
+  |-ImplicitCastExpr 0x55c946688868 'void (*)(void *) throw()' <FunctionToPointerDecay>
+  | `-DeclRefExpr 0x55c9466887e8 'void (void *) throw()' lvalue Function 0x55c9465ae650 'free' 'void (void *) throw()' (UsingShadow 0x55c9465d3230 'free')
+  `-ImplicitCastExpr 0x55c9466888c0 'void *' <BitCast>
+    `-ImplicitCastExpr 0x55c9466888a8 'struct dimensions *' <LValueToRValue>
+      `-DeclRefExpr 0x55c9466887c8 'struct dimensions *' lvalue ParmVar 0x55c9466885e0 'bandDims' 'struct dimensions *'
+<immediate: mlir>
+module attributes {llvm.data_layout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128", llvm.target_triple = "x86_64-unknown-linux-gnu"}  {
+  llvm.func @free(!llvm.ptr<i8>)
+  func @_Z16writeNStage2DDWTP10dimensions(%arg0: !llvm.ptr<struct<(struct<(i32)>)>>) attributes {llvm.linkage = #llvm.linkage<external>} {
+    %c1_i64 = arith.constant 1 : i64
+    %0 = llvm.alloca %c1_i64 x !llvm.ptr<struct<(struct<(i32)>)>> : (i64) -> !llvm.ptr<ptr<struct<(struct<(i32)>)>>>
+    llvm.store %arg0, %0 : !llvm.ptr<ptr<struct<(struct<(i32)>)>>>
+    %true = arith.constant true
+    %1 = memref.alloca() : memref<i1>
+    %2 = memref.alloca() : memref<i1>
+    memref.store %true, %2[] : memref<i1>
+    memref.store %true, %1[] : memref<i1>
+    %3 = memref.load %1[] : memref<i1>
+    scf.if %3 {
+      scf.execute_region {
+        %4 = llvm.load %0 : !llvm.ptr<ptr<struct<(struct<(i32)>)>>>
+        %5 = llvm.bitcast %4 : !llvm.ptr<struct<(struct<(i32)>)>> to !llvm.ptr<i8>
+        llvm.call @free(%5) : (!llvm.ptr<i8>) -> ()
+        scf.yield
+      }
+    }
+    return
+  }
+}
+</immediate: mlir>
+warning: argument unused during compilation: '--cuda-gpu-arch=sm_60'

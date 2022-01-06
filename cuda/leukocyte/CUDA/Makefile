@@ -34,16 +34,16 @@ leukocyte: detect_main.o avilib.o find_ellipse.o find_ellipse_kernel.o track_ell
 	$(LINKER) -lm avilib.o find_ellipse.o find_ellipse_kernel.o track_ellipse.o track_ellipse_kernel.o misc_math.o detect_main.o -o leukocyte $(MATRIX_DIR)/meschach.a $(LINKER_FLAGS)
 
 %.o: %.[c]
-	$(CC)  $(OUTPUT) $(CC_FLAGS) $< -c
+	$(CC)  $(OUTPUT) $(CC_FLAGS) $< -c -o $@
 
 detect_main.o: detect_main.c find_ellipse.h track_ellipse.h avilib.h 
-	$(CC) $(CC_FLAGS) detect_main.c -c
+	$(CC) $(CC_FLAGS) detect_main.c -c -o $@
 
 find_ellipse_kernel.o: find_ellipse_kernel.cu find_ellipse_kernel.h
-	$(NVCC) $(NVCC_FLAGS) -c find_ellipse_kernel.cu
+	$(NVCC) $(NVCC_FLAGS) -c find_ellipse_kernel.cu -o $@
 
 track_ellipse_kernel.o: track_ellipse_kernel.cu track_ellipse_kernel.h
-	$(NVCC) $(NVCC_FLAGS) -I$(MATRIX_DIR) -c track_ellipse_kernel.cu
+	$(NVCC) $(NVCC_FLAGS) -I$(MATRIX_DIR) -c track_ellipse_kernel.cu -o $@
 
 find_ellipse.o: avilib.h
 
