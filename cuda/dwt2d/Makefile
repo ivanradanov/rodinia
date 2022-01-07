@@ -108,7 +108,7 @@ OUTPUT = -DOUTPUT
 	$(CXX) $(OUTPUT) $(CXXFLAGS) -c $< -o $@
 
 $(EXECUTABLE): $(COBJS) $(CXXOBJS) $(CUOBJS)
-	clang++-10 -o $(EXECUTABLE) $(COBJS) $(CXXOBJS) $(CUOBJS) $(LINKER_FLAGS) -fopenmp
+	clang++ -o $(EXECUTABLE) $(COBJS) $(CXXOBJS) $(CUOBJS) $(LINKER_FLAGS) -fopenmp
 
 clean:
 	rm -f $(COBJS) $(CXXOBJS) $(CUOBJS) $(EXECUTABLE)

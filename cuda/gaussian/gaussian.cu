@@ -391,7 +391,7 @@ void ForwardSub()
 		cudaThreadSynchronize();
 		Fan2<<<dimGridXY,dimBlockXY>>>(m_cuda,a_cuda,b_cuda,Size,Size-t,t);
 		cudaThreadSynchronize();
-		checkCUDAError("Fan2");
+		//checkCUDAError("Fan2");
 	}
 	MY_STOP_CLOCK(gaussian, );
 	// end timing kernels

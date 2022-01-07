@@ -505,7 +505,7 @@ int main(int argc, char *argv []){
 	printf("%15.12f s, %15.12f % : FREE MEMORY\n", 															(float) (time12-time11) / 1000000, (float) (time12-time11) / (float) (time12-time0) * 100);
 	printf("Total time:\n");
 	printf("%.12f s\n", 																					(float) (time12-time0) / 1000000);
-
+	return 0;
 }
 
 //====================================================================================================100

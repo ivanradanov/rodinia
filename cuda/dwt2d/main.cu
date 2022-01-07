@@ -318,19 +318,19 @@ int main(int argc, char **argv)
     cudaCheckError("Get device count");
     if (devCount == 0) {
         printf("No CUDA enabled device\n");
-        return -1;
+        //return -1;
     } 
     if (device < 0 || device > devCount -1) {
         printf("Selected device %d is out of bound. Devices on your system are in range %d - %d\n", 
                device, 0, devCount -1);
-        return -1;
+        //return -1;
     }
     cudaDeviceProp devProp;                                          
     cudaGetDeviceProperties(&devProp, device);  
     cudaCheckError("Get device properties");
     if (devProp.major < 1) {                                         
         printf("Device %d does not support CUDA\n", device);
-        return -1;
+        //return -1;
     }                                                                   
     printf("Using device %d: %s\n", device, devProp.name);
     cudaSetDevice(device);

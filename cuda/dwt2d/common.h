@@ -50,7 +50,7 @@
     if( cudaSuccess != err) {                                                \
         fprintf(stderr, "%s: %i: %s: %s.\n",                                 \
                 __FILE__, __LINE__, msg, cudaGetErrorString( err) );         \
-        exit(-1);                                                            \
+        /*exit(-1);*/                                                   \
     } }
 
 #  define cudaCheckAsyncError( msg ) {                                       \
