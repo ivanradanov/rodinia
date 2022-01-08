@@ -10,8 +10,8 @@ include ../../common/make.config
 
 # link objects(binaries) together
 myocyte.out:		main.o
-	$(NVCC)	main.o -o myocyte.out \
-				$(NVCC_FLAGS)
+	clang++-10 -fopenmp	main.o -o myocyte.out \
+				$(LINKER_FLAGS)
 
 # compile main function file into object (binary)
 main.o:	define.c \
@@ -34,7 +34,7 @@ main.o:	define.c \
 				file.c \
 				timer.c
 	$(NVCC)	-c main.cu \
-				$(NVCC_FLAGS)
+				$(NVCC_FLAGS) -o $@
 
 # delete all object files
 clean:
