@@ -6,7 +6,7 @@ SUBDIR="$1"
 
 bm="$2"
 
-TIMEOUT_CMD="timeout 3m"
+TIMEOUT_CMD="timeout 1h"
 
 DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 

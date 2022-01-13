@@ -1,5 +1,20 @@
 #!/bin/bash
 
+echo -n backprop " "
+echo -n bfs " "
+echo -n dwt2d " "
+echo -n gaussian " "
+echo -n hotspot " "
+echo -n hotspot3D " "
+echo -n myocyte " "
+echo -n nw " "
+echo -n particlefilter " "
+echo -n pathfinder " "
+echo -n srad/srad_v1 " "
+echo -n srad/srad_v2 " "
+
+exit
+
 echo -n cfd ""
 echo -n gaussian ""
 echo -n particlefilter ""

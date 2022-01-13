@@ -7,6 +7,53 @@ import matplotlib.pyplot as plt
 def plot_file_summaries(files, **kwargs):
     plot_summaries([create_file_timing_data_summary(read_timing_data_from_file(f)) for f in files], **kwargs)
 
+def plot_min_summaries(summaries):
+    normalize = 0
+    kernels = sorted(list(set.union(*[get_summary_kernels(summary) for summary in summaries])))
+    data_points = [[(summary[1][kernel] if i == normalize else summary[1][kernel]['time'])
+                    if kernel in summary[1] else 0 for kernel in kernels]
+                   for i, summary in enumerate(summaries)]
+    data_points = [[data_points[i][k] / data_points[normalize][k] for k in range(len(kernels))]  for i in range(len(summaries))]
+    at_threads = [[str(summary[1][kernel]['omp_thread_num'])
+                    if kernel in summary[1] else '' for kernel in kernels]
+                   for summary in summaries[1:]]
+
+    x = np.arange(len(kernels))
+
+    fig, ax = plt.subplots()
+
+    data_point_i_s = [i for i in range(len(data_points)) if i != normalize]
+
+    width = (1.0 - 0.2) / len(data_point_i_s)
+
+    rects = [ax.bar(x + i * width - len(data_point_i_s) * width / 2 + width / 2,
+                    data_points[data_point_i_s[i]],
+                    width,
+                    label = str(summaries[data_point_i_s[i]][0]))
+             for i in range(len(data_point_i_s))]
+    labels = [ax.bar_label(rects[i], labels = at_threads[i]) for i in range(len(summaries) - 1)]
+
+    if normalize != -1:
+        ax.axhline(1.0, color='gray', label = str(summaries[normalize][0]))
+
+    if normalize == -1:
+        ax.set_ylabel('time (s)')
+    else:
+        ax.set_ylabel('relative time')
+    ax.set_yscale('log')
+    ax.set_title('Runtime of kernels')
+    ax.set_xticks(x)
+    ax.set_xticklabels(kernels, rotation = 90)
+    ax.legend()
+    '''
+    for i in range(len(summaries)):
+        ax.bar_label(rects[i], padding = 3, rotation = 90)
+    '''
+
+    #fig.tight_layout()
+
+    plt.show()
+
 def plot_summaries(summaries, normalize = -1):
     kernels = sorted(list(set.union(*[get_summary_kernels(summary) for summary in summaries])))
     data_points = [[summary[1][kernel] if kernel in summary[1] else 0 for kernel in kernels]
