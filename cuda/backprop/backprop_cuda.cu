@@ -136,7 +136,7 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
   cudaError_t error = cudaGetLastError();
 	if (error != cudaSuccess) {
 		printf("bpnn kernel error: %s\n", cudaGetErrorString(error));
-		exit(EXIT_FAILURE);
+		//exit(EXIT_FAILURE);
 	}
   
   cudaMemcpy(partial_sum, hidden_partial_sum, num_blocks * WIDTH * sizeof(float), cudaMemcpyDeviceToHost);
