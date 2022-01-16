@@ -93,7 +93,7 @@ b+tree.out:	./main.o \
 		./util/timer/timer.o \
 		./util/num/num.o \
 		./util/cuda/cuda.o
-	$(LINKER)	./main.o \
+	clang++-10	-fopenmp ./main.o \
 			./kernel/kernel_gpu_cuda_wrapper.o \
 			./kernel/kernel_gpu_cuda_wrapper_2.o \
 			./util/timer/timer.o \
