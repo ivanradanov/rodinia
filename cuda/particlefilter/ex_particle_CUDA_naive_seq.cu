@@ -342,7 +342,7 @@ void videoSequence(int * I, int IszX, int IszY, int Nfr, int * seed){
 	}
 	
 	/*dilate matrix*/
-	int * newMatrix = (int *)malloc(sizeof(int)*IszX*IszY*Nfr);
+	int * newMatrix = (int *)calloc(sizeof(int)*IszX*IszY*Nfr, 1);
 	imdilate_disk(I, IszX, IszY, Nfr, 5, newMatrix);
 	int x, y;
 	for(x = 0; x < IszX; x++){
@@ -417,7 +417,7 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 	//expected object locations, compared to center
 	int radius = 5;
 	int diameter = radius*2 - 1;
-	int * disk = (int *)malloc(diameter*diameter*sizeof(int));
+	int * disk = (int *)calloc(diameter*diameter*sizeof(int), 1);
 	strelDisk(disk, radius);
 	int countOnes = 0;
 	int x, y;
@@ -684,7 +684,7 @@ int main(int argc, char * argv[]){
 	for(i = 0; i < Nparticles; i++)
 		seed[i] = time(0)*i;
 	//malloc matrix
-	int * I = (int *)malloc(sizeof(int)*IszX*IszY*Nfr);
+	int * I = (int *)calloc(sizeof(int)*IszX*IszY*Nfr, 1);
 	long long start = get_time();
 	//call video sequence
 	videoSequence(I, IszX, IszY, Nfr, seed);
