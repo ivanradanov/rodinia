@@ -12,6 +12,11 @@
 #define BLOCK_Y 16
 #define PI 3.1415926535897932
 
+// when doing verification
+#if 1
+#define malloc(X) calloc((X), 1)
+#endif
+
 const int threads_per_block = 512;
 
 /**

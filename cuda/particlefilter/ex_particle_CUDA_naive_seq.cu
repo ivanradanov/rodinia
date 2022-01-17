@@ -17,6 +17,11 @@
 #define BLOCK_X 16
 #define BLOCK_Y 16
 
+// when doing verification
+#if 1
+#define malloc(X) calloc((X), 1)
+#endif
+
 /**
 @var M value for Linear Congruential Generator (LCG); use GCC's value
 */
