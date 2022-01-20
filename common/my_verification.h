@@ -30,15 +30,15 @@
   _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, double, MY_FP_STYLE_EQ, "%.17g", DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
 
 #define MY_VERIFY_INT(ARRAY_PTR, SIZE)                           \
-	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, int, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
+	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), int, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
 #define MY_VERIFY_RAW(ARRAY_PTR, SIZE)                           \
-	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
+	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), char, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
 #define MY_VERIFY_CHAR(ARRAY_PTR, SIZE)                          \
-	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
+	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), char, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
 #define MY_VERIFY_FLOAT_EXACT(ARRAY_PTR, SIZE)                         \
-	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, float, MY_FP_STYLE_EQ, "%.9g", FLT_MIN, (FLT_EPSILON * 256), FLT_MAX)
+	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), float, MY_FP_STYLE_EQ, "%.9g", FLT_MIN, (FLT_EPSILON * 256), FLT_MAX)
 #define MY_VERIFY_DOUBLE_EXACT(ARRAY_PTR, SIZE)                        \
-	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, double, MY_FP_STYLE_EQ, "%.17g", DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
+	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), double, MY_FP_STYLE_EQ, "%.17g", DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
 
 #ifdef MY_VERIFICATION_DISABLE
 #define _MY_DEVICE_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
@@ -46,10 +46,10 @@
 #else
 #define _MY_DEVICE_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
   do { \
-		void *host_mem = malloc(sizeof(TYPE) * SIZE); \
-		cudaMemcpy(host_mem, ARRAY_PTR, sizeof(TYPE) * SIZE, cudaMemcpyDeviceToHost); \
-		_MY_VERIFY(host_mem, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX); \
-		free(host_mem); \
+    void *host_mem = malloc(sizeof(TYPE) * (SIZE)); \
+    cudaMemcpy(host_mem, ARRAY_PTR, sizeof(TYPE) * (SIZE), cudaMemcpyDeviceToHost); \
+    _MY_VERIFY(host_mem, ARRAY_NAME, (SIZE), TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX); \
+    free(host_mem); \
 	} while (0)
 #endif
 
@@ -72,9 +72,9 @@
     char *verification_dir = getenv("MY_VERIFICATION_DIR"); \
     if (verification_dir && strcmp(verification_dir, "")) { \
       char *halt_when_incorrect = getenv("MY_VERIFICATION_HALT_WHEN_INCORRECT"); \
-      size_t size = (SIZE); \
+      size_t __my_size = (SIZE); \
       size_t type_size = sizeof(TYPE); \
-      size_t array_size = type_size * size; \
+      size_t array_size = type_size * __my_size; \
       TYPE *array = (TYPE *)(ARRAY_PTR); \
       const char *src_filename = strrchr(__FILE__, '/'); \
       if (!src_filename) \
@@ -99,7 +99,7 @@
           fprintf(stderr, "Could not open file %s, errno %d, %s\n", verification_file, errno, strerror(errno)); \
           exit(1); \
         } \
-        fwrite((void *) array, type_size, size, f); \
+        fwrite((void *) array, type_size, __my_size, f); \
         fclose(f); \
       } else { \
         fprintf(stderr, "Starting verification of %s of type %s from file %s\n", ARRAY_NAME, #TYPE, verification_file); \
@@ -109,12 +109,12 @@
           exit(1); \
         } \
         void *data = malloc(array_size); \
-        fread((void *) data, type_size, size, f); \
+        fread((void *) data, type_size, __my_size, f); \
         int pass = 1; \
         TYPE *el, *correct; \
         double largest_absolute_error = 0, largest_relative_error = 0, largest_relative_error_nonzero = 0; \
         for (el = (TYPE *) array, correct = (TYPE *) data; \
-             el < ((TYPE *) array) + size; \
+             el < ((TYPE *) array) + __my_size; \
              el++, correct++) { \
           if (!EQ(*el, *correct, ABS_TH, EPSILON, FP_MAX)) { \
             double relative_error_nonzero = (*el <= ABS_TH || *correct <= ABS_TH) ? \
