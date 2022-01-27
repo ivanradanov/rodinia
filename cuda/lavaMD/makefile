@@ -28,13 +28,13 @@ lavaMD:		main.o \
 			./util/num/num.o \
 			./util/timer/timer.o \
 			./util/device/device.o
-	$(LINKER)	$(KERNEL_DIM) main.o \
+	$(SYSTEM_LINKER)	$(KERNEL_DIM) main.o \
 			./kernel/kernel_gpu_cuda_wrapper.o \
 			./util/num/num.o \
 			./util/timer/timer.o \
 			./util/device/device.o \
 			-lm \
-			$(LINKER_FLAGS) \
+			$(SYSTEM_LINKER_FLAGS) \
 			-o lavaMD
 
 # compile function files into objects (binaries)

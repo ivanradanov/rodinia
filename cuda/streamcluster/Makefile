@@ -24,7 +24,7 @@ endif
 
 
 $(TARGET_G): streamcluster_cuda_cpu.cpp streamcluster_cuda.cu streamcluster_header.cu
-	$(NVCC) streamcluster_cuda_cpu.cpp streamcluster_cuda.cu streamcluster_header.cu -o $(TARGET_G) $(NVCC_FLAGS)
+	$(NVCC) streamcluster_cuda_cpu.cpp streamcluster_cuda.cu streamcluster_header.cu -o $(TARGET_G) $(NVCC_FLAGS) $(LINKER_FLAGS)
 
 clean:
 	rm -f *.o *~ *.txt $(TARGET_G) *.linkinfo
