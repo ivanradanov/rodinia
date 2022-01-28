@@ -589,8 +589,8 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		long long xyj_time = get_time();
 		printf("TIME TO CALC NEW ARRAY X AND Y TOOK: %f\n", elapsed_time(u_time, xyj_time));
 
-		MY_VERIFY_DOUBLE_EXACT(yj, Nparticles);
-		MY_VERIFY_DOUBLE_EXACT(xj, Nparticles);
+		MY_VERIFY_DOUBLE_CUSTOM(yj, Nparticles, 0.95, 1);
+		MY_VERIFY_DOUBLE_CUSTOM(xj, Nparticles, 0.0065, 1);
 		
 		for(x = 0; x < Nparticles; x++){
 			//reassign arrayX and arrayY

@@ -164,7 +164,7 @@ main ( int argc, char *argv[] )
   cudaMemcpy(m, d_m, matrix_dim*matrix_dim*sizeof(float), 
 	     cudaMemcpyDeviceToHost);
 
-  MY_VERIFY_FLOAT_EXACT(m, matrix_dim * matrix_dim);
+  MY_VERIFY_FLOAT_CUSTOM(m, matrix_dim * matrix_dim, 0.0007, 1);
 
   /* end of timing point */
   stopwatch_stop(&sw);

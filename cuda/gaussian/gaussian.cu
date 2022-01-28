@@ -410,7 +410,7 @@ void ForwardSub()
 	cudaMemcpy(b, b_cuda, Size * sizeof(float),cudaMemcpyDeviceToHost );
 
 	MY_VERIFY_FLOAT_EXACT(m, Size * Size);
-	MY_VERIFY_FLOAT_EXACT(a, Size * Size);
+	MY_VERIFY_FLOAT_CUSTOM(a, Size * Size, 2.0e-08, 1);
 	MY_VERIFY_FLOAT_EXACT(b, Size);
 
 
