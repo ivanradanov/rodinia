@@ -29,16 +29,20 @@
 #define MY_DEVICE_VERIFY_DOUBLE(ARRAY_PTR, SIZE)                        \
   _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, double, MY_FP_STYLE_EQ, "%.17g", DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
 
-#define MY_VERIFY_INT(ARRAY_PTR, SIZE)                           \
-	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), int, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
-#define MY_VERIFY_RAW(ARRAY_PTR, SIZE)                           \
-	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), char, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
-#define MY_VERIFY_CHAR(ARRAY_PTR, SIZE)                          \
-	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), char, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
-#define MY_VERIFY_FLOAT_EXACT(ARRAY_PTR, SIZE)                         \
-	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), float, MY_FP_STYLE_EQ, "%.9g", FLT_MIN, (FLT_EPSILON * 256), FLT_MAX)
-#define MY_VERIFY_DOUBLE_EXACT(ARRAY_PTR, SIZE)                        \
-	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), double, MY_FP_STYLE_EQ, "%.17g", DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
+#define MY_VERIFY_INT(ARRAY_PTR, SIZE)                                  \
+  _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), int, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
+#define MY_VERIFY_RAW(ARRAY_PTR, SIZE)                                  \
+  _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), char, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
+#define MY_VERIFY_CHAR(ARRAY_PTR, SIZE)                                 \
+  _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), char, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
+#define MY_VERIFY_FLOAT_CUSTOM(ARRAY_PTR, SIZE, C1, C2)                 \
+	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), float, MY_FP_STYLE_EQ, "%.9g", C1, (C2 * FLT_EPSILON * 256), FLT_MAX)
+#define MY_VERIFY_FLOAT_EXACT(ARRAY_PTR, SIZE)                          \
+  _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), float, MY_FP_STYLE_EQ, "%.9g", FLT_MIN, (FLT_EPSILON * 256), FLT_MAX)
+#define MY_VERIFY_DOUBLE_CUSTOM(ARRAY_PTR, SIZE, C1, C2)                \
+	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), double, MY_FP_STYLE_EQ, "%.17g", C1, (C2 * DBL_EPSILON * 256), DBL_MAX)
+#define MY_VERIFY_DOUBLE_EXACT(ARRAY_PTR, SIZE)                         \
+  _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), double, MY_FP_STYLE_EQ, "%.17g", DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
 
 #ifdef MY_VERIFICATION_DISABLE
 #define _MY_DEVICE_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
@@ -73,9 +77,9 @@
     if (verification_dir && strcmp(verification_dir, "")) { \
       char *halt_when_incorrect = getenv("MY_VERIFICATION_HALT_WHEN_INCORRECT"); \
       size_t __my_size = (SIZE); \
-      size_t type_size = sizeof(TYPE); \
-      size_t array_size = type_size * __my_size; \
-      TYPE *array = (TYPE *)(ARRAY_PTR); \
+      size_t __my_type_size = sizeof(TYPE); \
+      size_t __my_array_size = __my_type_size * __my_size; \
+      TYPE *__my_array = (TYPE *)(ARRAY_PTR); \
       const char *src_filename = strrchr(__FILE__, '/'); \
       if (!src_filename) \
         src_filename = __FILE__; \
@@ -99,7 +103,7 @@
           fprintf(stderr, "Could not open file %s, errno %d, %s\n", verification_file, errno, strerror(errno)); \
           exit(1); \
         } \
-        fwrite((void *) array, type_size, __my_size, f); \
+        fwrite((void *) __my_array, __my_type_size, __my_size, f); \
         fclose(f); \
       } else { \
         fprintf(stderr, "Starting verification of %s of type %s from file %s\n", ARRAY_NAME, #TYPE, verification_file); \
@@ -108,13 +112,13 @@
           fprintf(stderr, "Could not open file %s, errno %d, %s\n", verification_file, errno, strerror(errno)); \
           exit(1); \
         } \
-        void *data = malloc(array_size); \
-        fread((void *) data, type_size, __my_size, f); \
+        void *data = malloc(__my_array_size); \
+        fread((void *) data, __my_type_size, __my_size, f); \
         int pass = 1; \
         TYPE *el, *correct; \
         double largest_absolute_error = 0, largest_relative_error = 0, largest_relative_error_nonzero = 0; \
-        for (el = (TYPE *) array, correct = (TYPE *) data; \
-             el < ((TYPE *) array) + __my_size; \
+        for (el = (TYPE *) __my_array, correct = (TYPE *) data; \
+             el < ((TYPE *) __my_array) + __my_size; \
              el++, correct++) { \
           if (!EQ(*el, *correct, ABS_TH, EPSILON, FP_MAX)) { \
             double relative_error_nonzero = (*el <= ABS_TH || *correct <= ABS_TH) ? \
@@ -124,7 +128,7 @@
             largest_relative_error = MY_MAX(relative_error, largest_relative_error); \
             double absolute_error = MY_ABS(*el - *correct); \
             largest_absolute_error = MY_MAX(absolute_error, largest_absolute_error); \
-            fprintf(stderr, "Verification of %s failed at %s:%s, el %d\n", ARRAY_NAME, __FILE__, MY_S__LINE__, (int) ((TYPE*)el - (TYPE*)array)); \
+            fprintf(stderr, "Verification of %s failed at %s:%s, el %d\n", ARRAY_NAME, __FILE__, MY_S__LINE__, (int) ((TYPE*)el - (TYPE*)__my_array)); \
             fprintf(stderr, TYPE_PRINTF_SPECIFIER " != " TYPE_PRINTF_SPECIFIER " expected\n", *el, *correct); \
             fprintf(stderr, "relative error: %.17g, between non-zero: %.17g, absolute_error: %.17g\n", relative_error, relative_error_nonzero, absolute_error); \
             pass = 0; \
