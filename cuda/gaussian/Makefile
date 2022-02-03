@@ -7,8 +7,6 @@ INCLUDE := $(CUDA_DIR)/include
 SRC = gaussian.cu
 EXE = gaussian
 
-release: $(EXE)
-
 $(EXE): gaussian.o
 	$(SYSTEM_LINKER) gaussian.o -o $(EXE) $(SYSTEM_LINKER_FLAGS)
 
@@ -20,4 +18,4 @@ clang: $(SRC)
 		-L/usr/local/cuda/lib64 -lcudart_static -ldl -lrt -pthread -DTIMING
 
 clean:
-	rm gaussian
+	rm gaussian *.o

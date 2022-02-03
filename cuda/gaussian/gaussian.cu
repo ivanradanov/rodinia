@@ -209,10 +209,10 @@ int main(int argc, char *argv[])
     free(m);
     free(a);
     free(b);
-
 #ifdef  TIMING
 	printf("Exec: %f\n", kernel_time);
 #endif
+	return 0;
 }
 /*------------------------------------------------------
  ** PrintDeviceProperties
