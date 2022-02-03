@@ -4,13 +4,14 @@ CC := $(NVCC)
 INCLUDE :=
 
 SRC = pathfinder.cu
-
+OBJ = pathfinder.o
 EXE = pathfinder
 
-release: $(EXE)
+$(EXE): $(OBJ)
+	$(SYSTEM_LINKER) $(OBJ) -o $(EXE) $(SYSTEM_LINKER_FLAGS)
 
-$(EXE):
-	$(CC) $(SRC) -o $(EXE) $(NVCC_FLAGS) $(LINKER_FLAGS)
+$(OBJ): $(SRC)
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@ -I../util
 
 clang: $(SRC)
 	clang++ $(SRC) -o $(EXE) -I../util --cuda-gpu-arch=sm_20 \
@@ -26,4 +27,4 @@ debugenum:
 	$(CC) -g -deviceemu $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 
 
 clean:
-	rm -f pathfinder
+	rm -f $(EXE) $(OBJ)

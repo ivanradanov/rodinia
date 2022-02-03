@@ -6,12 +6,14 @@ CC := $(NVCC)
 INCLUDE :=
 
 SRC = needle.cu
-
+OBJ = needle.o
 EXE = needle
 
-release: $(EXE)
-$(EXE): $(SRC)
-	$(CC) ${KERNEL_DIM} $(SRC) -o $(EXE) $(NVCC_FLAGS) $(LINKER_FLAGS)
+$(EXE): $(OBJ)
+	$(SYSTEM_LINKER) $(OBJ) -o $(EXE) $(SYSTEM_LINKER_FLAGS)
+
+$(OBJ): $(SRC)
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@ -I../util
 
 clang: $(SRC)
 	clang++ $(SRC) -o $(EXE) -I../util --cuda-gpu-arch=sm_20 \

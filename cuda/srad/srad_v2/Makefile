@@ -4,22 +4,16 @@ CC := $(NVCC)
 
 INCLUDE := $(CUDA_DIR)/include
 
-SRC = srad.cu
 
+SRC = srad.cu
+OBJ = srad.o
 EXE = srad
 
-release: $(EXE)
-$(EXE): $(SRC)
-	$(NVCC) $(KERNEL_DIM) $(SRC) -o $(EXE) $(NVCC_FLAGS) $(LINKER_FLAGS)
+$(EXE): $(OBJ)
+	$(SYSTEM_LINKER) $(OBJ) -o $(EXE) $(SYSTEM_LINKER_FLAGS)
 
-enum: $(SRC)
-	$(CC) $(KERNEL_DIM) -deviceemu $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 
-
-debug: $(SRC)
-	$(CC) $(KERNEL_DIM) -g $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 
-
-debugenum: $(SRC)
-	$(CC) $(KERNEL_DIM) -g -deviceemu $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 
+$(OBJ): $(SRC)
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@ -I../util
 
 clean: $(SRC)
-	rm -f $(EXE) $(EXE).linkinfo result.txt
+	rm -f $(EXE) $(EXE).linkinfo result.txt *.o

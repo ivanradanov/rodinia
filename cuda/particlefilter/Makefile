@@ -5,15 +5,27 @@ include ../../common/make.config
 CC := $(NVCC)
 
 
-all: naive float
+SRC = ex_particle_CUDA_naive_seq.cu
+OBJ = ex_particle_CUDA_naive_seq.o
+EXE = particlefilter_naive
+SRC2 = ex_particle_CUDA_float_seq.cu
+OBJ2 = ex_particle_CUDA_float_seq.o
+EXE2 = particlefilter_float
 
-naive: particlefilter_naive
-particlefilter_naive: ex_particle_CUDA_naive_seq.cu
-	$(CC) ex_particle_CUDA_naive_seq.cu -o particlefilter_naive $(NVCC_FLAGS) $(LINKER_FLAGS)
+all: $(EXE) $(EXE2)
 
-float: particlefilter_float
-particlefilter_float: ex_particle_CUDA_float_seq.cu
-	$(CC) ex_particle_CUDA_float_seq.cu -o particlefilter_float $(NVCC_FLAGS) $(LINKER_FLAGS)
+
+$(EXE): $(OBJ)
+	$(SYSTEM_LINKER) $(OBJ) -o $(EXE) $(SYSTEM_LINKER_FLAGS)
+
+$(OBJ): $(SRC)
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+
+$(EXE2): $(OBJ2)
+	$(SYSTEM_LINKER) $(OBJ2) -o $(EXE2) $(SYSTEM_LINKER_FLAGS)
+
+$(OBJ2): $(SRC2)
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm particlefilter_naive particlefilter_float

@@ -4,27 +4,16 @@ CC := $(NVCC)
 
 INCLUDE := $(CUDA_DIR)/include
 
-# Example
-# target: dependencies
-	# command 1
-	# command 2
-          # .
-          # .
-          # .
-	# command n
+SRC = main.cu
+OBJ = main.o
+EXE = srad
 
+$(EXE): $(OBJ)
+	$(SYSTEM_LINKER) $(OBJ) -o $(EXE) $(SYSTEM_LINKER_FLAGS)
 
-# compile main function file into object (binary)
-srad: 	main.cu \
-				define.c \
-				graphics.c \
-				extract_kernel.cu \
-				prepare_kernel.cu \
-				reduce_kernel.cu \
-				srad_kernel.cu \
-				srad2_kernel.cu \
-				compress_kernel.cu
-	$(NVCC) main.cu -o srad $(NVCC_FLAGS) $(LINKER_FLAGS)
+$(OBJ): $(SRC)
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@ -I../util
+
 
 # delete all object files
 clean:

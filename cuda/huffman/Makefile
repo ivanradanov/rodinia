@@ -18,8 +18,8 @@ ifdef CACHECWLUT
 override TESTING = -DCACHECWLUT
 endif
 
-pavle: $(OBJ)  main_test_cu.cu cutil.h
-	$(NVCC) $(TESTING) $(CACHECWLUT) cpuencode.cpp main_test_cu.cu $(OBJ) -o $(EXE) $(NVCC_OPTS) $(LINKER_FLAGS) -lstdc++
+pavle: $(OBJ)  main_test_cu.o cpuencode.o
+	$(LINKER) $(TESTING) $(CACHECWLUT) cpuencode.o main_test_cu.o $(OBJ) -o $(EXE) $(LINKER_FLAGS)
 
 vlc_kernel_sm64huff.o: vlc_kernel_sm64huff.cu 
 	$(NVCC) $(TESTING) -c vlc_kernel_sm64huff.cu $(NVCC_OPTS) -o $@
@@ -27,8 +27,11 @@ vlc_kernel_sm64huff.o: vlc_kernel_sm64huff.cu
 scan.o: scan.cu 
 	$(NVCC) -c scan.cu $(NVCC_OPTS) -o $@
 
-#cpuencode.o: cpuencode.cu
-#	$(NVCC) -c $(NVCC_OPTS) cpuencode.cu
+cpuencode.o: cpuencode.cpp
+	$(CXX) -c $(CXX_FLAGS) cpuencode.cpp
+
+main_test_cu.o: main_test_cu.cu
+	$(NVCC) -c main_test_cu.cu $(NVCC_OPTS) -o $@
 
 pack_kernels.o: pack_kernels.cu 
 	$(NVCC) -c pack_kernels.cu $(NVCC_OPTS) -o $@

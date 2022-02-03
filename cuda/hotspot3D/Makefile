@@ -5,15 +5,16 @@ CC := $(NVCC)
 INCLUDE := $(CUDA_DIR)/include
 
 SRC = 3D.cu
-
+OBJ = 3D.o
 EXE = 3D
 
 OUTPUT = *.out
 
-FLAGS = -g -G #-arch sm_20 --ptxas-options=-v
-release: $(EXE)
-$(EXE): $(SRC)
-	$(NVCC) $(KERNEL_DIM) $(SRC) -o $(EXE) $(NVCC_FLAGS) $(LINKER_FLAGS)
+$(EXE): $(OBJ)
+	$(SYSTEM_LINKER) $(OBJ) -o $(EXE) $(SYSTEM_LINKER_FLAGS)
+
+$(OBJ): $(SRC)
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@ -I../util
 
 enum: $(SRC)
 	$(NVCC) $(KERNEL_DIM) $(FLAGS) -deviceemu $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 

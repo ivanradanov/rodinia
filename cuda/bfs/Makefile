@@ -6,24 +6,15 @@ include ../../common/make.config
 #
 
 SRC = bfs.cu
-
+OBJ = bfs.o
 EXE = bfs.out
 
-$(EXE): $(SRC)
-	$(NVCC) $(NVCC_FLAGS) $(SRC) -o $(EXE) -I../util $(LINKER_FLAGS)
+$(EXE): $(OBJ)
+	$(SYSTEM_LINKER) $(OBJ) -o $(EXE) $(SYSTEM_LINKER_FLAGS)
 
-clang: $(SRC)
-	clang++ $(SRC) -o $(EXE) -I../util --cuda-gpu-arch=sm_20 \
-		-L/usr/local/cuda/lib64 -lcudart_static -ldl -lrt -pthread -DTIMING
+$(OBJ): $(SRC)
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@ -I../util
 
-enum: $(SRC)
-	$(CC) -deviceemu $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 
-
-debug: $(SRC)
-	$(CC) -g $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 
-
-debugenum: $(SRC)
-	$(CC) -g -deviceemu $(SRC) -o $(EXE) -I$(INCLUDE) -L$(CUDA_LIB_DIR) 
 
 clean: $(SRC)
-	rm -f $(EXE) $(EXE).linkinfo result.txt
+	rm -f $(EXE) $(EXE).linkinfo result.txt *.o

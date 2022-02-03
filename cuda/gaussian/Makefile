@@ -9,8 +9,11 @@ EXE = gaussian
 
 release: $(EXE)
 
-$(EXE): $(SRC)
-	$(NVCC) $(KERNEL_DIM) $(SRC) -o $(EXE) $(NVCC_FLAGS) $(LINKER_FLAGS)
+$(EXE): gaussian.o
+	$(SYSTEM_LINKER) gaussian.o -o $(EXE) $(SYSTEM_LINKER_FLAGS)
+
+gaussian.o: $(SRC)
+	$(NVCC) $(KERNEL_DIM) -c $(SRC) -o gaussian.o $(NVCC_FLAGS)
 
 clang: $(SRC)
 	clang++ $(SRC) -o $(EXE) -I../util --cuda-gpu-arch=sm_20 \
