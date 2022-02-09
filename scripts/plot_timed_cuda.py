@@ -7,7 +7,11 @@ import matplotlib.pyplot as plt
 def plot_file_summaries(files, **kwargs):
     plot_summaries([create_file_timing_data_summary(read_timing_data_from_file(f)) for f in files], **kwargs)
 
-def plot_min_summaries(summaries):
+def plot_min_summaries(summaries, legend = None):
+
+    if legend is None:
+        legend = [str(summary[0]) for summary in summaries]
+
     normalize = 0
     kernels = sorted(list(set.union(*[get_summary_kernels(summary) for summary in summaries])))
     data_points = [[(summary[1][kernel] if i == normalize else summary[1][kernel]['time'])
@@ -29,12 +33,12 @@ def plot_min_summaries(summaries):
     rects = [ax.bar(x + i * width - len(data_point_i_s) * width / 2 + width / 2,
                     data_points[data_point_i_s[i]],
                     width,
-                    label = str(summaries[data_point_i_s[i]][0]))
+                    label = legend[data_point_i_s[i]][0])
              for i in range(len(data_point_i_s))]
     labels = [ax.bar_label(rects[i], labels = at_threads[i]) for i in range(len(summaries) - 1)]
 
     if normalize != -1:
-        ax.axhline(1.0, color='gray', label = str(summaries[normalize][0]))
+        ax.axhline(1.0, color='gray', label = legend[normalize])
 
     if normalize == -1:
         ax.set_ylabel('time (s)')
@@ -54,12 +58,16 @@ def plot_min_summaries(summaries):
 
     plt.show()
 
-def plot_summaries(summaries, normalize = 0):
+def plot_summaries(summaries, normalize = 0, legend = None):
     colors = ['C0' if 'openmp' in summary[0]['compilername'] else
               'C1' if 'cpucuda' in summary[0]['compilername'] else
               'C2' if 'polygeist' in summary[0]['compilername'] else
               None
               for summary in summaries]
+
+    if legend is None:
+        legend = [str(summary[0]) for summary in summaries]
+
     all_kernels = sorted(list(set.union(*[get_summary_kernels(summary) for summary in summaries])))
     kernels = sorted(list(get_summary_kernels(summaries[0])))
 
@@ -83,14 +91,14 @@ def plot_summaries(summaries, normalize = 0):
     rects = [ax.bar(x + i * width - len(data_point_i_s) * width / 2 + width / 2,
                     data_points[data_point_i_s[i]],
                     width,
-                    label = str(summaries[data_point_i_s[i]][0]),
+                    label = legend[data_point_i_s[i]],
                     color=colors[data_point_i_s[i]])
              for i in range(len(data_point_i_s))]
     [ax.bar_label(bars, fmt='%.2f') for bars in rects]
     #labels = [ax.bar_label(rects[i], labels = ('x' + str(data_points[data_point_i_s[i]]) if data_points[data_point_i_s[i]] != 0 else '')) for i in range(len(data_point_i_s))]
 
     if normalize != -1:
-        ax.axhline(1.0, color='gray', label = str(summaries[normalize][0]))
+        ax.axhline(1.0, color='gray', label = legend[normalize])
 
     if normalize == -1:
         ax.set_ylabel('time (s)')
@@ -100,7 +108,9 @@ def plot_summaries(summaries, normalize = 0):
     ax.set_title('Runtime of kernels')
     ax.set_xticks(x)
     ax.set_xticklabels(kernels, rotation = 90)
-    ax.legend()
+    #ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.5))
+
     '''
     for i in range(len(summaries)):
         ax.bar_label(rects[i], padding = 3, rotation = 90)
