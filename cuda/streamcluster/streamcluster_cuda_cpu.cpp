@@ -753,7 +753,7 @@ void outcenterIDs( Points* centers, long* centerIDs, char* outfile ) {
   fclose(fp);
 }
 
-void streamCluster( PStream* stream, 
+void streamCluster( SimStream* stream, 
 		    long kmin, long kmax, int dim,
 		    long chunksize, long centersize, char* outfile )
 {
@@ -895,13 +895,13 @@ int main(int argc, char **argv)
   nproc = atoi(argv[9]);
 
   srand48(SEED);
-  PStream* stream;
-  if( n > 0 ) {
+  SimStream* stream;
+  //if( n > 0 ) {
     stream = new SimStream(n);
-  }
-  else {
-    stream = new FileStream(infilename);
-  }
+    //}
+    //else {
+    //stream = new FileStream(infilename);
+    //}
 
   double t1 = gettime();
 

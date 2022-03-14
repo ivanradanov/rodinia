@@ -60,17 +60,9 @@ struct pkmedian_arg_t
   pthread_barrier_t* barrier;
 };
 
-class PStream {
-public:
-  virtual size_t read( float* dest, int dim, int num ) = 0;
-  virtual int ferror() = 0;
-  virtual int feof() = 0;
-  virtual ~PStream() {
-  }
-};
 
 //synthetic stream
-class SimStream : public PStream {
+class SimStream {
 public:
   SimStream(long n_ ) {
     n = n_;
@@ -98,7 +90,7 @@ private:
   long n;
 };
 
-class FileStream : public PStream {
+class FileStream {
 public:
   FileStream(char* filename) {
     fp = fopen( filename, "rb");
@@ -142,7 +134,7 @@ void copycenters(Points*, Points*, long*, long);
 void* localSearchSub(void*);
 void localSearch(Points*, long, long, long*);
 void outcenterIDs(Points*, long*, char*);
-void streamCluster(PStream*, long, long, int, long, long, char*);
+void streamCluster(SimStream*, long, long, int, long, long, char*);
 float pgain(long, Points*, float, long int*, int, bool*, int*, bool*, bool, double*, double*, double*, double*, double*, double*);
 void allocDevMem(int, int, int);
 void allocHostMem(int, int, int);

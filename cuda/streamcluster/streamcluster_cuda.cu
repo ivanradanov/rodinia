@@ -281,7 +281,7 @@ float pgain(long x, Points *points, float z, long int *numcenters, int kmax, boo
 	CUDA_SAFE_CALL( cudaMemcpy(work_mem_h, 		  work_mem_d, 	stride * (nThread + 1) * sizeof(float), cudaMemcpyDeviceToHost) );
 	CUDA_SAFE_CALL( cudaMemcpy(switch_membership, switch_membership_d,	 num * sizeof(bool),  cudaMemcpyDeviceToHost) );
 
-	MY_VERIFY_FLOAT_EXACT(work_mem_h, stride * (nThread + 1));
+	MY_VERIFY_FLOAT_CUSTOM(work_mem_h, stride * (nThread + 1), 1.0e-05, 1);
 	MY_VERIFY_RAW(switch_membership, num);
 
 
