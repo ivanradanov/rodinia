@@ -13,21 +13,25 @@
 // #define MY_VERIFICATION_DISABLE to disable verification code
 
 #define MY_FP_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                   \
-	(((X) == (Y)) || (MY_ABS((X) - (Y)) < MY_MAX((ABS_TH), (EPSILON) * MY_MIN((MY_ABS(X) + MY_ABS(Y)), FP_MAX))))
+  (((X) == (Y)) || (MY_ABS((X) - (Y)) < MY_MAX((ABS_TH), (EPSILON) * MY_MIN((MY_ABS(X) + MY_ABS(Y)), FP_MAX))))
 
 #define MY_INT_STYLE_EQ(X, Y, ABS_TH, EPSILON, FP_MAX)                  \
-	((X) == (Y))
+  ((X) == (Y))
 
 #define MY_DEVICE_VERIFY_INT(ARRAY_PTR, SIZE)                           \
-  _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, int, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
+  _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), int, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
 #define MY_DEVICE_VERIFY_RAW(ARRAY_PTR, SIZE)                           \
-  _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
+  _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), char, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
 #define MY_DEVICE_VERIFY_CHAR(ARRAY_PTR, SIZE)                          \
-  _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, char, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
+  _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), char, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
 #define MY_DEVICE_VERIFY_FLOAT(ARRAY_PTR, SIZE)                         \
-  _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, float, MY_FP_STYLE_EQ, "%.9g", FLT_MIN, (FLT_EPSILON * 256), FLT_MAX)
+  _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), float, MY_FP_STYLE_EQ, "%.9g", FLT_MIN, (FLT_EPSILON * 256), FLT_MAX)
 #define MY_DEVICE_VERIFY_DOUBLE(ARRAY_PTR, SIZE)                        \
-  _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, SIZE, double, MY_FP_STYLE_EQ, "%.17g", DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
+  _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), double, MY_FP_STYLE_EQ, "%.17g", DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
+#define MY_DEVICE_VERIFY_FLOAT_CUSTOM(ARRAY_PTR, SIZE, C1, C2)          \
+  _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), float, MY_FP_STYLE_EQ, "%.9g", C1, (C2 * FLT_EPSILON * 256), FLT_MAX)
+#define MY_DEVICE_VERIFY_DOUBLE_CUSTOM(ARRAY_PTR, SIZE, C1, C2)         \
+  _MY_DEVICE_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), double, MY_FP_STYLE_EQ, "%.17g", C1, (C2 * DBL_EPSILON * 256), DBL_MAX)
 
 #define MY_VERIFY_INT(ARRAY_PTR, SIZE)                                  \
   _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), int, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
@@ -36,17 +40,17 @@
 #define MY_VERIFY_CHAR(ARRAY_PTR, SIZE)                                 \
   _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), char, MY_INT_STYLE_EQ, "%d", 0, 0, 0)
 #define MY_VERIFY_FLOAT_CUSTOM(ARRAY_PTR, SIZE, C1, C2)                 \
-	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), float, MY_FP_STYLE_EQ, "%.9g", C1, (C2 * FLT_EPSILON * 256), FLT_MAX)
+  _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), float, MY_FP_STYLE_EQ, "%.9g", C1, (C2 * FLT_EPSILON * 256), FLT_MAX)
 #define MY_VERIFY_FLOAT_EXACT(ARRAY_PTR, SIZE)                          \
   _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), float, MY_FP_STYLE_EQ, "%.9g", FLT_MIN, (FLT_EPSILON * 256), FLT_MAX)
 #define MY_VERIFY_DOUBLE_CUSTOM(ARRAY_PTR, SIZE, C1, C2)                \
-	_MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), double, MY_FP_STYLE_EQ, "%.17g", C1, (C2 * DBL_EPSILON * 256), DBL_MAX)
+  _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), double, MY_FP_STYLE_EQ, "%.17g", C1, (C2 * DBL_EPSILON * 256), DBL_MAX)
 #define MY_VERIFY_DOUBLE_EXACT(ARRAY_PTR, SIZE)                         \
   _MY_VERIFY(ARRAY_PTR, #ARRAY_PTR, (SIZE), double, MY_FP_STYLE_EQ, "%.17g", DBL_MIN, (DBL_EPSILON * 256), DBL_MAX)
 
 #ifdef MY_VERIFICATION_DISABLE
 #define _MY_DEVICE_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
-	do {} while (0)
+  do {} while (0)
 #else
 #define _MY_DEVICE_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
   do { \
@@ -54,7 +58,7 @@
     cudaMemcpy(host_mem, ARRAY_PTR, sizeof(TYPE) * (SIZE), cudaMemcpyDeviceToHost); \
     _MY_VERIFY(host_mem, ARRAY_NAME, (SIZE), TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX); \
     free(host_mem); \
-	} while (0)
+  } while (0)
 #endif
 
 #define MY_S(x) #x
@@ -67,7 +71,7 @@
 
 #ifdef MY_VERIFICATION_DISABLE
 #define _MY_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
-	do {} while (0)
+  do {} while (0)
 #else
 #define _MY_VERIFY(ARRAY_PTR, ARRAY_NAME, SIZE, TYPE, EQ, TYPE_PRINTF_SPECIFIER, ABS_TH, EPSILON, FP_MAX) \
   do { \
@@ -89,11 +93,11 @@
         fprintf(stderr, "MY_APP_NAME not defined, using empty string\n"); \
         app_name = empty; \
       } \
-      char verification_id[strlen(src_filename) + strlen(MY_S__LINE__) + 2]; \
+      char *verification_id = (char *) malloc(strlen(src_filename) + strlen(MY_S__LINE__) + 2); \
       sprintf(verification_id, "%s:%s", src_filename, MY_S__LINE__); \
-      char verification_file[strlen(verification_id) + strlen(verification_dir) + strlen(app_name) + 3]; \
+      char *verification_file = (char *) malloc(strlen(verification_id) + strlen(verification_dir) + strlen(app_name) + 3); \
       sprintf(verification_file, "%s/%s/%s", verification_dir, app_name, verification_id); \
-      char verification_app_dir[strlen(verification_dir) + strlen(app_name) + 2]; \
+      char *verification_app_dir = (char *) malloc(strlen(verification_dir) + strlen(app_name) + 2); \
       sprintf(verification_app_dir, "%s/%s", verification_dir, app_name); \
       if (getenv("MY_VERIFICATION_DUMP")) { \
         mkdir(verification_app_dir, 0777); \
@@ -146,6 +150,9 @@
         free(data); \
         fclose(f); \
       } \
+      free(verification_id); \
+      free(verification_file); \
+      free(verification_app_dir); \
     } \
   } while (0)
 #endif
