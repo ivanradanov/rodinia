@@ -770,9 +770,9 @@ void particleFilter(unsigned char * I, int IszX, int IszY, int Nfr, int * seed, 
     check_error(cudaMemcpy(weights, weights_GPU, sizeof (double) *Nparticles, cudaMemcpyDeviceToHost));
     long long back_end_time = get_time();
 
-    MY_VERIFY_DOUBLE_EXACT(arrayX, Nparticles);
-    MY_VERIFY_DOUBLE_EXACT(arrayY, Nparticles);
-    MY_VERIFY_DOUBLE_EXACT(weights, Nparticles);
+    MY_VERIFY_DOUBLE_CUSTOM(arrayX, Nparticles, 3.0, 1);
+    MY_VERIFY_DOUBLE_CUSTOM(arrayY, Nparticles, 3.0, 1);
+    MY_VERIFY_DOUBLE_CUSTOM(weights, Nparticles, 0.6, 1);
 
     printf("GPU Execution: %lf\n", elapsed_time(send_end, back_time));
     printf("FREE TIME: %lf\n", elapsed_time(back_time, free_time));
