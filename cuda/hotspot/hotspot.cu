@@ -234,7 +234,7 @@ int compute_tran_temp(float *MatrixPower,float *MatrixTemp[2], int col, int row,
 
 	float max_slope = MAX_PD / (FACTOR_CHIP * t_chip * SPEC_HEAT_SI);
 	float step = PRECISION / max_slope;
-	float t;
+	int t;
         float time_elapsed;
 	time_elapsed=0.001;
 
