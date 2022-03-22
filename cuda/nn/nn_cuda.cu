@@ -198,6 +198,7 @@ int main(int argc, char* argv[])
 #ifdef  TIMING
     printf("Exec: %f\n", kernel_time);
 #endif
+    return 0;
 }
 
 int loadData(char *filename,std::vector<Record> &records,std::vector<LatLong> &locations){
