@@ -6,7 +6,54 @@ import csv
 import statistics
 import matplotlib.pyplot as plt
 
-with_barriers = [
+measurements_polygeist = [
+        'nw needle_cuda_shared_2',
+        'srad_v1 srad2',
+        'hotspot ',
+        'cfd ',
+        'srad_v1 total',
+        'backprop layerforward',
+        'lud ',
+        'nw _total',
+        'srad_v1 reduce',
+        'srad_v1 srad',
+        'particlefilter naive',
+        'gaussian ',
+        'nn euclid',
+        'b+tree findK',
+        'lavaMD ',
+        'nw needle_cuda_shared_1',
+        'myocyte kernel',
+        'srad_v2 srad_cuda_2',
+        'srad_v2 srad_cuda_1',
+        'b+tree findRangeK',
+        'streamcluster kernel_compute_cost',
+        'dwt2d c_CopySrcToComponents',
+        'hotspot3D ',
+        'srad_v1 prepare',
+        'bfs ',
+        'backprop adjust_weights',
+        'dwt2d fdwt53Kernel',
+        'pathfinder ',
+        'srad_v1 compress',
+        'particlefilter float',
+        'srad_v2 total',
+        'nn total']
+measurements_polygeist_with_barriers = [
+        'b+tree findRangeK',
+        'b+tree findK',
+        'backprop adjust_weights', 'backprop layerforward',
+        'dwt2d c_CopySrcToComponents', 'dwt2d fdwt53Kernel',
+        'hotspot ',
+        'lavaMD ',
+        'lud ',
+        'nw _total', 'nw needle_cuda_shared_1', 'nw needle_cuda_shared_2',
+        'particlefilter float', 'particlefilter naive',
+        'pathfinder ',
+        'srad_v1 reduce', 'srad_v1 total',
+        'srad_v2 srad_cuda_1', 'srad_v2 srad_cuda_2', 'srad_v2 total',
+        ]
+measurements_with_barriers = [
         'b+tree findRangeK',
         'b+tree findK',
         'backprop adjust_weights', 'backprop layerforward',
@@ -18,10 +65,15 @@ with_barriers = [
         'lud ',
         'nw _total', 'nw needle_cuda_shared_1', 'nw needle_cuda_shared_2',
         'particlefilter float', 'particlefilter naive',
-        'pathfinder ', 
+        'pathfinder ',
         'srad_v1 reduce', 'srad_v1 total',
         'srad_v2 srad_cuda_1', 'srad_v2 srad_cuda_2', 'srad_v2 total',
         ]
+
+def get_timing_summaries(file_list, only_from = None):
+    return [create_file_timing_data_summary(read_timing_data_from_file(f), only_from=only_from) if type(f) != list else
+            create_file_timing_data_summary(read_timing_data_from_files(f), only_from=only_from)
+            for f in file_list]
 
 def get_last_n_files(last, n):
         dir = os.path.dirname(last)
@@ -90,6 +142,8 @@ def plot_min_summaries(summaries, legend = None, draw_legend = False):
 def plot_summaries(summaries, normalize = 0, legend = None, label_bars = False, log_scale = True, draw_legend = True):
     colors = ['C0' if 'openmp' in summary[0]['compilername'] else
               'C1' if 'cpucuda' in summary[0]['compilername'] else
+              'C5' if 'polygeist.mincut.raise-scf-to-affine.scal-rep=0' in summary[0]['compilername'] else
+              'C6' if 'polygeist.mincut.raise-scf-to-affine.scal-rep=1' in summary[0]['compilername'] else
               'C3' if 'polygeist.mincut' in summary[0]['compilername'] else
               'C4' if 'polygeist.continuation' in summary[0]['compilername'] else
               'C2' if 'polygeist' in summary[0]['compilername'] else
@@ -122,7 +176,7 @@ def plot_summaries(summaries, normalize = 0, legend = None, label_bars = False, 
     rects = [ax.bar(x + i * width - len(data_point_i_s) * width / 2 + width / 2,
                     data_points[data_point_i_s[i]],
                     width,
-                    label = legend[data_point_i_s[i]],
+                    label = None if data_point_i_s[i] != 0 and legend[data_point_i_s[i]] == legend[data_point_i_s[i] - 1] else legend[data_point_i_s[i]],
                     color=colors[data_point_i_s[i]])
              for i in range(len(data_point_i_s))]
     if label_bars:
@@ -140,6 +194,7 @@ def plot_summaries(summaries, normalize = 0, legend = None, label_bars = False, 
         ax.set_yscale('log')
     ax.set_title('Runtime of kernels')
     ax.set_xticks(x)
+    kernels = ['*' + kernel if kernel in measurements_with_barriers else kernel for kernel in kernels]
     ax.set_xticklabels(kernels, rotation = 90)
     if draw_legend:
         #ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)

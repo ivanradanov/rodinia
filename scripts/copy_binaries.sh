@@ -25,9 +25,15 @@ for b in $BM; do
     echo $BINARIES
     for BIN in $BINARIES; do
         DIRNAME=$(dirname $BIN)
-        ACTUAL_TARGET="$TARGET/$SUBDIR/$b/$DIRNAME"
-        echo $BIN "->" $ACTUAL_TARGET
-        rsync -Pa $BIN $ACTUAL_TARGET
+        ACTUAL_TARGET="$TARGET/$SUBDIR/$b/$BIN"
+	if [ $# -eq 1 ]
+	then
+		echo $BIN "->" $ACTUAL_TARGET
+		rsync -Pa $BIN $ACTUAL_TARGET
+	else
+		echo $ACTUAL_TARGET "->" $BIN
+		rsync -Pa $ACTUAL_TARGET $BIN
+	fi
     done
 
 done
