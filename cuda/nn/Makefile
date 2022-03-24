@@ -20,7 +20,7 @@ $(EXE): $(OBJ)
 	$(SYSTEM_LINKER) $(OBJ) -o $(EXE) $(SYSTEM_LINKER_FLAGS)
 
 $(OBJ): $(SRC)
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@ --memref-abi=0
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@ $(POLYGEIST_LLVM_ABI)
 
 clang: $(SRC)
 	clang++ nn_cuda.cu -o nn -I../util --cuda-gpu-arch=sm_20 \
