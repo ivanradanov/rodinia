@@ -219,7 +219,7 @@ void processDWT(struct dwt *d, int forward, int writeVisual)
 int main(int argc, char **argv) 
 {
     int optindex = 0;
-    char ch;
+    signed char ch;
     struct option longopts[] = {
         {"dimension",   required_argument, 0, 'd'}, //dimensions of src img
         {"components",  required_argument, 0, 'c'}, //numger of components of src img
