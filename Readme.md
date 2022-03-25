@@ -11,8 +11,12 @@ http://lava.cs.virginia.edu/Rodinia/download_links.htm in `data/`.
 Create a file defining Makefile variables used in compilation (refer to [common/epyc02.polygeist.host.make.config](common/epyc02.polygeist.host.make.config) or [common/kiev0.nvcc.host.make.config](common/kiev0.nvcc.host.make.config) for an example) and link it to `common/host.make.config`
 ```
 cd common
+# For cuda
 vim my.host.make.config
 ln -s my.host.make.config host.make.config
+# For openmp
+vim my.openmp.host.make.config
+ln -s my.openmp.host.make.config openmp.host.make.config
 ```
 
 This will cause it to be included from the Makefiles
