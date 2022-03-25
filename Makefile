@@ -38,6 +38,12 @@ OCL_DIRS  := backprop bfs cfd gaussian heartwall hotspot kmeans lavaMD leukocyte
 #all: CUDA OMP
 all: TIMED_CUDA TIMED_OPENMP
 
+OPENMP: TIMED_OPENMP
+CUDA: TIMED_CUDA
+omp: TIMED_OPENMP
+openmp: TIMED_OPENMP
+cuda: TIMED_CUDA
+
 TIMED_OPENMP:
 	for dir in $(TIMED_OPENMP_DIRS) ; do cd openmp/$$dir ; make ; cd - ; done
 
@@ -109,22 +115,19 @@ OPENCL:
 	cd opencl/hybridsort;              	make;   cp hybridsort $(CUDA_BIN_DIR)
 	cd opencl/dwt2d;                   	make;   cp dwt2d  $(CUDA_BIN_DIR)
 
-#clean: CUDA_clean OMP_clean OCL_clean
 clean: TIMED_CUDA_clean TIMED_OPENMP_clean
+
+CUDA_clean: TIMED_CUDA_clean
+OPENMP_clean: TIMED_OPENMP_clean
+cuda_clean: TIMED_CUDA_clean
+omp_clean: TIMED_OPENMP_clean
+openmp_clean: TIMED_OPENMP_clean
 
 TIMED_OPENMP_clean:
 	for dir in $(TIMED_OPENMP_DIRS) ; do cd openmp/$$dir ; make clean ; cd - ; done
 
 TIMED_CUDA_clean:
 	for dir in $(TIMED_CUDA_DIRS) ; do cd cuda/$$dir ; make clean ; cd - ; done
-
-CUDA_clean:
-	cd $(CUDA_BIN_DIR) && rm -f *
-	for dir in $(CUDA_DIRS) ; do cd cuda/$$dir && make clean ; cd ../.. ; done
-
-OMP_clean:
-	cd $(OMP_BIN_DIR); rm -f *
-	for dir in $(OMP_DIRS) ; do cd openmp/$$dir ; make clean ; cd ../.. ; done
 
 OCL_clean:
 	cd $(OPENCL_BIN_DIR); rm -f *

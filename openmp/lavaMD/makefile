@@ -1,32 +1,22 @@
 include ../../common/openmp.make.config
-# Example
-# target: dependencies
-	# command 1
-	# command 2
-          # .
-          # .
-          # .
-	# command n
+
 ifdef OUTPUT
 override OUTPUT = -DOUTPUT
 endif
 
-C_C = gcc
-OMP_LIB = -lgomp
-OMP_FLAG = -fopenmp
+C_C = $(CC)
 
 # link objects (binaries) together
 lavaMD:		main.o \
 			./kernel/kernel_cpu.o \
 			./util/num/num.o \
 			./util/timer/timer.o
-	$(C_C)	main.o \
+	$(LINKER)	main.o \
 			./kernel/kernel_cpu.o \
 			./util/num/num.o \
 			./util/timer/timer.o \
 			-lm \
-			$(OMP_LIB) \
-			-o lavaMD $(MY_ADDITIONAL_FLAGS)
+			-o lavaMD $(LINKER_FLAGS)
 # compile function files into objects (binaries)
 main.o:		main.h \
 			main.c \
@@ -39,29 +29,29 @@ main.o:		main.h \
 	$(C_C)	${OUTPUT} main.c \
 			-c \
 			-o main.o \
-			-O3 $(MY_ADDITIONAL_FLAGS)
+			$(CC_FLAGS)
 
 ./kernel/kernel_cpu.o:	./kernel/kernel_cpu.h \
 						./kernel/kernel_cpu.c
 	$(C_C)				./kernel/kernel_cpu.c \
 						-c \
 						-o ./kernel/kernel_cpu.o \
-						-O3 \
-						$(OMP_FLAG) $(MY_ADDITIONAL_FLAGS)
+						\
+						$(OMP_FLAG) $(CC_FLAGS)
 
 ./util/num/num.o:	./util/num/num.h \
 					./util/num/num.c
 	$(C_C)			./util/num/num.c \
 					-c \
 					-o ./util/num/num.o \
-					-O3 $(MY_ADDITIONAL_FLAGS)
+					$(CC_FLAGS)
 
 ./util/timer/timer.o:	./util/timer/timer.h \
 						./util/timer/timer.c
 	$(C_C)				./util/timer/timer.c \
 						-c \
 						-o ./util/timer/timer.o \
-						-O3 $(MY_ADDITIONAL_FLAGS)
+						$(CC_FLAGS)
 
 # delete all object and executable files
 clean:

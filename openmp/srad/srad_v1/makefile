@@ -9,16 +9,16 @@ include ../../../common/openmp.make.config
 	# command n
 
 # link objects(binaries) together
-a.out:	main.o
-	gcc	main.o \
-			-lm -fopenmp -o srad $(MY_ADDITIONAL_FLAGS)
+srad:	main.o
+	$(SYSTEM_LINKER)	main.o \
+			-lm -fopenmp -o srad $(SYSTEM_LINKER_FLAGS)
 
 # compile main function file into object (binary)
 main.o: 	main.c \
 				define.c \
 				graphics.c
-	gcc	main.c \
-			-c -O3 -fopenmp $(MY_ADDITIONAL_FLAGS)
+	$(CC)	main.c \
+			-c $(CC_FLAGS) -o main.o
 
 # delete all object files
 clean:

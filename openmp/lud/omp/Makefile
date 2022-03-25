@@ -1,7 +1,4 @@
 include ../../../common/openmp.make.config
-# Makefile for LU Decomposition
-#
-#
 
 # DEBUG can be set to YES to include debugging info, or NO otherwise
 DEBUG          := NO
@@ -16,13 +13,18 @@ EXECUTABLE      := lud_omp
 SOURCES         := lud.c lud_omp.c ../common/common.c 
 
 # ------------  compiler  ------------------------------------------------------
-CC              := gcc
-CXX             := g++
+#CC              := gcc
+#CXX             := g++
 
 # ------------  compiler flags  ------------------------------------------------
-DEBUG_CFLAGS    := -Wall -O0 -g
-RELEASE_CFLAGS  := -Wall -O3 
+DEBUG_CFLAGS    := $(CC_FLAGS) -Wall -O0 -g
+RELEASE_CFLAGS  := $(CC_FLAGS) -Wall -O3 
 COMMON_CFLAGS   := -fopenmp
+
+DEBUG_CXXFLAGS    := $(CXX_FLAGS) -Wall -O0 -g
+RELEASE_CXXFLAGS  := $(CXX_FLAGS) -Wall -O3 
+COMMON_CFLAGS   := -fopenmp
+
 
 # ------------  compiler defs  ------------------------------------------------
 DEBUG_CDEFS    := 
@@ -30,8 +32,8 @@ RELEASE_CDEFS  :=
 COMMON_CDEFS   := 
 
 # ------------  linker flags  --------------------------------------------------
-DEBUG_LDFLAGS    := -g
-RELEASE_LDFLAGS  := 
+DEBUG_LDFLAGS    := $(LINKER_FLAGS) -g
+RELEASE_LDFLAGS  := $(LINKER_FLAGS)
 COMMON_LDFLAGS   := -fopenmp 
 
 ifeq (YES, ${DEBUG})
@@ -92,9 +94,9 @@ OBJECTS         = $(addsuffix .o,$(BASENAMES))
 # ------------  make the executable (the default goal)  ------------------------
 $(EXECUTABLE):	$(OBJECTS)
 ifeq ($(strip $(CPP_SOURCES)),)
-	$(CC)  $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS) $(MY_ADDITIONAL_FLAGS)
+	$(LINKER)  $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS)
 else
-	$(CXX) $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS) $(MY_ADDITIONAL_FLAGS)
+	$(LINKER) $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS)
 endif
 
 # ------------  make the objects  ----------------------------------------------

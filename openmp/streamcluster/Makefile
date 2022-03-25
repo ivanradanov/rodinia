@@ -12,7 +12,7 @@ ifdef version
   endif
 endif
 
-all: cpu omp
+all: omp # cpu
 
 cpu: $(TARGET_C)
 $(TARGET_C):
@@ -20,7 +20,7 @@ $(TARGET_C):
 
 omp: $(TARGET_O)
 $(TARGET_O):
-	g++ -O3 -fopenmp -o $(TARGET_O) streamcluster_omp.cpp $(MY_ADDITIONAL_FLAGS)
+	$(CXX) -o $(TARGET_O) streamcluster_omp.cpp $(CXX_FLAGS) $(LINKER_FLAGS)
 
 
 clean:

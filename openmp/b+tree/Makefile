@@ -1,9 +1,6 @@
 include ../../common/openmp.make.config
 
-C_C = gcc
-OMP_LIB = -lgomp
-OMP_FLAG = -fopenmp
-OMP_FLAGS += $(MY_ADDITIONAL_FLAGS)
+C_C = $(CC)
 
 # ========================================================================================================================================================================================================200
 #	EXECUTABLES (LINK OBJECTS TOGETHER INTO BINARY)
@@ -14,13 +11,13 @@ b+tree.out:	./main.o \
 		./kernel/kernel_cpu_2.o \
 		./util/timer/timer.o \
 		./util/num/num.o
-	$(C_C)	./main.o \
+	$(LINKER)	./main.o \
 			./kernel/kernel_cpu.o \
 			./kernel/kernel_cpu_2.o \
 			./util/timer/timer.o \
 			./util/num/num.o \
 			-lm \
-			$(OMP_LIB) \
+			$(LINKER_FLAGS) \
                         -o b+tree.out
 # ========================================================================================================================================================================================================200
 #	OBJECTS (COMPILE SOURCE FILES INTO OBJECTS)
@@ -36,7 +33,7 @@ main.o:	./common.h \
 	$(C_C)	./main.c \
 			-c \
 			-o ./main.o \
-			-O3 $(MY_ADDITIONAL_FLAGS)
+			$(CC_FLAGS)
 
 # ======================================================================================================================================================150
 #	KERNELS
@@ -48,8 +45,8 @@ main.o:	./common.h \
 	$(C_C)	./kernel/kernel_cpu.c \
 			-c \
 			-o ./kernel/kernel_cpu.o \
-			-O3 \
-			$(OMP_FLAG) $(MY_ADDITIONAL_FLAGS)
+			\
+			$(CC_FLAGS)
 
 ./kernel/kernel_cpu_2.o:./common.h \
 						./kernel/kernel_cpu_2.h \
@@ -57,8 +54,8 @@ main.o:	./common.h \
 	$(C_C)	./kernel/kernel_cpu_2.c \
 			-c \
 			-o ./kernel/kernel_cpu_2.o \
-			-O3 \
-			$(OMP_FLAG) $(MY_ADDITIONAL_FLAGS)
+			\
+			$(CC_FLAGS)
 
 # ======================================================================================================================================================150
 #	UTILITIES
@@ -70,7 +67,7 @@ main.o:	./common.h \
 	$(C_C)	./util/timer/timer.c \
 			-c \
 			-o ./util/timer/timer.o \
-			-O3 $(MY_ADDITIONAL_FLAGS)
+			$(CC_FLAGS)
 
 ./util/num/num.o:	./common.h \
 					./util/num/num.h \
@@ -78,7 +75,7 @@ main.o:	./common.h \
 	$(C_C)	./util/num/num.c \
 			-c \
 			-o ./util/num/num.o \
-			-O3 $(MY_ADDITIONAL_FLAGS)
+			$(CC_FLAGS)
 
 # ======================================================================================================================================================150
 #	END

@@ -10,9 +10,9 @@ include ../../common/openmp.make.config
 
 # link objects(binaries) together
 myocyte.out:	main.o
-	gcc	main.o \
+	$(LINKER)	main.o \
 			-lm -fopenmp \
-	-o myocyte.out $(MY_ADDITIONAL_FLAGS)
+	-o myocyte.out $(LINKER_FLAGS)
 
 # compile main function file into object (binary)
 main.o: 	main.c \
@@ -25,8 +25,8 @@ main.o: 	main.c \
 				solver.c \
 				file.c \
 				timer.c
-	gcc	main.c \
-			-c -O3 -fopenmp $(MY_ADDITIONAL_FLAGS)
+	$(CC)	main.c \
+			-c -O3 -fopenmp $(CC_FLAGS)
 
 # delete all object files
 clean:
