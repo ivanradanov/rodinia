@@ -17,12 +17,12 @@ SOURCES         := lud.c lud_omp.c ../common/common.c
 #CXX             := g++
 
 # ------------  compiler flags  ------------------------------------------------
-DEBUG_CFLAGS    := $(CC_FLAGS) -Wall -O0 -g
-RELEASE_CFLAGS  := $(CC_FLAGS) -Wall -O3 
+DEBUG_CFLAGS    := $(CC_FLAGS) -O0 -g
+RELEASE_CFLAGS  := $(CC_FLAGS) -O3 
 COMMON_CFLAGS   := -fopenmp
 
-DEBUG_CXXFLAGS    := $(CXX_FLAGS) -Wall -O0 -g
-RELEASE_CXXFLAGS  := $(CXX_FLAGS) -Wall -O3 
+DEBUG_CXXFLAGS    := $(CXX_FLAGS) -O0 -g
+RELEASE_CXXFLAGS  := $(CXX_FLAGS) -O3 
 COMMON_CFLAGS   := -fopenmp
 
 
@@ -94,9 +94,9 @@ OBJECTS         = $(addsuffix .o,$(BASENAMES))
 # ------------  make the executable (the default goal)  ------------------------
 $(EXECUTABLE):	$(OBJECTS)
 ifeq ($(strip $(CPP_SOURCES)),)
-	$(LINKER)  $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS)
+	$(SYSTEM_LINKER)  $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS)
 else
-	$(LINKER) $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS)
+	$(SYSTEM_LINKER) $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS)
 endif
 
 # ------------  make the objects  ----------------------------------------------

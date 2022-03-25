@@ -1020,17 +1020,8 @@ void localSearch( Points* points, long kmin, long kmax, long* kfinal ) {
  
 }
 
-class PStream {
-public:
-  virtual size_t read( float* dest, int dim, int num ) = 0;
-  virtual int ferror() = 0;
-  virtual int feof() = 0;
-  virtual ~PStream() {
-  }
-};
-
 //synthetic stream
-class SimStream : public PStream {
+class SimStream {
 public:
   SimStream(long n_ ) {
     n = n_;
@@ -1058,7 +1049,7 @@ private:
   long n;
 };
 
-class FileStream : public PStream {
+class FileStream {
 public:
   FileStream(char* filename) {
     fp = fopen( filename, "rb");
@@ -1108,7 +1099,7 @@ void outcenterIDs( Points* centers, long* centerIDs, char* outfile ) {
   fclose(fp);
 }
 
-void streamCluster( PStream* stream, 
+void streamCluster( SimStream* stream, 
 		    long kmin, long kmax, int dim,
 		    long chunksize, long centersize, char* outfile )
 {
@@ -1255,13 +1246,8 @@ int main(int argc, char **argv)
 	//omp_set_num_threads(ompthreads);
 	
   srand48(SEED);
-  PStream* stream;
-  if( n > 0 ) {
-    stream = new SimStream(n);
-  }
-  else {
-    stream = new FileStream(infilename);
-  }
+  SimStream* stream;
+  stream = new SimStream(n);
 
   double t1 = gettime();
 
