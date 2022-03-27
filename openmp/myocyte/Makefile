@@ -10,9 +10,9 @@ include ../../common/openmp.make.config
 
 # link objects(binaries) together
 myocyte.out:	main.o
-	$(LINKER)	main.o \
+	$(SYSTEM_LINKER) main.o \
 			-lm -fopenmp \
-	-o myocyte.out $(LINKER_FLAGS)
+	-o myocyte.out $(SYSTEM_LINKER_FLAGS)
 
 # compile main function file into object (binary)
 main.o: 	main.c \

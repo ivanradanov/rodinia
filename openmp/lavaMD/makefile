@@ -11,12 +11,12 @@ lavaMD:		main.o \
 			./kernel/kernel_cpu.o \
 			./util/num/num.o \
 			./util/timer/timer.o
-	$(LINKER)	main.o \
+	$(SYSTEM_LINKER)	main.o \
 			./kernel/kernel_cpu.o \
 			./util/num/num.o \
 			./util/timer/timer.o \
 			-lm \
-			-o lavaMD $(LINKER_FLAGS)
+			-o lavaMD $(SYSTEM_LINKER_FLAGS)
 # compile function files into objects (binaries)
 main.o:		main.h \
 			main.c \
