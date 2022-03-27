@@ -22,17 +22,17 @@ euler3d: euler3d.o
 
 
 euler3d.o: euler3d.cu
-	$(NVCC) $(KERNEL_DIM) -O2 -c euler3d.cu -o euler3d.o -I$(CUDA_SDK_PATH)/common/inc  -L$(CUDA_SDK_PATH)/lib $(CUTIL_LIB) -lstdc++
+	$(NVCC) $(KERNEL_DIM) -O2 -c euler3d.cu -o euler3d.o -I$(CUDA_SDK_PATH)/common/inc  -L$(CUDA_SDK_PATH)/lib $(CUTIL_LIB) -lstdc++ -I ../hybridsort
 
 euler3d_double: euler3d_double.cu
-	$(NVCC) -Xptxas -v -O3 euler3d_double.cu -o euler3d_double -I$(CUDA_SDK_PATH)/common/inc  -L$(CUDA_SDK_PATH)/lib $(CUTIL_LIB)
+	$(NVCC) -Xptxas -v -O3 euler3d_double.cu -o euler3d_double -I$(CUDA_SDK_PATH)/common/inc  -L$(CUDA_SDK_PATH)/lib $(CUTIL_LIB) -I ../hybridsort
 
 
 pre_euler3d: pre_euler3d.cu
-	$(NVCC) -Xptxas -v -O3 pre_euler3d.cu -o pre_euler3d -I$(CUDA_SDK_PATH)/common/inc  -L$(CUDA_SDK_PATH)/lib $(CUTIL_LIB)
+	$(NVCC) -Xptxas -v -O3 pre_euler3d.cu -o pre_euler3d -I$(CUDA_SDK_PATH)/common/inc  -L$(CUDA_SDK_PATH)/lib $(CUTIL_LIB) -I ../hybridsort
 
 pre_euler3d_double: pre_euler3d_double.cu
-	$(NVCC) -Xptxas -v -O3 pre_euler3d_double.cu -o pre_euler3d_double -I$(CUDA_SDK_PATH)/common/inc  -L$(CUDA_SDK_PATH)/lib $(CUTIL_LIB)
+	$(NVCC) -Xptxas -v -O3 pre_euler3d_double.cu -o pre_euler3d_double -I$(CUDA_SDK_PATH)/common/inc  -L$(CUDA_SDK_PATH)/lib $(CUTIL_LIB) -I ../hybridsort
 
 
 clean:

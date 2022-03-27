@@ -27,8 +27,6 @@
 
 #define MAX_THREADS_PER_BLOCK 512
 
-int no_of_nodes;
-int edge_list_size;
 FILE *fp;
 
 #ifdef TIMING
@@ -60,8 +58,6 @@ void BFSGraph(int argc, char** argv);
 ////////////////////////////////////////////////////////////////////////////////
 int main( int argc, char** argv) 
 {
-	no_of_nodes=0;
-	edge_list_size=0;
 	BFSGraph( argc, argv);
 }
 
@@ -75,7 +71,8 @@ fprintf(stderr,"Usage: %s <input_file>\n", argv[0]);
 ////////////////////////////////////////////////////////////////////////////////
 void BFSGraph( int argc, char** argv) 
 {
-
+	int no_of_nodes=0;
+	int edge_list_size=0;
     char *input_f;
 	if(argc!=2){
 	Usage(argc, argv);
