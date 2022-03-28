@@ -65,3 +65,5 @@ openmp/nw/needle
 openmp/particlefilter/particle_filter
 openmp/pathfinder/out
 openmp/pathfinder/pathfinder
+
+*.mlir
