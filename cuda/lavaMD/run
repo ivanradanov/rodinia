@@ -1,1 +1,3 @@
+#./lavaMD -boxes1d 20
 ./lavaMD -boxes1d 10
+

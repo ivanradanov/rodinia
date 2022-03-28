@@ -331,9 +331,9 @@ int main(int argc, char *argv []){
 	//================================================================================80
 
 	// #pragma omp parallel
-	for (i=0; i<Ne; i++) {													// do for the number of elements in IMAGE
+	/*for (i=0; i<Ne; i++) {													// do for the number of elements in IMAGE
 		image[i] = log(image[i])*255;													// take logarithm of image, log compress
-	}
+	}*/
 
 	time8 = get_time();
 
@@ -341,12 +341,12 @@ int main(int argc, char *argv []){
 	// 	WRITE IMAGE AFTER PROCESSING
 	//================================================================================80
 
-	write_graphics(	"image_out.pgm",
+	/*write_graphics(	"image_out.pgm",
 								image,
 								Nr,
 								Nc,
 								1,
-								255);
+								255);*/
 
 	time9 = get_time();
 

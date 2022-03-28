@@ -1,1 +1,2 @@
-./hotspot 512 2 2 ../../data/hotspot/temp_512 ../../data/hotspot/power_512 output.out
+./hotspot 1024 2 32 ../../data/hotspot/temp_1024 ../../data/hotspot/power_1024 /dev/null
+#./hotspot 512 2 2 ../../data/hotspot/temp_512 ../../data/hotspot/power_512 output.out
