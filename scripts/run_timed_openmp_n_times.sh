@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 if command -v numactl &> /dev/null
 then

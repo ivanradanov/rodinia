@@ -2,7 +2,7 @@
 
 echo -n cfd ""
 echo -n gaussian ""
-#echo -n particlefilter ""
+echo -n particlefilter ""
 echo -n lavaMD ""
 echo -n streamcluster ""
 echo -n lud ""

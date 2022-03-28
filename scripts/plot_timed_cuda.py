@@ -39,6 +39,20 @@ measurements_polygeist = [
         'particlefilter float',
         'srad_v2 total',
         'nn total']
+measurements_polygeist_kernels_with_barriers = [
+        'b+tree findRangeK',
+        'b+tree findK',
+        'backprop adjust_weights', 'backprop layerforward',
+        'dwt2d c_CopySrcToComponents', 'dwt2d fdwt53Kernel',
+        'hotspot ',
+        'lavaMD ',
+        'lud ',
+        'nw needle_cuda_shared_1', 'nw needle_cuda_shared_2',
+        'particlefilter float', 'particlefilter naive',
+        'pathfinder ',
+        'srad_v1 reduce',
+        'srad_v2 srad_cuda_1', 'srad_v2 srad_cuda_2',
+        ]
 measurements_polygeist_with_barriers = [
         'b+tree findRangeK',
         'b+tree findK',
@@ -139,7 +153,7 @@ def plot_min_summaries(summaries, legend = None, draw_legend = False):
 
     plt.show()
 
-def plot_summaries(summaries, normalize = 0, legend = None, label_bars = False, log_scale = True, draw_legend = True):
+def plot_summaries(summaries, normalize = 0, legend = None, label_bars = False, log_scale = True, draw_legend = True, legend_anchor = None):
     colors = ['C0' if 'openmp' in summary[0]['compilername'] else
               'C1' if 'cpucuda' in summary[0]['compilername'] else
               'C5' if 'polygeist.mincut.raise-scf-to-affine.scal-rep=0' in summary[0]['compilername'] else
@@ -198,7 +212,9 @@ def plot_summaries(summaries, normalize = 0, legend = None, label_bars = False, 
     ax.set_xticklabels(kernels, rotation = 90)
     if draw_legend:
         #ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.5))
+        if legend_anchor == None:
+            legend_anchor = (0.5, -0.5)
+        ax.legend(loc='upper center', bbox_to_anchor=legend_anchor)
 
     '''
     for i in range(len(summaries)):
