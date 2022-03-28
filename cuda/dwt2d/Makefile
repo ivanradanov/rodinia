@@ -94,7 +94,8 @@ COBJS=$(CFILES:.c=.c.o)
 CXXOBJS=$(CXXFILES:.cpp=.cpp.o)
 CUOBJS=$(CUFILES:.cu=.cu.o)
 
-OUTPUT = -DOUTPUT
+#OUTPUT = -DOUTPUT
+OUTPUT =
 
 .SUFFIXES: .c.o .cpp.o .cu.o .cu
 
