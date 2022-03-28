@@ -451,12 +451,12 @@ int main(int argc, char *argv []){
 	// 	WRITE IMAGE AFTER PROCESSING
 	//================================================================================80
 
-	write_graphics(	"image_out.pgm",
+/*	write_graphics(	"image_out.pgm",
 					image,
 					Nr,
 					Nc,
 					1,
-					255);
+					255);*/
 
 	time11 = get_time();
 
