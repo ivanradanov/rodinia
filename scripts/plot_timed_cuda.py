@@ -6,6 +6,36 @@ import csv
 import statistics
 import matplotlib.pyplot as plt
 
+measurements_polygeist_kernels = [
+        'nw needle_cuda_shared_2',
+        'srad_v1 srad2',
+        'hotspot ',
+        'cfd ',
+        'backprop layerforward',
+        'lud ',
+        'srad_v1 reduce',
+        'srad_v1 srad',
+        'particlefilter naive',
+        'gaussian ',
+        'nn euclid',
+        'b+tree findK',
+        #'lavaMD ',
+        'nw needle_cuda_shared_1',
+        'myocyte kernel',
+        'srad_v2 srad_cuda_2',
+        'srad_v2 srad_cuda_1',
+        'b+tree findRangeK',
+        'streamcluster kernel_compute_cost',
+        'dwt2d c_CopySrcToComponents',
+        'hotspot3D ',
+        'srad_v1 prepare',
+        'bfs ',
+        'backprop adjust_weights',
+        'dwt2d fdwt53Kernel',
+        'pathfinder ',
+        'srad_v1 compress',
+        'particlefilter float',
+        ]
 measurements_polygeist = [
         'nw needle_cuda_shared_2',
         'srad_v1 srad2',
@@ -21,7 +51,7 @@ measurements_polygeist = [
         'gaussian ',
         'nn euclid',
         'b+tree findK',
-        'lavaMD ',
+        #'lavaMD ',
         'nw needle_cuda_shared_1',
         'myocyte kernel',
         'srad_v2 srad_cuda_2',
@@ -45,7 +75,7 @@ measurements_polygeist_kernels_with_barriers = [
         'backprop adjust_weights', 'backprop layerforward',
         'dwt2d c_CopySrcToComponents', 'dwt2d fdwt53Kernel',
         'hotspot ',
-        'lavaMD ',
+        #'lavaMD ',
         'lud ',
         'nw needle_cuda_shared_1', 'nw needle_cuda_shared_2',
         'particlefilter float', 'particlefilter naive',
@@ -59,7 +89,7 @@ measurements_polygeist_with_barriers = [
         'backprop adjust_weights', 'backprop layerforward',
         'dwt2d c_CopySrcToComponents', 'dwt2d fdwt53Kernel',
         'hotspot ',
-        'lavaMD ',
+        #'lavaMD ',
         'lud ',
         'nw _total', 'nw needle_cuda_shared_1', 'nw needle_cuda_shared_2',
         'particlefilter float', 'particlefilter naive',
@@ -75,7 +105,7 @@ measurements_with_barriers = [
         'heartwall ',
         'hotspot ',
         'huffman histo_kernel', 'huffman prescanArray', 'huffman vlc_encode_kernel_sm64huff',
-        'lavaMD ',
+        #'lavaMD ',
         'lud ',
         'nw _total', 'nw needle_cuda_shared_1', 'nw needle_cuda_shared_2',
         'particlefilter float', 'particlefilter naive',
@@ -84,10 +114,51 @@ measurements_with_barriers = [
         'srad_v2 srad_cuda_1', 'srad_v2 srad_cuda_2', 'srad_v2 total',
         ]
 
+def prod(l):
+    a = 1
+    for b in l:
+        a *= b
+    return a
+
+def performance_difference_geometric(s1, s2):
+    kernels = set(s1[1].keys()).intersection(set(s2[1].keys()))
+    def get_time(v):
+        return v['time'] if type(v) == dict else v
+    def get_average_runtime(s):
+        return prod([get_time(v) for k, v in s[1].items() if k in kernels]) ** (1 / len(kernels))
+    a1 = get_average_runtime(s1)
+    a2 = get_average_runtime(s2)
+    print('Geometric means:')
+    print('{}: {}'.format(s1[0], a1))
+    print('{}: {}'.format(s2[0], a2))
+    print('factor of {}'.format(a1 / a2 if a1 > a2 else a2 / a1))
+
+def performance_difference(s1, s2):
+    kernels = set(s1[1].keys()).intersection(set(s2[1].keys()))
+    def get_time(v):
+        return v['time'] if type(v) == dict else v
+    def get_average_runtime(s):
+        return sum([get_time(v) for k, v in s[1].items() if k in kernels]) / len(kernels)
+    a1 = get_average_runtime(s1)
+    a2 = get_average_runtime(s2)
+    print('Arithmetic means:')
+    print('{}: {}'.format(s1[0], a1))
+    print('{}: {}'.format(s2[0], a2))
+    print('factor of {}'.format(a1 / a2 if a1 > a2 else a2 / a1))
+
 def get_timing_summaries(file_list, only_from = None):
     return [create_file_timing_data_summary(read_timing_data_from_file(f), only_from=only_from) if type(f) != list else
             create_file_timing_data_summary(read_timing_data_from_files(f), only_from=only_from)
             for f in file_list]
+
+def get_next_n_files(first, n):
+        dir = os.path.dirname(first)
+        files = glob.glob(dir + '/*')
+        files.sort()
+        for i, file in enumerate(files):
+            if file == first:
+                first_i = i;
+        return files[first_i: first_i + n]
 
 def get_last_n_files(last, n):
         dir = os.path.dirname(last)
@@ -153,9 +224,80 @@ def plot_min_summaries(summaries, legend = None, draw_legend = False):
 
     plt.show()
 
+def plot_scaling(file_list, compare = ['openmp.polygeist-clang', 'polygeist.mincut'], only_from = None, legend = None, log_scale = False, title = 'Scaling', draw_legend = True):
+    summaries = get_timing_summaries(file_list, only_from = only_from)
+    all_kernels = sorted(list(set.union(*[get_summary_kernels(summary) for summary in summaries])))
+    all_threads = sorted(list(set.union({int(summary[0]['omp_thread_num']) for summary in summaries})))
+
+    data_points = {}
+    for compiler in compare:
+        data_points[compiler] = {}
+        for kernel in all_kernels:
+            data_points[compiler][kernel] = {thread_num: [] for thread_num in all_threads}
+            for summary in summaries:
+                #print(summary[0]['compilername'], compiler, kernel, summary[1].keys())
+                if summary[0]['compilername'] == compiler and kernel in summary[1].keys():
+                    data_points[compiler][kernel][int(summary[0]['omp_thread_num'])].append(summary[1][kernel])
+
+    #print(data_points)
+
+    fig, ax = plt.subplots()
+
+    for compiler_id, compiler in enumerate(compare):
+        for kernel in all_kernels:
+            xdata = []
+            ydata = []
+
+            for i, thread_num in enumerate(all_threads):
+                l = data_points[compiler][kernel][thread_num]
+                if len(l) != 0:
+                    xdata.append(i)
+                    ydata.append(sum(l) / len(l))
+
+            if len(ydata) <= 1:
+                continue
+
+            for i in range(1, len(ydata)):
+                ydata[i] = ydata[i] / ydata[0]
+            ydata[0] = 1.0
+
+            if len(compare) == 1:
+                color = None
+            else:
+                color = 'C' + str(compiler_id)
+
+            if ydata[1] > 0.6:
+                label = kernel
+            else:
+                label = None
+
+            ax.plot(xdata, ydata, color = color, label = label)
+
+    xdata = list(range(len(all_threads)))
+    ydata = [1 / t for t in all_threads]
+    ax.plot(xdata, ydata, color = 'black', linestyle = 'dotted', label = 'Perfect scaling', linewidth = 3)
+
+    ax.set_ylabel('Relative time')
+    ax.set_xlabel('Number of threads')
+    if log_scale:
+        ax.set_yscale('log')
+    ax.set_title(title)
+    ax.set_xticks(list(range(len(all_threads))))
+    ax.set_xticklabels([str(t) for t in all_threads])
+    #ax.set_xticklabels(kernels, rotation = 90)
+        #if legend_anchor == None:
+            #legend_anchor = (0.5, -0.5)
+    ax.legend(loc='lower left') #, bbox_to_anchor=(0.5, -0.3))
+
+    print('kernels: {}'.format(len(all_kernels)))
+
+    plt.show()
+
+
 def plot_summaries(summaries, normalize = 0, legend = None, label_bars = False, log_scale = True, draw_legend = True, legend_anchor = None):
     colors = ['C0' if 'openmp' in summary[0]['compilername'] else
               'C1' if 'cpucuda' in summary[0]['compilername'] else
+              'C7' if 'barrier-opt=0' in summary[0]['compilername'] else
               'C5' if 'polygeist.mincut.raise-scf-to-affine.scal-rep=0' in summary[0]['compilername'] else
               'C6' if 'polygeist.mincut.raise-scf-to-affine.scal-rep=1' in summary[0]['compilername'] else
               'C3' if 'polygeist.mincut' in summary[0]['compilername'] else
@@ -234,7 +376,7 @@ def create_file_timing_data_summary(data, only_from = None):
     configuration = {
         "hostname": data[0][3],
         "compilername": data[0][4],
-        "omp_thread_num": data[0][5],
+        "omp_thread_num": int(data[0][5]),
     }
     data = [[row[0] + row[1], float(row[2])] for row in data]
     kernels = list({row[0] for row in data})
