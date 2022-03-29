@@ -8,4 +8,5 @@ mkdir -p "$MY_VERIFICATION_DIR"
 
 BM="$($DIR/cuda_apps.sh)"
 
-"$DIR/run_timed_common.sh" "cuda" "$BM"
+"$DIR/run_timed_common.sh" "cuda" "$BM" ./run_verify
+

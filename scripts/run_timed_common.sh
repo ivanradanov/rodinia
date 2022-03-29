@@ -6,6 +6,8 @@ SUBDIR="$1"
 
 bm="$2"
 
+run_script="$3"
+
 TIMEOUT_CMD="timeout 1h"
 
 DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
@@ -37,7 +39,7 @@ for b in $bm; do
 
     export MY_APP_NAME="$(echo -n "$b" | tr / .)"
 
-    ( $TIMEOUT_CMD ./run || echo "FAILED OR TIMED OUT" ) 2>&1 | tee -a "$LOGFILE" | tee >( grep "FAILED OR TIMED OUT" > /dev/null && echo "FAILED OR TIMED OUT" > /dev/tty ) | (grep "result: FAIL" > /dev/null && echo "VERIFICATION FAILED")
+    ( $TIMEOUT_CMD "$run_script" || echo "FAILED OR TIMED OUT" ) 2>&1 | tee -a "$LOGFILE" | tee >( grep "FAILED OR TIMED OUT" > /dev/null && echo "FAILED OR TIMED OUT" > /dev/tty ) | (grep "result: FAIL" > /dev/null && echo "VERIFICATION FAILED")
     true
 done
 

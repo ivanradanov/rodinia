@@ -224,7 +224,7 @@ def plot_min_summaries(summaries, legend = None, draw_legend = False):
 
     plt.show()
 
-def plot_scaling(file_list, compare = ['openmp.polygeist-clang', 'polygeist.mincut'], only_from = None, legend = None, log_scale = False, title = 'Scaling', draw_legend = True):
+def plot_scaling(file_list, compare = ['openmp.polygeist-clang', 'polygeist.mincut'], labels = ['Our approach', 'OpenMP'], only_from = None, legend = None, log_scale = False, title = 'Strong scaling', draw_legend = True):
     summaries = get_timing_summaries(file_list, only_from = only_from)
     all_kernels = sorted(list(set.union(*[get_summary_kernels(summary) for summary in summaries])))
     all_threads = sorted(list(set.union({int(summary[0]['omp_thread_num']) for summary in summaries})))
@@ -241,7 +241,7 @@ def plot_scaling(file_list, compare = ['openmp.polygeist-clang', 'polygeist.minc
 
     #print(data_points)
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(1, len(compare), sharex=True, sharey=True)
 
     for compiler_id, compiler in enumerate(compare):
         for kernel in all_kernels:
@@ -251,44 +251,45 @@ def plot_scaling(file_list, compare = ['openmp.polygeist-clang', 'polygeist.minc
             for i, thread_num in enumerate(all_threads):
                 l = data_points[compiler][kernel][thread_num]
                 if len(l) != 0:
-                    xdata.append(i)
+                    xdata.append(thread_num)
                     ydata.append(sum(l) / len(l))
 
             if len(ydata) <= 1:
                 continue
 
             for i in range(1, len(ydata)):
-                ydata[i] = ydata[i] / ydata[0]
+                ydata[i] = 1 / (ydata[i] / ydata[0])
             ydata[0] = 1.0
 
-            if len(compare) == 1:
+            if True or len(compare) == 1:
                 color = None
             else:
                 color = 'C' + str(compiler_id)
 
-            if ydata[1] > 0.6:
+            if ydata[1] < 1.66:
                 label = kernel
             else:
                 label = None
 
-            ax.plot(xdata, ydata, color = color, label = label)
+            ax[compiler_id].plot(xdata, ydata, color = color, label = label)
 
-    xdata = list(range(len(all_threads)))
-    ydata = [1 / t for t in all_threads]
-    ax.plot(xdata, ydata, color = 'black', linestyle = 'dotted', label = 'Perfect scaling', linewidth = 3)
+    xdata = all_threads
+    ydata = [t for t in all_threads]
+    for i, a in enumerate(ax):
+        a.plot(xdata, ydata, color = 'black', linestyle = 'dotted', label = 'Perfect scaling', linewidth = 3)
 
-    ax.set_ylabel('Relative time')
-    ax.set_xlabel('Number of threads')
-    if log_scale:
-        ax.set_yscale('log')
-    ax.set_title(title)
-    ax.set_xticks(list(range(len(all_threads))))
-    ax.set_xticklabels([str(t) for t in all_threads])
-    #ax.set_xticklabels(kernels, rotation = 90)
-        #if legend_anchor == None:
-            #legend_anchor = (0.5, -0.5)
-    ax.legend(loc='lower left') #, bbox_to_anchor=(0.5, -0.3))
+        a.set_xlabel('Number of threads')
+        a.set_yscale('log')
+        a.set_xscale('log')
+        a.set_title(labels[i])
+        a.set_xticks(all_threads)
+        a.set_xticklabels([str(t) for t in all_threads])
+        a.tick_params(axis='x', which='minor', bottom=False)
+        a.legend(loc='upper center' , bbox_to_anchor=(0.5, -0.2))
 
+    ax[0].set_ylabel('Relative speedup')
+
+    #plt.set_title(title)
     print('kernels: {}'.format(len(all_kernels)))
 
     plt.show()
