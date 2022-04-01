@@ -1,19 +1,19 @@
 #!/bin/bash
 
 echo -n cfd ""
-echo -n gaussian ""
+#echo -n gaussian ""
 echo -n particlefilter ""
-echo -n lavaMD ""
+#echo -n lavaMD ""
 echo -n streamcluster ""
 echo -n lud ""
 echo -n backprop ""
 echo -n bfs ""
 echo -n b+tree ""
-echo -n dwt2d "" # horribly slow compilation
+#echo -n dwt2d "" # horribly slow compilation
 echo -n hotspot ""
 echo -n hotspot3D ""
 echo -n myocyte ""
-echo -n nn ""
+#echo -n nn ""
 echo -n nw ""
 echo -n pathfinder ""
 echo -n srad/srad_v1 ""

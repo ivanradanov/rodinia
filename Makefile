@@ -12,20 +12,20 @@ TIMED_OPENMP_DIRS := backprop \
        bfs \
        b+tree \
        cfd \
-       heartwall \
        hotspot \
        hotspot3D \
-       lavaMD \
        lud \
        myocyte \
        nw \
        particlefilter \
        pathfinder \
        streamcluster \
-       nn \
        srad/srad_v1 \
        srad/srad_v2
 # not included:
+#      heartwall \
+#      nn \
+#      lavaMD \
 #      kmeans \
 #      leukocyte \
 #      mummergpu \
