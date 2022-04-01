@@ -8,7 +8,7 @@ DEFS += \
 		$(SPACE)
 
 NVCC_FLAGS += -I../common \
-			 -O3 \
+			 \
 			 -lm \
 			 $(SPACE)
 
@@ -16,7 +16,7 @@ NVCCFLAGS = $(NVCC_FLAGS)
 
 CFLAGS += -I../common \
 					-I/usr/include/cuda \
-		  -O3 \
+		  \
 		  -Wall \
 		  $(SPACE)
 

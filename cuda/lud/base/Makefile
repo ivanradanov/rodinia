@@ -19,8 +19,8 @@ CC              := gcc
 CXX             := g++
 
 # ------------  compiler flags  ------------------------------------------------
-DEBUG_CFLAGS    := -Wall -O0 -g
-RELEASE_CFLAGS  := -Wall -O3 
+DEBUG_CFLAGS    := -Wall -g
+RELEASE_CFLAGS  := -Wall 
 COMMON_CFLAGS   := 
 
 # ------------  compiler defs  ------------------------------------------------
@@ -48,8 +48,8 @@ CXXFLAGS       := ${CXXFLAGS} ${COMMON_CFLAGS}
 LDFLAGS        := ${LDFLAGS} ${COMMON_LDFLAGS}
 
 ifeq (YES, ${PROFILE})
-  CFLAGS       := ${CFLAGS}   -pg -O3
-  CXXFLAGS     := ${CXXFLAGS} -pg -O3
+  CFLAGS       := ${CFLAGS}   -pg 
+  CXXFLAGS     := ${CXXFLAGS} -pg 
   LDFLAGS      := ${LDFLAGS}  -pg
 endif
 

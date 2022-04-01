@@ -118,7 +118,7 @@ main.o:	./common.h \
 	$(C_C)	$(KERNEL_DIM) ./main.c \
 			-c \
 			-o ./main.o \
-			-O3 $(CC_FLAGS)
+			$(CC_FLAGS)
 
 # ======================================================================================================================================================150
 #	KERNELS
@@ -132,7 +132,7 @@ CUDA_FLAG = $(NVCC_FLAGS)
 	$(CUD_C) $(KERNEL_DIM) ./kernel/kernel_gpu_cuda_wrapper.cu \
 				-c \
 				-o ./kernel/kernel_gpu_cuda_wrapper.o \
-				-O3 \
+				\
 				$(CUDA_FLAG)
 
 ./kernel/kernel_gpu_cuda_wrapper_2.o:	./common.h \
@@ -141,7 +141,7 @@ CUDA_FLAG = $(NVCC_FLAGS)
 	$(CUD_C) $(KERNEL_DIM) ./kernel/kernel_gpu_cuda_wrapper_2.cu \
 				-c \
 				-o ./kernel/kernel_gpu_cuda_wrapper_2.o \
-				-O3 \
+				\
 				$(CUDA_FLAG)
 
 # ======================================================================================================================================================150
@@ -154,7 +154,7 @@ CUDA_FLAG = $(NVCC_FLAGS)
 	$(C_C)	./util/timer/timer.c \
 			-c \
 			-o ./util/timer/timer.o \
-			-O3 $(CC_FLAGS)
+			$(CC_FLAGS)
 
 ./util/num/num.o:	./common.h \
 					./util/num/num.h \
@@ -162,7 +162,7 @@ CUDA_FLAG = $(NVCC_FLAGS)
 	$(C_C)	./util/num/num.c \
 			-c \
 			-o ./util/num/num.o \
-			-O3 $(CC_FLAGS)
+			$(CC_FLAGS)
 
 ./util/cuda/cuda.o:	./common.h \
 					./util/cuda/cuda.h \
@@ -170,7 +170,7 @@ CUDA_FLAG = $(NVCC_FLAGS)
 	$(CUD_C)	./util/cuda/cuda.cu \
 				-c \
 				-o ./util/cuda/cuda.o \
-				-O3 \
+				\
 				$(CUDA_FLAG)
 
 # ======================================================================================================================================================150
