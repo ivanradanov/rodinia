@@ -1,6 +1,6 @@
 include ../../common/openmp.make.config
 
-LOCAL_CC = gcc -g -O3 -Wall
+LOCAL_CC = gcc -g -Wall
 #CC = gcc
 CFLAGS = -lm -fopenmp -Wall
 
