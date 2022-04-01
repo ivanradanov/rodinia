@@ -26,7 +26,7 @@ main.o: 	main.c \
 				file.c \
 				timer.c
 	$(CC)	main.c \
-			-c -O3 -fopenmp $(CC_FLAGS)
+			-c -fopenmp $(CC_FLAGS)
 
 # delete all object files
 clean:

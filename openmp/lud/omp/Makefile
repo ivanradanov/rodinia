@@ -17,12 +17,12 @@ SOURCES         := lud.c lud_omp.c ../common/common.c
 #CXX             := g++
 
 # ------------  compiler flags  ------------------------------------------------
-DEBUG_CFLAGS    := $(CC_FLAGS) -O0 -g
-RELEASE_CFLAGS  := $(CC_FLAGS) -O3 
+DEBUG_CFLAGS    := $(CC_FLAGS) -g
+RELEASE_CFLAGS  := $(CC_FLAGS) 
 COMMON_CFLAGS   := -fopenmp
 
-DEBUG_CXXFLAGS    := $(CXX_FLAGS) -O0 -g
-RELEASE_CXXFLAGS  := $(CXX_FLAGS) -O3 
+DEBUG_CXXFLAGS    := $(CXX_FLAGS) -g
+RELEASE_CXXFLAGS  := $(CXX_FLAGS) 
 COMMON_CFLAGS   := -fopenmp
 
 
@@ -51,8 +51,8 @@ CXXFLAGS       := ${CXXFLAGS} ${COMMON_CFLAGS}
 LDFLAGS        := ${LDFLAGS} ${COMMON_LDFLAGS}
 
 ifeq (YES, ${PROFILE})
-  CFLAGS       := ${CFLAGS}   -pg -O3
-  CXXFLAGS     := ${CXXFLAGS} -pg -O3
+  CFLAGS       := ${CFLAGS}   -pg 
+  CXXFLAGS     := ${CXXFLAGS} -pg 
   LDFLAGS      := ${LDFLAGS}  -pg
 endif
 
