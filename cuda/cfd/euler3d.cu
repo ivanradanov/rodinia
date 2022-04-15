@@ -424,7 +424,7 @@ int main(int argc, char** argv)
 
 	if (argc < 2)
 	{
-		std::cout << "specify data file name" << std::endl;
+		//std::cout << "specify data file name" << std::endl;
 		return 0;
 	}
 	const char* data_file_name = argv[1];
@@ -432,11 +432,11 @@ int main(int argc, char** argv)
 	cudaDeviceProp prop;
 	int dev;
 	
-	checkCudaErrors(cudaSetDevice(0));
-	checkCudaErrors(cudaGetDevice(&dev));
-	checkCudaErrors(cudaGetDeviceProperties(&prop, dev));
+	//checkCudaErrors(cudaSetDevice(0));
+	//checkCudaErrors(cudaGetDevice(&dev));
+	//checkCudaErrors(cudaGetDeviceProperties(&prop, dev));
 	
-	printf("Name:                     %s\n", prop.name);
+	//printf("Name:                     %s\n", prop.name);
 
 	// set far field conditions and load them into constant memory on the gpu
 	{
@@ -557,7 +557,7 @@ int main(int argc, char** argv)
 	cudaThreadSynchronize();
 
 	// these need to be computed the first time in order to compute time step
-	std::cout << "Starting..." << std::endl;
+	//std::cout << "Starting..." << std::endl;
 
 	//StopWatchInterface *timer = 0;
 	  //	unsigned int timer = 0;
@@ -599,12 +599,12 @@ int main(int argc, char** argv)
 
 	//std::cout  << (sdkGetAverageTimerValue(&timer)/1000.0)  / iterations << " seconds per iteration" << std::endl;
 
-	std::cout << "Saving solution..." << std::endl;
-	dump(variables, nel, nelr);
-	std::cout << "Saved solution..." << std::endl;
+	//std::cout << "Saving solution..." << std::endl;
+	//dump(variables, nel, nelr);
+	//std::cout << "Saved solution..." << std::endl;
 
 	
-	std::cout << "Cleaning up..." << std::endl;
+	//std::cout << "Cleaning up..." << std::endl;
 	dealloc<float>(areas);
 	dealloc<int>(elements_surrounding_elements);
 	dealloc<float>(normals);
@@ -614,7 +614,7 @@ int main(int argc, char** argv)
 	dealloc<float>(fluxes);
 	dealloc<float>(step_factors);
 
-	std::cout << "Done..." << std::endl;
+	//std::cout << "Done..." << std::endl;
 
 	return 0;
 }
