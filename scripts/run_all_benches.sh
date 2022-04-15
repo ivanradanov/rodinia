@@ -5,20 +5,21 @@ HOST=memkf02
 NRUNS=5
 NRUNS_SCALING=2
 
+THREAD_NUMS="1 2 4 8 16"
+THREAD_NUMS_OPENMP="1 2 4 8 16"
+
+
 #DATE="$(date -Ins)"
 #LOG_FILE="~/tmp/all_benches_log_$DATE.log"
 
 MAX_THREAD_TEST_CONFIGS="1 2 3 6 7 8 9"
 SCALING_TEST_CONFIGS="2 3 9"
-THREAD_NUMS="1 2 4 8 16"
-THREAD_NUMS_OPENMP="1 2 4 8 16"
-
-while true
-do
 
 echo ----------------------------------------------
 echo Start "$(date -Ins)"
 echo ----------------------------------------------
+
+rm -r results/
 
 ./scripts/enable-config.sh common/host.make.config common/$HOST.polygeist.host.make.config
 
@@ -53,21 +54,25 @@ make omp &> /dev/null
 ./scripts/run_timed_openmp_n_times.sh $NRUNS | grep -B1 FAIL
 ./scripts/run_scaling_test.sh "./scripts/run_timed_openmp_n_times.sh $NRUNS_SCALING" $THREAD_NUMS_OPENMP | grep -B1 FAIL
 
-./scripts/enable-config.sh common/openmp.host.make.config common/$HOST.polygeist.openmp.host.make.config
-make omp_clean &> /dev/null
-make omp &> /dev/null
-./scripts/run_timed_openmp_n_times.sh $NRUNS | grep -B1 FAIL
-./scripts/run_scaling_test.sh "./scripts/run_timed_openmp_n_times.sh $NRUNS_SCALING" $THREAD_NUMS_OPENMP | grep -B1 FAIL
-
-./scripts/enable-config.sh common/openmp.host.make.config "common/$HOST.polygeist.openmp.openmp-opt=0.host.make.config"
-make omp_clean &> /dev/null
-make omp &> /dev/null
+#./scripts/enable-config.sh common/openmp.host.make.config common/$HOST.polygeist.openmp.host.make.config
+#make omp_clean &> /dev/null
+#make omp &> /dev/null
+#./scripts/run_timed_openmp_n_times.sh $NRUNS | grep -B1 FAIL
 #./scripts/run_scaling_test.sh "./scripts/run_timed_openmp_n_times.sh $NRUNS_SCALING" $THREAD_NUMS_OPENMP | grep -B1 FAIL
-./scripts/run_timed_openmp_n_times.sh $NRUNS | grep -B1 FAIL
+
+#./scripts/enable-config.sh common/openmp.host.make.config "common/$HOST.polygeist.openmp.openmp-opt=0.host.make.config"
+#make omp_clean &> /dev/null
+#make omp &> /dev/null
+#./scripts/run_scaling_test.sh "./scripts/run_timed_openmp_n_times.sh $NRUNS_SCALING" $THREAD_NUMS_OPENMP | grep -B1 FAIL
+#./scripts/run_timed_openmp_n_times.sh $NRUNS | grep -B1 FAIL
 
 echo COPYING RESULTS, DONT QUIT
-rsync -a --remove-source-files results ~/rodinia_results/
+mkdir -p "$HOME/rodinia_results/$(date -Ins)"
+cp -a results "$HOME/rodinia_results/$(date -Ins)"
 echo Finished "$(date -Ins)"
 
-done
+#echo COPYING RESULTS, DONT QUIT
+#mkdir ~/rodinia_results/
+#rsync -a --remove-source-files results ~/rodinia_results/
+#echo Finished "$(date -Ins)"
 
