@@ -46,10 +46,10 @@ main.o:		main.h \
 			./util/timer/timer.c \
 			./util/device/device.h \
 			./util/device/device.cu
-	$(C_C)	$(KERNEL_DIM) $(OUTPUT) main.cu \
+	$(NVCC)	$(KERNEL_DIM) $(OUTPUT) main.cu \
 			-c \
 			-o main.o \
-			$(CC_FLAGS)
+			$(NVCC_FLAGS)
 
 
 #./kernel/kernel_gpu_cuda_wrapper.o:	./kernel/kernel_gpu_cuda_wrapper.h \
