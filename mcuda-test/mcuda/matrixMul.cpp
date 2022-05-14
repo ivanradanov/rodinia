@@ -329,23 +329,18 @@ int MatrixMultiply(int argc, char **argv, int block_size, const dim3 &dimsA,
   ////printf("Computing result using CUDA Kernel...\n");
 
   // Performs warmup operation using matrixMul CUDA kernel
-  #if 0
 #pragma omp parallel for collapse(3) schedule(static)
   for (size_t blockz = 0; blockz < grid.z; blockz++)
 	  for (size_t blocky = 0; blocky < grid.y; blocky++)
 		  for (size_t blockx = 0; blockx < grid.x; blockx++) {
 			  dim3 blockIdx{blockx, blocky, blockz};
 			  MatrixMulCUDA(grid, threads, blockIdx, d_C, d_A, d_B, dimsA.x, dimsB.x);
-      }
-  #else
-cpucudaLaunchKernelGGL(HIP_KERNEL_NAME(MatrixMulCUDA), dim3(grid), dim3(threads), 0, stream, d_C, d_A, d_B, dimsA.x, dimsB.x);
-#endif
+		  }
 
-    //printf("done\n");
-  checkCudaErrors(cpucudaStreamSynchronize(stream));
-
-  // Record the start event
-  checkCudaErrors(cpucudaEventRecord(start, stream));
+  //cudaDeviceSynchronize();
+  struct timespec ___my_clock_start;
+  struct timespec ___my_clock_end;
+  clock_gettime(CLOCK_MONOTONIC, &___my_clock_start);
 
   // Execute the kernel
   //int nIter = 300;
@@ -353,17 +348,31 @@ cpucudaLaunchKernelGGL(HIP_KERNEL_NAME(MatrixMulCUDA), dim3(grid), dim3(threads)
   int nIter = 1;
 
   for (int j = 0; j < nIter; j++) {
-      cpucudaLaunchKernelGGL(HIP_KERNEL_NAME(MatrixMulCUDA), dim3(grid), dim3(threads), 0, stream, d_C, d_A, d_B, dimsA.x, dimsB.x);
+#pragma omp parallel for collapse(3) schedule(static)
+  for (size_t blockz = 0; blockz < grid.z; blockz++)
+	  for (size_t blocky = 0; blocky < grid.y; blocky++)
+		  for (size_t blockx = 0; blockx < grid.x; blockx++) {
+			  dim3 blockIdx{blockx, blocky, blockz};
+			  MatrixMulCUDA(grid, threads, blockIdx, d_C, d_A, d_B, dimsA.x, dimsB.x);
+		  }
   }
+  //cudaDeviceSynchronize();
+  clock_gettime(CLOCK_MONOTONIC, &___my_clock_end);
+  struct timespec ___my_clock_tmp =
+	  {___my_clock_end.tv_sec - ___my_clock_start.tv_sec,
+	   ___my_clock_end.tv_nsec - ___my_clock_start.tv_nsec};
+  double ___my_clock_elapsed = (___my_clock_tmp.tv_sec + ((double) ___my_clock_tmp.tv_nsec) * .000000001);
+
 
   // Record the stop event
-  checkCudaErrors(cpucudaEventRecord(stop, stream));
+  //checkCudaErrors(cudaEventRecord(stop, stream));
 
   // Wait for the stop event to complete
-  checkCudaErrors(cpucudaEventSynchronize(stop));
+  //checkCudaErrors(cudaEventSynchronize(stop));
 
-  float msecTotal = 0.0f;
-  checkCudaErrors(cpucudaEventElapsedTime(&msecTotal, start, stop));
+  float msecTotal = ___my_clock_elapsed * 1000;
+  //float msecTotal = 0.0f;
+  //checkCudaErrors(cudaEventElapsedTime(&msecTotal, start, stop));
 
   // Compute and print the performance
   float msecPerMatrixMul = msecTotal / nIter;
@@ -372,13 +381,12 @@ cpucudaLaunchKernelGGL(HIP_KERNEL_NAME(MatrixMulCUDA), dim3(grid), dim3(threads)
                              static_cast<double>(dimsB.x);
   double gigaFlops =
       (flopsPerMatrixMul * 1.0e-9f) / (msecPerMatrixMul / 1000.0f);
-  /*
-  printf(
-      "Performance= %.2f GFlop/s, Time= %.3f msec, Size= %.0f Ops,"
-      " WorkgroupSize= %u threads/block\n",
-      gigaFlops, msecPerMatrixMul, flopsPerMatrixMul, threads.x * threads.y); */
-
+  //printf(
+  //"Performance= %.2f GFlop/s, Time= %.3f msec, Size= %.0f Ops,"
+  //" WorkgroupSize= %u threads/block\n",
+  //gigaFlops, msecPerMatrixMul, flopsPerMatrixMul, threads.x * threads.y);
   printf("%f,", msecPerMatrixMul / 1000.0f);
+
 
   // Copy result from device to host
   checkCudaErrors(
