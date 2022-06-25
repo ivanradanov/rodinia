@@ -74,9 +74,9 @@ void setIf(int testValue, int newValue, int * array3D, int * dimX, int * dimY, i
 * @param index The specific index of the seed to be advanced
 * @return a uniformly distributed number [0, 1)
 */
-double randu(int * seed, int index)
+double randu(unsigned int * seed, int index)
 {
-	int num = A*seed[index] + C;
+	unsigned int num = A*seed[index] + C;
 	seed[index] = num % M;
 	return fabs(seed[index]/((double) M));
 }
@@ -88,7 +88,7 @@ double randu(int * seed, int index)
 * @return a double representing random number generated using the Box-Muller algorithm
 * @see http://en.wikipedia.org/wiki/Normal_distribution, section computing value for normal random distribution
 */
-double randn(int * seed, int index){
+double randn(unsigned int * seed, int index){
 	/*Box-Muller algorithm*/
 	double u = randu(seed, index);
 	double v = randu(seed, index);
@@ -104,7 +104,7 @@ double randn(int * seed, int index){
 * @param dimZ The number of frames
 * @param seed The seed array
 */
-void addNoise(int * array3D, int * dimX, int * dimY, int * dimZ, int * seed){
+void addNoise(int * array3D, int * dimX, int * dimY, int * dimZ, unsigned int * seed){
 	int x, y, z;
 	for(x = 0; x < *dimX; x++){
 		for(y = 0; y < *dimY; y++){
@@ -222,7 +222,7 @@ void getneighbors(int * se, int numOnes, double * neighbors, int radius){
 * @param Nfr The number of frames of the video
 * @param seed The seed array used for number generation
 */
-void videoSequence(int * I, int IszX, int IszY, int Nfr, int * seed){
+void videoSequence(int * I, int IszX, int IszY, int Nfr, unsigned int * seed){
 	int k;
 	int max_size = IszX*IszY*Nfr;
 	/*get object centers*/
@@ -340,7 +340,7 @@ int findIndexBin(double * CDF, int beginIndex, int endIndex, double value){
 * @param seed The seed array used for random number generation
 * @param Nparticles The number of particles to be used
 */
-void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparticles){
+void particleFilter(int * I, int IszX, int IszY, int Nfr, unsigned int * seed, int Nparticles){
 	
 	int max_size = IszX*IszY*Nfr;
 	long long start = get_time();
@@ -509,6 +509,9 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		//printf("TIME TO RESET WEIGHTS TOOK: %f\n", elapsed_time(xyj_time, reset));
 	}
 	MY_STOP_CLOCK(particlefilter, float);
+	MY_VERIFY_DOUBLE_CUSTOM(arrayX, Nparticles, 3.0, 1);
+	MY_VERIFY_DOUBLE_CUSTOM(arrayY, Nparticles, 3.0, 1);
+	MY_VERIFY_DOUBLE_CUSTOM(weights, Nparticles, 0.6, 1);
 	free(disk);
 	free(objxy);
 	free(weights);
@@ -582,10 +585,10 @@ int main(int argc, char * argv[]){
 		return 0;
 	}
 	//establish seed
-	int * seed = (int *)malloc(sizeof(int)*Nparticles);
+	unsigned int * seed = (unsigned int *)malloc(sizeof(unsigned int)*Nparticles);
 	int i;
 	for(i = 0; i < Nparticles; i++)
-		seed[i] = time(0)*i;
+		seed[i] = i;
 	//malloc matrix
 	int * I = (int *)malloc(sizeof(int)*IszX*IszY*Nfr);
 	long long start = get_time();
