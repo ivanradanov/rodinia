@@ -15,6 +15,7 @@ __pycache__
 /results*
 /data*
 /verification_data
+callgrind.out*
 
 common/host.make.config
 cuda/b+tree/output.txt
