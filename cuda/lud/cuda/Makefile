@@ -33,7 +33,7 @@ OBJS = ../common/common.o lud.o lud_kernel.o
 all : $(EXECUTABLE)
 
 .c.o : 
-	$(NVCC) $(KERNEL_DIM) $(NVCCFLAGS) $(DEFS) -o $@ -c $<
+	$(CC) $(KERNEL_DIM) $(CC_FLAGS) $(DEFS) -o $@ -c $<
 
 %.o:	%.cu 
 	$(NVCC) $(KERNEL_DIM) $(NVCCFLAGS) $(DEFS) -o $@ -c $<
