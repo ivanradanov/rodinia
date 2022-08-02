@@ -438,7 +438,7 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		//long long exponential = get_time();
 		//printf("TIME TO GET EXP TOOK: %f\n", elapsed_time(likelihood_time, exponential));
 		double sumWeights = 0;
-		//#pragma omp parallel for private(x) reduction(+:sumWeights)
+		#pragma omp parallel for private(x) reduction(+:sumWeights)
 		for(x = 0; x < Nparticles; x++){
 			sumWeights += weights[x];
 		}
@@ -453,7 +453,7 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		xe = 0;
 		ye = 0;
 		// estimate the object location by expected values
-		//#pragma omp parallel for private(x) reduction(+:xe, ye)
+		#pragma omp parallel for private(x) reduction(+:xe, ye)
 		for(x = 0; x < Nparticles; x++){
 			xe += arrayX[x] * weights[x];
 			ye += arrayY[x] * weights[x];
