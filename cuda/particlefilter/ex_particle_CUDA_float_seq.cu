@@ -291,14 +291,11 @@ __global__ void normalize_weights_kernel(double * weights, int Nparticles, doubl
     
     if (i < Nparticles) {
         weights[i] = weights[i] / sumWeights;
-        printf("HMM weights[%d] = %f / %f\n", i, weights[i], sumWeights);
     }
     
     __syncthreads(); 
     
     if (i == 0) {
-      printf("weights[0] = %f\n", weights[0]);
-      printf("weights[1] = %f\n", weights[1]);
         cdfCalc(CDF, weights, Nparticles);
         u[0] = (1 / ((double) (Nparticles))) * d_randu(seed, i); // do this to allow all threads in all blocks to use the same u1
     }
@@ -751,32 +748,32 @@ void particleFilter(unsigned char * I, int IszX, int IszY, int Nfr, int * seed, 
         likelihood_kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, xj_GPU, yj_GPU, CDF_GPU, ind_GPU, objxy_GPU, likelihood_GPU, I_GPU, u_GPU, weights_GPU, Nparticles, countOnes, max_size, k, IszY, Nfr, seed_GPU, partial_sums);
 
         sum_kernel <<< num_blocks, threads_per_block >>> (partial_sums, Nparticles);
-                for (int i = 0; i < Nparticles; i++) {
-        #define p(A) printf(#A "[%d] = %f\n", i, A[i])
-                p(arrayX_GPU);
-                p(arrayY_GPU);
-                p(xj_GPU);
-                p(yj_GPU);
-                p(CDF_GPU);
-                p(weights_GPU);
-                p(likelihood_GPU);
-                p(u_GPU);
-              }
+        //                for (int i = 0; i < Nparticles; i++) {
+        //        #define p(A) printf(#A "[%d] = %f\n", i, A[i])
+        //                p(arrayX_GPU);
+        //                p(arrayY_GPU);
+        //                p(xj_GPU);
+        //                p(yj_GPU);
+        //                p(CDF_GPU);
+        //                p(weights_GPU);
+        //                p(likelihood_GPU);
+        //                p(u_GPU);
+        //              }
 
         normalize_weights_kernel <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles, partial_sums, CDF_GPU, u_GPU, seed_GPU);
         printf("normalize\n");
-                printf("sumWeights = %f\n", partial_sums[0]);
-                for (int i = 0; i < Nparticles; i++) {
-        #define p(A) printf(#A "[%d] = %f\n", i, A[i])
-                p(arrayX_GPU);
-                p(arrayY_GPU);
-                p(xj_GPU);
-                p(yj_GPU);
-                p(CDF_GPU);
-                p(weights_GPU);
-                p(likelihood_GPU);
-                p(u_GPU);
-              }
+                        printf("sumWeights = %f\n", partial_sums[0]);
+                        for (int i = 0; i < Nparticles; i++) {
+                #define p(A) printf(#A "[%d] = %f\n", i, A[i])
+                        p(arrayX_GPU);
+                        p(arrayY_GPU);
+                        p(xj_GPU);
+                        p(yj_GPU);
+                        p(CDF_GPU);
+                        p(weights_GPU);
+                        p(likelihood_GPU);
+                        p(u_GPU);
+                      }
 
         find_index_kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, CDF_GPU, u_GPU, xj_GPU, yj_GPU, weights_GPU, Nparticles);
 
