@@ -90,8 +90,9 @@ void cuda_print_double_array(double *array_GPU, size_t size) {
 __device__ double calcLikelihoodSum(unsigned char * I, int * ind, int numOnes, int index) {
     double likelihoodSum = 0.0;
     int x;
-    for (x = 0; x < numOnes; x++)
+    for (x = 0; x < numOnes; x++) {
         likelihoodSum += (pow((double) (I[ind[index * numOnes + x]] - 100), 2) - pow((double) (I[ind[index * numOnes + x]] - 228), 2)) / 50.0;
+    }
     return likelihoodSum;
 }
 
@@ -107,7 +108,6 @@ __device__ void cdfCalc(double * CDF, double * weights, int Nparticles) {
     CDF[0] = weights[0];
     for (x = 1; x < Nparticles; x++) {
         CDF[x] = weights[x] + CDF[x - 1];
-        //printf("CDF[%d] = %f + %f = %f\n", x, weights[x], CDF[x-1], CDF[x]);
     }
 }
 
@@ -263,7 +263,6 @@ __global__ void find_index_kernel(double * arrayX, double * arrayY, double * CDF
                 break;
             }
         }
-	printf("index = %d\n", index);
 
         if (index == -1) {
             index = Nparticles - 1;
@@ -375,15 +374,15 @@ __global__ void likelihood_kernel(double * arrayX, double * arrayY, double * xj,
             //added dev_round_double() to be consistent with roundDouble
             indX = dev_round_double(arrayX[i]) + objxy[y * 2 + 1];
             indY = dev_round_double(arrayY[i]) + objxy[y * 2];
-            
+
             ind[i * countOnes + y] = abs(indX * IszY * Nfr + indY * Nfr + k);
             if (ind[i * countOnes + y] >= max_size)
                 ind[i * countOnes + y] = 0;
         }
         likelihood[i] = calcLikelihoodSum(I, ind, countOnes, i);
-        
+
         likelihood[i] = likelihood[i] / countOnes;
-        
+
         weights[i] = weights[i] * exp(likelihood[i]); //Donnie Newell - added the missing exponential function call
 
     }
@@ -404,17 +403,17 @@ __global__ void likelihood_kernel(double * arrayX, double * arrayY, double * xj,
         if (threadIdx.x < s) {
             buffer[threadIdx.x] += buffer[threadIdx.x + s];
         }
-        
+
         __syncthreads();
-            
+
     }
     if (threadIdx.x == 0) {
         partial_sums[blockIdx.x] = buffer[0];
     }
-    
+
     __syncthreads();
 
-    
+
 }
 
 /** 
@@ -748,42 +747,18 @@ void particleFilter(unsigned char * I, int IszX, int IszY, int Nfr, int * seed, 
 
 
     MY_START_CLOCK(particlefilter, float);
-    for (k = 1; k < Nfr; k++) {
-        
-        likelihood_kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, xj_GPU, yj_GPU, CDF_GPU, ind_GPU, objxy_GPU, likelihood_GPU, I_GPU, u_GPU, weights_GPU, Nparticles, countOnes, max_size, k, IszY, Nfr, seed_GPU, partial_sums);
+    for(k = 1; k < Nfr; k++){
 
-        sum_kernel <<< num_blocks, threads_per_block >>> (partial_sums, Nparticles);
-        //                        for (int i = 0; i < Nparticles; i++) {
-        //                #define p(A) printf(#A "[%d] = %f\n", i, A[i])
-        //                        p(arrayX_GPU);
-        //                        p(arrayY_GPU);
-        //                        p(xj_GPU);
-        //                        p(yj_GPU);
-        //                        p(CDF_GPU);
-        //                        p(weights_GPU);
-        //                        p(likelihood_GPU);
-        //                        p(u_GPU);
-        //                      }
+      likelihood_kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, xj_GPU, yj_GPU, CDF_GPU, ind_GPU, objxy_GPU, likelihood_GPU, I_GPU, u_GPU, weights_GPU, Nparticles, countOnes, max_size, k, IszY, Nfr, seed_GPU, partial_sums);
 
-        normalize_weights_kernel1 <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles, partial_sums, CDF_GPU, u_GPU, seed_GPU);
-        normalize_weights_kernel2 <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles, partial_sums, CDF_GPU, u_GPU, seed_GPU);
-        //printf("normalize\n");
-        //printf("sumWeights = %f\n", partial_sums[0]);
-                        //                        for (int i = 0; i < Nparticles; i++) {
-                        //                #define p(A) printf(#A "[%d] = %f\n", i, A[i])
-                        //                        p(arrayX_GPU);
-                        //                        p(arrayY_GPU);
-                        //                        p(xj_GPU);
-                        //                        p(yj_GPU);
-                        //                        p(CDF_GPU);
-                        //                        p(weights_GPU);
-                        //                        p(likelihood_GPU);
-                        //                        p(u_GPU);
-                        //                      }
+      sum_kernel <<< num_blocks, threads_per_block >>> (partial_sums, Nparticles);
 
-        find_index_kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, CDF_GPU, u_GPU, xj_GPU, yj_GPU, weights_GPU, Nparticles);
+      normalize_weights_kernel1 <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles, partial_sums, CDF_GPU, u_GPU, seed_GPU);
+      normalize_weights_kernel2 <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles, partial_sums, CDF_GPU, u_GPU, seed_GPU);
 
-    }//end loop
+      find_index_kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, CDF_GPU, u_GPU, xj_GPU, yj_GPU, weights_GPU, Nparticles);
+
+    }
     MY_STOP_CLOCK(particlefilter, float);
 
     //block till kernels are finished
