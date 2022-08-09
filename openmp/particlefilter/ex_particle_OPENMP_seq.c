@@ -76,6 +76,9 @@ void setIf(int testValue, int newValue, int * array3D, int * dimX, int * dimY, i
 */
 double randu(int * seed, int index)
 {
+  return (1000 + index) / 5000000;
+    return 10 + index;
+    return 10 + index;
 	int num = A*seed[index] + C;
 	seed[index] = num % M;
 	return fabs(seed[index]/((double) M));
@@ -89,6 +92,8 @@ double randu(int * seed, int index)
 * @see http://en.wikipedia.org/wiki/Normal_distribution, section computing value for normal random distribution
 */
 double randn(int * seed, int index){
+  return (1000 + index) / 5000000;
+    return 10 + index;
 	/*Box-Muller algorithm*/
 	double u = randu(seed, index);
 	double v = randu(seed, index);
@@ -387,6 +392,8 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 	for(x = 0; x < Nparticles; x++){
 		arrayX[x] = xe;
 		arrayY[x] = ye;
+		xj[x] = xe;
+		yj[x] = ye;
 	}
 	int k;
 	
@@ -396,6 +403,7 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 
 	MY_START_CLOCK(particlefilter, float);
 	for(k = 1; k < Nfr; k++){
+
 		//long long set_arrays = get_time();
 		//apply motion model
 		//draws sample from motion model (random walk). The only prior information
@@ -418,13 +426,15 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 			for(y = 0; y < countOnes; y++){
 				indX = roundDouble(arrayX[x]) + objxy[y*2 + 1];
 				indY = roundDouble(arrayY[x]) + objxy[y*2];
+
 				ind[x*countOnes + y] = fabs(indX*IszY*Nfr + indY*Nfr + k);
 				if(ind[x*countOnes + y] >= max_size)
 					ind[x*countOnes + y] = 0;
 			}
 			likelihood[x] = 0;
-			for(y = 0; y < countOnes; y++)
+			for(y = 0; y < countOnes; y++) {
 				likelihood[x] += (pow((I[ind[x*countOnes + y]] - 100),2) - pow((I[ind[x*countOnes + y]]-228),2))/50.0;
+			}
 			likelihood[x] = likelihood[x]/((double) countOnes);
 		}
 		//long long likelihood_time = get_time();
@@ -435,6 +445,7 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		for(x = 0; x < Nparticles; x++){
 			weights[x] = weights[x] * exp(likelihood[x]);
 		}
+
 		//long long exponential = get_time();
 		//printf("TIME TO GET EXP TOOK: %f\n", elapsed_time(likelihood_time, exponential));
 		double sumWeights = 0;
@@ -450,27 +461,7 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		}
 		//long long normalize = get_time();
 		//printf("TIME TO NORMALIZE WEIGHTS TOOK: %f\n", elapsed_time(sum_time, normalize));
-		xe = 0;
-		ye = 0;
-		// estimate the object location by expected values
-		#pragma omp parallel for private(x) reduction(+:xe, ye)
-		for(x = 0; x < Nparticles; x++){
-			xe += arrayX[x] * weights[x];
-			ye += arrayY[x] * weights[x];
-		}
-		//long long move_time = get_time();
-		//printf("TIME TO MOVE OBJECT TOOK: %f\n", elapsed_time(normalize, move_time));
-		//printf("XE: %lf\n", xe);
-		//printf("YE: %lf\n", ye);
-		double distance = sqrt( pow((double)(xe-(int)roundDouble(IszY/2.0)),2) + pow((double)(ye-(int)roundDouble(IszX/2.0)),2) );
-		//printf("%lf\n", distance);
-		//display(hold off for now)
-		
-		//pause(hold off for now)
-		
-		//resampling
-		
-		
+
 		CDF[0] = weights[0];
 		for(x = 1; x < Nparticles; x++){
 			CDF[x] = weights[x] + CDF[x-1];
@@ -482,10 +473,11 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		for(x = 0; x < Nparticles; x++){
 			u[x] = u1 + x/((double)(Nparticles));
 		}
+
 		//long long u_time = get_time();
 		//printf("TIME TO CALC U TOOK: %f\n", elapsed_time(cum_sum, u_time));
 		int j, i;
-		
+
 		#pragma omp parallel for shared(CDF, Nparticles, xj, yj, u, arrayX, arrayY) private(i, j)
 		for(j = 0; j < Nparticles; j++){
 			i = findIndex(CDF, Nparticles, u[j]);
