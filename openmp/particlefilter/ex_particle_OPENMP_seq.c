@@ -390,8 +390,6 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 	int * ind = (int*)malloc(sizeof(int)*countOnes*Nparticles);
 	#pragma omp parallel for shared(arrayX, arrayY, xe, ye) private(x)
 	for(x = 0; x < Nparticles; x++){
-		arrayX[x] = xe;
-		arrayY[x] = ye;
 		xj[x] = xe;
 		yj[x] = ye;
 	}
@@ -408,6 +406,11 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		//apply motion model
 		//draws sample from motion model (random walk). The only prior information
 		//is that the object moves 2x as fast as in the y direction
+		#pragma omp parallel for
+		for(x = 0; x < Nparticles; x++){
+			arrayX[x] = xj[x];
+			arrayY[x] = yj[x];
+		}
 		#pragma omp parallel for shared(arrayX, arrayY, Nparticles, seed) private(x)
 		for(x = 0; x < Nparticles; x++){
 			arrayX[x] += 1 + 5*randn(seed, x);
@@ -493,8 +496,6 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		//#pragma omp parallel for shared(weights, Nparticles) private(x)
 		for(x = 0; x < Nparticles; x++){
 			//reassign arrayX and arrayY
-			arrayX[x] = xj[x];
-			arrayY[x] = yj[x];
 			weights[x] = 1/((double)(Nparticles));
 		}
 		//long long reset = get_time();
