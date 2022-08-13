@@ -15,11 +15,11 @@ endif
 all: omp # cpu
 
 cpu: $(TARGET_C)
-$(TARGET_C):
+$(TARGET_C): streamcluster_original.cpp
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) streamcluster_original.cpp -o $(TARGET_C) $(LIBS) -DENABLE_THREADS -pthread $(MY_ADDITIONAL_FLAGS)
 
 omp: $(TARGET_O)
-$(TARGET_O):
+$(TARGET_O): streamcluster_omp.cpp
 	$(CXX) -o $(TARGET_O) streamcluster_omp.cpp $(CXX_FLAGS) $(LINKER_FLAGS)
 
 
