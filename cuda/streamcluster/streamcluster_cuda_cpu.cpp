@@ -326,6 +326,15 @@ float pFL(Points *points, int *feasible, int numfeasible,
   float change;
   long numberOfPoints;
 
+#ifdef _MY_COMPILER_NAME_ // if we are using our timing code
+      for( int i = 0; i < points->num; i++ ) {
+        if (i < points->num / 2)
+          points->p[i].cost = -FLT_MAX;
+        else
+          points->p[i].cost = FLT_MAX;
+      }
+#endif
+
   change = cost;
   /* continue until we run iter iterations without improvement */
   /* stop instead if improvement is less than e */
