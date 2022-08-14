@@ -33,7 +33,7 @@ main.o:	./common.h \
 	$(C_C)	./main.c \
 			-c \
 			-o ./main.o \
-			$(CC_FLAGS)
+			$(CC_FLAGS) -std=gnu89
 
 # ======================================================================================================================================================150
 #	KERNELS
@@ -67,7 +67,7 @@ main.o:	./common.h \
 	$(C_C)	./util/timer/timer.c \
 			-c \
 			-o ./util/timer/timer.o \
-			$(CC_FLAGS)
+			$(CC_FLAGS) -std=gnu89
 
 ./util/num/num.o:	./common.h \
 					./util/num/num.h \
@@ -75,7 +75,7 @@ main.o:	./common.h \
 	$(C_C)	./util/num/num.c \
 			-c \
 			-o ./util/num/num.o \
-			$(CC_FLAGS)
+			$(CC_FLAGS) -std=gnu89
 
 # ======================================================================================================================================================150
 #	END
