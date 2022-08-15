@@ -19,55 +19,17 @@
 
 const int threads_per_block = 512;
 
-
-long long get_time() {
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return (tv.tv_sec * 1000000) +tv.tv_usec;
-}
-// Returns the number of seconds elapsed between the two specified times
-
-double elapsed_time(long long start_time, long long end_time) {
-    return (double) (end_time - start_time) / (1000 * 1000);
-}
-
-/*****************************
- * CHECK_ERROR
- * Checks for CUDA errors and prints them to the screen to help with
- * debugging of CUDA related programming
- *****************************/
 #define check_error(X) X
 
-/********************************
- * CALC LIKELIHOOD SUM
- * DETERMINES THE LIKELIHOOD SUM BASED ON THE FORMULA: SUM( (IK[IND] - 100)^2 - (IK[IND] - 228)^2)/ 100
- * param 1 I 3D matrix
- * param 2 current ind array
- * param 3 length of ind array
- * returns a double representing the sum
- ********************************/
 __device__ double calcLikelihoodSum(unsigned char * I, int * ind, int numOnes, int index) {
     double likelihoodSum = 0.0;
     int x;
     for (x = 0; x < numOnes; x++) {
-        likelihoodSum += (pow((double) (I[ind[index * numOnes + x]] - 100), 2) - pow((double) (I[ind[index * numOnes + x]] - 228), 2)) / 50.0;
+        likelihoodSum += I[ind[index * numOnes + x]];
     }
     return likelihoodSum;
 }
 
-/****************************
-CDF CALCULATE
-CALCULATES CDF
-param1 CDF
-param2 weights
-param3 Nparticles
- *****************************/
-
-/*****************************
- * RANDU
- * GENERATES A UNIFORM DISTRIBUTION
- * returns a double representing a randomily generated number from a uniform distribution with range [0, 1)
- ******************************/
 __device__ double d_randu(int * seed, int index) {
   return (1000 + index) / 5000000;
 
@@ -91,10 +53,6 @@ __device__ double d_randn(int * seed, int index) {
     return sqrt(rt) * cosine;
 }
 
-/** added this function. was missing in original double version.
- * Takes in a double and returns an integer that approximates to that double
- * @return if the mantissa < .5 => return value < input value; else return value > input value
- */
 __device__ double dev_round_double(double value) {
     int newValue = (int) (value);
     if (value - newValue < .5f)
@@ -103,17 +61,6 @@ __device__ double dev_round_double(double value) {
         return newValue++;
 }
 
-/*****************************
- * CUDA Find Index Kernel Function to replace FindIndex
- * param1: arrayX
- * param2: arrayY
- * param3: CDF
- * param4: u
- * param5: xj
- * param6: yj
- * param7: weights
- * param8: Nparticles
- *****************************/
 __global__ void find_index_kernel(double * CDF, double * u, int Nparticles) {
     int block_id = blockIdx.x;
     int i = blockDim.x * block_id + threadIdx.x;
@@ -163,7 +110,7 @@ __global__ void normalize_weights_kernel2(double* weights, double * CDF, double 
         for (int x = 1; x < Nparticles; x++) {
             CDF[x] = weights[x] + CDF[x - 1];
         }
-        u[0] = (1 / ((double) (Nparticles))) * d_randu(seed, 0); // do this to allow all threads in all blocks to use the same u1
+        u[0] = 0;
     }
     
     __syncthreads();
@@ -178,25 +125,6 @@ __global__ void normalize_weights_kernel2(double* weights, double * CDF, double 
     }
 }
 
-
-/*****************************
- * CUDA Likelihood Kernel Function to replace FindIndex
- * param1: arrayX
- * param2: arrayY
- * param2.5: CDF
- * param3: ind
- * param4: objxy
- * param5: likelihood
- * param6: I
- * param6.5: u
- * param6.75: weights
- * param7: Nparticles
- * param8: countOnes
- * param9: max_size
- * param10: k
- * param11: IszY
- * param12: Nfr
- *****************************/
 __global__ void likelihood_kernel(double * arrayX, double * arrayY, double * xj, double * yj, double * CDF, int * ind, int * objxy, double * likelihood, unsigned char * I, double * u, double * weights, int Nparticles, int countOnes, int max_size, int k, int IszY, int Nfr, int *seed, double* partial_sums) {
     int block_id = blockIdx.x;
     int i = blockDim.x * block_id + threadIdx.x;
@@ -207,12 +135,6 @@ __global__ void likelihood_kernel(double * arrayX, double * arrayY, double * xj,
     if (i < Nparticles) {
         arrayX[i] = xj[i]; 
         arrayY[i] = yj[i]; 
-
-        //weights[i] = 1 / ((double) (Nparticles)); //Donnie - moved this line from end of find_index_kernel to prevent all weights from being reset before calculating position on final iteration.
-
-        arrayX[i] = arrayX[i] + 1.0 + 5.0 * d_randn(seed, i);
-        arrayY[i] = arrayY[i] - 2.0 + 2.0 * d_randn(seed, i);
-        
     }
 
     __syncthreads();
@@ -472,35 +394,12 @@ void particleFilter(unsigned char * I, int IszX, int IszY, int Nfr, int * seed, 
 
 int main(int argc, char * argv[]) {
 
-    int IszX, IszY, Nfr, Nparticles;
-
-    //converting a string to a integer
-    if (sscanf(argv[2], "%d", &IszX) == EOF) {
-    }
-
-    if (IszX <= 0) {
-    }
-
-    //converting a string to a integer
-    if (sscanf(argv[4], "%d", &IszY) == EOF) {
-    }
-
-    if (IszY <= 0) {
-    }
-
-    //converting a string to a integer
-    if (sscanf(argv[6], "%d", &Nfr) == EOF) {
-    }
-
-    if (Nfr <= 0) {
-    }
+    int IszX = 4096, IszY = 4096, Nfr = 2, Nparticles = 50000;
 
     //converting a string to a integer
     if (sscanf(argv[8], "%d", &Nparticles) == EOF) {
     }
-
-    if (Nparticles <= 0) {
-    }
+    
     //establish seed
     int * seed = (int *) malloc(sizeof (int) *Nparticles);
     int i;
