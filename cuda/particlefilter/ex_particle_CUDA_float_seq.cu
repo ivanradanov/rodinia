@@ -83,7 +83,7 @@ __global__ void find_index_kernel(double * CDF, double * u, int Nparticles) {
     __syncthreads();
 }
 
-__global__ void normalize_weights_kernel1(double * weights, int Nparticles, double* partial_sums, double * CDF, double * u, int * seed) {
+__global__ void normalize_weights_kernel1(double * weights, int Nparticles, double* partial_sums) {
     int block_id = blockIdx.x;
     int i = blockDim.x * block_id + threadIdx.x;
     __shared__ double sumWeights;
@@ -100,7 +100,7 @@ __global__ void normalize_weights_kernel1(double * weights, int Nparticles, doub
 }
 
 
-__global__ void normalize_weights_kernel2(double* weights, double * CDF, double * u, int * seed, int Nparticles) {
+__global__ void normalize_weights_kernel2(double * u, int Nparticles) {
     int block_id = blockIdx.x;
     int i = blockDim.x * block_id + threadIdx.x;
     __shared__ double u1;
@@ -119,19 +119,6 @@ __global__ void normalize_weights_kernel2(double* weights, double * CDF, double 
     if (i < Nparticles) {
         u[i] = u1 + i / ((double) (Nparticles));
     }
-}
-
-__global__ void likelihood_kernel(double * arrayX, double * arrayY, double * xj, double * yj, double * CDF, int * ind, int * objxy, double * likelihood, unsigned char * I, double * u, double * weights, int Nparticles, int countOnes, int max_size, int k, int IszY, int Nfr, int *seed, double* partial_sums) {
-    int block_id = blockIdx.x;
-    int i = blockDim.x * block_id + threadIdx.x;
-    int y;
-    
-    int indX, indY; 
-
-    if (threadIdx.x == 0) {
-        partial_sums[blockIdx.x] = weights[0];
-    }
-
 }
 
 /** 
@@ -293,7 +280,8 @@ void particleFilter(unsigned char * I, int IszX, int IszY, int Nfr, int * seed, 
 
     {
         int k = 1;
-      likelihood_kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, xj_GPU, yj_GPU, CDF_GPU, ind_GPU, objxy_GPU, likelihood_GPU, I_GPU, u_GPU, weights_GPU, Nparticles, countOnes, max_size, k, IszY, Nfr, seed_GPU, partial_sums);
+        for (int i=0; i<Nparticles; i++)
+            partial_sums[i] = weights_GPU[0];
 
         int x;
         double sum = 0.0;
@@ -303,13 +291,13 @@ void particleFilter(unsigned char * I, int IszX, int IszY, int Nfr, int * seed, 
         }
         partial_sums[0] = sum;
 
-      normalize_weights_kernel1 <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles, partial_sums, CDF_GPU, u_GPU, seed_GPU);
+      normalize_weights_kernel1 <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles, partial_sums);
         
         CDF_GPU[0] = weights_GPU[0];
         for (int x = 1; x < Nparticles; x++) {
             CDF_GPU[x] = weights_GPU[x] + CDF_GPU[x - 1];
         }
-      normalize_weights_kernel2 <<< num_blocks, threads_per_block >>> (weights_GPU, CDF_GPU, u_GPU, seed_GPU, Nparticles);
+      normalize_weights_kernel2 <<< num_blocks, threads_per_block >>> (u_GPU, Nparticles);
 
       find_index_kernel <<< num_blocks, threads_per_block >>> (CDF_GPU, u_GPU, Nparticles);
       
