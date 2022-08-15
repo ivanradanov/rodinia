@@ -103,13 +103,6 @@ param1 CDF
 param2 weights
 param3 Nparticles
  *****************************/
-__device__ void cdfCalc(double * CDF, double * weights, int Nparticles) {
-    int x;
-    CDF[0] = weights[0];
-    for (x = 1; x < Nparticles; x++) {
-        CDF[x] = weights[x] + CDF[x - 1];
-    }
-}
 
 /*****************************
  * RANDU
@@ -293,7 +286,10 @@ __global__ void normalize_weights_kernel2(double* weights, double * CDF, double 
     __shared__ double u1;
     
     if (i == 0) {
-        cdfCalc(CDF, weights, Nparticles);
+        CDF[0] = weights[0];
+        for (int x = 1; x < Nparticles; x++) {
+            CDF[x] = weights[x] + CDF[x - 1];
+        }
         u[0] = (1 / ((double) (Nparticles))) * d_randu(seed, i); // do this to allow all threads in all blocks to use the same u1
     }
     
