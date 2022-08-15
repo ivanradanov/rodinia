@@ -248,7 +248,7 @@ __device__ double dev_round_double(double value) {
  * param7: weights
  * param8: Nparticles
  *****************************/
-__global__ void find_index_kernel(double * arrayX, double * arrayY, double * CDF, double * u, double * xj, double * yj, double * weights, int Nparticles) {
+__global__ void find_index_kernel(double * CDF, double * u, int Nparticles) {
     int block_id = blockIdx.x;
     int i = blockDim.x * block_id + threadIdx.x;
 
@@ -287,7 +287,7 @@ __global__ void normalize_weights_kernel1(double * weights, int Nparticles, doub
 }
 
 
-__global__ void normalize_weights_kernel2(double * weights, int Nparticles, double* partial_sums, double * CDF, double * u, int * seed) {
+__global__ void normalize_weights_kernel2(double* weights, double * CDF, double * u, int * seed, int Nparticles) {
     int block_id = blockIdx.x;
     int i = blockDim.x * block_id + threadIdx.x;
     __shared__ double u1;
@@ -724,7 +724,6 @@ void particleFilter(unsigned char * I, int IszX, int IszY, int Nfr, int * seed, 
 
     }
 
-    int k;
     int indX, indY;
     //start send
     long long send_start = get_time();
@@ -739,21 +738,27 @@ void particleFilter(unsigned char * I, int IszX, int IszY, int Nfr, int * seed, 
     int num_blocks = ceil((double) Nparticles / (double) threads_per_block);
 
 
-    MY_START_CLOCK(particlefilter, float);
     Nfr = 2;
-    for(k = 1; k < Nfr; k++){
 
+    {
+        int k = 1;
       likelihood_kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, xj_GPU, yj_GPU, CDF_GPU, ind_GPU, objxy_GPU, likelihood_GPU, I_GPU, u_GPU, weights_GPU, Nparticles, countOnes, max_size, k, IszY, Nfr, seed_GPU, partial_sums);
 
-      sum_kernel <<< num_blocks, threads_per_block >>> (partial_sums, Nparticles);
+        int x;
+        double sum = 0.0;
+        int num_blocks = ceil((double) Nparticles / (double) threads_per_block);
+        for (x = 0; x < num_blocks; x++) {
+            sum += partial_sums[x];
+        }
+        partial_sums[0] = sum;
 
       normalize_weights_kernel1 <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles, partial_sums, CDF_GPU, u_GPU, seed_GPU);
-      normalize_weights_kernel2 <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles, partial_sums, CDF_GPU, u_GPU, seed_GPU);
+      normalize_weights_kernel2 <<< num_blocks, threads_per_block >>> (weights_GPU, CDF_GPU, u_GPU, seed_GPU, Nparticles);
 
-      find_index_kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, CDF_GPU, u_GPU, xj_GPU, yj_GPU, weights_GPU, Nparticles);
-
+      find_index_kernel <<< num_blocks, threads_per_block >>> (CDF_GPU, u_GPU, Nparticles);
+      
     }
-    MY_STOP_CLOCK(particlefilter, float);
+
 
     //block till kernels are finished
     cudaThreadSynchronize();
@@ -769,37 +774,6 @@ void particleFilter(unsigned char * I, int IszX, int IszY, int Nfr, int * seed, 
     cudaFree(ind_GPU);
     cudaFree(seed_GPU);
     cudaFree(partial_sums);
-
-    long long free_time = get_time();
-    check_error(cudaMemcpy(arrayX, arrayX_GPU, sizeof (double) *Nparticles, cudaMemcpyDeviceToHost));
-    long long arrayX_time = get_time();
-    check_error(cudaMemcpy(arrayY, arrayY_GPU, sizeof (double) *Nparticles, cudaMemcpyDeviceToHost));
-    long long arrayY_time = get_time();
-    check_error(cudaMemcpy(weights, weights_GPU, sizeof (double) *Nparticles, cudaMemcpyDeviceToHost));
-    long long back_end_time = get_time();
-
-    MY_VERIFY_DOUBLE_CUSTOM(arrayX, Nparticles, 3.0, 1);
-    MY_VERIFY_DOUBLE_CUSTOM(arrayY, Nparticles, 3.0, 1);
-    MY_VERIFY_DOUBLE_CUSTOM(weights, Nparticles, 0.6, 1);
-
-    printf("GPU Execution: %lf\n", elapsed_time(send_end, back_time));
-    printf("FREE TIME: %lf\n", elapsed_time(back_time, free_time));
-    printf("TIME TO SEND BACK: %lf\n", elapsed_time(back_time, back_end_time));
-    printf("SEND ARRAY X BACK: %lf\n", elapsed_time(free_time, arrayX_time));
-    printf("SEND ARRAY Y BACK: %lf\n", elapsed_time(arrayX_time, arrayY_time));
-    printf("SEND WEIGHTS BACK: %lf\n", elapsed_time(arrayY_time, back_end_time));
-
-    xe = 0;
-    ye = 0;
-    // estimate the object location by expected values
-    for (x = 0; x < Nparticles; x++) {
-        xe += arrayX[x] * weights[x];
-        ye += arrayY[x] * weights[x];
-    }
-    printf("XE: %lf\n", xe);
-    printf("YE: %lf\n", ye);
-    double distance = sqrt(pow((double) (xe - (int) roundDouble(IszY / 2.0)), 2) + pow((double) (ye - (int) roundDouble(IszX / 2.0)), 2));
-    printf("%lf\n", distance);
 
     //CUDA freeing of memory
     cudaFree(weights_GPU);
