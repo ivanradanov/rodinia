@@ -8,27 +8,6 @@
 
 #define check_error(X) X
 
-__global__ void find_index_kernel(double * CDF, double * u, int Nparticles) {
-    int block_id = blockIdx.x;
-    int i = blockDim.x * block_id + threadIdx.x;
-
-    if (i < Nparticles) {
-
-        int index = -1;
-        int x;
-
-        for (x = 0; x < Nparticles; x++) {
-            if (CDF[x] >= u[i]) {
-                index = x;
-                //break;
-            }
-        }
-
-        printf("idx=%d\n", index);
-
-    }
-}
-
 __global__ void normalize_weights_kernel1(double * weights, int Nparticles) {
     int block_id = blockIdx.x;
     int i = blockDim.x * block_id + threadIdx.x;
@@ -83,13 +62,11 @@ int main(int argc, char * argv[]) {
     }
 
     //GPU copies of arrays
-    double * CDF_GPU;
     double * weights_GPU;
 
     double * u_GPU;
 
     //CUDA memory allocation
-    check_error(cudaMalloc((void **) &CDF_GPU, sizeof (double) *Nparticles));
     check_error(cudaMalloc((void **) &u_GPU, sizeof (double) *Nparticles));
     check_error(cudaMalloc((void **) &weights_GPU, sizeof (double) *Nparticles));
 
@@ -102,22 +79,15 @@ int main(int argc, char * argv[]) {
     {
       normalize_weights_kernel1 <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles);
         
-        CDF_GPU[0] = weights_GPU[0];
-        for (int x = 1; x < Nparticles; x++) {
-            CDF_GPU[x] = weights_GPU[x] + CDF_GPU[x - 1];
-        }
       normalize_weights_kernel2 <<< num_blocks, threads_per_block >>> (u_GPU, Nparticles);
 
-      //find_index_kernel <<< num_blocks, threads_per_block >>> (CDF_GPU, u_GPU, Nparticles);
-        
       for (int i=0; i<Nparticles; i++) {
         int index = -1;
         int x;
 
         for (x = 0; x < Nparticles; x++) {
-            if (CDF_GPU[x] >= u_GPU[i]) {
+            if (weights_GPU[x] >= u_GPU[i]) {
                 index = x;
-                //break;
             }
         }
 
@@ -129,7 +99,6 @@ int main(int argc, char * argv[]) {
 
     //block till kernels are finished
 
-    cudaFree(CDF_GPU);
     cudaFree(u_GPU);
 
     //CUDA freeing of memory
