@@ -30,7 +30,7 @@ __global__ void find_index_kernel(double * CDF, double * u, int Nparticles) {
     __syncthreads();
 }
 
-__global__ void normalize_weights_kernel1(double * weights, int Nparticles, double* partial_sums) {
+__global__ void normalize_weights_kernel1(double * weights, int Nparticles) {
     int block_id = blockIdx.x;
     int i = blockDim.x * block_id + threadIdx.x;
     __shared__ double sumWeights;
@@ -88,13 +88,11 @@ int main(int argc, char * argv[]) {
     double * weights_GPU;
 
     double * u_GPU;
-    double* partial_sums;
 
     //CUDA memory allocation
     check_error(cudaMalloc((void **) &CDF_GPU, sizeof (double) *Nparticles));
     check_error(cudaMalloc((void **) &u_GPU, sizeof (double) *Nparticles));
     check_error(cudaMalloc((void **) &weights_GPU, sizeof (double) *Nparticles));
-    check_error(cudaMalloc((void **) &partial_sums, sizeof (double) *Nparticles));
 
 
     int indX, indY;
@@ -103,18 +101,7 @@ int main(int argc, char * argv[]) {
     int num_blocks = ceil((double) Nparticles / (double) threads_per_block);
 
     {
-        for (int i=0; i<Nparticles; i++)
-            partial_sums[i] = 1 / ((double) (Nparticles));
-
-        int x;
-        double sum = 0.0;
-        int num_blocks = ceil((double) Nparticles / (double) threads_per_block);
-        for (x = 0; x < num_blocks; x++) {
-            sum += partial_sums[x];
-        }
-        partial_sums[0] = sum;
-
-      normalize_weights_kernel1 <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles, partial_sums);
+      normalize_weights_kernel1 <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles);
         
         CDF_GPU[0] = weights_GPU[0];
         for (int x = 1; x < Nparticles; x++) {
@@ -131,7 +118,6 @@ int main(int argc, char * argv[]) {
 
     cudaFree(CDF_GPU);
     cudaFree(u_GPU);
-    cudaFree(partial_sums);
 
     //CUDA freeing of memory
     cudaFree(weights_GPU);
