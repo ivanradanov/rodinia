@@ -260,18 +260,11 @@ __global__ void find_index_kernel(double * arrayX, double * arrayY, double * CDF
         for (x = 0; x < Nparticles; x++) {
             if (CDF[x] >= u[i]) {
                 index = x;
-                break;
+                //break;
             }
         }
 
-        if (index == -1) {
-            index = Nparticles - 1;
-        }
-
-        xj[i] = arrayX[index];
-        yj[i] = arrayY[index];
-
-        weights[i] = 1 / ((double) (Nparticles)); //moved this code to the beginning of likelihood kernel
+        printf("idx=%d\n", index);
 
     }
     __syncthreads();
@@ -747,6 +740,7 @@ void particleFilter(unsigned char * I, int IszX, int IszY, int Nfr, int * seed, 
 
 
     MY_START_CLOCK(particlefilter, float);
+    Nfr = 2;
     for(k = 1; k < Nfr; k++){
 
       likelihood_kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, xj_GPU, yj_GPU, CDF_GPU, ind_GPU, objxy_GPU, likelihood_GPU, I_GPU, u_GPU, weights_GPU, Nparticles, countOnes, max_size, k, IszY, Nfr, seed_GPU, partial_sums);
