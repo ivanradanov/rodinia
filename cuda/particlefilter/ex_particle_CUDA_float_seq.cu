@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BLOCK_X 16
-#define BLOCK_Y 16
+#define NN 200
 
-#define threads_per_block 512
+#define STRINGIZE_NX(A) #A
+#define STRINGIZE(A) STRINGIZE_NX(A)
+
+#define NNS STRINGIZE(NN)
+#define threads_per_block 2
 
 #define check_error(X) X
 
@@ -46,13 +49,9 @@ __global__ void normalize_weights_kernel2(double * u, int Nparticles) {
     }
 }
 
-int main(int argc, char * argv[]) {
+int main() {
 
-    int Nparticles = 50000;
-
-    //converting a string to a integer
-    if (sscanf(argv[8], "%d", &Nparticles) == EOF) {
-    }
+    int Nparticles = atoi(NNS);
     
     int x, y;
     //initial weights are all equal (1/Nparticles)
@@ -74,7 +73,8 @@ int main(int argc, char * argv[]) {
     int indX, indY;
     //start send
     check_error(cudaMemcpy(weights_GPU, weights, sizeof (double) *Nparticles, cudaMemcpyHostToDevice));
-    int num_blocks = ceil((double) Nparticles / (double) threads_per_block);
+    int num_blocks = ( Nparticles + threads_per_block - 1) / threads_per_block;
+    printf("nb=%d nn=%d\n", num_blocks, num_blocks * threads_per_block);
 
     {
       normalize_weights_kernel1 <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles);
