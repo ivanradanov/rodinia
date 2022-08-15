@@ -52,32 +52,7 @@ double elapsed_time(long long start_time, long long end_time) {
  * Checks for CUDA errors and prints them to the screen to help with
  * debugging of CUDA related programming
  *****************************/
-void check_error(cudaError e) {
-    if (e != cudaSuccess) {
-        printf("\nCUDA error: %s\n", cudaGetErrorString(e));
-        exit(1);
-    }
-}
-
-void cuda_print_double_array(double *array_GPU, size_t size) {
-    //allocate temporary array for printing
-    double* mem = (double*) malloc(sizeof (double) *size);
-
-    //transfer data from device
-    cudaMemcpy(mem, array_GPU, sizeof (double) *size, cudaMemcpyDeviceToHost);
-
-
-    printf("PRINTING ARRAY VALUES\n");
-    //print values in memory
-    for (size_t i = 0; i < size; ++i) {
-        printf("[%d]:%0.6f\n", i, mem[i]);
-    }
-    printf("FINISHED PRINTING ARRAY VALUES\n");
-
-    //clean up memory
-    free(mem);
-    mem = NULL;
-}
+#define check_error(X) X
 
 /********************************
  * CALC LIKELIHOOD SUM
@@ -290,7 +265,7 @@ __global__ void normalize_weights_kernel2(double* weights, double * CDF, double 
         for (int x = 1; x < Nparticles; x++) {
             CDF[x] = weights[x] + CDF[x - 1];
         }
-        u[0] = (1 / ((double) (Nparticles))) * d_randu(seed, i); // do this to allow all threads in all blocks to use the same u1
+        u[0] = (1 / ((double) (Nparticles))) * d_randu(seed, 0); // do this to allow all threads in all blocks to use the same u1
     }
     
     __syncthreads();
@@ -305,20 +280,6 @@ __global__ void normalize_weights_kernel2(double* weights, double * CDF, double 
     }
 }
 
-__global__ void sum_kernel(double* partial_sums, int Nparticles) {
-    int block_id = blockIdx.x;
-    int i = blockDim.x * block_id + threadIdx.x;
-
-    if (i == 0) {
-        int x;
-        double sum = 0.0;
-        int num_blocks = ceil((double) Nparticles / (double) threads_per_block);
-        for (x = 0; x < num_blocks; x++) {
-            sum += partial_sums[x];
-        }
-        partial_sums[0] = sum;
-    }
-}
 
 /*****************************
  * CUDA Likelihood Kernel Function to replace FindIndex
@@ -855,7 +816,7 @@ int main(int argc, char * argv[]) {
     unsigned char * I = (unsigned char *) malloc(sizeof (unsigned char) *IszX * IszY * Nfr);
     long long start = get_time();
     //call video sequence
-    videoSequence(I, IszX, IszY, Nfr, seed);
+    //videoSequence(I, IszX, IszY, Nfr, seed);
     long long endVideoSequence = get_time();
     printf("VIDEO SEQUENCE TOOK %f\n", elapsed_time(start, endVideoSequence));
     //call particle filter
