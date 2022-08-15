@@ -106,10 +106,6 @@ __global__ void normalize_weights_kernel2(double* weights, double * CDF, double 
     __shared__ double u1;
     
     if (i == 0) {
-        CDF[0] = weights[0];
-        for (int x = 1; x < Nparticles; x++) {
-            CDF[x] = weights[x] + CDF[x - 1];
-        }
         u[0] = 0;
     }
     
@@ -131,58 +127,10 @@ __global__ void likelihood_kernel(double * arrayX, double * arrayY, double * xj,
     int y;
     
     int indX, indY; 
-    __shared__ double buffer[512];
-    if (i < Nparticles) {
-        arrayX[i] = xj[i]; 
-        arrayY[i] = yj[i]; 
-    }
 
-    __syncthreads();
-
-    if (i < Nparticles) {
-        for (y = 0; y < countOnes; y++) {
-            //added dev_round_double() to be consistent with roundDouble
-            indX = dev_round_double(arrayX[i]) + objxy[y * 2 + 1];
-            indY = dev_round_double(arrayY[i]) + objxy[y * 2];
-
-            ind[i * countOnes + y] = abs(indX * IszY * Nfr + indY * Nfr + k);
-            if (ind[i * countOnes + y] >= max_size)
-                ind[i * countOnes + y] = 0;
-        }
-        likelihood[i] = calcLikelihoodSum(I, ind, countOnes, i);
-
-        likelihood[i] = likelihood[i] / countOnes;
-
-        weights[i] = weights[i] * exp(likelihood[i]); //Donnie Newell - added the missing exponential function call
-
-    }
-
-    buffer[threadIdx.x] = 0.0;
-
-    __syncthreads();
-
-    if (i < Nparticles) {
-
-        buffer[threadIdx.x] = weights[i];
-    }
-
-    __syncthreads();
-
-    //this doesn't account for the last block that isn't full
-    for (unsigned int s = blockDim.x / 2; s > 0; s >>= 1) {
-        if (threadIdx.x < s) {
-            buffer[threadIdx.x] += buffer[threadIdx.x + s];
-        }
-
-        __syncthreads();
-
-    }
     if (threadIdx.x == 0) {
-        partial_sums[blockIdx.x] = buffer[0];
+        partial_sums[blockIdx.x] = weights[0];
     }
-
-    __syncthreads();
-
 
 }
 
@@ -356,6 +304,11 @@ void particleFilter(unsigned char * I, int IszX, int IszY, int Nfr, int * seed, 
         partial_sums[0] = sum;
 
       normalize_weights_kernel1 <<< num_blocks, threads_per_block >>> (weights_GPU, Nparticles, partial_sums, CDF_GPU, u_GPU, seed_GPU);
+        
+        CDF_GPU[0] = weights_GPU[0];
+        for (int x = 1; x < Nparticles; x++) {
+            CDF_GPU[x] = weights_GPU[x] + CDF_GPU[x - 1];
+        }
       normalize_weights_kernel2 <<< num_blocks, threads_per_block >>> (weights_GPU, CDF_GPU, u_GPU, seed_GPU, Nparticles);
 
       find_index_kernel <<< num_blocks, threads_per_block >>> (CDF_GPU, u_GPU, Nparticles);
