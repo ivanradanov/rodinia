@@ -27,7 +27,6 @@ __global__ void find_index_kernel(double * CDF, double * u, int Nparticles) {
         printf("idx=%d\n", index);
 
     }
-    __syncthreads();
 }
 
 __global__ void normalize_weights_kernel1(double * weights, int Nparticles) {
@@ -109,7 +108,21 @@ int main(int argc, char * argv[]) {
         }
       normalize_weights_kernel2 <<< num_blocks, threads_per_block >>> (u_GPU, Nparticles);
 
-      find_index_kernel <<< num_blocks, threads_per_block >>> (CDF_GPU, u_GPU, Nparticles);
+      //find_index_kernel <<< num_blocks, threads_per_block >>> (CDF_GPU, u_GPU, Nparticles);
+        
+      for (int i=0; i<Nparticles; i++) {
+        int index = -1;
+        int x;
+
+        for (x = 0; x < Nparticles; x++) {
+            if (CDF_GPU[x] >= u_GPU[i]) {
+                index = x;
+                //break;
+            }
+        }
+
+        printf("idx=%d\n", index);
+      }
       
     }
 
