@@ -36,13 +36,13 @@ __global__ void normalize_weights_kernel1(double * weights, int Nparticles, doub
     __shared__ double sumWeights;
     
     if(0 == threadIdx.x) {
-        sumWeights = partial_sums[0];
+        sumWeights = 1 / ((double) (Nparticles));
     }
     
     __syncthreads();
     
     if (i < Nparticles) {
-        weights[i] = weights[i] / sumWeights;
+        weights[i] = 1 / ((double) (Nparticles)) / sumWeights;
     }
 }
 
@@ -104,7 +104,7 @@ int main(int argc, char * argv[]) {
 
     {
         for (int i=0; i<Nparticles; i++)
-            partial_sums[i] = weights_GPU[0];
+            partial_sums[i] = 1 / ((double) (Nparticles));
 
         int x;
         double sum = 0.0;
