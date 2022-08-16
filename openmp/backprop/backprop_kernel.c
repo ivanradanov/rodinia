@@ -49,14 +49,12 @@ void bpnn_train_kernel(BPNN *net, float *eo, float *eh)
   out = net->output_n;   
    
   printf("Performing CPU computation\n");
-  MY_START_CLOCK(backprop, layerforward);
   bpnn_layerforward(net->input_units, net->hidden_units,net->input_weights, in, hid);
   bpnn_layerforward(net->hidden_units, net->output_units, net->hidden_weights, hid, out);
-  MY_STOP_CLOCK(backprop, layerforward);
   bpnn_output_error(net->output_delta, net->target, net->output_units, out, &out_err);
   bpnn_hidden_error(net->hidden_delta, hid, net->output_delta, out, net->hidden_weights, net->hidden_units, &hid_err);  
-  MY_START_CLOCK(backprop, adjust_weights);
   bpnn_adjust_weights(net->output_delta, out, net->hidden_units, hid, net->hidden_weights, net->hidden_prev_weights);
+  MY_START_CLOCK(backprop, adjust_weights);
   bpnn_adjust_weights(net->hidden_delta, hid, net->input_units, in, net->input_weights, net->input_prev_weights);
   MY_STOP_CLOCK(backprop, adjust_weights);
 

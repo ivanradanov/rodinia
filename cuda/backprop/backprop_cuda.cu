@@ -122,7 +122,7 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 
   
   
-  MY_START_CLOCK(backprop, layerforward);
+  MY_START_CLOCK(backprop, layerforwardcu);
   bpnn_layerforward_CUDA<<< grid, threads >>>(input_cuda,
 	                                          output_hidden_cuda,
 											  input_hidden_cuda,
@@ -131,7 +131,7 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 											  hid);
  
   cudaThreadSynchronize();
-  MY_STOP_CLOCK(backprop, layerforward);
+  MY_STOP_CLOCK(backprop, layerforwardcu);
   
   cudaError_t error = cudaGetLastError();
 	if (error != cudaSuccess) {
