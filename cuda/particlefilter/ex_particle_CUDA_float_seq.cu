@@ -291,6 +291,10 @@ __global__ void normalize_weights_kernel1(double * weights, int Nparticles, doub
     if (i < Nparticles) {
         weights[i] = weights[i] / sumWeights;
     }
+    
+    if (i == 0) {
+        u[0] = (1 / ((double) (Nparticles))) * d_randu(seed, i); // do this to allow all threads in all blocks to use the same u1
+    }
 }
 
 
@@ -301,7 +305,6 @@ __global__ void normalize_weights_kernel2(double * weights, int Nparticles, doub
     
     if (i == 0) {
         cdfCalc(CDF, weights, Nparticles);
-        u[0] = (1 / ((double) (Nparticles))) * d_randu(seed, i); // do this to allow all threads in all blocks to use the same u1
     }
     
     __syncthreads();
