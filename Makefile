@@ -7,6 +7,8 @@ OMP_BIN_DIR := $(RODINIA_BASE_DIR)/bin/linux/omp
 OPENCL_BIN_DIR := $(RODINIA_BASE_DIR)/bin/linux/opencl
 
 TIMED_CUDA_DIRS := $(shell $(RODINIA_BASE_DIR)/scripts/cuda_apps.sh)
+TIMED_CUDA_DIRS := $(addprefix cuda/,$(TIMED_CUDA_DIRS))
+TIMED_CUDA_DIRS_CLEAN := $(TIMED_CUDA_DIRS)
 
 TIMED_OPENMP_DIRS := backprop \
        bfs \
@@ -47,8 +49,13 @@ cuda: TIMED_CUDA
 TIMED_OPENMP:
 	for dir in $(TIMED_OPENMP_DIRS) ; do cd openmp/$$dir ; make ; cd - ; done
 
-TIMED_CUDA:
-	for dir in $(TIMED_CUDA_DIRS) ; do cd cuda/$$dir ; make ; cd - ; done
+$(TIMED_CUDA_DIRS)::
+	$(MAKE) -C $@ #$(MAKECMDGOALS)
+$(TIMED_CUDA_DIRS_CLEAN)::
+	$(MAKE) -C $@ clean
+
+TIMED_CUDA: $(TIMED_CUDA_DIRS)
+	#for dir in $(TIMED_CUDA_DIRS) ; do cd cuda/$$dir ; make ; cd - ; done
 
 # commented out benchmarks that use opengl headers of cuda textures
 CUDA:
@@ -126,8 +133,8 @@ openmp_clean: TIMED_OPENMP_clean
 TIMED_OPENMP_clean:
 	for dir in $(TIMED_OPENMP_DIRS) ; do cd openmp/$$dir ; make clean ; cd - ; done
 
-TIMED_CUDA_clean:
-	for dir in $(TIMED_CUDA_DIRS) ; do cd cuda/$$dir ; make clean ; cd - ; done
+TIMED_CUDA_clean: #$(TIMED_CUDA_DIRS_CLEAN)
+	for dir in $(TIMED_CUDA_DIRS) ; do cd $$dir ; make clean ; cd - ; done
 
 OCL_clean:
 	cd $(OPENCL_BIN_DIR); rm -f *
