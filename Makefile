@@ -8,7 +8,7 @@ OPENCL_BIN_DIR := $(RODINIA_BASE_DIR)/bin/linux/opencl
 
 TIMED_CUDA_DIRS := $(shell $(RODINIA_BASE_DIR)/scripts/cuda_apps.sh)
 TIMED_CUDA_DIRS := $(addprefix cuda/,$(TIMED_CUDA_DIRS))
-TIMED_CUDA_DIRS_CLEAN := $(TIMED_CUDA_DIRS)
+#TIMED_CUDA_DIRS_CLEAN = $(TIMED_CUDA_DIRS)
 
 TIMED_OPENMP_DIRS := backprop \
        bfs \
@@ -50,9 +50,9 @@ TIMED_OPENMP:
 	for dir in $(TIMED_OPENMP_DIRS) ; do cd openmp/$$dir ; make ; cd - ; done
 
 $(TIMED_CUDA_DIRS)::
-	$(MAKE) -C $@ #$(MAKECMDGOALS)
-$(TIMED_CUDA_DIRS_CLEAN)::
-	$(MAKE) -C $@ clean
+	$(MAKE) -C $@
+#$(TIMED_CUDA_DIRS_CLEAN)::
+#	$(MAKE) -C $@ clean
 
 TIMED_CUDA: $(TIMED_CUDA_DIRS)
 	#for dir in $(TIMED_CUDA_DIRS) ; do cd cuda/$$dir ; make ; cd - ; done
