@@ -71,7 +71,7 @@ bpnn_layerforward_CUDA(float *input_cuda,
 
    __syncthreads();
 
-   if ( tx == 0 ) {
+   if ( ty == 0 && tx == 0 ) {
 	   hidden_partial_sum[by * hid + ty] = weight_matrix[tx][ty];
    }
 
