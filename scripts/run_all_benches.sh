@@ -12,8 +12,8 @@ THREAD_NUMS_OPENMP="1 2 4 8 16"
 #DATE="$(date -Ins)"
 #LOG_FILE="~/tmp/all_benches_log_$DATE.log"
 
-MAX_THREAD_TEST_CONFIGS="1 2 3 6 7 8 9"
-SCALING_TEST_CONFIGS="2 3 9"
+MAX_THREAD_TEST_CONFIGS="53 12"
+SCALING_TEST_CONFIGS="53 12"
 
 echo ----------------------------------------------
 echo Start "$(date -Ins)"
@@ -67,9 +67,13 @@ make omp &> /dev/null
 #./scripts/run_timed_openmp_n_times.sh $NRUNS | grep -B1 FAIL
 
 echo COPYING RESULTS, DONT QUIT
-mkdir -p "$HOME/rodinia_results/$(date -Ins)"
-cp -a results "$HOME/rodinia_results/$(date -Ins)"
-echo Finished "$(date -Ins)"
+RESULTS="rodinia_results_$HOSTNAME_$(date -Ins)"
+mkdir -p "$HOME/rodinia_results/$RESULTS"
+cp -a results "$HOME/rodinia_results/$RESULTS"
+cd "$HOME/rodinia_results/"
+zip -r "$RESULTS" "$RESULTS/results/openmp/out/" "$RESULTS/results/cuda/out/"
+
+echo Finished "$RESULTS"
 
 #echo COPYING RESULTS, DONT QUIT
 #mkdir ~/rodinia_results/
