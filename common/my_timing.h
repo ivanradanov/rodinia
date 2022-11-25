@@ -61,7 +61,7 @@ static inline void MY_WRITE_TIME_TO_FILE(const char *app_id, const char *clock_i
   const char *compilername = "unidetified_compiler";
 #endif
 
-  fprintf(f, "%s, %s, %.17g, %s, %s, %d,\n", app_id, clock_id, elapsed, hostname, compilername, omp_threads);
+  fprintf(f, "%s,%s,%.17g,%s,%s,%d,\n", app_id, clock_id, elapsed, hostname, compilername, omp_threads);
 
   if (f != stdout && f != stderr)
     fclose(f);
