@@ -80,7 +80,7 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
   float *input_weights_one_dim;
   float *input_weights_prev_one_dim;
   num_blocks = in / 16;  
-  dim3  grid( 1 , num_blocks);
+  dim3  grid(num_blocks);
   dim3  threads(16 , 16);
   
   input_weights_one_dim = (float *) malloc((in + 1)* (hid + 1) * sizeof(float));
