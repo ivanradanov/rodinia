@@ -142,12 +142,13 @@ void usage(int argc, char **argv)
     fprintf(stderr, "\t<powerFile>  - name of the file containing the initial power values of each cell\n");
     fprintf(stderr, "\t<tempFile>  - name of the file containing the initial temperature values of each cell\n");
     fprintf(stderr, "\t<outputFile - output file\n");
+    fprintf(stderr, "\t<printAcc - print accuracy\n");
     exit(1);
 }
 
 int main(int argc, char** argv)
 {
-    if (argc != 7)
+    if (argc != 8)
     {
         usage(argc,argv);
     }
@@ -161,6 +162,7 @@ int main(int argc, char** argv)
     int numCols = atoi(argv[1]);
     int numRows = atoi(argv[1]);
     int layers = atoi(argv[2]);
+    int printAcc = atoi(argv[7]);
 
     /* calculating parameters*/
 
@@ -193,11 +195,12 @@ int main(int argc, char** argv)
 
     hotspot_opt1(powerIn, tempIn, tempOut, numCols, numRows, layers, Cap, Rx, Ry, Rz, dt,iterations);
 
-    computeTempCPU(powerIn, tempCopy, answer, numCols, numRows, layers, Cap, Rx, Ry, Rz, dt,iterations);
-
-    float acc = accuracy(tempOut,answer,numRows*numCols*layers);
-    printf("Accuracy: %e\n",acc);
-    writeoutput(tempOut,numRows, numCols, layers, ofile);
+    if (printAcc) {
+	    computeTempCPU(powerIn, tempCopy, answer, numCols, numRows, layers, Cap, Rx, Ry, Rz, dt,iterations);
+	    float acc = accuracy(tempOut,answer,numRows*numCols*layers);
+	    printf("Accuracy: %e\n",acc);
+	    writeoutput(tempOut,numRows, numCols, layers, ofile);
+    }
     free(tempIn);
     free(tempOut); free(powerIn);
     return 0;
