@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -n cfd ""
+#echo -n cfd "" # uses cuda global symbols
 echo -n gaussian ""
 echo -n particlefilter ""
 echo -n lavaMD ""
@@ -21,10 +21,10 @@ echo -n srad/srad_v2 ""
 exit
 
 
-#echo -n huffman ""
-#echo -n heartwall ""
-#echo -n hybridsort "" # cpucuda unable to compile
-#echo -n kmeans "" # cpucuda ubable to compile
-#echo -n leukocyte "" # no timing, no verification
-#echo -n mummergpu "" # cpucuda unable to compile
+echo -n huffman ""
+echo -n heartwall ""
+#echo -n hybridsort "" # textures
+#echo -n kmeans "" # textures
+#echo -n leukocyte "" # textures
+#echo -n mummergpu "" # textures
 exit
