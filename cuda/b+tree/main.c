@@ -2151,10 +2151,10 @@ main(	int argc,
 				  commandPointer++;
 
 				printf("\n ******command: k count=%d \n",count);
-				if(count > 65535){
-					printf("ERROR: Number of requested querries should be 65,535 at most. (limited by # of CUDA blocks)\n");
-					exit(0);
-				}
+				// if(count > 65535){
+				// 	printf("ERROR: Number of requested querries should be 65,535 at most. (limited by # of CUDA blocks)\n");
+				// 	exit(0);
+				// }
 
 				// INPUT: records CPU allocation (setting pointer in mem variable)
 				record *records = (record *)mem;
