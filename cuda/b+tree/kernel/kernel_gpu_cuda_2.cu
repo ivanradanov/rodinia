@@ -53,13 +53,13 @@ findRangeK(	long height,
 	}
 
 	// Find the index of the starting record
-	if(knodesD[currKnodeD[bid]].keys[thid] == startD[bid]){
+	if(thid == 0 && knodesD[currKnodeD[bid]].keys[thid] == startD[bid]){
 		RecstartD[bid] = knodesD[currKnodeD[bid]].indices[thid];
 	}
 	__syncthreads();
 
 	// Find the index of the ending record
-	if(knodesD[lastKnodeD[bid]].keys[thid] == endD[bid]){
+	if(thid == 0 && knodesD[lastKnodeD[bid]].keys[thid] == endD[bid]){
 		ReclenD[bid] = knodesD[lastKnodeD[bid]].indices[thid] - RecstartD[bid]+1;
 	}
 

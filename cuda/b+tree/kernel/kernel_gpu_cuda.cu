@@ -43,7 +43,7 @@ findK(	long height,
 
 	//At this point, we have a candidate leaf node which may contain
 	//the target record.  Check each key to hopefully find the record
-	if(knodesD[currKnodeD[bid]].keys[thid] == keysD[bid]){
+	if(thid == 0 && knodesD[currKnodeD[bid]].keys[thid] == keysD[bid]){
 		ansD[bid].value = recordsD[knodesD[currKnodeD[bid]].indices[thid]].value;
 	}
 
