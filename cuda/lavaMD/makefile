@@ -49,7 +49,7 @@ main.o:		main.h \
 	$(NVCC)	$(KERNEL_DIM) $(OUTPUT) main.cu \
 			-c \
 			-o main.o \
-			$(NVCC_FLAGS)
+			$(NVCC_FLAGS) $(POLYGEIST_LLVM_STRUCT_ABI_0)
 
 
 #./kernel/kernel_gpu_cuda_wrapper.o:	./kernel/kernel_gpu_cuda_wrapper.h \
