@@ -1,0 +1,2 @@
+./bfs.out ../../data/bfs/graph1MW_6.txt
+#./bfs.out ../../data/bfs/graph65536.txt

@@ -1,0 +1,3 @@
+#./sc_gpu 10 20 256 65536 65536 1000 none output.txt 1
+./sc_gpu 2 3 256 1165536 1165536 1000 none /dev/null 1
+
