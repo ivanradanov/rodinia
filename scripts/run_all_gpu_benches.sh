@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
-VALID_ARGS=$(getopt -o h --long clang,nvcc,pgo-alternatives:,pgo-prof:,pgo-opt:,host:,nruns:,configs: -- "$@")
+VALID_ARGS=$(getopt -o h --long dry-run,clang,nvcc,pgo-alternatives:,pgo-prof:,pgo-opt:,host:,nruns:,configs: -- "$@")
 if [[ $? -ne 0 ]]; then
     exit 1;
 fi
-
-echo "$VALID_ARGS"
 
 eval set -- "$VALID_ARGS"
 while [ : ]; do
@@ -17,14 +15,14 @@ while [ : ]; do
         ;;
     --pgo-prof)
         echo "Run PGO profiling on '$2'"
-		PGO_MODE="pgo_prof"
-		PGO_CONFIGS="$2"
+		PGO_PROF="1"
+		PGO_PROF_CONFIGS="$2"
         shift 2
         ;;
     --pgo-opt)
         echo "Optimize '$2' using PGO"
-		PGO_MODE="pgo_opt"
-		PGO_CONFIGS="$2"
+		PGO_OPT="1"
+		PGO_OPT_CONFIGS="$2"
         shift 2
         ;;
     --host)
@@ -41,6 +39,11 @@ while [ : ]; do
         echo "Run '$2' configs"
 		TEST_CONFIGS="$2"
         shift 2
+        ;;
+    --dry-run)
+        echo "Dry run"
+		DRY_RUN="1"
+        shift
         ;;
     --clang)
         echo "Run clang"
@@ -66,6 +69,10 @@ while [ : ]; do
   esac
 done
 
+if [ "$DRY_RUN" == "1" ]; then
+	exit
+fi
+
 echo ----------------------------------------------
 echo Start "$(date -Ins)"
 echo ----------------------------------------------
@@ -83,11 +90,11 @@ for i in $TEST_CONFIGS; do
 	./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL
 done
 
-if [ "$PGO_MODE" == "pgo_prof" ]; then
-   for i in $PGO_CONFIGS; do
+if [ "$PGO_PROF" == "1" ]; then
+   for i in $PGO_PROF_CONFIGS; do
 	   echo Compiling polygeist configuration $i for profiling...
 	   make cuda_clean &> /dev/null
-	   make POLYGEIST_ALTERNATIVES_MODE="$PGO_MODE" CONFIG="$i" TARGET_GPU=1 MY_VERIFICATION_DISABLE=1 cuda -kj &> /dev/null
+	   make POLYGEIST_ALTERNATIVES_MODE=pgo_prof CONFIG="$i" TARGET_GPU=1 MY_VERIFICATION_DISABLE=1 cuda -kj &> /dev/null
 	   ALTS=$(seq 0 $(($PGO_ALTERNATIVE_NUM - 1)))
 	   for j in $ALTS; do
 	       echo Profiling polygeist configuration $i alternative $j...
@@ -96,12 +103,12 @@ if [ "$PGO_MODE" == "pgo_prof" ]; then
    done
 fi
 
-if [ "$PGO_MODE" == "pgo_opt" ]; then
-   for i in $PGO_CONFIGS; do
+if [ "$PGO_OPT" == "1" ]; then
+   for i in $PGO_OPT_CONFIGS; do
 	   echo Compiling polygeist configuration $i pgo...
 	   make cuda_clean &> /dev/null
-	   make POLYGEIST_ALTERNATIVES_MODE="$PGO_MODE" CONFIG="$i" TARGET_GPU=1 MY_VERIFICATION_DISABLE=1 cuda -kj &> /dev/null
-	   echo Running polygeist configuration $i alternative $j...
+	   make POLYGEIST_ALTERNATIVES_MODE=pgo_opt CONFIG="$i" TARGET_GPU=1 MY_VERIFICATION_DISABLE=1 cuda -kj &> /dev/null
+	   echo Running polygeist configuration $i pgo...
 	   ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL
    done
 fi
