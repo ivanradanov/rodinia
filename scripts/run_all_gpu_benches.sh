@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
-VALID_ARGS=$(getopt -o h --long dry-run,clang,nvcc,pgo-alternatives:,pgo-prof:,pgo-opt:,host:,nruns:,configs: -- "$@")
+VALID_ARGS=$(getopt -o h --long dry-run,clang,nvcc,nruns:,pgo-prof-nruns:,pgo-alternatives:,pgo-prof:,pgo-opt:,host:,configs: -- "$@")
 if [[ $? -ne 0 ]]; then
     exit 1;
 fi
+
+# Default vals
+PGO_ALTERNATIVE_NUM=7
+NRUNS=5
+PGO_PROF_NRUNS=3
 
 eval set -- "$VALID_ARGS"
 while [ : ]; do
@@ -11,6 +16,11 @@ while [ : ]; do
     --pgo-alternatives)
         echo "Profile $2 alternatives"
 		PGO_ALTERNATIVE_NUM="$2"
+        shift 2
+        ;;
+    --pgo-prof-nruns)
+        echo "Do $2 PGO profiling runs"
+		PGO_PROF_NRUNS="$2"
         shift 2
         ;;
     --pgo-prof)
@@ -98,7 +108,7 @@ if [ "$PGO_PROF" == "1" ]; then
 	   ALTS=$(seq 0 $(($PGO_ALTERNATIVE_NUM - 1)))
 	   for j in $ALTS; do
 	       echo Profiling polygeist configuration $i alternative $j...
-	       POLYGEIST_PGO_KERNEL_ALTERNATIVE="$j" ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL
+	       POLYGEIST_PGO_KERNEL_ALTERNATIVE="$j" ./scripts/run_timed_cuda_big_n_times.sh $PGO_PROF_NRUNS 2>&1 | grep -B2 FAIL
 	   done
    done
 fi
