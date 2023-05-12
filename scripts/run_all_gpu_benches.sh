@@ -108,7 +108,8 @@ if [ "$PGO_PROF" == "1" ]; then
 	   ALTS=$(seq 0 $(($PGO_ALTERNATIVE_NUM - 1)))
 	   for j in $ALTS; do
 	       echo Profiling polygeist configuration $i alternative $j...
-	       POLYGEIST_PGO_KERNEL_ALTERNATIVE="$j" ./scripts/run_timed_cuda_big_n_times.sh $PGO_PROF_NRUNS 2>&1 | grep -B2 FAIL
+	       POLYGEIST_PGO_DATA_DIR="/var/tmp/polygeist/pgo/$i/" POLYGEIST_PGO_ALTERNATIVE="$j" \
+               ./scripts/run_timed_cuda_big_n_times.sh $PGO_PROF_NRUNS 2>&1 | grep -B2 FAIL
 	   done
    done
 fi
@@ -117,7 +118,8 @@ if [ "$PGO_OPT" == "1" ]; then
    for i in $PGO_OPT_CONFIGS; do
 	   echo Compiling polygeist configuration $i pgo...
 	   make cuda_clean &> /dev/null
-	   make POLYGEIST_ALTERNATIVES_MODE=pgo_opt CONFIG="$i" TARGET_GPU=1 MY_VERIFICATION_DISABLE=1 cuda -kj &> /dev/null
+	   POLYGEIST_PGO_DATA_DIR="/var/tmp/polygeist/pgo/$i/" \
+           make POLYGEIST_ALTERNATIVES_MODE=pgo_opt CONFIG="$i" TARGET_GPU=1 MY_VERIFICATION_DISABLE=1 cuda -kj &> /dev/null
 	   echo Running polygeist configuration $i pgo...
 	   ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL
    done
