@@ -3,7 +3,7 @@ include ../../common/make.config
 LOCAL_CC = $(CC)
 CC := $(NVCC)
 
-all : nn hurricane_gen
+all : nn
 
 clean :
 	rm -rf *.o nn hurricane_gen
@@ -27,7 +27,7 @@ clang: $(SRC)
 		-L/usr/local/cuda/lib64 -lcudart_static -ldl -lrt -pthread -DTIMING
 
 hurricane_gen : hurricane_gen.c
-	$(LOCAL_CC) -o $@ $< -lm $(CC_FLAGS)
+	clang -o $@ $< -lm $(CC_FLAGS)
 
 #data :
 #	mkdir data
