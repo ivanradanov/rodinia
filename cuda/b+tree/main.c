@@ -1951,7 +1951,7 @@ main(	int argc,
      // For Debug
      char *sPointer=commandBuffer;
      printf("Command Buffer: \n");
-     printf("%s",commandBuffer);
+     //printf("%s",commandBuffer);
      //
 
 
@@ -2029,7 +2029,7 @@ main(	int argc,
 
 	printf("Waiting for command\n");
 	printf("> ");
-	while (sscanf(commandPointer, "%c", &instruction) != EOF) {
+	while (commandPointer - commandBuffer < lSize && sscanf(commandPointer, "%c", &instruction) != EOF) {
 	  commandPointer++;
 		switch (instruction) {
 			// ----------------------------------------40
