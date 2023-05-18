@@ -100,8 +100,8 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
   cudaMalloc((void**) &output_hidden_cuda, (hid + 1) * sizeof(float));
   cudaMalloc((void**) &input_hidden_cuda, (in + 1) * (hid + 1) * sizeof(float));
   cudaMalloc((void**) &hidden_partial_sum, num_blocks * WIDTH * sizeof(float));
-  
-  
+  cudaMemset(hidden_partial_sum, 0, num_blocks * WIDTH * sizeof(float));
+
 #endif
 
 #ifdef CPU
