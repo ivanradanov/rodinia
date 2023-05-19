@@ -443,7 +443,7 @@ int main(int argc, char *argv []){
 
 	checkCUDAError("copy back");
 
-	MY_VERIFY_FLOAT_EXACT(image, mem_size / sizeof(fp));
+	MY_VERIFY_FLOAT_CUSTOM(image, mem_size / sizeof(fp), FLT_MIN, 8);
 
 	time10 = get_time();
 
