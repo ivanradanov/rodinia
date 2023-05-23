@@ -1,5 +1,5 @@
 // The following are the command parameters to the application:
-// 1) Simulation time interval which is the number of miliseconds to simulate. Needs to be integer > 0
+// 1) Simulation time interval which is the number of milliseconds to simulate. Needs to be integer > 0
 // 2) Number of instances of simulation to run. Needs to be integer > 0.
 // 3) Method of parallelization. Need to be 0 for parallelization inside each simulation instance, or 1 for parallelization across instances.
 // 4) Number of threads to use. Needs to be integer > 0.

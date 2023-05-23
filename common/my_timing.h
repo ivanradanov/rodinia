@@ -58,7 +58,7 @@ static inline void MY_WRITE_TIME_TO_FILE(const char *app_id, const char *clock_i
 #ifdef _MY_COMPILER_NAME_
   const char *compilername = _MY_COMPILER_NAME_;
 #else
-  const char *compilername = "unidetified_compiler";
+  const char *compilername = "unidentified_compiler";
 #endif
 
   fprintf(f, "%s,%s,%.17g,%s,%s,%d,\n", app_id, clock_id, elapsed, hostname, compilername, omp_threads);

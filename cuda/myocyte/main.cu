@@ -11,7 +11,7 @@
 // Myocyte application models cardiac myocyte (heart muscle cell) and simulates its behavior according to the work by Saucerman and Bers [8]. The model integrates 
 // cardiac myocyte electrical activity with the calcineurin pathway, which is a key aspect of the development of heart failure. The model spans large number of temporal 
 // scales to reflect how changes in heart rate as observed during exercise or stress contribute to calcineurin pathway activation, which ultimately leads to the expression 
-// of numerous genes that remodel the heart’s structure. It can be used to identify potential therapeutic targets that may be useful for the treatment of heart failure. 
+// of numerous genes that remodel the heartï¿½s structure. It can be used to identify potential therapeutic targets that may be useful for the treatment of heart failure. 
 // Biochemical reactions, ion transport and electrical activity in the cell are modeled with 91 ordinary differential equations (ODEs) that are determined by more than 200 
 // experimentally validated parameters. The model is simulated by solving this group of ODEs for a specified time interval. The process of ODE solving is based on the 
 // causal relationship between values of ODEs at different time steps, thus it is mostly sequential. At every dynamically determined time step, the solver evaluates the 
@@ -25,7 +25,7 @@
 // 2) This solver and particular solving algorithm used with it (embedded_fehlberg_7_8) were adapted to work with a set of equations, not just one like in original version.
 //	3) In order for solver to provide deterministic number of steps (needed for particular amount of memore previousely allocated for results), every next step is 
 //      incremented by 1 time unit (h_init).
-//	4) Function assumes that simulation starts at some point of time (whatever time the initial values are provided for) and runs for the number of miliseconds (xmax) 
+//	4) Function assumes that simulation starts at some point of time (whatever time the initial values are provided for) and runs for the number of milliseconds (xmax) 
 //      specified by the uses as a parameter on command line.
 // 5) The appropriate amount of memory is previousely allocated for that range (y).
 //	6) This setup in 3) - 5) allows solver to adjust the step ony from current time instance to current time instance + 0.9. The next time instance is current time instance + 1;
@@ -69,7 +69,7 @@
 //     causeing value trashing.
 
 // The following are the command parameters to the application:
-// 1) Simulation time interval which is the number of miliseconds to simulate. Needs to be integer > 0
+// 1) Simulation time interval which is the number of milliseconds to simulate. Needs to be integer > 0
 // 2) Number of instances of simulation to run. Needs to be integer > 0.
 // 3) Method of parallelization. Need to be 0 for parallelization inside each simulation instance, or 1 for parallelization across instances.
 // Example:
