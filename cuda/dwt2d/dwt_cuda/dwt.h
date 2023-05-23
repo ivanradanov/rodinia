@@ -1,7 +1,7 @@
 /// 
 /// @file    dwt.h
 /// @author  Martin Jirman (207962@mail.muni.cz)
-/// @brief   Entry points for CUDA implementaion of 9/7 and 5/3 DWT.
+/// @brief   Entry points for CUDA implementation of 9/7 and 5/3 DWT.
 /// @date    2011-01-20 11:41
 ///
 ///
@@ -41,9 +41,9 @@
 ///   buffers), less deep bands follow. There is no padding between stored
 ///   bands in the buffer. Order of bands of the same level in the buffer is
 ///   following: Low-low band (or deeper level subbands) is stored first.
-///   Vertical-low/horizontal-high band follows. Vertical-high/horizonal-low
+///   Vertical-low/horizontal-high band follows. Vertical-high/horizontal-low
 ///   band is saved next and finally, the high-high band is saved. Out of all
-///   low-low bands, only th edeepest one is saved (right at the beginning of
+///   low-low bands, only the deepest one is saved (right at the beginning of
 ///   the buffer), others are replaced with deeper level subbands.
 /// - Input images of all functions won't be preserved (will be overwritten).
 /// - Input and output buffers can't overlap.
