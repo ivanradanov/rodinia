@@ -1872,7 +1872,7 @@ main(	int argc,
 	// read inputs
 	// ------------------------------------------------------------60
 
-	// assing default values
+	// assign default values
 	int cur_arg;
 	int arch_arg;
 	arch_arg = 0;
@@ -2152,7 +2152,7 @@ main(	int argc,
 
 				printf("\n ******command: k count=%d \n",count);
 				// if(count > 65535){
-				// 	printf("ERROR: Number of requested querries should be 65,535 at most. (limited by # of CUDA blocks)\n");
+				// 	printf("ERROR: Number of requested queries should be 65,535 at most. (limited by # of CUDA blocks)\n");
 				// 	exit(0);
 				// }
 
