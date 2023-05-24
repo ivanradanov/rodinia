@@ -28,7 +28,7 @@ int main (int argc, char **argv){
     A = (FP_NUMBER **) malloc(sizeof(FP_NUMBER*)*MatrixDim);
 
     if ( !L || !U || !A){
-        printf("Can not allocate memory\n");
+        printf("Cannot allocate memory\n");
         if (L) free(L);
         if (U) free(U);
         if (A) free(A);

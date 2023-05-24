@@ -70,7 +70,7 @@ float rms_err	(float **feature,         /* [npoints][nfeatures] */
     float  sum_euclid = 0.0;		/* sum of Euclidean distance squares */
     float  ret;						/* return value */
     
-    /* calculate and sum the sqaure of euclidean distance*/	
+    /* calculate and sum the square of euclidean distance*/	
     #pragma omp parallel for \
                 shared(feature,cluster_centres) \
                 firstprivate(npoints,nfeatures,nclusters) \

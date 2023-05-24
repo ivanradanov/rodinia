@@ -64,7 +64,7 @@
 //	RUNNING THIS CODE
 //======================================================================================================================================================150
 
-// The code takes the followint input files that need to be located in the same directory as the source files:
+// The code takes the following input files that need to be located in the same directory as the source files:
 // 1) video file (input.avi)
 // 2) text file with parameters (input.txt)
 

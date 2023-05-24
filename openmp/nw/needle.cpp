@@ -265,7 +265,7 @@ runTest( int argc, char** argv)
 
 
     if (!input_itemsets)
-        fprintf(stderr, "error: can not allocate memory");
+        fprintf(stderr, "error: cannot allocate memory");
 
     srand ( 7 );
 

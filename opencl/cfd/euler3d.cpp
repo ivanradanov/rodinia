@@ -274,7 +274,7 @@ int main(int argc, char** argv){
 		{
 			std::ifstream file(data_file_name);
 			if(file==NULL){
-				throw(string("can not find/open file!"));
+				throw(string("cannot find/open file!"));
 			}
 			file >> nel;
 			nelr = block_length*((nel / block_length )+ std::min(1, nel % block_length));

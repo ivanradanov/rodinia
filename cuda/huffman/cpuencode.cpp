@@ -32,7 +32,7 @@ void cpu_vlc_encode(unsigned int* indata, unsigned int num_elements,
 		while (numbits>0) {
 			int writebits =  min(32-startbit, numbits);
 			if (numbits==writebits)  mask32 = ( cw32&((1<<numbits)-1) )<<(32-startbit-numbits); //first make sure that the start of the word is clean, then shift to the left as many places as you need
-								else mask32 = cw32>>(numbits-writebits); //shift out the bits that can not fit
+								else mask32 = cw32>>(numbits-writebits); //shift out the bits that cannot fit
 			*bitstreamPt = (*bitstreamPt) | mask32;
 			numbits = numbits - writebits;
 			startbit = (startbit+writebits)%32;

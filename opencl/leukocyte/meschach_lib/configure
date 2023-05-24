@@ -514,9 +514,9 @@ else
 fi
 if test ! -r $srcdir/$ac_unique_file; then
   if test "$ac_srcdir_defaulted" = yes; then
-    { echo "configure: error: can not find sources in $ac_confdir or .." 1>&2; exit 1; }
+    { echo "configure: error: cannot find sources in $ac_confdir or .." 1>&2; exit 1; }
   else
-    { echo "configure: error: can not find sources in $srcdir" 1>&2; exit 1; }
+    { echo "configure: error: cannot find sources in $srcdir" 1>&2; exit 1; }
   fi
 fi
 srcdir=`echo "${srcdir}" | sed 's%\([^/]\)/*$%\1%'`
@@ -1470,7 +1470,7 @@ fi
 rm -f conftest*
 if test $ac_cv_c_bigendian = unknown; then
 if test "$cross_compiling" = yes; then
-    { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
+    { echo "configure: error: cannot run test program while cross compiling" 1>&2; exit 1; }
 else
   cat > conftest.$ac_ext <<EOF
 #line 1477 "configure"

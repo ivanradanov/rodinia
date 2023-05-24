@@ -81,7 +81,7 @@ kmeansPoint(float  *features,			/* in: [npoints*nfeatures] */
 		/* find the cluster center id with min distance to pt */
 		for (i=0; i<nclusters; i++) {
 			int cluster_base_index = i*nfeatures;					/* base index of cluster centers for inverted array */			
-			float ans=0.0;												/* Euclidean distance sqaure */
+			float ans=0.0;												/* Euclidean distance square */
 
 			for (j=0; j < nfeatures; j++)
 			{					

@@ -17,7 +17,7 @@ MPI task in the original code. Since the rest of MPI code is not included here, 
 into boxes. Then, for every particle in the home box, the nested loop processes interactions first with other particles in the home box and then with 
 particles in all neighbor boxes. The processing of each particle consists of a single stage of calculation that is enclosed in the innermost loop. The
 nested loops in the application were parallelized in such a way that at any point of time GPU warp/wavefront accesses adjacent memory locations. The
-speedup depends on the number of boxes, particles (fixed) and the actualcal culation for each particle (fixed). The application is memory bound, and 
+speedup depends on the number of boxes, particles (fixed) and the actual calculation for each particle (fixed). The application is memory bound, and 
 GPU speedup seems to saturate at about 16x when compared to single-core CPU.
 
 More information about the parallel version of this code can be found in:
@@ -31,7 +31,7 @@ on BlueGene/L." In Proceedings of the 2005 Supercomputing Conference (SC 05). Se
 //	USE
 //======================================================================================================================================================150
 
-The code takes the followint parameters:
+The code takes the following parameters:
 -boxes1d		(number of boxes in one dimension, the total number of boxes will be that^3)
 
 The code can be run as follows:

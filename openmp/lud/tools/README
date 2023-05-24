@@ -1,4 +1,4 @@
-gen_input will genearte the input matrix with given dimension. Running it in
+gen_input will generate the input matrix with given dimension. Running it in
 following way:
 
 ./gen_input [matrix_dimension]

@@ -252,7 +252,7 @@ run_cpu_configs()
 	run_mummergpu_C mtn $REF $QRY $MINMATCH $ORG
 
 
-	# # Collect the individual md5sums in one place
+	# Collect the individual md5sums in one place
 	cat $OUTDIR/$ORG/*.md5sum > $ORG.$REF.$QRY.$MINMATCH.md5
 	rm $OUTDIR/$ORG/*.md5sum
 
@@ -326,44 +326,44 @@ run_end_to_end()
 	run_mummergpu_no_out   Tn two_pages.fna half_million_reads.fna 14 h_sapiens
 	run_mummergpu_C_no_out m  two_pages.fna half_million_reads.fna 14 h_sapiens
 	# 
-	#run_mummergpu_no_out Tn   cleanref.fna million_reads.fna 20 lmonocytogenes
+	# run_mummergpu_no_out Tn   cleanref.fna million_reads.fna 20 lmonocytogenes
 	# run_mummergpu_C_no_out m cleanref.fna million_reads.fna 20 lmonocytogenes
 	# 
-	#run_mummergpu_no_out Tn   cleanref.fna half_million_reads.fna 100 cbriggsae
+	# run_mummergpu_no_out Tn   cleanref.fna half_million_reads.fna 100 cbriggsae
 	# run_mummergpu_C_no_out m cleanref.fna half_million_reads.fna 100 cbriggsae
 	# 
-	#run_mummergpu Tn   cleanref.fna million_reads.fna 10 s_suis
+	# run_mummergpu Tn   cleanref.fna million_reads.fna 10 s_suis
 	# run_mummergpu_C_no_out m cleanref.fna million_reads.fna 10 s_suis
 	
 	run_mummergpu_1   two_pages.fna half_million_reads.fna 14 h_sapiens
 	run_mummergpu_C_1 two_pages.fna half_million_reads.fna 14 h_sapiens
 	
-	#run_mummergpu_1 cleanref.fna million_reads.fna 20 lmonocytogenes
-	#run_mummergpu_C_1 cleanref.fna million_reads.fna 20 lmonocytogenes
+	# run_mummergpu_1 cleanref.fna million_reads.fna 20 lmonocytogenes
+	# run_mummergpu_C_1 cleanref.fna million_reads.fna 20 lmonocytogenes
 	
 	# run_mummergpu_1 cleanref.fna half_million_reads.fna 100 cbriggsae
 	# run_mummergpu_C_1 cleanref.fna half_million_reads.fna 100 cbriggsae
 	
-	#run_mummergpu_1 cleanref.fna million_reads.fna 10 s_suis
-	#run_mummergpu_C_1 cleanref.fna million_reads.fna 10 s_suis
+	# run_mummergpu_1 cleanref.fna million_reads.fna 10 s_suis
+	# run_mummergpu_C_1 cleanref.fna million_reads.fna 10 s_suis
 }
 
 run_end_to_end
 
-#run_all_configs s_suis cleanref.fna million_reads.fna 10
+# run_all_configs s_suis cleanref.fna million_reads.fna 10
 
-#run_all_configs h_sapiens two_pages.fna half_million_reads.fna 14
+# run_all_configs h_sapiens two_pages.fna half_million_reads.fna 14
 
-#run_all_configs lmonocytogenes cleanref.fna million_reads.fna 20
+# run_all_configs lmonocytogenes cleanref.fna million_reads.fna 20
 
-#run_all_configs cbriggsae cleanref.fna half_million_reads.fna 100
+# run_all_configs cbriggsae cleanref.fna half_million_reads.fna 100
 
-#run_increasing_length
+# run_increasing_length
 
-#run_cpu_configs h_sapiens two_pages.fna million_reads.fna 15
+# run_cpu_configs h_sapiens two_pages.fna million_reads.fna 15
 
-#run_cpu_configs s_suis cleanref.fna million_reads.fna 10
+# run_cpu_configs s_suis cleanref.fna million_reads.fna 10
 
-#run_cpu_configs lmonocytogenes cleanref.fna million_reads.fna 20
+# run_cpu_configs lmonocytogenes cleanref.fna million_reads.fna 20
 
-#run_cpu_configs cbriggsae cleanref.fna half_million_reads.fna 100
+# run_cpu_configs cbriggsae cleanref.fna half_million_reads.fna 100
