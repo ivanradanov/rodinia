@@ -27,7 +27,7 @@ class Exception : public Std_Exception
     public:
 
         //! @brief Static construction interface
-        //! @return Alwayss throws ( Located_Exception<Exception>)
+        //! @return Always throws ( Located_Exception<Exception>)
         //! @param file file in which the Exception occurs
         //! @param line line in which the Exception occurs
         //! @param detailed details on the code fragment causing the Exception
@@ -36,7 +36,7 @@ class Exception : public Std_Exception
                              const char *detailed = "-");
 
         //! Static construction interface
-        //! @return Alwayss throws ( Located_Exception<Exception>)
+        //! @return Always throws ( Located_Exception<Exception>)
         //! @param file file in which the Exception occurs
         //! @param line line in which the Exception occurs
         //! @param detailed details on the code fragment causing the Exception
