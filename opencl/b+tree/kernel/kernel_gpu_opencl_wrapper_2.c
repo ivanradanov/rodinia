@@ -145,7 +145,7 @@ kernel_gpu_opencl_wrapper_2(knode *knodes,
         exit(0);
     }
     printf("Device num: %u\n", devices_size);
-    // Get the list of devices (previousely selected for the context)
+    // Get the list of devices (previously selected for the context)
     cl_device_id *devices = (cl_device_id *) malloc(devices_size);
     error = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL, devices_size,
             devices, NULL);
@@ -437,7 +437,7 @@ kernel_gpu_opencl_wrapper_2(knode *knodes,
     cl_event event;
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									knodesD,				// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									knodes_mem,				// size to be copied
 									knodes,					// source
@@ -457,7 +457,7 @@ kernel_gpu_opencl_wrapper_2(knode *knodes,
 
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									currKnodeD,				// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									count*sizeof(long),		// size to be copied
 									currKnode,				// source
@@ -477,7 +477,7 @@ kernel_gpu_opencl_wrapper_2(knode *knodes,
 
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									offsetD,				// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									count*sizeof(long),		// size to be copied
 									offset,					// source
@@ -497,7 +497,7 @@ kernel_gpu_opencl_wrapper_2(knode *knodes,
 
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									lastKnodeD,				// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									count*sizeof(long),		// size to be copied
 									lastKnode,				// source
@@ -517,7 +517,7 @@ kernel_gpu_opencl_wrapper_2(knode *knodes,
 
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									offset_2D,				// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									count*sizeof(long),		// size to be copied
 									offset_2,				// source
@@ -537,7 +537,7 @@ kernel_gpu_opencl_wrapper_2(knode *knodes,
 
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									startD,					// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									count*sizeof(int),		// size to be copied
 									start,					// source
@@ -557,7 +557,7 @@ kernel_gpu_opencl_wrapper_2(knode *knodes,
 
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									endD,					// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									count*sizeof(int),		// size to be copied
 									end,					// source
@@ -585,7 +585,7 @@ kernel_gpu_opencl_wrapper_2(knode *knodes,
 
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									endD,					// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									count*sizeof(int),		// size to be copied
 									end,					// source
@@ -605,7 +605,7 @@ kernel_gpu_opencl_wrapper_2(knode *knodes,
 
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									ansDLength,					// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									count*sizeof(int),		// size to be copied
 									reclength,					// source

@@ -111,7 +111,7 @@ void BFSGraph( int argc, char** argv)
 	bool *h_graph_visited = (bool*) malloc(sizeof(bool)*no_of_nodes);
 
 	int start, edgeno;   
-	// initalize the memory
+	// initialize the memory
 	for( unsigned int i = 0; i < no_of_nodes; i++) 
 	{
 		fscanf(fp,"%d %d",&start,&edgeno);

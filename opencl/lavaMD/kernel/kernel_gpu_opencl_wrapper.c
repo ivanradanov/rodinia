@@ -353,7 +353,7 @@ kernel_gpu_opencl_wrapper(	par_str par_cpu,
     cl_event event1, event2, event3, event4;
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									d_box_gpu,				// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									dim_cpu.box_mem,		// size to be copied
 									box_cpu,				// source

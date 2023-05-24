@@ -159,7 +159,7 @@ kernel_gpu_opencl_wrapper(	params_common common,
 	//	GET DEVICES AVAILABLE FOR THE CONTEXT, SELECT ONE
 	//====================================================================================================100
 
-	// Get number of devices (previousely selected for the context)
+	// Get number of devices (previously selected for the context)
 	size_t devices_size;
 	error = clGetContextInfo(	context, 
 								CL_CONTEXT_DEVICES, 
@@ -200,7 +200,7 @@ kernel_gpu_opencl_wrapper(	params_common common,
 
 	}
 
-	// Select device (previousely selected for the context) (if there are multiple devices, choose the first one)
+	// Select device (previously selected for the context) (if there are multiple devices, choose the first one)
 	int devi = device_id_inuse;
 	device = devices[devi];
 	printf("Selecting device %d\n", devi);

@@ -167,7 +167,7 @@ cl_context cl_init(char devicePreference)
             // Allocate an array of devices of size "numDevices" 
             devices[i] = (cl_device_id*)alloc(sizeof(cl_device_id)*numDevices[i]);
 
-            // Populate Arrray with devices
+            // Populate Array with devices
             status = clGetDeviceIDs(platforms[i], deviceType, numDevices[i],            
                 devices[i], NULL);      
             cl_errChk(status, "Getting device IDs", true);                                      
@@ -196,7 +196,7 @@ cl_context cl_init(char devicePreference)
     // to decide at runtime
     cl_uint chosen_platform, chosen_device;
     // UNCOMMENT the following two lines to manually select device each time
-    //printf("Enter Platform and Device No (Seperated by Space) \n");
+    //printf("Enter Platform and Device No (Separated by Space) \n");
     //scanf("%d %d", &chosen_platform, &chosen_device); 
     chosen_platform = 0; 
     chosen_device = 0;
@@ -285,7 +285,7 @@ cl_context cl_init_context(int platform, int dev,int quiet) {
 				if (printInfo) printf("no of devices: %u\n", numDevices);
 				//! Allocate an array of devices of size "numDevices"
 				devices = (cl_device_id*)malloc(sizeof(cl_device_id)*numDevices);
-				//! Populate Arrray with devices
+				//! Populate Array with devices
 				status = clGetDeviceIDs(platforms[i], CL_DEVICE_TYPE_ALL, numDevices,
 					devices, NULL);
 				if(cl_errChk(status, "getting device IDs",true)) {

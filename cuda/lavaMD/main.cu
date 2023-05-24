@@ -330,7 +330,7 @@ main(	int argc,
 	//	CHECK INPUT ARGUMENTS
 	//======================================================================================================================================================150
 
-	// assing default values
+	//assign default values
 	dim_cpu.boxes1d_arg = 1;
 
 	// go through arguments

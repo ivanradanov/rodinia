@@ -5,7 +5,7 @@ Donnie Newell
 OpenCL particlefilter 
 
 Implementation Notes:
-  The OpenCL version of particle filter is very close to the Cuda version. The main 
+  The OpenCL version of particle filter is very close to the CUDA version. The main 
 differences are that OpenCL does not support 1D texture memory, so the float version of the 
 particle filter uses 2D images and translate 1D indexes into 2D coordinates when accessing 
 texture memory. 

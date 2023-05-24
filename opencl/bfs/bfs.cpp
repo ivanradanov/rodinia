@@ -278,7 +278,7 @@ int main(int argc, char * argv[])
         h_graph_visited = (char*) malloc(sizeof(char)*no_of_nodes);
 
         int start, edgeno;
-        // initalize the memory
+        // initialize the memory
         for(int i = 0; i < no_of_nodes; i++) {
             fscanf(fp,"%d %d",&start,&edgeno);
             h_graph_nodes[i].starting = start;
@@ -318,7 +318,7 @@ int main(int argc, char * argv[])
         run_bfs_gpu(no_of_nodes,h_graph_nodes,edge_list_size,h_graph_edges, h_graph_mask, h_updating_graph_mask, h_graph_visited, h_cost);
         //---------------------------------------------------------
         //--cpu entry
-        // initalize the memory again
+        // initialize the memory again
         for(int i = 0; i < no_of_nodes; i++) {
             h_graph_mask[i]=false;
             h_updating_graph_mask[i]=false;
@@ -330,7 +330,7 @@ int main(int argc, char * argv[])
         h_graph_visited[source]=true;
         run_bfs_cpu(no_of_nodes,h_graph_nodes,edge_list_size,h_graph_edges, h_graph_mask, h_updating_graph_mask, h_graph_visited, h_cost_ref);
         //---------------------------------------------------------
-        //--result varification
+        //--result verification
         compare_results<int>(h_cost_ref, h_cost, no_of_nodes);
         //release host memory
         free(h_graph_nodes);

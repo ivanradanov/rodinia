@@ -199,7 +199,7 @@ public:
       _block_context = detail::kernel_block_context{block, shared_mem};
       _grid_context = detail::kernel_grid_context{grid};
 
-      // TODO will need different parallelisation strategy, possibly the
+      // TODO will need different parallelization strategy, possibly the
       // original one for when the number of blocks is small
 #ifndef CPUCUDA_NO_OPENMP
 #pragma omp parallel for collapse(3)

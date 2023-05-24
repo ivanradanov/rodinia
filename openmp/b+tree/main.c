@@ -1844,7 +1844,7 @@ int
 main(	int argc, 
 		char** argv ) 
 {
-	// assing default values
+	//assign default values
 	int cur_arg;
 	int cores_arg =1;
 	char *input_file = NULL;
@@ -2142,7 +2142,7 @@ main(	int argc,
 				printf("\n ******command: k count=%d \n",count);
 
 				if(count > 65535){
-					printf("ERROR: Number of requested querries should be 65,535 at most. (limited by # of CUDA blocks)\n");
+					printf("ERROR: Number of requested queries should be 65,535 at most. (limited by # of CUDA blocks)\n");
 					exit(0);
 				}
 

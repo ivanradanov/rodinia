@@ -128,7 +128,7 @@ __global__ void c_CopySrcToComponent(T *d_c, unsigned char * d_src, int pixels)
 }
 
 
-/* Separate compoents of 8bit RGB source image */
+/* Separate components of 8bit RGB source image */
 template<typename T>
 void rgbToComponents(T *d_r, T *d_g, T *d_b, unsigned char * src, int width, int height)
 {

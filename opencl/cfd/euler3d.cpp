@@ -382,7 +382,7 @@ int main(int argc, char** argv){
 		_clPrintTiming();
 	}
 	catch(string msg){
-		std::cout<<"--cambine:( an exception catched in main body ->"<<msg<<std::endl;		
+		std::cout<<"--cambine:( an exception caught in main body ->"<<msg<<std::endl;		
 		_clFree(ff_variable);
 		_clFree(ff_flux_contribution_momentum_x);
 		_clFree(ff_flux_contribution_momentum_y);

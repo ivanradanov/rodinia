@@ -135,7 +135,7 @@ MAT *GICOV(MAT *grad_x, MAT *grad_y) {
 	unsigned int grad_mem_size = sizeof(float) * grad_m * grad_n;
 	float *host_grad_x = (float*) malloc(grad_mem_size);
 	float *host_grad_y = (float*) malloc(grad_mem_size);
-	// initalize float versions of grad_x and grad_y
+	// initialize float versions of grad_x and grad_y
 	int m, n;
 	for (m = 0; m < grad_m; m++) {
 		for (n = 0; n < grad_n; n++) {

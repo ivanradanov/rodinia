@@ -67,7 +67,7 @@ cl_float4*runMergeSort(int listsize, int divisions,
 void clCmdParams(int argc, char* argv[]) {
 	for (int i =0; i < argc; ++i) {
 		switch (argv[i][1]) {
-		  case 'd':	 //--d stands for device id used in computaion
+		  case 'd':	 //--d stands for device id used in computation
 			if (++i < argc)
 				sscanf(argv[i], "%u", &device_id_inuse);
 			else {
@@ -75,7 +75,7 @@ void clCmdParams(int argc, char* argv[]) {
 				exit(0);
 			}
 			break;
-		  case 'p':	 //--p stands for platform id used in computaion
+		  case 'p':	 //--p stands for platform id used in computation
 			if (++i < argc)
 				sscanf(argv[i], "%u", &platform_id_inuse);
 			else {
@@ -263,7 +263,7 @@ int main(int argc, char** argv)
 	for(int i = 0; i < numElements; i++){
 		if(cpu_odata[i] != gpu_odata[i])
 		{
-			printf("Sort missmatch on element %d: \n", i);
+			printf("Sort mismatch on element %d: \n", i);
 			printf("CPU = %f : GPU = %f\n", cpu_odata[i], gpu_odata[i]);
 			count++;
 			break;

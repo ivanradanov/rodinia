@@ -104,7 +104,7 @@ void _clCmdParams(int argc, char* argv[])
                 throw;
             }
             break;
-        case 'd':	 //--d stands for device id used in computaion
+        case 'd':	 //--d stands for device id used in computation
             if (++i < argc) {
                 sscanf(argv[i], "%u", &device_id_inuse);
             } else {
@@ -140,7 +140,7 @@ void _clCmdParams(int argc, char* argv[])
 }
 
 //---------------------------------------
-//Initlize CL objects
+//Initialize CL objects
 //--description: there are 5 steps to initialize all the OpenCL objects needed
 //--revised on 04/01/2011: get the number of devices  and
 //  devices have no relationship with context
@@ -350,7 +350,7 @@ void _clInit()
 
         oclHandles.kernel.push_back(kernel);
     }
-    //get resource alocation information
+    //get resource allocation information
 #ifdef RES_MSG
     char * build_log;
     size_t ret_val_size;
@@ -428,7 +428,7 @@ cl_mem _clCreateAndCpyMem(int size, void * h_mem_source) throw(string)
                            size, h_mem_source, &oclHandles.cl_status);
 #ifdef ERRMSG
     if(oclHandles.cl_status != CL_SUCCESS)
-        throw(string("excpetion in _clCreateAndCpyMem()"));
+        throw(string("exception in _clCreateAndCpyMem()"));
 #endif
     return d_mem;
 }
@@ -441,7 +441,7 @@ cl_mem _clMallocRW(int size, void * h_mem_ptr) throw(string)
     d_mem = clCreateBuffer(oclHandles.context, CL_MEM_READ_WRITE, size, NULL, &oclHandles.cl_status);
 #ifdef ERRMSG
     if(oclHandles.cl_status != CL_SUCCESS)
-        throw(string("excpetion in _clMallocRW"));
+        throw(string("exception in _clMallocRW"));
 #endif
     return d_mem;
 }
@@ -454,7 +454,7 @@ cl_mem _clMalloc(int size, void * h_mem_ptr) throw(string)
     d_mem = clCreateBuffer(oclHandles.context, CL_MEM_WRITE_ONLY, size, NULL, &oclHandles.cl_status);
 #ifdef ERRMSG
     if(oclHandles.cl_status != CL_SUCCESS)
-        throw(string("excpetion in _clMalloc"));
+        throw(string("exception in _clMalloc"));
 #endif
     return d_mem;
 }
@@ -469,7 +469,7 @@ void _clMemcpyH2D(cl_mem d_mem, int size, const void *h_mem_ptr) throw(string)
             CL_TRUE, 0, size, h_mem_ptr, 0, NULL, &event);
 #ifdef ERRMSG
     if(oclHandles.cl_status != CL_SUCCESS)
-        throw(string("excpetion in _clMemcpyH2D"));
+        throw(string("exception in _clMemcpyH2D"));
 #endif
 #ifdef TIMING
     h2d_time += probe_event_time(event, oclHandles.queue);
@@ -486,14 +486,14 @@ cl_mem _clCreateAndCpyPinnedMem(int size, float* h_mem_source) throw(string)
                                   size, NULL, &oclHandles.cl_status);
 #ifdef ERRMSG
     if(oclHandles.cl_status != CL_SUCCESS)
-        throw(string("excpetion in _clCreateAndCpyMem()->d_mem_pinned"));
+        throw(string("exception in _clCreateAndCpyMem()->d_mem_pinned"));
 #endif
     //------------
     d_mem = clCreateBuffer(oclHandles.context,	CL_MEM_READ_ONLY,  \
                            size, NULL, &oclHandles.cl_status);
 #ifdef ERRMSG
     if(oclHandles.cl_status != CL_SUCCESS)
-        throw(string("excpetion in _clCreateAndCpyMem() -> d_mem "));
+        throw(string("exception in _clCreateAndCpyMem() -> d_mem "));
 #endif
     //----------
     h_mem_pinned = (cl_float *)clEnqueueMapBuffer(oclHandles.queue, d_mem_pinned, CL_TRUE,  \
@@ -501,7 +501,7 @@ cl_mem _clCreateAndCpyPinnedMem(int size, float* h_mem_source) throw(string)
                    NULL,  &oclHandles.cl_status);
 #ifdef ERRMSG
     if(oclHandles.cl_status != CL_SUCCESS)
-        throw(string("excpetion in _clCreateAndCpyMem() -> clEnqueueMapBuffer"));
+        throw(string("exception in _clCreateAndCpyMem() -> clEnqueueMapBuffer"));
 #endif
     int element_number = size/sizeof(float);
     #pragma omp parallel for
@@ -514,7 +514,7 @@ cl_mem _clCreateAndCpyPinnedMem(int size, float* h_mem_source) throw(string)
                            0, NULL, NULL);
 #ifdef ERRMSG
     if(oclHandles.cl_status != CL_SUCCESS)
-        throw(string("excpetion in _clCreateAndCpyMem() -> clEnqueueWriteBuffer"));
+        throw(string("exception in _clCreateAndCpyMem() -> clEnqueueWriteBuffer"));
 #endif
 
     return d_mem;
@@ -529,7 +529,7 @@ cl_mem _clMallocWO(int size) throw(string)
     d_mem = clCreateBuffer(oclHandles.context, CL_MEM_WRITE_ONLY, size, 0, &oclHandles.cl_status);
 #ifdef ERRMSG
     if(oclHandles.cl_status != CL_SUCCESS)
-        throw(string("excpetion in _clCreateMem()"));
+        throw(string("exception in _clCreateMem()"));
 #endif
     return d_mem;
 }
@@ -541,7 +541,7 @@ void _clMemcpyD2H(cl_mem d_mem, int size, void * h_mem) throw(string)
     cl_event event;
     oclHandles.cl_status = clEnqueueReadBuffer(oclHandles.queue, d_mem, CL_TRUE, 0, size, h_mem, 0,0, &event);
 #ifdef ERRMSG
-    oclHandles.error_str = "excpetion in _clCpyMemD2H -> ";
+    oclHandles.error_str = "exception in _clCpyMemD2H -> ";
     switch(oclHandles.cl_status) {
     case CL_INVALID_COMMAND_QUEUE:
         oclHandles.error_str += "CL_INVALID_COMMAND_QUEUE";
@@ -583,7 +583,7 @@ void _clSetArgs(int kernel_id, int arg_idx, void * d_mem, int size = 0) throw(st
     if(!size) {
         oclHandles.cl_status = clSetKernelArg(oclHandles.kernel[kernel_id], arg_idx, sizeof(d_mem), &d_mem);
 #ifdef ERRMSG
-        oclHandles.error_str = "excpetion in _clSetKernelArg() ";
+        oclHandles.error_str = "exception in _clSetKernelArg() ";
         switch(oclHandles.cl_status) {
         case CL_INVALID_KERNEL:
             oclHandles.error_str += "CL_INVALID_KERNEL";
@@ -619,7 +619,7 @@ void _clSetArgs(int kernel_id, int arg_idx, void * d_mem, int size = 0) throw(st
     } else {
         oclHandles.cl_status = clSetKernelArg(oclHandles.kernel[kernel_id], arg_idx, size, d_mem);
 #ifdef ERRMSG
-        oclHandles.error_str = "excpetion in _clSetKernelArg() ";
+        oclHandles.error_str = "exception in _clSetKernelArg() ";
         switch(oclHandles.cl_status) {
         case CL_INVALID_KERNEL:
             oclHandles.error_str += "CL_INVALID_KERNEL";
@@ -658,7 +658,7 @@ void _clFinish() throw(string)
 {
     oclHandles.cl_status = clFinish(oclHandles.queue);
 #ifdef ERRMSG
-    oclHandles.error_str = "excpetion in _clFinish";
+    oclHandles.error_str = "exception in _clFinish";
     switch(oclHandles.cl_status) {
     case CL_INVALID_COMMAND_QUEUE:
         oclHandles.error_str += "CL_INVALID_COMMAND_QUEUE";
@@ -692,7 +692,7 @@ void _clInvokeKernel(int kernel_id, int work_items, int work_group_size) throw(s
     oclHandles.cl_status = clEnqueueNDRangeKernel(oclHandles.queue, oclHandles.kernel[kernel_id], work_dim, 0, \
                            global_work_size, local_work_size, 0, 0, &(e[0]) );
 #ifdef ERRMSG
-    oclHandles.error_str = "excpetion in _clInvokeKernel() -> ";
+    oclHandles.error_str = "exception in _clInvokeKernel() -> ";
     switch(oclHandles.cl_status) {
     case CL_INVALID_PROGRAM_EXECUTABLE:
         oclHandles.error_str += "CL_INVALID_PROGRAM_EXECUTABLE";
@@ -737,7 +737,7 @@ void _clInvokeKernel(int kernel_id, int work_items, int work_group_size) throw(s
         oclHandles.error_str += "CL_OUT_OF_HOST_MEMORY";
         break;
     default:
-        oclHandles.error_str += "Unkown reseason";
+        oclHandles.error_str += "Unkown reason";
         break;
     }
     if(oclHandles.cl_status != CL_SUCCESS)
@@ -751,7 +751,7 @@ void _clInvokeKernel(int kernel_id, int work_items, int work_group_size) throw(s
     // oclHandles.cl_status = clWaitForEvents(1, &e[0]);
     // #ifdef ERRMSG
     // if (oclHandles.cl_status!= CL_SUCCESS)
-    //     throw(string("excpetion in _clEnqueueNDRange() -> clWaitForEvents"));
+    //     throw(string("exception in _clEnqueueNDRange() -> clWaitForEvents"));
     // #endif
 }
 void _clInvokeKernel2D(int kernel_id, int range_x, int range_y, int group_x, int group_y) throw(string)
@@ -765,7 +765,7 @@ void _clInvokeKernel2D(int kernel_id, int range_x, int range_y, int group_x, int
     oclHandles.cl_status = clEnqueueNDRangeKernel(oclHandles.queue, oclHandles.kernel[kernel_id], work_dim, 0, \
                            global_work_size, local_work_size, 0, 0, &(e[0]) );
 #ifdef ERRMSG
-    oclHandles.error_str = "excpetion in _clInvokeKernel() -> ";
+    oclHandles.error_str = "exception in _clInvokeKernel() -> ";
     switch(oclHandles.cl_status) {
     case CL_INVALID_PROGRAM_EXECUTABLE:
         oclHandles.error_str += "CL_INVALID_PROGRAM_EXECUTABLE";
@@ -810,7 +810,7 @@ void _clInvokeKernel2D(int kernel_id, int range_x, int range_y, int group_x, int
         oclHandles.error_str += "CL_OUT_OF_HOST_MEMORY";
         break;
     default:
-        oclHandles.error_str += "Unkown reseason";
+        oclHandles.error_str += "Unkown reason";
         break;
     }
     if(oclHandles.cl_status != CL_SUCCESS)
@@ -825,7 +825,7 @@ void _clInvokeKernel2D(int kernel_id, int range_x, int range_y, int group_x, int
     /*oclHandles.cl_status = clWaitForEvents(1, &e[0]);
     #ifdef ERRMSG
         if (oclHandles.cl_status!= CL_SUCCESS)
-            throw(string("excpetion in _clEnqueueNDRange() -> clWaitForEvents"));
+            throw(string("exception in _clEnqueueNDRange() -> clWaitForEvents"));
     #endif*/
 }
 
@@ -836,7 +836,7 @@ void _clFree(cl_mem ob) throw(string)
     if(ob!=NULL)
         oclHandles.cl_status = clReleaseMemObject(ob);
 #ifdef ERRMSG
-    oclHandles.error_str = "excpetion in _clFree() ->";
+    oclHandles.error_str = "exception in _clFree() ->";
     switch(oclHandles.cl_status) {
     case CL_INVALID_MEM_OBJECT:
         oclHandles.error_str += "CL_INVALID_MEM_OBJECT";
@@ -848,7 +848,7 @@ void _clFree(cl_mem ob) throw(string)
         oclHandles.error_str += "CL_OUT_OF_HOST_MEMORY";
         break;
     default:
-        oclHandles.error_str += "Unkown reseason";
+        oclHandles.error_str += "Unkown reason";
         break;
     }
     if (oclHandles.cl_status!= CL_SUCCESS)

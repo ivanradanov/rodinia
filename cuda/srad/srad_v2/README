@@ -16,7 +16,7 @@ srad 128 128 0 31 0 31 0.5 2
 
 ******Adjustable work group size*****
 The kernel has square shape 
-RD_WG_SIZE_0 or RD_WG_SIZE_0_0 describe one dimesion
+RD_WG_SIZE_0 or RD_WG_SIZE_0_0 describe one dimension
 The total thread number for one block is RD_WG_SIZE_0*RD_WG_SIZE_0
 
 USAGE:

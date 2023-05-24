@@ -5,8 +5,8 @@ extern "C" {
 /*
  *  avilib.c
  *
- *  Copyright (C) Thomas Östreich - June 2001
- *  multiple audio track support Copyright (C) 2002 Thomas Östreich 
+ *  Copyright (C) Thomas ï¿½streich - June 2001
+ *  multiple audio track support Copyright (C) 2002 Thomas ï¿½streich 
  *
  *  Original code:
  *  Copyright (C) 1999 Rainer Johanni <Rainer@Johanni.de> 
@@ -557,7 +557,7 @@ int avi_update_header(avi_t *AVI)
    OUT4CC ("movi");
 
    /* Output the header, truncate the file to the number of bytes
-      actually written, report an error if someting goes wrong */
+      actually written, report an error if something goes wrong */
 
    if ( lseek(AVI->fdes,0,SEEK_SET)<0 ||
         avi_write(AVI->fdes,(char *)AVI_header,HEADERBYTES)!=HEADERBYTES ||

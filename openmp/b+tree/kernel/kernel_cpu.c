@@ -83,7 +83,7 @@ kernel_cpu(	int cores_arg,
 	int i;
 
 	MY_START_CLOCK(b+tree, findK);
-	// process number of querries
+	// process number of queries
 	#pragma omp parallel for private (i, thid)
 	for(bid = 0; bid < count; bid++){
 

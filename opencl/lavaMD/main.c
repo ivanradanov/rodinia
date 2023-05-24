@@ -98,7 +98,7 @@ main(	int argc,
 	//	CHECK INPUT ARGUMENTS
 	//======================================================================================================================================================150
 
-	// assing default values
+	//assign default values
 	dim_cpu.arch_arg = 0;
 	dim_cpu.cores_arg = 1;
 	dim_cpu.boxes1d_arg = 1;

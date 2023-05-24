@@ -97,7 +97,7 @@ master(	fp timeinst,
 	d_initvalu_mem = EQUATIONS * sizeof(fp);
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									d_initvalu,				// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									d_initvalu_mem,			// size to be copied
 									initvalu,				// source

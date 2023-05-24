@@ -251,7 +251,7 @@ int getImg(char * srcFilename, unsigned char *srcImg, int inputSize)
 //Show user how to use this program
 //
 void usage() {
-    printf("dwt [otpions] src_img.rgb <out_img.dwt>\n\
+    printf("dwt [options] src_img.rgb <out_img.dwt>\n\
   -D, --dimension\t\tdimensions of src img, e.g. 1920x1080\n\
   -c, --components\t\tnumber of color components, default 3\n\
   -b, --depth\t\t\tbit depth, default 8\n\
@@ -337,7 +337,7 @@ void fatal_CL(cl_int error, int line_no)
 
 
 ///
-// Separate compoents of 8bit RGB source image
+// Separate components of 8bit RGB source image
 //in file components.cu
 void rgbToComponents(cl_mem d_r, cl_mem d_g, cl_mem d_b, unsigned char * h_src, int width, int height)
 {
@@ -444,7 +444,7 @@ void bwToComponent(cl_mem d_c, unsigned char * h_src, int width, int height)
 
 
 
-/// Only computes optimal number of sliding window steps, number of threadblocks and then lanches the 5/3 FDWT kernel.
+/// Only computes optimal number of sliding window steps, number of threadblocks and then launches the 5/3 FDWT kernel.
 /// @tparam WIN_SX  width of sliding window
 /// @tparam WIN_SY  height of sliding window
 /// @param in       input image
@@ -488,7 +488,7 @@ void launchFDWT53Kernel (int WIN_SX, int WIN_SY, cl_mem in, cl_mem out, int sx, 
 
 
 /// Simple cudaMemcpy wrapped in performance tester.
-/// param dest  destination bufer
+/// param dest  destination buffer
 /// param src   source buffer
 /// param sx    width of copied image
 /// param sy    height of copied image
@@ -582,7 +582,7 @@ void samplesToChar(unsigned char * dst, int * src, int samplesNum)
 
 ///
 //in file dwt.cu
-/// Write output linear orderd
+/// Write output linear ordered
 int writeLinear(cl_mem component, int pixWidth, int pixHeight, const char * filename, const char * suffix)
 {
 	unsigned char * result;
@@ -931,7 +931,7 @@ int main(int argc, char **argv)
     struct option longopts[] = 
 	{
         {"dimension",   required_argument, 0, 'D'}, //dimensions of src img
-        {"components",  required_argument, 0, 'c'}, //numger of components of src img
+        {"components",  required_argument, 0, 'c'}, //number of components of src img
         {"depth",       required_argument, 0, 'b'}, //bit depth of src img
         {"level",       required_argument, 0, 'l'}, //level of dwt
         {"device",      required_argument, 0, 'd'}, //ocl device
@@ -941,7 +941,7 @@ int main(int argc, char **argv)
         {"reverse",     no_argument,       0, 'r'}, //forward transform
         {"97",          no_argument,       0, '9'}, //9/7 transform
         {"53",          no_argument,       0, '5' }, //5/3transform
-        {"write-visual",no_argument,       0, 'w' }, //write output (subbands) in visual (tiled) order instead of linear
+        {"write-visual",no_argument,       0, 'w' }, //write output (sub-bands) in visual (tiled) order instead of linear
         {"help",        no_argument,       0, 'h'}  
     };
     
@@ -949,10 +949,10 @@ int main(int argc, char **argv)
     int pixHeight   = 0; //<real pixHeight
     int compCount   = 3; //number of components; 3 for RGB or YUV, 4 for RGBA
     int bitDepth    = 8; 
-    int dwtLvls     = 3; //default numuber of DWT levels
+    int dwtLvls     = 3; //default number of DWT levels
     int forward     = 1; //forward transform
     int dwt97       = 0; //1=dwt9/7, 0=dwt5/3 transform
-    int writeVisual = 0; //write output (subbands) in visual (tiled) order instead of linear
+    int writeVisual = 0; //write output (sub-bands) in visual (tiled) order instead of linear
     char input_dir[100] = {"."};
     char * pos;
  
@@ -1101,7 +1101,7 @@ int main(int argc, char **argv)
     d->srcFilename = (char *)malloc(strlen(argv[0]));
     strcpy(d->srcFilename, argv[0]);
     if (argc == 1)
-	{ // only one filename supplyed
+	{ // only one filename supplied
         d->outFilename = (char *)malloc(strlen(d->srcFilename)+4);
         strcpy(d->outFilename, d->srcFilename);
         strcpy(d->outFilename+strlen(d->srcFilename), ".dwt");

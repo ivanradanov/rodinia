@@ -187,7 +187,7 @@ int bpnn_train_kernel(BPNN *net, float *eo, float *eh)
 	input_weights_prev_one_dim = (float *) malloc((in + 1)* (hid + 1) * sizeof(float));
 	partial_sum = (float *) malloc(num_blocks * WIDTH * sizeof(float));
 
-	// set global and local workitems
+	// set global and local work items
 	size_t global_work[3] = { BLOCK_SIZE, BLOCK_SIZE * num_blocks, 1 };
 	size_t local_work[3] = { BLOCK_SIZE, BLOCK_SIZE, 1 };
 

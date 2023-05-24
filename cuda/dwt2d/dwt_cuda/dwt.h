@@ -40,11 +40,11 @@
 ///   (smallest ones) are stored first (at the beginning of the input/output
 ///   buffers), less deep bands follow. There is no padding between stored
 ///   bands in the buffer. Order of bands of the same level in the buffer is
-///   following: Low-low band (or deeper level subbands) is stored first.
+///   following: Low-low band (or deeper level sub-bands) is stored first.
 ///   Vertical-low/horizontal-high band follows. Vertical-high/horizontal-low
 ///   band is saved next and finally, the high-high band is saved. Out of all
 ///   low-low bands, only the deepest one is saved (right at the beginning of
-///   the buffer), others are replaced with deeper level subbands.
+///   the buffer), others are replaced with deeper level sub-bands.
 /// - Input images of all functions won't be preserved (will be overwritten).
 /// - Input and output buffers can't overlap.
 /// - Size of output buffer must be greater or equal to size of input buffer.

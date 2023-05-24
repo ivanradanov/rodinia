@@ -147,7 +147,7 @@ main(	int argc,
 	// 	INPUT ARGUMENTS
 	//======================================================================================================================================================150
 
-	// assing default values
+	//assign default values
 	int cur_arg;
 	int xmax;
 	int workload = 1;

@@ -230,7 +230,7 @@ int main(int argc, char **argv)
         {"reverse",     no_argument,       0, 'r'}, //reverse transform
         {"97",          no_argument,       0, '9'}, //9/7 transform
         {"53",          no_argument,       0, '5' }, //5/3transform
-        {"write-visual",no_argument,       0, 'w' }, //write output (subbands) in visual (tiled) order instead of linear
+        {"write-visual",no_argument,       0, 'w' }, //write output (sub-bands) in visual (tiled) order instead of linear
         {"help",        no_argument,       0, 'h'}  
     };
     
@@ -242,7 +242,7 @@ int main(int argc, char **argv)
     int device      = 0;
     int forward     = 1; //forward transform
     int dwt97       = 1; //1=dwt9/7, 0=dwt5/3 transform
-    int writeVisual = 0; //write output (subbands) in visual (tiled) order instead of linear
+    int writeVisual = 0; //write output (sub-bands) in visual (tiled) order instead of linear
     char * pos;
 
     while ((ch = getopt_long(argc, argv, "d:c:b:l:D:fr95wh", longopts, &optindex)) != -1) {

@@ -24,6 +24,6 @@
    "components.cl", contains all kernel functions
 */
 
-/* Separate compoents of 8bit RGB source image */
+/* Separate components of 8bit RGB source image */
 
 //need add some segments

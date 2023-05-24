@@ -394,7 +394,7 @@ kernel_gpu_opencl_wrapper(	record *records,
     cl_event event;
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									recordsD,				// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									records_mem,			// size to be copied
 									records,				// source
@@ -414,7 +414,7 @@ kernel_gpu_opencl_wrapper(	record *records,
 
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									knodesD,				// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									knodes_mem,				// size to be copied
 									knodes,					// source
@@ -434,7 +434,7 @@ kernel_gpu_opencl_wrapper(	record *records,
 
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									currKnodeD,				// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									count*sizeof(long),		// size to be copied
 									currKnode,				// source
@@ -454,7 +454,7 @@ kernel_gpu_opencl_wrapper(	record *records,
 
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									offsetD,				// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									count*sizeof(long),		// size to be copied
 									offset,					// source
@@ -474,7 +474,7 @@ kernel_gpu_opencl_wrapper(	record *records,
 
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									keysD,					// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									count*sizeof(int),		// size to be copied
 									keys,					// source
@@ -502,7 +502,7 @@ kernel_gpu_opencl_wrapper(	record *records,
 
 	error = clEnqueueWriteBuffer(	command_queue,			// command queue
 									ansD,					// destination
-									1,						// block the source from access until this copy operation complates (1=yes, 0=no)
+									1,						// block the source from access until this copy operation completes (1=yes, 0=no)
 									0,						// offset in destination to write to
 									count*sizeof(record),	// size to be copied
 									ans,					// source
