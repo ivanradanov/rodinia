@@ -64,7 +64,7 @@
 /**   Description:	No longer supports fuzzy c-means clustering;	 	**/
 /**					only regular k-means clustering.					**/
 /**					No longer performs "validity" function to analyze	**/
-/**					compactness and separation crietria; instead		**/
+/**					compactness and separation criteria; instead		**/
 /**					calculate root mean squared error.					**/
 /**                                                                     **/
 /*************************************************************************/
