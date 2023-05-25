@@ -25,7 +25,7 @@
 
 
 /*
-	Sparse LU factorisation
+	Sparse LU factorization
 	See also: sparse.[ch] etc for details about sparse matrices
 */
 
@@ -40,11 +40,11 @@
    ( ( (hint) >= 0 && (r)->elt[hint].col == (c)) ? hint : sprow_idx((r),(c)) ) */
 
 
-/* spLUfactor -- sparse LU factorisation with pivoting
+/* spLUfactor -- sparse LU factorization with pivoting
 	-- uses partial pivoting and Markowitz criterion
 			|a[p][k]| >= alpha * max_i |a[i][k]|
 	-- creates fill-in as needed
-	-- in situ factorisation */
+	-- in situ factorization */
 #ifndef ANSI_C
 SPMAT	*spLUfactor(A,px,alpha)
 SPMAT	*A;
@@ -311,12 +311,12 @@ VEC	*spLUTsolve(SPMAT *A, PERM *pivot, const VEC *b, VEC *x)
 	return x;
 }
 
-/* spILUfactor -- sparse modified incomplete LU factorisation with
+/* spILUfactor -- sparse modified incomplete LU factorization with
 						no pivoting
 	-- all pivot entries are ensured to be >= alpha in magnitude
-	-- setting alpha = 0 gives incomplete LU factorisation
+	-- setting alpha = 0 gives incomplete LU factorization
 	-- no fill-in is generated
-	-- in situ factorisation */
+	-- in situ factorization */
 #ifndef ANSI_C
 SPMAT	*spILUfactor(A,alpha)
 SPMAT	*A;

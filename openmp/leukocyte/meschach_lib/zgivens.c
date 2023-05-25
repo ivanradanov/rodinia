@@ -65,10 +65,10 @@ Real	*c;
 	{
 	    inv_norm = 1.0 / tmp.re;	/* inv_norm = 1/|x| */
 	    x.re *= inv_norm;
-	    x.im *= inv_norm;		/* normalise x */
+	    x.im *= inv_norm;		/* normalize x */
 	    inv_norm = 1.0/norm;		/* inv_norm = 1/||[x,y]||2 */
 	    *c = tmp.re * inv_norm;
-	    /* now compute - conj(normalised x).y/||[x,y]||2 */
+	    /* now compute - conj(normalized x).y/||[x,y]||2 */
 	    s->re = - inv_norm*(x.re*y.re + x.im*y.im);
 	    s->im =   inv_norm*(x.re*y.im - x.im*y.re);
 	}

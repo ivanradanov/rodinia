@@ -25,14 +25,14 @@
 
 
 /*
-  This file contains the routines needed to perform QR factorisation
+  This file contains the routines needed to perform QR factorization
   of matrices, as well as Householder transformations.
   The internal "factored form" of a matrix A is not quite standard.
   The diagonal of A is replaced by the diagonal of R -- not by the 1st non-zero
   entries of the Householder vectors. The 1st non-zero entries are held in
   the diag parameter of QRfactor(). The reason for this non-standard
   representation is that it enables direct use of the Usolve() function
-  rather than requiring that  a seperate function be written just for this case.
+  rather than requiring that  a separate function be written just for this case.
   See, e.g., QRsolve() below for more details.
   
 */
@@ -58,7 +58,7 @@ extern	VEC	*Usolve();	/* See matrix2.h */
    where beta = 2/(uT.u) and u is called the Householder vector
    */
 
-/* QRfactor -- forms the QR factorisation of A -- factorisation stored in
+/* QRfactor -- forms the QR factorization of A -- factorization stored in
    compact form as described above ( not quite standard format ) */
 #ifndef ANSI_C
 MAT	*QRfactor(A,diag)
@@ -103,8 +103,8 @@ MAT	*QRfactor(MAT *A, VEC *diag)
     return (A);
 }
 
-/* QRCPfactor -- forms the QR factorisation of A with column pivoting
-   -- factorisation stored in compact form as described above
+/* QRCPfactor -- forms the QR factorization of A with column pivoting
+   -- factorization stored in compact form as described above
    ( not quite standard format )				*/
 #ifndef ANSI_C
 MAT	*QRCPfactor(A,diag,px)
@@ -134,7 +134,7 @@ MAT	*QRCPfactor(MAT *A, VEC *diag, PERM *px)
     MEM_STAT_REG(gamma,TYPE_VEC);
     MEM_STAT_REG(w,   TYPE_VEC);
     
-    /* initialise gamma and px */
+    /* initialize gamma and px */
     for ( j=0; j<A->n; j++ )
     {
 	px->pe[j] = j;
@@ -498,7 +498,7 @@ VEC *QRTsolve(const MAT *A, const VEC *diag, const VEC *c, VEC *sc)
 }
 
 /* QRcondest -- returns an estimate of the 2-norm condition number of the
-		matrix factorised by QRfactor() or QRCPfactor()
+		matrix factorized by QRfactor() or QRCPfactor()
 	-- note that as Q does not affect the 2-norm condition number,
 		it is not necessary to pass the diag, beta (or pivot) vectors
 	-- generates a lower bound on the true condition number

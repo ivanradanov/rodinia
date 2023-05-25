@@ -536,7 +536,7 @@ ZVEC	*vec;
 	return (vec);
 }
 
-/* zget_row -- gets a specified row of a matrix and retruns it as a vector */
+/* zget_row -- gets a specified row of a matrix and returns it as a vector */
 ZVEC	*zget_row(mat,row,vec)
 int	row;
 ZMAT	*mat;

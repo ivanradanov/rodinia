@@ -26,7 +26,7 @@
 
 /*
 		File containing routines for determining Hessenberg
-	factorisations.
+	factorizations.
 
 	Complex version
 */
@@ -38,8 +38,8 @@ static	char	rcsid[] = "$Id: zhessen.c,v 1.2 1995/03/27 15:47:50 des Exp $";
 #include        "zmatrix2.h"
 
 
-/* zHfactor -- compute Hessenberg factorisation in compact form.
-	-- factorisation performed in situ
+/* zHfactor -- compute Hessenberg factorization in compact form.
+	-- factorization performed in situ
 	-- for details of the compact form see zQRfactor.c and zmatrix2.doc */
 ZMAT	*zHfactor(A, diag)
 ZMAT	*A;
@@ -83,7 +83,7 @@ ZVEC	*diag;
 }
 
 /* zHQunpack -- unpack the compact representation of H and Q of a
-	Hessenberg factorisation
+	Hessenberg factorization
 	-- if either H or Q is NULL, then it is not unpacked
 	-- it can be in situ with HQ == H
 	-- returns HQ

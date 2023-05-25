@@ -26,7 +26,7 @@
 
 /*
 	File containing Lanczos type routines for finding eigenvalues
-	of large, sparse, symmetic matrices
+	of large, sparse, symmetric matrices
 */
 
 #include	<stdio.h>
@@ -42,7 +42,7 @@ extern	VEC	*trieig(VEC *,VEC *,MAT *);
 extern	VEC	*trieig();
 #endif
 
-/* lanczos -- raw lanczos algorithm -- no re-orthogonalisation
+/* lanczos -- raw lanczos algorithm -- no re-orthogonalization
 	-- creates T matrix of size == m,
 		but no larger than before beta_k == 0
 	-- uses passed routine to do matrix-vector multiplies */
@@ -72,7 +72,7 @@ MAT	*Q;
 	tmp = v_get(x0->dim);
 
 	beta = 1.0;
-	/* normalise x0 as w */
+	/* normalize x0 as w */
 	sv_mlt(1.0/v_norm2(x0),x0,w);
 
 	(*A_fn)(A_params,w,v);

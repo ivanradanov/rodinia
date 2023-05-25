@@ -25,7 +25,7 @@
 
 
 /*
-	Matrix factorisation routines to work with the other matrix files.
+	Matrix factorization routines to work with the other matrix files.
 */
 
 /* LUfactor.c 1.5 11/25/87 */
@@ -38,7 +38,7 @@ static	char	rcsid[] = "$Id: lufactor.c,v 1.10 1995/05/16 17:26:44 des Exp $";
 
 
 
-/* Most matrix factorisation routines are in-situ unless otherwise specified */
+/* Most matrix factorization routines are in-situ unless otherwise specified */
 
 /* LUfactor -- gaussian elimination with scaled partial pivoting
 		-- Note: returns LU matrix which is A */
@@ -67,7 +67,7 @@ MAT	*LUfactor(MAT *A, PERM *pivot)
 
 	tiny = 10.0/HUGE_VAL;
 
-	/* initialise pivot with identity permutation */
+	/* initialize pivot with identity permutation */
 	for ( i=0; i<m; i++ )
 		pivot->pe[i] = i;
 
@@ -143,7 +143,7 @@ MAT	*LUfactor(MAT *A, PERM *pivot)
 }
 
 
-/* LUsolve -- given an LU factorisation in A, solve Ax=b */
+/* LUsolve -- given an LU factorization in A, solve Ax=b */
 #ifndef ANSI_C
 VEC	*LUsolve(LU,pivot,b,x)
 MAT	*LU;
@@ -166,7 +166,7 @@ VEC	*LUsolve(const MAT *LU, PERM *pivot, const VEC *b, VEC *x)
 	return (x);
 }
 
-/* LUTsolve -- given an LU factorisation in A, solve A^T.x=b */
+/* LUTsolve -- given an LU factorization in A, solve A^T.x=b */
 #ifndef ANSI_C
 VEC	*LUTsolve(LU,pivot,b,x)
 MAT	*LU;
@@ -190,7 +190,7 @@ VEC	*LUTsolve(const MAT *LU, PERM *pivot, const VEC *b, VEC *x)
 }
 
 /* m_inverse -- returns inverse of A, provided A is not too rank deficient
-	-- uses LU factorisation */
+	-- uses LU factorization */
 #ifndef ANSI_C
 MAT	*m_inverse(A,out)
 MAT	*A, *out;
@@ -237,7 +237,7 @@ MAT	*m_inverse(const MAT *A, MAT *out)
 }
 
 /* LUcondest -- returns an estimate of the condition number of LU given the
-	LU factorisation in compact form */
+	LU factorization in compact form */
 #ifndef ANSI_C
 double	LUcondest(LU,pivot)
 MAT	*LU;

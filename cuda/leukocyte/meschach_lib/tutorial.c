@@ -177,7 +177,7 @@ void tutor_ls()
    }
    printf("# A =\n");       m_output(A);
    diag = v_get(A->m);
-   /* QR is to be the QR factorisation of A */
+   /* QR is to be the QR factorization of A */
    QR = m_copy(A,MNULL);
    QRfactor(QR,diag);   
    /* read in b vector */

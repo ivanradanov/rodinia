@@ -417,7 +417,7 @@ SPMAT	*sp_col_access(SPMAT *A)
    
    m = A->m;	n = A->n;
    
-   /* initialise start_row and start_idx */
+   /* initialize start_row and start_idx */
    start_row = A->start_row;	start_idx = A->start_idx;
    for ( j = 0; j < n; j++ )
    {	*start_row++ = -1;	*start_idx++ = -1;	}
@@ -946,25 +946,25 @@ SPMAT   *sp_mlt(const SPMAT *A, const SPMAT *B, SPMAT *out)
   out = sp_resize(out,A->m,B->n);
   sp_zero(out);
   rtemp = sprow_get(B->n);
-  for ( i = 0; i < A->m; i++ ) /* per ogni riga */
+  for ( i = 0; i < A->m; i++ ) /* per ogni riga (for each row)*/
     {
       rtemp = sprow_resize(rtemp,0,TYPE_SPROW);
       rA = &(A->row[i]);
       rout = &(out->row[i]);
-      for ( idx = 0; idx < rA->len; idx++ ) /* per ogni elemento != 0
-					       della riga corrente */
-	{
-	  j = rA->elt[idx].col;
-	  valA = rA->elt[idx].val;
-	  rB = &(B->row[j]);
-	  sprow_mltadd(rtemp,rB,valA,0,rout,TYPE_SPMAT);
+      for (idx = 0; idx < rA->len; idx++) /* per ogni elemento != 0 della riga corrente
+                                           (for each element != 0 of the current line) */
+      {
+     j = rA->elt[idx].col;
+     valA = rA->elt[idx].val;
+     rB = &(B->row[j]);
+     sprow_mltadd(rtemp, rB, valA, 0, rout, TYPE_SPMAT);
 
-	  for ( cp = 0; cp < rout->len; cp++ )
-	    {
-	      rtemp->elt[cp].col = rout->elt[cp].col;
-	      rtemp->elt[cp].val = rout->elt[cp].val;
-	    }
-	  rtemp->len=rout->len;
+     for (cp = 0; cp < rout->len; cp++)
+     {
+       rtemp->elt[cp].col = rout->elt[cp].col;
+       rtemp->elt[cp].val = rout->elt[cp].val;
+     }
+     rtemp->len = rout->len;
 	}
     }
   return out;

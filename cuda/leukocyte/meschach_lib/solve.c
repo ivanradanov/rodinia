@@ -25,7 +25,7 @@
 
 
 /*
-	Matrix factorisation routines to work with the other matrix files.
+	Matrix factorization routines to work with the other matrix files.
 */
 
 /* solve.c 1.2 11/25/87 */
@@ -39,7 +39,7 @@ static	char	rcsid[] = "$Id: solve.c,v 1.3 1994/01/13 05:29:57 des Exp $";
 
 
 
-/* Most matrix factorisation routines are in-situ unless otherwise specified */
+/* Most matrix factorization routines are in-situ unless otherwise specified */
 
 /* Usolve -- back substitution with optional over-riding diagonal
 		-- can be in-situ but doesn't need to be */

@@ -26,7 +26,7 @@
 
 /*
 	2nd header file for Meschach's complex routines.
-	This file contains declarations for complex factorisation/solve
+	This file contains declarations for complex factorization/solve
 	routines.
 
 */

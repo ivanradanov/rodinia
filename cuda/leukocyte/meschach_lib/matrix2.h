@@ -34,8 +34,8 @@
 
 #include "matrix.h"
 
-/* Unless otherwise specified, factorisation routines overwrite the
-   matrix that is being factorised */
+/* Unless otherwise specified, factorization routines overwrite the
+   matrix that is being factorized */
 
 #ifndef ANSI_C
 
@@ -86,23 +86,23 @@ void ifft();
 
 #else
 
-                 /* forms Bunch-Kaufman-Parlett factorisation for
+                 /* forms Bunch-Kaufman-Parlett factorization for
                         symmetric indefinite matrices */
 extern	MAT	*BKPfactor(MAT *A,PERM *pivot,PERM *blocks),
-                 /* Cholesky factorisation of A
+                 /* Cholesky factorization of A
                         (symmetric, positive definite) */
 		*CHfactor(MAT *A),
-                /* LU factorisation of A (with partial pivoting) */ 
+                /* LU factorization of A (with partial pivoting) */ 
                 *LUfactor(MAT *A,PERM *pivot),
-                /* QR factorisation of A; need dim(diag) >= # rows of A */
+                /* QR factorization of A; need dim(diag) >= # rows of A */
 		*QRfactor(MAT *A,VEC *diag),
-                /* QR factorisation of A with column pivoting */
+                /* QR factorization of A with column pivoting */
 		*QRCPfactor(MAT *A,VEC *diag,PERM *pivot),
-                /* L.D.L^T factorisation of A */
+                /* L.D.L^T factorization of A */
 		*LDLfactor(MAT *A), 
-                /* Hessenberg factorisation of A -- for schur() */
+                /* Hessenberg factorization of A -- for schur() */
                 *Hfactor(MAT *A,VEC *diag1,VEC *diag2),
-                /* modified Cholesky factorisation of A;
+                /* modified Cholesky factorization of A;
                         actually factors A+D, D diagonal with no
                         diagonal entry in the factor < sqrt(tol) */
                 *MCHfactor(MAT *A,double tol),
@@ -113,27 +113,27 @@ extern	double	LUcondest(const MAT *A, PERM *pivot),
                 /* returns condition estimate for Q after QRfactor() */
                 QRcondest(const MAT *A);
 
-/* Note: The make..() and ..update() routines assume that the factorisation
+/* Note: The make..() and ..update() routines assume that the factorization
         has already been carried out */
 
-     /* Qout is the "Q" (orthongonal) matrix from QR factorisation */
+     /* Qout is the "Q" (orthongonal) matrix from QR factorization */
 extern	MAT	*makeQ(const MAT *QR,const VEC *diag,MAT *Qout),
                 /* Rout is the "R" (upper triangular) matrix
-                        from QR factorisation */
+                        from QR factorization */
 		*makeR(const MAT *A,MAT *Rout),
-                /* Qout is orthogonal matrix in Hessenberg factorisation */
+                /* Qout is orthogonal matrix in Hessenberg factorization */
 		*makeHQ(MAT *A,VEC *diag1,VEC *diag2,MAT *Qout),
-                /* Hout is the Hessenberg matrix in Hessenberg factorisation */
+                /* Hout is the Hessenberg matrix in Hessenberg factorization */
 		*makeH(const MAT *A,MAT *Hout);
 
-                /* updates L.D.L^T factorisation for A <- A + alpha.u.u^T */
+                /* updates L.D.L^T factorization for A <- A + alpha.u.u^T */
 extern	MAT	*LDLupdate(MAT *A,VEC *u,double alpha),
-                /* updates QR factorisation for QR <- Q.(R+u.v^T)
+                /* updates QR factorization for QR <- Q.(R+u.v^T)
 		   Note: we need explicit Q & R matrices,
                         from makeQ() and makeR() */
 		*QRupdate(MAT *Q,MAT *R,VEC *u,VEC *v);
 
-/* Solve routines assume that the corresponding factorisation routine
+/* Solve routines assume that the corresponding factorization routine
         has already been applied to the matrix along with auxiliary
         objects (such as pivot permutations)
 

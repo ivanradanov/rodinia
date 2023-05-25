@@ -26,7 +26,7 @@
 
 
 /*
-  Band matrix factorisation routines
+  Band matrix factorization routines
   */
 
 /* bdfactor.c  18/11/93 */
@@ -539,7 +539,7 @@ BAND	*bdLUfactor(BAND *bA, PERM *pivot)
      error(E_SIZES,"bdLUfactor");
 
    
-   /* initialise pivot with identity permutation */
+   /* initialize pivot with identity permutation */
    for ( i=0; i < n; i++ )
      pivot->pe[i] = i;
 
@@ -597,7 +597,7 @@ BAND	*bdLUfactor(BAND *bA, PERM *pivot)
 }
 
 
-/* bdLUsolve -- given an LU factorisation in bA, solve bA*x=b */
+/* bdLUsolve -- given an LU factorization in bA, solve bA*x=b */
 /* pivot is changed upon return  */
 #ifndef ANSI_C
 VEC	*bdLUsolve(bA,pivot,b,x)
@@ -655,7 +655,7 @@ VEC	*bdLUsolve(const BAND *bA, PERM *pivot, const VEC *b, VEC *x)
    return (x);
 }
 
-/* LDLfactor -- L.D.L' factorisation of A in-situ;
+/* LDLfactor -- L.D.L' factorization of A in-situ;
    A is a band matrix
    it works using only lower bandwidth & main diagonal
    so it is possible to set A->ub = 0

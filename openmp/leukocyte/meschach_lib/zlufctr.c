@@ -24,7 +24,7 @@
 ***************************************************************************/
 
 /*
-	Matrix factorisation routines to work with the other matrix files.
+	Matrix factorization routines to work with the other matrix files.
 	Complex version
 */
 
@@ -38,7 +38,7 @@ static	char	rcsid[] = "$Id: zlufctr.c,v 1.3 1996/08/20 20:07:09 stewart Exp $";
 #define	is_zero(z)	((z).re == 0.0 && (z).im == 0.0)
 
 
-/* Most matrix factorisation routines are in-situ unless otherwise specified */
+/* Most matrix factorization routines are in-situ unless otherwise specified */
 
 /* zLUfactor -- Gaussian elimination with scaled partial pivoting
 		-- Note: returns LU matrix which is A */
@@ -61,7 +61,7 @@ PERM	*pivot;
 	MEM_STAT_REG(scale,TYPE_VEC);
 	A_v = A->me;
 
-	/* initialise pivot with identity permutation */
+	/* initialize pivot with identity permutation */
 	for ( i=0; i<m; i++ )
 	    pivot->pe[i] = i;
 
@@ -133,7 +133,7 @@ PERM	*pivot;
 }
 
 
-/* zLUsolve -- given an LU factorisation in A, solve Ax=b */
+/* zLUsolve -- given an LU factorization in A, solve Ax=b */
 ZVEC	*zLUsolve(A,pivot,b,x)
 ZMAT	*A;
 PERM	*pivot;
@@ -151,7 +151,7 @@ ZVEC	*b,*x;
 	return (x);
 }
 
-/* zLUAsolve -- given an LU factorisation in A, solve A^*.x=b */
+/* zLUAsolve -- given an LU factorization in A, solve A^*.x=b */
 ZVEC	*zLUAsolve(LU,pivot,b,x)
 ZMAT	*LU;
 PERM	*pivot;
@@ -171,7 +171,7 @@ ZVEC	*b,*x;
 }
 
 /* zm_inverse -- returns inverse of A, provided A is not too rank deficient
-	-- uses LU factorisation */
+	-- uses LU factorization */
 ZMAT	*zm_inverse(A,out)
 ZMAT	*A, *out;
 {
@@ -215,7 +215,7 @@ ZMAT	*A, *out;
 }
 
 /* zLUcondest -- returns an estimate of the condition number of LU given the
-	LU factorisation in compact form */
+	LU factorization in compact form */
 double	zLUcondest(LU,pivot)
 ZMAT	*LU;
 PERM	*pivot;

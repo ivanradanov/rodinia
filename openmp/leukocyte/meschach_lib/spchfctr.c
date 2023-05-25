@@ -25,7 +25,7 @@
 
 
 /*
-	Sparse Cholesky factorisation code
+	Sparse Cholesky factorization code
 	To be used with sparse.h, sparse.c etc
 
 */
@@ -188,7 +188,7 @@ int	set_scan(int new_len)
 	return new_len;
 }
 
-/* spCHfactor -- sparse Cholesky factorisation
+/* spCHfactor -- sparse Cholesky factorization
 	-- only the lower triangular part of A (incl. diagonal) is used */
 #ifndef ANSI_C
 SPMAT	*spCHfactor(A)
@@ -396,8 +396,8 @@ VEC	*spCHsolve(SPMAT *L, const VEC *b, VEC *out)
 	return out;
 }
 
-/* spICHfactor -- sparse Incomplete Cholesky factorisation
-	-- does a Cholesky factorisation assuming NO FILL-IN
+/* spICHfactor -- sparse Incomplete Cholesky factorization
+	-- does a Cholesky factorization assuming NO FILL-IN
 	-- as for spCHfactor(), only the lower triangular part of A is used */
 #ifndef ANSI_C
 SPMAT	*spICHfactor(A)
@@ -462,7 +462,7 @@ SPMAT	*spICHfactor(SPMAT *A)
 }
 
 
-/* spCHsymb -- symbolic sparse Cholesky factorisation
+/* spCHsymb -- symbolic sparse Cholesky factorization
 	-- does NOT do any floating point arithmetic; just sets up the structure
 	-- only the lower triangular part of A (incl. diagonal) is used */
 #ifndef ANSI_C

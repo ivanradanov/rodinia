@@ -170,9 +170,9 @@ char	*argv[];
     
 
     printf("# Check: MACHEPS = %g\n",MACHEPS);
-    /* allocate, initialise, copy and resize operations */
+    /* allocate, initialize, copy and resize operations */
     /* ZVEC */
-    notice("vector initialise, copy & resize");
+    notice("vector initialize, copy & resize");
     x = zv_get(12);
     y = zv_get(15);
     z = zv_get(12);
@@ -192,7 +192,7 @@ char	*argv[];
 	errmesg("VZEC resize");
 
     /* ZMAT */
-    notice("matrix initialise, copy & resize");
+    notice("matrix initialize, copy & resize");
     A = zm_get(8,5);
     B = zm_get(3,9);
     C = zm_get(8,5);
@@ -214,7 +214,7 @@ char	*argv[];
     MEMCHK();
 
     /* PERM */
-    notice("permutation initialise, inverting & permuting vectors");
+    notice("permutation initialize, inverting & permuting vectors");
     pi1 = px_get(15);
     pi2 = px_get(12);
     px_rand(pi1);
@@ -445,7 +445,7 @@ char	*argv[];
 
     MEMCHK();
 
-    /* Now, onto matrix factorisations */
+    /* Now, onto matrix factorizations */
     A = zm_resize(A,10,10);
     B = zm_resize(B,A->m,A->n);
     zm_copy(A,B);
@@ -493,7 +493,7 @@ char	*argv[];
 
     MEMCHK();
 
-    /* QR factorisation */
+    /* QR factorization */
     zm_copy(B,A);
     zmv_mlt(B,z,y);
     notice("QR factor/solve:");
@@ -565,7 +565,7 @@ char	*argv[];
 
     MEMCHK();
 
-    /* QRCP factorisation */
+    /* QRCP factorization */
     zm_copy(B,A);
     notice("QR factor/solve with column pivoting");
     pivot = px_resize(pivot,A->n);

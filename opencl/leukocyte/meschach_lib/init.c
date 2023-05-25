@@ -234,7 +234,7 @@ void smrand(int seed)
     started = TRUE;
 
     /* run mrand() through the list sufficient times to
-       thoroughly randomise the array */
+       thoroughly randomize the array */
     for ( i = 0; i < 55*55; i++ )
 	mrand();
 }
@@ -242,8 +242,8 @@ void smrand(int seed)
 #undef MZ
 #undef FAC
 
-/* v_rand -- initialises x to be a random vector, components
-	independently & uniformly ditributed between 0 and 1 */
+/* v_rand -- initializes x to be a random vector, components
+	independently & uniformly distributed between 0 and 1 */
 #ifndef ANSI_C
 VEC	*v_rand(x)
 VEC	*x;
@@ -264,7 +264,7 @@ VEC	*v_rand(VEC *x)
 	return x;
 }
 
-/* m_rand -- initialises A to be a random vector, components
+/* m_rand -- initializes A to be a random vector, components
 	independently & uniformly distributed between 0 and 1 */
 #ifndef ANSI_C
 MAT	*m_rand(A)
@@ -326,7 +326,7 @@ MAT	*m_ones(MAT *A)
 	return A;
 }
 
-/* v_count -- initialises x so that x->ve[i] == i */
+/* v_count -- initializes x so that x->ve[i] == i */
 #ifndef ANSI_C
 VEC	*v_count(x)
 VEC	*x;

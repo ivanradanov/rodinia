@@ -32,7 +32,7 @@
 static	char	rcsid[] = "$Id: submat.c,v 1.2 1994/01/13 05:28:12 des Exp $";
 
 
-/* get_col -- gets a specified column of a matrix and retruns it as a vector */
+/* get_col -- gets a specified column of a matrix and returns it as a vector */
 #ifndef ANSI_C
 VEC	*get_col(mat,col,vec)
 unsigned int	col;
@@ -57,7 +57,7 @@ VEC	*get_col(const MAT *mat, unsigned int col, VEC *vec)
    return (vec);
 }
 
-/* get_row -- gets a specified row of a matrix and retruns it as a vector */
+/* get_row -- gets a specified row of a matrix and returns it as a vector */
 #ifndef ANSI_C
 VEC	*get_row(mat,row,vec)
 unsigned int	row;

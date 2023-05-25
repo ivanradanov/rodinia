@@ -72,7 +72,7 @@ MAT	*Q;
 	tmp = v_get(x0->dim);
 
 	beta = 1.0;
-	/* normalise x0 as w */
+	/* normalize x0 as w */
 	sv_mlt(1.0/v_norm2(x0),x0,w);
 
 	(*A_fn)(A_params,w,v);

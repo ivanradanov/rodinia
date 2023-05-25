@@ -160,7 +160,7 @@ ZVEC	*zv_get(int size)
    return (vector);
 }
 
-/* zm_free -- returns ZMAT & asoociated memory back to memory heap */
+/* zm_free -- returns ZMAT & associated memory back to memory heap */
 #ifndef ANSI_C
 int	zm_free(mat)
 ZMAT	*mat;
@@ -210,7 +210,7 @@ int	zm_free(ZMAT *mat)
 }
 
 
-/* zv_free -- returns ZVEC & asoociated memory back to memory heap */
+/* zv_free -- returns ZVEC & associated memory back to memory heap */
 #ifndef ANSI_C
 int	zv_free(vec)
 ZVEC	*vec;

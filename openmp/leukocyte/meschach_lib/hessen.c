@@ -27,7 +27,7 @@
 
 /*
 		File containing routines for determining Hessenberg
-	factorisations.
+	factorizations.
 */
 
 static	char	rcsid[] = "$Id: hessen.c,v 1.2 1994/01/13 05:36:24 des Exp $";
@@ -38,8 +38,8 @@ static	char	rcsid[] = "$Id: hessen.c,v 1.2 1994/01/13 05:36:24 des Exp $";
 
 
 
-/* Hfactor -- compute Hessenberg factorisation in compact form.
-	-- factorisation performed in situ
+/* Hfactor -- compute Hessenberg factorization in compact form.
+	-- factorization performed in situ
 	-- for details of the compact form see QRfactor.c and matrix2.doc */
 #ifndef ANSI_C
 MAT	*Hfactor(A, diag, beta)

@@ -15,7 +15,7 @@ The first example program is a simple 4th order Runge-Kutta solver for
 ordinary differential equations.  The second is a general least squares
 equation solver for over-determined equations.  The third example
 illustrates how to solve a problem involving sparse matrices.  These
-examples illustrate the use of matrices, matrix factorisations and solving
+examples illustrate the use of matrices, matrix factorizations and solving
 systems of linear equations.  The examples described in this manual are
 implemented in tutorial.c.
 
@@ -58,7 +58,7 @@ provided.
   }
 
 
-   This initialises these data structures to have the given size.  The
+   This initializes these data structures to have the given size.  The
 matrix A and the vector x are initially all zero, while p is initially the
 identity permutation.
 
@@ -127,7 +127,7 @@ permuted by using px_rows(p,A,p_A), px_cols(p,A,A_p), and permutations can
 be multiplied using px_mlt(p1,p2,p1_p2) and inverted using px_inv(p,p_inv).
 The NULL permutation is called PXNULL.
 
-   There are also utility routines to initialise or re-initialise these
+   There are also utility routines to initialize or re-initialize these
 data structures: v_zero(x), m_zero(A), m_ident(A) (which sets A=I of the
 correct size), v_rand(x), m_rand(A) which sets the entries of x and A
 respectively to be randomly and uniformly selected between zero and one,
@@ -196,18 +196,18 @@ is printed out on the terminal.
 
 
    The second part of the library contains routines for various
-factorisation methods.  To use it put
+factorization methods.  To use it put
 
   #include   "matrix2.h"
 
-at the beginning of your program.  It contains factorisation and solution
-routines for LU, Cholesky and QR-factorisation methods, as well as update
-routines for Cholesky and QR factorisations.  Supporting these are a number
+at the beginning of your program.  It contains factorization and solution
+routines for LU, Cholesky and QR-factorization methods, as well as update
+routines for Cholesky and QR factorizations.  Supporting these are a number
 of Householder transformation and Givens' rotation routines.  Also there is
-a routine for generating the Q matrix for a QR-factorisation, if it is
+a routine for generating the Q matrix for a QR-factorization, if it is
 needed explicitly, as it often is.
-There are routines for band factorisation and solution for LU and  LDL^T 
-factorisations.
+There are routines for band factorization and solution for LU and  LDL^T 
+factorizations.
 
 For using complex numbers, vectors and matrices include
 
@@ -217,7 +217,7 @@ for using the basic routines, and
 
   #include   "zmatrix2.h"
 
-for the complex matrix factorisation routines.  The zmatrix2.h file
+for the complex matrix factorization routines.  The zmatrix2.h file
 includes matrix.h and zmatrix.h so you don't need these files included
 together.
 
@@ -225,14 +225,14 @@ For using the sparse matrix routines in the library you need to put
 
   #include   "sparse.h"
 
-or, if you use any sparse factorisation routines,
+or, if you use any sparse factorization routines,
 
   #include   "sparse2.h"
 
 at the beginning of your file.  The routines contained in the library
 include routines for creating, destroying, initialising and updating sparse
 matrices, and also routines for sparse matrix-dense vector multiplication,
-sparse LU factorisation and sparse Cholesky factorisation.
+sparse LU factorization and sparse Cholesky factorization.
 
 For using the iterative routines you need to use
 
@@ -272,7 +272,7 @@ implicit ``garbage collection'' of no-longer-used memory.
    There are three main strategies that are recommended for deciding how to
 allocate, deallocate and resize objects.  These are ``no deallocation''
 which is really only useful for demonstration programs, ``allocate and
-deallocate'' which minimises overall memory requirements at the expense of
+deallocate'' which minimizes overall memory requirements at the expense of
 speed, and ``resize on demand'' which is useful for routines that are
 called repeatedly.  A new technique for static workspace arrays is to
 ``register workspace variables''.
@@ -500,7 +500,7 @@ The code that does this follows.
 
    Note that the last parameter of f() is where the output is placed.
 Often this can be NULL in which case the appropriate data structure is
-allocated and initialised.  Note also that this routine can be used for
+allocated and initialized.  Note also that this routine can be used for
 problems of arbitrary size, and the dimension of the problem is determined
 directly from the data given.  The vectors v_1,...,v_4 are created to have
 the correct size in the lines
@@ -513,7 +513,7 @@ the correct size in the lines
    Here v_resize(v,dim) resizes the VEC structure v to hold a vector of
 length dim.  If v is initially NULL, then this creates a new vector of
 dimension dim, just as v_get(dim) would do.  For the above piece of code to
-work correctly, v1, v2 etc., must be initialised to be NULL vectors.  This
+work correctly, v1, v2 etc., must be initialized to be NULL vectors.  This
 is done by the declaration
 
   static VEC *v1=VNULL, *v2=VNULL, *v3=VNULL, *v4=VNULL;
@@ -754,8 +754,8 @@ termination of the arguments to work correctly.
 
 5.  A LEAST SQUARES PROBLEM
 
-   Here we need to use matrices and matrix factorisations (in particular, a
-QR factorisation) in order to find the best linear least squares solution
+   Here we need to use matrices and matrix factorizations (in particular, a
+QR factorization) in order to find the best linear least squares solution
 to some data.  Thus in order to solve the (approximate) equations
   	A*x = b,
 where A is an m x n matrix (m > n) we really need to solve the optimisation
@@ -777,14 +777,14 @@ prototype
 
 	MAT  *QRfactor(MAT *A, VEC *diag);
 
-   The matrix A is overwritten with the factorisation of A ``in compact
+   The matrix A is overwritten with the factorization of A ``in compact
 form''; that is, while the upper triangular part of A is indeed the R
 matrix described above, the Q matrix is stored as a collection of
 Householder vectors in the strictly lower triangular part of A and in the
 diag vector.  The QRsolve() function knows and uses this compact form and
 solves Q*R*x=b with the call QRsolve(A,diag,b,x), which also returns x.
 
-   Here is the code to obtain the matrix A, perform the QR factorisation,
+   Here is the code to obtain the matrix A, perform the QR factorization,
 obtain the data vector b, solve for x, and determine what the norm of the
 errors ( ||Ax-b||_2 ) is.
 
@@ -809,7 +809,7 @@ errors ( ||Ax-b||_2 ) is.
     printf("# A =");       m_output(A);
     diag = v_get(A->m);
 
-    /* QR is to be the QR factorisation of A */
+    /* QR is to be the QR factorization of A */
     QR = m_copy(A,MNULL);
     QRfactor(QR,diag);   
 
@@ -840,10 +840,10 @@ with out=x^T A.  There are also functions to perform matrix arithmetic -
 matrix addition m_add(), matrix-scalar multiplication sm_mlt(),
 matrix-matrix multiplication m_mlt().
 
-   Several different sorts of matrix factorisation are supported: LU
-factorisation (also known as Gaussian elimination) with partial pivoting,
-by LUfactor() and LUsolve().  Other factorisation methods include Cholesky
-factorisation CHfactor() and CHsolve(), and QR factorisation with column
+   Several different sorts of matrix factorization are supported: LU
+factorization (also known as Gaussian elimination) with partial pivoting,
+by LUfactor() and LUsolve().  Other factorization methods include Cholesky
+factorization CHfactor() and CHsolve(), and QR factorization with column
 pivoting QRCPfactor().
 
    Pivoting involve permutations which have their own PERM data structure.
@@ -906,7 +906,7 @@ A sample session using leastsq follows:
    The Q matrix can be obtained explicitly by the routine makeQ().  The Q
 matrix can then be used to obtain an orthogonal basis for the range of A .
 An orthogonal basis for the null space of A can be obtained by finding the
-QR-factorisation of A^T .
+QR-factorization of A^T .
 
 
 
@@ -914,7 +914,7 @@ QR-factorisation of A^T .
 
    To illustrate the sparse matrix routines, consider the problem of
 solving Poisson's equation on a square using finite differences, and
-incomplete Cholesky factorisation.  The actual equations to solve are
+incomplete Cholesky factorization.  The actual equations to solve are
 
 	u_{i,j+1} + u_{i,j-1} + u_{i+1,j} + u_{i-1,j} - 4*u_{i,j} =
 	   h^2*f(x_i,y_j),  for  i,j=1,...,N   
@@ -924,9 +924,9 @@ is the common distance between grid points.
 
    The first task is to set up the matrix describing this system of linear
 equations.  The next is to set up the right-hand side.  The third is to
-form the incomplete Cholesky factorisation of this matrix, and finally to
+form the incomplete Cholesky factorization of this matrix, and finally to
 use the sparse matrix conjugate gradient routine with the incomplete
-Cholesky factorisation as preconditioner.
+Cholesky factorization as preconditioner.
 
    Setting up the matrix and right-hand side can be done by the following
 code:
@@ -956,7 +956,7 @@ code:
     }
 
    Once the matrix and right-hand side are set up, the next task is to
-compute the sparse incomplete Cholesky factorisation of A.  This must be
+compute the sparse incomplete Cholesky factorization of A.  This must be
 done in a different matrix, so A must be copied.
 
   LLT = sp_copy(A);
@@ -1004,8 +1004,8 @@ then the following code will do this:
 
 7.2  .... SOLVE A LEAST-SQUARES PROBLEM ?
 
-   To minimise ||Ax-b||_2^2 = sum_i ((Ax)_i-b_i)^2, the most reliable
-method is based on the QR-factorisation.  The following code performs this
+   To minimize ||Ax-b||_2^2 = sum_i ((Ax)_i-b_i)^2, the most reliable
+method is based on the QR-factorization.  The following code performs this
 calculation assuming that A is m x n with m > n :
 
   MAT	*A, *QR;
@@ -1044,7 +1044,7 @@ following code should give accurate results:
   evals_im = v_get(A->m);
   schur_evals(T,evals_re,evals_im);
 
-  /* Q not needed for eiegenvalues */
+  /* Q not needed for eigenvalues */
   X_re = m_get(A->m,A->n);
   X_im = m_get(A->m,A->n);
   schur_vecs(T,Q,X_re,X_im);
@@ -1070,7 +1070,7 @@ following code is suggested as a reasonable way of computing solutions:
   x = m_get(A->m);
   LLT = sp_copy(A);
 
-  /* preconditioning using the incomplete Cholesky factorisation */
+  /* preconditioning using the incomplete Cholesky factorization */
   spICHfactor(LLT);
 
   /* now use pre-conditioned conjugate gradients */

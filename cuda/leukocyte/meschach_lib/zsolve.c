@@ -25,7 +25,7 @@
 
 
 /*
-	Matrix factorisation routines to work with the other matrix files.
+	Matrix factorization routines to work with the other matrix files.
 	Complex case
 */
 
@@ -38,7 +38,7 @@ static	char	rcsid[] = "$Id: zsolve.c,v 1.1 1994/01/13 04:20:33 des Exp $";
 
 #define	is_zero(z)	((z).re == 0.0 && (z).im == 0.0 )
 
-/* Most matrix factorisation routines are in-situ unless otherwise specified */
+/* Most matrix factorization routines are in-situ unless otherwise specified */
 
 /* zUsolve -- back substitution with optional over-riding diagonal
 		-- can be in-situ but doesn't need to be */

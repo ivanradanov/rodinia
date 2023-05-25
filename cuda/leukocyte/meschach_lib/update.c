@@ -25,7 +25,7 @@
 
 
 /*
-	Matrix factorisation routines to work with the other matrix files.
+	Matrix factorization routines to work with the other matrix files.
 */
 
 /* update.c 1.3 11/25/87 */
@@ -39,9 +39,9 @@ static	char	rcsid[] = "$Id: update.c,v 1.2 1994/01/13 05:26:06 des Exp $";
 
 
 
-/* Most matrix factorisation routines are in-situ unless otherwise specified */
+/* Most matrix factorization routines are in-situ unless otherwise specified */
 
-/* LDLupdate -- updates a CHolesky factorisation, replacing LDL' by
+/* LDLupdate -- updates a CHolesky factorization, replacing LDL' by
 	MD~M' = LDL' + alpha.w.w' Note: w is overwritten
 	Ref: Gill et al Math Comp 28, p516 Algorithm C1 */
 #ifndef ANSI_C
@@ -83,7 +83,7 @@ MAT	*LDLupdate(MAT *CHmat, VEC *w, double alpha)
 }
 
 
-/* QRupdate -- updates QR factorisation in expanded form (seperate matrices)
+/* QRupdate -- updates QR factorization in expanded form (seperate matrices)
 	Finds Q+, R+ s.t. Q+.R+ = Q.(R+u.v') and Q+ orthogonal, R+ upper triang
 	Ref: Golub & van Loan Matrix Computations pp437-443
 	-- does not update Q if it is NULL */

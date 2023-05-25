@@ -27,7 +27,7 @@
   This file contains basic routines which are used by the functions
   in meschach.a etc.
   These are the routines that should be modified in order to take
-  full advantage of specialised architectures (pipelining, vector
+  full advantage of specialized architectures (pipelining, vector
   processors etc).
   */
 

@@ -25,7 +25,7 @@
 
 
 /*
-	Matrix factorisation routines to work with the other matrix files.
+	Matrix factorization routines to work with the other matrix files.
 */
 
 static	char	rcsid[] = "$Id: bkpfacto.c,v 1.7 1994/01/13 05:45:50 des Exp $";
@@ -37,7 +37,7 @@ static	char	rcsid[] = "$Id: bkpfacto.c,v 1.7 1994/01/13 05:45:50 des Exp $";
 
 #define	btos(x)	((x) ? "TRUE" : "FALSE")
 
-/* Most matrix factorisation routines are in-situ unless otherwise specified */
+/* Most matrix factorization routines are in-situ unless otherwise specified */
 
 #define alpha	0.6403882032022076 /* = (1+sqrt(17))/8 */
 
@@ -94,7 +94,7 @@ int	i, j;	/* assumed in range */
 	m_set_val(A,j,j,tmp);
 }
 
-/* BKPfactor -- Bunch-Kaufman-Parlett factorisation of A in-situ
+/* BKPfactor -- Bunch-Kaufman-Parlett factorization of A in-situ
 	-- A is factored into the form P'AP = MDM' where 
 	P is a permutation matrix, M lower triangular and D is block
 	diagonal with blocks of size 1 or 2

@@ -25,7 +25,7 @@
 
 
 /*
-  Sparse matrix Bunch--Kaufman--Parlett factorisation and solve
+  Sparse matrix Bunch--Kaufman--Parlett factorization and solve
   Radical revision started Thu 05th Nov 1992, 09:36:12 AM
   to use Karen George's suggestion of leaving the the row elements unordered
   Radical revision completed Mon 07th Dec 1992, 10:59:57 AM
@@ -594,7 +594,7 @@ static int	col_cmp(const row_elt *e1, const row_elt *e2)
     return e1->col - e2->col;
 }
 
-/* spBKPfactor -- sparse Bunch-Kaufman-Parlett factorisation of A in-situ
+/* spBKPfactor -- sparse Bunch-Kaufman-Parlett factorization of A in-situ
    -- A is factored into the form P'AP = MDM' where 
    P is a permutation matrix, M lower triangular and D is block
    diagonal with blocks of size 1 or 2
@@ -855,7 +855,7 @@ SPMAT	*spBKPfactor(SPMAT *A, PERM *pivot, PERM *blocks, double tol)
 		continue;
 
 	    /* for ( j = i+1; j < n; j++ )  { ... pivot step ... } */
-	    /* initialise scan_... etc for the 1 x 1 pivot */
+	    /* initialize scan_... etc for the 1 x 1 pivot */
 	    scan_row = iv_resize(scan_row,r_piv->len);
 	    scan_idx = iv_resize(scan_idx,r_piv->len);
 	    col_list = iv_resize(col_list,r_piv->len);
@@ -999,7 +999,7 @@ SPMAT	*spBKPfactor(SPMAT *A, PERM *pivot, PERM *blocks, double tol)
 	    aii = aii/det;
 	    aip1 = aip1/det;
 	    
-	    /* initialise scan_... etc for the 2 x 2 pivot */
+	    /* initialize scan_... etc for the 2 x 2 pivot */
 	    s_idx = r_piv->len + r1_piv->len;
 	    scan_row = iv_resize(scan_row,s_idx);
 	    scan_idx = iv_resize(scan_idx,s_idx);

@@ -124,7 +124,7 @@ int	sprow_idx(const SPROW *r, int col)
 }
 
 
-/* sprow_get -- gets, initialises and returns a SPROW structure
+/* sprow_get -- gets, initializes and returns a SPROW structure
    -- max. length is maxlen */
 #ifndef ANSI_C
 SPROW	*sprow_get(maxlen)
@@ -326,7 +326,7 @@ SPROW	*sprow_merge(const SPROW *r1, const SPROW *r2, SPROW *r_out, int type)
    if ( r1 == r_out || r2 == r_out )
      error(E_INSITU,"sprow_merge");
    
-   /* Initialise */
+   /* initialize */
    len1 = r1->len;	len2 = r2->len;	len_out = r_out->maxlen;
    idx1 = idx2 = idx_out = 0;
    elt1 = r1->elt;	elt2 = r2->elt;	elt_out = r_out->elt;
@@ -385,7 +385,7 @@ SPROW	*sprow_copy(const SPROW *r1, const SPROW *r2, SPROW *r_out, int type)
    if ( r1 == r_out || r2 == r_out )
      error(E_INSITU,"sprow_copy");
    
-   /* Initialise */
+   /* initialize */
    len1 = r1->len;	len2 = r2->len;	len_out = r_out->maxlen;
    idx1 = idx2 = idx_out = 0;
    elt1 = r1->elt;	elt2 = r2->elt;	elt_out = r_out->elt;
@@ -449,7 +449,7 @@ SPROW	*sprow_mltadd(const SPROW *r1,const SPROW *r2, double alpha,
    if ( ! r_out )
      r_out = sprow_get(MINROWLEN);
    
-   /* Initialise */
+   /* initialize */
    len1 = r1->len;	len2 = r2->len;	len_out = r_out->maxlen;
    /* idx1 = idx2 = idx_out = 0; */
    idx1    = sprow_idx(r1,j0);
@@ -523,7 +523,7 @@ SPROW	*sprow_add(const SPROW *r1,const SPROW *r2,
    if ( ! r_out )
      r_out = sprow_get(MINROWLEN);
    
-   /* Initialise */
+   /* initialize */
    len1 = r1->len;	len2 = r2->len;	len_out = r_out->maxlen;
    /* idx1 = idx2 = idx_out = 0; */
    idx1    = sprow_idx(r1,j0);
@@ -597,7 +597,7 @@ SPROW	*sprow_sub(const SPROW *r1, const SPROW *r2,
    if ( ! r_out )
      r_out = sprow_get(MINROWLEN);
    
-   /* Initialise */
+   /* initialize */
    len1 = r1->len;	len2 = r2->len;	len_out = r_out->maxlen;
    /* idx1 = idx2 = idx_out = 0; */
    idx1    = sprow_idx(r1,j0);
@@ -667,7 +667,7 @@ SPROW	*sprow_smlt(const SPROW *r1, double alpha, int j0, SPROW *r_out, int type)
    if ( ! r_out )
      r_out = sprow_get(MINROWLEN);
    
-   /* Initialise */
+   /* initialize */
    len1 = r1->len;
    idx1    = sprow_idx(r1,j0);
    idx_out = sprow_idx(r_out,j0);

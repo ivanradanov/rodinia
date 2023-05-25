@@ -24,7 +24,7 @@
 ***************************************************************************/
 
 /*
-  This file contains the routines needed to perform QR factorisation
+  This file contains the routines needed to perform QR factorization
   of matrices, as well as Householder transformations.
   The internal "factored form" of a matrix A is not quite standard.
   The diagonal of A is replaced by the diagonal of R -- not by the 1st non-zero
@@ -58,8 +58,8 @@ static	char	rcsid[] = "$Id: zqrfctr.c,v 1.1 1994/01/13 04:21:22 des Exp $";
    (u* is the conjugate transposed vector of u
 */
 
-/* zQRfactor -- forms the QR factorisation of A
-	-- factorisation stored in compact form as described above
+/* zQRfactor -- forms the QR factorization of A
+	-- factorization stored in compact form as described above
 	(not quite standard format) */
 ZMAT	*zQRfactor(A,diag)
 ZMAT	*A;
@@ -98,8 +98,8 @@ ZVEC	*diag;
     return (A);
 }
 
-/* zQRCPfactor -- forms the QR factorisation of A with column pivoting
-   -- factorisation stored in compact form as described above
+/* zQRCPfactor -- forms the QR factorization of A with column pivoting
+   -- factorization stored in compact form as described above
    ( not quite standard format )				*/
 ZMAT	*zQRCPfactor(A,diag,px)
 ZMAT	*A;
@@ -128,7 +128,7 @@ PERM	*px;
     MEM_STAT_REG(gamma,TYPE_VEC);
     MEM_STAT_REG(w,   TYPE_ZVEC);
     
-    /* initialise gamma and px */
+    /* initialize gamma and px */
     for ( j=0; j<A->n; j++ )
     {
 	px->pe[j] = j;
@@ -440,7 +440,7 @@ ZVEC	*x, *out;
 
 
 /* zQRcondest -- returns an estimate of the 2-norm condition number of the
-		matrix factorised by QRfactor() or QRCPfactor()
+		matrix factorized by QRfactor() or QRCPfactor()
 	-- note that as Q does not affect the 2-norm condition number,
 		it is not necessary to pass the diag, beta (or pivot) vectors
 	-- generates a lower bound on the true condition number

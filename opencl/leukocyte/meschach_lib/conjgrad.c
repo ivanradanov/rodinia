@@ -26,11 +26,11 @@
 
 /*
 	Conjugate gradient routines file
-	Uses sparse matrix input & sparse Cholesky factorisation in pccg().
+	Uses sparse matrix input & sparse Cholesky factorization in pccg().
 
 	All the following routines use routines to define a matrix
 		rather than use any explicit representation
-		(with the exeception of the pccg() pre-conditioner)
+		(with the exception of the pccg() pre-conditioner)
 	The matrix A is defined by
 
 		VEC *(*A)(void *params, VEC *x, VEC *y)
@@ -154,7 +154,7 @@ void	*A_params, *M_params;
 
 /* sp_pccg -- a simple interface to pccg() which uses sparse matrix
 		data structures
-	-- assumes that LLT contains the Cholesky factorisation of the
+	-- assumes that LLT contains the Cholesky factorization of the
 		actual pre-conditioner */
 VEC	*sp_pccg(A,LLT,b,eps,x)
 SPMAT	*A, *LLT;

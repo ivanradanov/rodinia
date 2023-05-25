@@ -143,9 +143,9 @@ char	*argv[];
     printf("# seed = %d\n",seed);
 
     printf("# Check: MACHEPS = %g\n",MACHEPS);
-    /* allocate, initialise, copy and resize operations */
+    /* allocate, initialize, copy and resize operations */
     /* VEC */
-    notice("vector initialise, copy & resize");
+    notice("vector initialize, copy & resize");
     x = v_get(12);
     y = v_get(15);
     z = v_get(12);
@@ -165,7 +165,7 @@ char	*argv[];
 	errmesg("VEC resize");
 
     /* MAT */
-    notice("matrix initialise, copy & resize");
+    notice("matrix initialize, copy & resize");
     A = m_get(8,5);
     B = m_get(3,9);
     C = m_get(8,5);
@@ -187,7 +187,7 @@ char	*argv[];
     MEMCHK();
 
     /* PERM */
-    notice("permutation initialise, inverting & permuting vectors");
+    notice("permutation initialize, inverting & permuting vectors");
     pi1 = px_get(15);
     pi2 = px_get(12);
     px_rand(pi1);
@@ -416,7 +416,7 @@ char	*argv[];
 
     MEMCHK();
 
-    /* Now, onto matrix factorisations */
+    /* Now, onto matrix factorizations */
     A = m_resize(A,10,10);
     B = m_resize(B,A->m,A->n);
     m_copy(A,B);
@@ -463,7 +463,7 @@ char	*argv[];
  
     MEMCHK();
 
-    /* QR factorisation */
+    /* QR factorization */
     m_copy(B,A);
     mv_mlt(B,z,y);
     notice("QR factor/solve:");
@@ -536,7 +536,7 @@ char	*argv[];
 
     MEMCHK();
 
-    /* QRCP factorisation */
+    /* QRCP factorization */
     m_copy(B,A);
     notice("QR factor/solve with column pivoting");
     pivot = px_resize(pivot,A->n);
@@ -572,7 +572,7 @@ char	*argv[];
 
     MEMCHK();
 
-    /* Cholesky and LDL^T factorisation */
+    /* Cholesky and LDL^T factorization */
     /* Use these for normal equations approach */
     notice("Cholesky factor/solve");
     mtrm_mlt(B,B,A);
@@ -588,8 +588,8 @@ char	*argv[];
 	printf("# Cholesky solution error = %g [cf MACHEPS = %g]\n",
 	       v_norm2(z), MACHEPS);
     }
-    /* modified Cholesky factorisation should be identical with Cholesky
-       factorisation provided the matrix is "sufficiently positive definite" */
+    /* modified Cholesky factorization should be identical with Cholesky
+       factorization provided the matrix is "sufficiently positive definite" */
     mtrm_mlt(B,B,C);
     MCHfactor(C,MACHEPS);
     m_sub(A,C,C);
@@ -599,7 +599,7 @@ char	*argv[];
 	printf("# Modified Cholesky error = %g [cf MACHEPS = %g]\n",
 	       m_norm1(C), MACHEPS);
     }
-    /* now test the LDL^T factorisation -- using a negative def. matrix */
+    /* now test the LDL^T factorization -- using a negative def. matrix */
     mtrm_mlt(B,B,A);
     sm_mlt(-1.0,A,A);
     m_copy(A,C);

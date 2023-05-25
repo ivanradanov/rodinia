@@ -299,7 +299,7 @@ SPMAT  *sp_finput(FILE *fp)
 		    error((ret_val == EOF) ? E_EOF : E_FORMAT,"sp_finput");
 		A = sp_get(m,n,5);
 
-		/* initialise start_row */
+		/* initialize start_row */
 		for ( i = 0; i < A->n; i++ )
 			A->start_row[i] = -1;
 

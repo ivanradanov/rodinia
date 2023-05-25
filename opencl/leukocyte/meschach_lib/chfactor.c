@@ -25,7 +25,7 @@
 
 
 /*
-	Matrix factorisation routines to work with the other matrix files.
+	Matrix factorization routines to work with the other matrix files.
 */
 
 /* CHfactor.c 1.2 11/25/87 */
@@ -36,9 +36,9 @@ static	char	rcsid[] = "$Id: chfactor.c,v 1.2 1994/01/13 05:36:36 des Exp $";
 #include	"matrix.h"
 #include        "matrix2.h"
 
-/* Most matrix factorisation routines are in-situ unless otherwise specified */
+/* Most matrix factorization routines are in-situ unless otherwise specified */
 
-/* CHfactor -- Cholesky L.L' factorisation of A in-situ */
+/* CHfactor -- Cholesky L.L' factorization of A in-situ */
 #ifndef ANSI_C
 MAT	*CHfactor(A)
 MAT	*A;
@@ -90,7 +90,7 @@ MAT	*CHfactor(MAT *A)
 }
 
 
-/* CHsolve -- given a CHolesky factorisation in A, solve A.x=b */
+/* CHsolve -- given a CHolesky factorization in A, solve A.x=b */
 #ifndef ANSI_C
 VEC	*CHsolve(A,b,x)
 MAT	*A;
@@ -110,7 +110,7 @@ VEC	*CHsolve(const MAT *A, const VEC *b, VEC *x)
 	return (x);
 }
 
-/* LDLfactor -- L.D.L' factorisation of A in-situ */
+/* LDLfactor -- L.D.L' factorization of A in-situ */
 #ifndef ANSI_C
 MAT	*LDLfactor(A)
 MAT	*A;
@@ -187,7 +187,7 @@ VEC	*LDLsolve(const MAT *LDL, const VEC *b, VEC *x)
 	return x;
 }
 
-/* MCHfactor -- Modified Cholesky L.L' factorisation of A in-situ */
+/* MCHfactor -- Modified Cholesky L.L' factorization of A in-situ */
 #ifndef ANSI_C
 MAT	*MCHfactor(A,tol)
 MAT	*A;

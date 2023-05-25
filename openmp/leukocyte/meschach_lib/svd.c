@@ -303,7 +303,7 @@ VEC	*bisvd(VEC *d, VEC *f, MAT *U, MAT *V)
 	return d;
 }
 
-/* bifactor -- perform preliminary factorisation for bisvd
+/* bifactor -- perform preliminary factorization for bisvd
 	-- updates U and/or V, which ever is not NULL */
 #ifndef ANSI_C
 MAT	*bifactor(A,U,V)

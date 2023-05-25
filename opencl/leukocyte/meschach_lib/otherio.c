@@ -25,7 +25,7 @@
 
 
 /*
-	File for doing assorted I/O operations not invlolving
+	File for doing assorted I/O operations not involving
 	MAT/VEC/PERM objects
 */
 static	char	rcsid[] = "$Id: otherio.c,v 1.2 1994/01/13 05:34:52 des Exp $";

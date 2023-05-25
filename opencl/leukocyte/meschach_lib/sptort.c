@@ -304,7 +304,7 @@ char	*argv[];
 	       v_norm2(z), MACHEPS);
     }
 
-    /* now test symbolic and incomplete factorisation */
+    /* now test symbolic and incomplete factorization */
     SP_FREE(A);
     A = sp_copy(B);
     
@@ -333,7 +333,7 @@ char	*argv[];
 	       v_norm2(z), MACHEPS);
     }
 
-    /* now test sparse LU factorisation */
+    /* now test sparse LU factorization */
     notice("sparse LU factorise/solve");
     SP_FREE(A);
     SP_FREE(B);

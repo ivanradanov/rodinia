@@ -66,7 +66,7 @@ IVEC	*iv_get(int dim)
    return (iv);
 }
 
-/* iv_free -- returns iv & asoociated memory back to memory heap */
+/* iv_free -- returns iv & associated memory back to memory heap */
 #ifndef ANSI_C
 int	iv_free(iv)
 IVEC	*iv;

@@ -165,7 +165,7 @@ VEC	*v_get(int size)
    return (vector);
 }
 
-/* m_free -- returns MAT & asoociated memory back to memory heap */
+/* m_free -- returns MAT & associated memory back to memory heap */
 #ifndef ANSI_C
 int	m_free(mat)
 MAT	*mat;
@@ -216,7 +216,7 @@ int	m_free(MAT *mat)
 
 
 
-/* px_free -- returns PERM & asoociated memory back to memory heap */
+/* px_free -- returns PERM & associated memory back to memory heap */
 #ifndef ANSI_C
 int	px_free(px)
 PERM	*px;
@@ -250,7 +250,7 @@ int	px_free(PERM *px)
 
 
 
-/* v_free -- returns VEC & asoociated memory back to memory heap */
+/* v_free -- returns VEC & associated memory back to memory heap */
 #ifndef ANSI_C
 int	v_free(vec)
 VEC	*vec;

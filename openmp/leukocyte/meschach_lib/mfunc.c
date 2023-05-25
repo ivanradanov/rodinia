@@ -179,7 +179,7 @@ MAT *_m_exp(MAT *A, double eps, MAT *out, int *q_out, int *j_out)
    MEM_STAT_REG(D,TYPE_MAT);
    MEM_STAT_REG(Apow,TYPE_MAT);
    
-   /* normalise A to have ||A||_inf <= 1 */
+   /* normalize A to have ||A||_inf <= 1 */
    inf_norm = m_norm_inf(A);
    if (inf_norm <= 0.0) {
       m_ident(out);
@@ -286,7 +286,7 @@ MAT *_m_exp(MAT *A, double eps, MAT *out, int *q_out, int *j_out)
    m_transp(out,out); 
 
 
-   /* Use recursive squaring to turn the normalised exponential to the
+   /* Use recursive squaring to turn the normalized exponential to the
       true exponential */
 
 #define Z(k)    ((k) & 1 ? Apow : out)

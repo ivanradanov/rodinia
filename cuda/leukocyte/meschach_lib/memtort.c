@@ -396,7 +396,7 @@ char    *argv[];
      errmesg("v_free_vars");
    
    /* IVEC */
-   notice("int vector initialise, copy & resize");
+   notice("int vector initialize, copy & resize");
    n = iv_get_vars(15,&ix,&iy,&iz,NULL);
 
    if (n != 3) {
@@ -433,7 +433,7 @@ char    *argv[];
      errmesg("iv_free_vars");
    
    /* MAT */
-   notice("matrix initialise, copy & resize");
+   notice("matrix initialize, copy & resize");
    n = m_get_vars(10,10,&A,&B,&C,NULL);
    if (n != 3) {
       errmesg("m_get_vars");
@@ -459,7 +459,7 @@ char    *argv[];
      errmesg("MAT free");
    
    /* PERM */
-   notice("permutation initialise, inverting & permuting vectors");
+   notice("permutation initialize, inverting & permuting vectors");
    n = px_get_vars(15,&pi1,&pi2,&pi3,NULL);
    if (n != 3) {
       errmesg("px_get_vars");
@@ -586,9 +586,9 @@ char    *argv[];
    ONE = zmake(1.0,0.0);
    printf("# ONE = "); z_output(ONE);
    printf("# Check: MACHEPS = %g\n",MACHEPS);
-   /* allocate, initialise, copy and resize operations */
+   /* allocate, initialize, copy and resize operations */
    /* ZVEC */
-   notice("vector initialise, copy & resize");
+   notice("vector initialize, copy & resize");
    zv_get_vars(12,&zx,&zy,&zz,NULL);
    
    zv_rand(zx);
@@ -609,7 +609,7 @@ char    *argv[];
 
    
    /* ZMAT */
-   notice("matrix initialise, copy & resize");
+   notice("matrix initialize, copy & resize");
    zm_get_vars(8,5,&zA,&zB,&zC,NULL);
    
    zm_rand(zA);

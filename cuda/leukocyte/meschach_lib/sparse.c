@@ -417,7 +417,7 @@ SPMAT	*sp_col_access(SPMAT *A)
    
    m = A->m;	n = A->n;
    
-   /* initialise start_row and start_idx */
+   /* initialize start_row and start_idx */
    start_row = A->start_row;	start_idx = A->start_idx;
    for ( j = 0; j < n; j++ )
    {	*start_row++ = -1;	*start_idx++ = -1;	}

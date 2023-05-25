@@ -54,7 +54,7 @@ VEC	*trieig();
 
 /* iter_spcg -- a simple interface to iter_cg() which uses sparse matrix
    data structures
-   -- assumes that LLT contains the Cholesky factorisation of the
+   -- assumes that LLT contains the Cholesky factorization of the
    actual preconditioner;
    use always as follows:
    x = iter_spcg(A,LLT,b,eps,x,limit,steps);
@@ -188,7 +188,7 @@ VEC  *iter_cg(ITER *ip)
 
 
 
-/* iter_lanczos -- raw lanczos algorithm -- no re-orthogonalisation
+/* iter_lanczos -- raw lanczos algorithm -- no re-orthogonalization
    -- creates T matrix of size == m,
    but no larger than before beta_k == 0
    -- uses passed routine to do matrix-vector multiplies */
@@ -229,7 +229,7 @@ void	iter_lanczos(ITER *ip, VEC *a, VEC *b, Real *beta2, MAT *Q)
    v_zero(b);
    if (Q) m_zero(Q);
    
-   /* normalise x as w */
+   /* normalize x as w */
    c = v_norm2(ip->x);
    if (c <= MACHEPS) { /* ip->x == 0 */
       *beta2 = 0.0;

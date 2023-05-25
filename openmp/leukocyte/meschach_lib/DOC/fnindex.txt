@@ -9,20 +9,20 @@ vectors by lower case letters and scalars by alpha.
 
 band2mat()	Convert band matrix to dense matrix
 bd_free()	Deallocate (destroy) band matrix
-bd_get()	Allocate and initialise band matrix
+bd_get()	Allocate and initialize band matrix
 bd_transp()	Transpose band matrix
 bd_resize()	Resize band matrix
-bdLDLfactor()	Band  LDL^T  factorisation
+bdLDLfactor()	Band  LDL^T  factorization
 bdLDLsolve()	Solve  Ax=b  using band  LDL^T  factors
-bdLUfactor()	Band  LU  factorisation
+bdLUfactor()	Band  LU  factorization
 bdLUsolve()	Solve  Ax=b  using band  LU  factors
 bisvd()		SVD of bi-diagonal matrix
-BKPfactor()	Bunch-Kaufman-Parlett factorisation
+BKPfactor()	Bunch-Kaufman-Parlett factorization
 BKPsolve()	Bunch-Kaufman-Parlett solver
 catch()		Catch a raised error (macro)
 catchall()	Catch any raised error (macro)
 catch_FPE()	Catch floating point error (sets flag)
-CHfactor()	Dense Cholesky factorisation
+CHfactor()	Dense Cholesky factorization
 CHsolve()	Cholesky solver
 d_save()	Save real in MATLAB format
 Dsolve()	Solve  Dx=y ,  D  diagonal
@@ -79,27 +79,27 @@ iv_foutput()	Output integer vector to a stream
 IV_FREE()	Free (deallocate) an integer vector (macro)
 iv_free()	Free (deallocate) integer vector (function)
 iv_free_vars()	Free a list of integer vectors
-iv_get()	Allocate and initialise an integer vector
+iv_get()	Allocate and initialize an integer vector
 iv_get_vars()	Allocate list of integer vectors
 iv_input()	Input integer vector from  stdin (macro)
 iv_output()	Output integer vector to  stdout (macro)
 iv_resize()	Resize an integer vector
 iv_resize_vars()	Resize a list of integer vectors
 iv_sub()	Subtract integer vectors
-LDLfactor()	LDL^T  factorisation
+LDLfactor()	LDL^T  factorization
 LDLsolve()	LDL^T  solver
-LDLupdate()	Update  LDL^T  factorisation
+LDLupdate()	Update  LDL^T  factorization
 Lsolve()	Solve  Lx=y ,  L  lower triangular
 LTsolve()	Solve  L^Tx=y ,  L  lower triangular
 LUcondest()	Estimate a condition number using  LU  factors
 LUfactor()	Compute  LU  factors with implicit scaled partial pivoting
 LUsolve()	Solve  Ax=b  using  LU  factors
-LUTsolve()	Solve  A^Tx=b  usng  LU  factors
+LUTsolve()	Solve  A^Tx=b  using  LU  factors
 m_add()	        Add matrices
-makeQ()	        Form Q matrix for QR factorisation
-makeR()	        Form R matrix for QR factorisation
+makeQ()	        Form Q matrix for QR factorization
+makeR()	        Form R matrix for QR factorization
 mat2band()	Extract band matrix from dense matrix
-MCHfactor()	Modified Cholesky factorisation 
+MCHfactor()	Modified Cholesky factorization 
 		(actually factors A+D, D diagonal, instead of A)
 m_copy()	Copy dense matrix
 m_dump()	Dump matrix data structure to a stream
@@ -126,7 +126,7 @@ m_foutput()	Output matrix to a stream
 M_FREE()	Free (deallocate) a matrix (macro)
 m_free()	Free (deallocate) matrix (function)
 m_free_vars()	Free a list of matrices
-m_get()	        Allocate and initialise a matrix
+m_get()	        Allocate and initialize a matrix
 m_get_vars()	Allocate list of matrices
 m_ident()	Sets matrix to identity matrix
 m_input()	Input matrix from  stdin (macro)
@@ -163,7 +163,7 @@ px_foutput()	Output permutation to a stream
 PX_FREE()	Free (deallocate) a permutation (macro)
 px_free()	Free (deallocate) permutation (function)
 px_free_vars()	Free a list of permutations
-px_get()	Allocate and initialise a permutation
+px_get()	Allocate and initialize a permutation
 px_get_vars()	Allocate a list of permutations
 px_ident()	Sets permutation to identity
 px_input()	Input permutation from  stdin (macro)
@@ -179,10 +179,10 @@ px_sign()	Returns the sign of the permutation
 px_transp()	Transpose a pair of entries
 px_vec()	Computes  Px  where  P  is a permutation matrix
 px_zvec()	Computes  Px  where  P  is a permutation matrix (complex)
-QRCPfactor()	QR factorisation with column pivoting
-QRfactor()	QR factorisation
-QRsolve()	Solve  Ax=b  using  QR  factorisation
-QRTsolve()	Solve  A^Tx=b  using  QR  factorisation
+QRCPfactor()	QR factorization with column pivoting
+QRfactor()	QR factorization
+QRsolve()	Solve  Ax=b  using  QR  factorization
+QRTsolve()	Solve  A^Tx=b  using  QR  factorization
 QRupdate()	Update explicit  QR  factors
 rot_cols()	Apply Givens rotation to the columns of a matrix
 rot_rows()	Apply Givens rotation to the rows of a matrix
@@ -198,9 +198,9 @@ sm_mlt()	Scalar-matrix multiplication
 smrand()	Set seed for mrand()
 spBKPfactor()	Sparse symmetric indefinite factorsiation
 spBKPsolve()	Sparse symmetric indefinite solver
-spCHfactor()	Sparse Cholesky factorisation
+spCHfactor()	Sparse Cholesky factorization
 spCHsolve()	Sparse Cholesky solver
-spCHsymb()	Symbolic sparse Cholesky factorisation 
+spCHsymb()	Symbolic sparse Cholesky factorization 
 		(no floating point operations)
 sp_col_access()	Sets up column access paths for a sparse matrix
 sp_compact()	Eliminates zero entries in a sparse matrix
@@ -211,11 +211,11 @@ sp_dump()	Dump sparse matrix data structure to a stream
 sp_finput()	Input sparse matrix from a stream
 sp_foutput()	Output a sparse matrix to a stream
 sp_free()	Free (deallocate) a sparse matrix
-sp_get()	Allocate and initialise a sparse matrix
+sp_get()	Allocate and initialize a sparse matrix
 sp_get_val()	Get the  (i,j)  entry of a sparse matrix
-spICHfactor()	Sparse incomplete Cholesky factorisation
+spICHfactor()	Sparse incomplete Cholesky factorization
 sp_input()	Input a sparse matrix form  stdin
-spLUfactor()	Sparse  LU  factorisation using partial pivoting
+spLUfactor()	Sparse  LU  factorization using partial pivoting
 spLUsolve()	Solves  Ax=b  using sparse  LU  factors
 spLUTsolve()	Solves  A^Tx=b  using sparse  LU  factors
 sp_mv_mlt()	Computes  Ax  for sparse  A 
@@ -223,7 +223,7 @@ sp_output()	Outputs a sparse matrix to a stream (macro)
 sp_resize()	Resize a sparse matrix
 sprow_add()	Adds a pair of sparse rows
 sprow_foutput()	Output sparse row to a stream
-sprow_get()	Allocate and initialise a sparse row
+sprow_get()	Allocate and initialize a sparse row
 sprow_get_idx()	Get location of an entry in a sparse row
 sprow_merge()	Merge two sparse rows
 sprow_mltadd()	Sparse row vector multiply-and-add
@@ -250,7 +250,7 @@ v_foutput()	Output vector to a stream
 V_FREE()	Free (deallocate) a vector (macro)
 v_free()	Free (deallocate) vector (function)
 v_free_vars()	Free a list of vectors
-v_get()		Allocate and initialise a vector
+v_get()		Allocate and initialize a vector
 v_get_vars()	Allocate list of vectors
 v_input()	Input vector from  stdin (macro)
 v_lincomb()	Compute  sum of a_i x_i  for an array of vectors
@@ -295,11 +295,11 @@ zinv()		Computes  1/z  (complex)
 zLAsolve()	Solve  L^*x=b ,  L  complex lower triangular
 zlog()		Complex logarithm
 zLsolve()	Solve  Lx=b ,  L  complex lower triangular
-zLUAsolve()	Solve  A^*x=b  using complex LU factorisation 
+zLUAsolve()	Solve  A^*x=b  using complex LU factorization 
 		(A^* - adjoint of A, A is complex)
 zLUcondest()	Complex LU condition estimate
-zLUfactor()	Complex LU factorisation
-zLUsolve()	Solve  Ax=b  using complex LU factorisation
+zLUfactor()	Complex LU factorization
+zLUsolve()	Solve  Ax=b  using complex LU factorization
 zm_add()	Add complex matrices
 zm_adjoint()	Computes adjoint of complex matrix
 zmake()		Construct complex number from real and imaginary parts
@@ -332,15 +332,15 @@ zmv_mltadd()	Complex matrix-vector multiply and add
 zm_zero()	Zero complex matrix
 zneg()		Computes  -z  (complex)
 z_output()	Print complex number to stdout
-zQRCPfactor()	Complex  QR  factorisation with column pivoting
-zQRCPsolve()	Solve  Ax = b  using complex  QR  factorisation
-zQRfactor()	Complex  QR  factorisation
-zQRAsolve()	Solve  A^*x = b  using complex  QR  factorisation
-zQRsolve()	Solve  Ax = b  using complex  QR  factorisation
+zQRCPfactor()	Complex  QR  factorization with column pivoting
+zQRCPsolve()	Solve  Ax = b  using complex  QR  factorization
+zQRfactor()	Complex  QR  factorization
+zQRAsolve()	Solve  A^*x = b  using complex  QR  factorization
+zQRsolve()	Solve  Ax = b  using complex  QR  factorization
 zrot_cols()	Complex Givens' rotation of columns
 zrot_rows()	Complex Givens' rotation of rows
 z_save()	Save complex number in MATLAB format
-zschur()	Complex Schur factorisation
+zschur()	Complex Schur factorization
 zset_col()	Set column of complex matrix
 zset_row()	Set row of complex matrix
 zsm_mlt()	Complex scalar-matrix product
