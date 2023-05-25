@@ -249,10 +249,10 @@ main ( int argc, char *argv[] )
 	}
 	if(err != CL_SUCCESS) { printf("ERROR: clBuildProgram() => %d\n", err); return -1; }
     
-	cl_kernel diagnal;
+	cl_kernel diagonal;
 	cl_kernel perimeter;
 	cl_kernel internal;
-	diagnal   = clCreateKernel(prog, kernel_lud_diag, &err);  
+	diagonal   = clCreateKernel(prog, kernel_lud_diag, &err);  
 	perimeter = clCreateKernel(prog, kernel_lud_peri, &err);  
 	internal  = clCreateKernel(prog, kernel_lud_inter, &err);  
 	if(err != CL_SUCCESS) { printf("ERROR: clCreateKernel() 0 => %d\n", err); return -1; }
@@ -289,16 +289,16 @@ main ( int argc, char *argv[] )
 	size_t i=0;
 	for (i=0; i < matrix_dim-BLOCK_SIZE; i += BLOCK_SIZE) {
 	 
-	  clSetKernelArg(diagnal, 0, sizeof(void *), (void*) &d_m);
-	  clSetKernelArg(diagnal, 1, sizeof(float) * BLOCK_SIZE * BLOCK_SIZE, (void*)NULL );
-	  clSetKernelArg(diagnal, 2, sizeof(cl_int), (void*) &matrix_dim);
-	  clSetKernelArg(diagnal, 3, sizeof(cl_int), (void*) &i);
+	  clSetKernelArg(diagonal, 0, sizeof(void *), (void*) &d_m);
+	  clSetKernelArg(diagonal, 1, sizeof(float) * BLOCK_SIZE * BLOCK_SIZE, (void*)NULL );
+	  clSetKernelArg(diagonal, 2, sizeof(cl_int), (void*) &matrix_dim);
+	  clSetKernelArg(diagonal, 3, sizeof(cl_int), (void*) &i);
       
 	  size_t global_work1[3]  = {BLOCK_SIZE, 1, 1};
 	  size_t local_work1[3]  = {BLOCK_SIZE, 1, 1};
 	   
-	  err = clEnqueueNDRangeKernel(cmd_queue, diagnal, 2, NULL, global_work1, local_work1, 0, 0, &event);
-	  if(err != CL_SUCCESS) { printf("ERROR:  diagnal clEnqueueNDRangeKernel()=>%d failed\n", err); return -1; }	
+	  err = clEnqueueNDRangeKernel(cmd_queue, diagonal, 2, NULL, global_work1, local_work1, 0, 0, &event);
+	  if(err != CL_SUCCESS) { printf("ERROR:  diagonal clEnqueueNDRangeKernel()=>%d failed\n", err); return -1; }	
 #ifdef TIMING
       kernel_time += probe_event_time(event,cmd_queue);
 #endif
@@ -341,15 +341,15 @@ main ( int argc, char *argv[] )
           clReleaseEvent(event);
       }
 	}
-	clSetKernelArg(diagnal, 0, sizeof(void *), (void*) &d_m);
-	clSetKernelArg(diagnal, 1, sizeof(float) * BLOCK_SIZE * BLOCK_SIZE, (void*)NULL );
-	clSetKernelArg(diagnal, 2, sizeof(cl_int), (void*) &matrix_dim);
-	clSetKernelArg(diagnal, 3, sizeof(cl_int), (void*) &i);
+	clSetKernelArg(diagonal, 0, sizeof(void *), (void*) &d_m);
+	clSetKernelArg(diagonal, 1, sizeof(float) * BLOCK_SIZE * BLOCK_SIZE, (void*)NULL );
+	clSetKernelArg(diagonal, 2, sizeof(cl_int), (void*) &matrix_dim);
+	clSetKernelArg(diagonal, 3, sizeof(cl_int), (void*) &i);
       
 	size_t global_work1[3]  = {BLOCK_SIZE, 1, 1};
 	size_t local_work1[3]  = {BLOCK_SIZE, 1, 1};
-	err = clEnqueueNDRangeKernel(cmd_queue, diagnal, 2, NULL, global_work1, local_work1, 0, 0, &event);
-	if(err != CL_SUCCESS) { printf("ERROR:  diagnal clEnqueueNDRangeKernel()=>%d failed\n", err); return -1; }	
+	err = clEnqueueNDRangeKernel(cmd_queue, diagonal, 2, NULL, global_work1, local_work1, 0, 0, &event);
+	if(err != CL_SUCCESS) { printf("ERROR:  diagonal clEnqueueNDRangeKernel()=>%d failed\n", err); return -1; }	
 #ifdef TIMING
     kernel_time += probe_event_time(event,cmd_queue);
 #endif

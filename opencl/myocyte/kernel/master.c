@@ -76,7 +76,7 @@ master(	fp timeinst,
 	int initvalu_offset_ecc;																// 46 points
 	int initvalu_offset_Dyad;															// 15 points
 	int initvalu_offset_SL;																// 15 points
-	int initvalu_offset_Cyt;																// 15 poitns
+	int initvalu_offset_Cyt;																// 15 points
 
 	// common variables
 	cl_int error;

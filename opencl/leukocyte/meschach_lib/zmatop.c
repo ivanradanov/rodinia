@@ -599,7 +599,7 @@ int	row;
 	return (mat);
 }
 
-/* zm_rand -- randomise a complex matrix; uniform in [0,1)+[0,1)*i */
+/* zm_rand -- randomize a complex matrix; uniform in [0,1)+[0,1)*i */
 ZMAT	*zm_rand(A)
 ZMAT	*A;
 {

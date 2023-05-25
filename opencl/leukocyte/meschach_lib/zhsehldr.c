@@ -43,7 +43,7 @@ static	char	rcsid[] = "$Id: zhsehldr.c,v 1.2 1994/04/07 01:43:47 des Exp $";
 
 #define	is_zero(z)	((z).re == 0.0 && (z).im == 0.0)
 
-/* zhhvec -- calulates Householder vector to eliminate all entries after the
+/* zhhvec -- calculates Householder vector to eliminate all entries after the
 	i0 entry of the vector vec. It is returned as out. May be in-situ */
 ZVEC	*zhhvec(vec,i0,beta,out,newval)
 ZVEC	*vec,*out;

@@ -56,7 +56,7 @@ __global__ void IMGVF_kernel(float **IMGVF_array, float **I_array, int *m_array,
 	// Figure out which cell this thread block is working on
 	int cell_num = blockIdx.x;
 	
-	// Get pointers to current cell's input image and inital matrix
+	// Get pointers to current cell's input image and initial matrix
 	float *IMGVF_global = IMGVF_array[cell_num];
 	float *I = I_array[cell_num];
 	

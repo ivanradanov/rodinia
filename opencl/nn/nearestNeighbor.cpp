@@ -96,7 +96,7 @@ float *OpenClFindNearestNeighbors(
         if(status)exit(1);
     // 2. set up memory on device and send ipts data to device
     // copy ipts(1,2) to device
-    // also need to alloate memory for the distancePoints
+    // also need to allocate memory for the distancePoints
     cl_mem d_locations;
     cl_mem d_distances;
 

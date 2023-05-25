@@ -145,7 +145,7 @@ kernel_gpu_opencl_wrapper(	fp* image,											// input image
 	//	GET DEVICES AVAILABLE FOR THE CONTEXT, SELECT ONE
 	//====================================================================================================100
 
-	// Get the number of devices (previousely selected for the context)
+	// Get the number of devices (previously selected for the context)
 	size_t devices_size;
 	error = clGetContextInfo(	context, 
 								CL_CONTEXT_DEVICES, 
@@ -155,7 +155,7 @@ kernel_gpu_opencl_wrapper(	fp* image,											// input image
 	if (error != CL_SUCCESS) 
 		fatal_CL(error, __LINE__);
 
-	// Get the list of devices (previousely selected for the context)
+	// Get the list of devices (previously selected for the context)
 	cl_device_id *devices = (cl_device_id *) malloc(devices_size);
 	error = clGetContextInfo(	context, 
 								CL_CONTEXT_DEVICES, 
@@ -165,11 +165,11 @@ kernel_gpu_opencl_wrapper(	fp* image,											// input image
 	if (error != CL_SUCCESS) 
 		fatal_CL(error, __LINE__);
 
-	// Select the first device (previousely selected for the context) (if there are multiple devices, choose the first one)
+	// Select the first device (previously selected for the context) (if there are multiple devices, choose the first one)
 	cl_device_id device;
 	device = devices[device_id_inuse];
 
-	// Get the name of the selected device (previousely selected for the context) and print it
+	// Get the name of the selected device (previously selected for the context) and print it
 	error = clGetDeviceInfo(device, 
 							CL_DEVICE_NAME, 
 							sizeof(pbuf), 

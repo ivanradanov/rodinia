@@ -39,7 +39,7 @@ __kernel void IMGVF_kernel(__global float *IMGVF_array, __global float *I_array,
 	// Figure out which cell this thread block is working on
 	int cell_num = get_group_id(0);
 	
-	// Get pointers to current cell's input image and inital matrix
+	// Get pointers to current cell's input image and initial matrix
 	int I_offset = I_offsets[cell_num];
 	__global float *IMGVF_global = &(IMGVF_array[I_offset]);
 	__global float *I = &(I_array[I_offset]);

@@ -171,7 +171,7 @@ kernel_gpu_opencl_wrapper(	params_common common,
 	int num_devices = devices_size / sizeof(cl_device_id);
 	printf("# of devices %d\n", num_devices);
 
-	// Get the list of devices (previousely selected for the context)
+	// Get the list of devices (previously selected for the context)
 	cl_device_id* devices = (cl_device_id*)malloc(num_devices*sizeof(cl_device_id));
 	error = clGetContextInfo(	context, 
 								CL_CONTEXT_DEVICES, 

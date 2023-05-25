@@ -23,11 +23,11 @@
 //	1) The original version of the current solver code was obtained from: Mathematics Source Library (http://mymathlib.webtrellis.net/index.html). The solver has been 
 //      somewhat modified to tailor it to our needs. However, it can be reverted back to original form or modified to suit other simulations.
 // 2) This solver and particular solving algorithm used with it (embedded_fehlberg_7_8) were adapted to work with a set of equations, not just one like in original version.
-//	3) In order for solver to provide deterministic number of steps (needed for particular amount of memore previousely allocated for results), every next step is 
+//	3) In order for solver to provide deterministic number of steps (needed for particular amount of memore previously allocated for results), every next step is 
 //      incremented by 1 time unit (h_init).
 //	4) Function assumes that simulation starts at some point of time (whatever time the initial values are provided for) and runs for the number of milliseconds (xmax) 
 //      specified by the uses as a parameter on command line.
-// 5) The appropriate amount of memory is previousely allocated for that range (y).
+// 5) The appropriate amount of memory is previously allocated for that range (y).
 //	6) This setup in 3) - 5) allows solver to adjust the step ony from current time instance to current time instance + 0.9. The next time instance is current time instance + 1;
 //	7) The original solver cannot handle cases when equations return NAN and INF values due to discontinuities and /0. That is why equations provided by user need to 
 //      make sure that no NAN and INF are returned.

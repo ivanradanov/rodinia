@@ -32,11 +32,11 @@
 //	1) The original version of the current solver code was obtained from: Mathematics Source Library (http://mymathlib.webtrellis.net/index.html). The solver has been 
 //      somewhat modified to tailor it to our needs. However, it can be reverted back to original form or modified to suit other simulations.
 // 2) This solver and particular solving algorithm used with it (embedded_fehlberg_7_8) were adapted to work with a set of equations, not just one like in original version.
-//	3) In order for solver to provide deterministic number of steps (needed for particular amount of memore previousely allocated for results), every next step is 
+//	3) In order for solver to provide deterministic number of steps (needed for particular amount of memory previously allocated for results), every next step is 
 //      incremented by 1 time unit (h_init).
 //	4) Function assumes that simulation starts at some point of time (whatever time the initial values are provided for) and runs for the number of milliseconds (xmax) 
 //      specified by the uses as a parameter on command line.
-// 5) The appropriate amount of memory is previousely allocated for that range (y).
+// 5) The appropriate amount of memory is previously allocated for that range (y).
 //	6) This setup in 3) - 5) allows solver to adjust the step ony from current time instance to current time instance + 0.9. The next time instance is current time instance + 1;
 //	7) The original solver cannot handle cases when equations return NAN and INF values due to discontinuities and /0. That is why equations provided by user need to 
 //      make sure that no NAN and INF are returned.
@@ -64,18 +64,18 @@
 // Speedup numbers reported in the description of this application were obtained on the machine with: Intel Quad Core CPU, 4GB of RAM, Nvidia GTX280 GPU.  
 
 // 1) When running with parallelization inside each simulation instance (value of 3rd command line parameter equal to 0), performance is bad because:
-// a) underutilization of GPU (only 1 out of 32 threads in each block)
+// a) under-utilization of GPU (only 1 out of 32 threads in each block)
 // b) significant CPU-GPU memory copy overhead
 // c) kernel launch overhead (kernel needs to be finished every time model is evaluated as it is the only way to synchronize threads in different blocks)
-// 2) When running with parallelization across simulation instances, code gets continues speedup with the increasing number of simulation insances which saturates
-//     around 240 instances on GTX280 (roughly corresponding to the number of multiprocessorsXprocessors in GTX280), with the speedup of around 10x compared
+// 2) When running with parallelization across simulation instances, code gets continues speedup with the increasing number of simulation instances which saturates
+//     around 240 instances on GTX280 (roughly corresponding to the number of multiprocessors X processors in GTX280), with the speedup of around 10x compared
 //     to serial C version of code. Limited performance is explained mainly by:
 // a) significant CPU-GPU memory copy overhead
 // b) increasingly uncoalesced memory accesses with the increasing number of workloads
 // c) lack of cache compared to CPU, or no use of shared memory to compensate
 // d) frequency of GPU shader being lower than that of CPU core
 // 3) GPU version has an issue with memory allocation that has not been resolved yet. For certain simulation ranges memory allocation fails, or pointers incorrectly overlap 
-//     causeing value trashing.
+//     causing value trashing.
 
 // The following are the command parameters to the application:
 // 1) Simulation time interval which is the number of milliseconds to simulate. Needs to be integer > 0

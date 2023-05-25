@@ -36,9 +36,9 @@
 //	1) The original code was obtained from: Mathematics Source Library (http://mymathlib.webtrellis.net/index.html)
 // 2) This solver and particular solving algorithm used with it (embedded_fehlberg_7_8) were adapted to work with a set of equations, not just one like in original version.
 
-//	3) In order for solver to provide deterministic number of steps (needed for particular amount of memore previousely allocated for results), every next step is incremented by 1 time unit (h_init).
+//	3) In order for solver to provide deterministic number of steps (needed for particular amount of memore previously allocated for results), every next step is incremented by 1 time unit (h_init).
 //	4) Function assumes that time interval starts at 0 (xmin) and ends at integer value (xmax) specified by the uses as a parameter on command line.
-// 5) The appropriate amount of memory is previousely allocated for that range (y).
+// 5) The appropriate amount of memory is previously allocated for that range (y).
 
 //	5) This setup in 3) - 5) allows solver to adjust the step ony from current time instance to current time instance + 0.9. The next time instance is current time instance + 1;
 
