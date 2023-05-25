@@ -399,7 +399,7 @@ _getopt_initialize (argc, argv, optstring)
 
   posixly_correct = getenv ("POSIXLY_CORRECT");
 
-  /* Determine how to handle the ordering of options and nonoptions.  */
+  /* Determine how to handle the ordering of options and non-options.  */
 
   if (optstring[0] == '-')
     {

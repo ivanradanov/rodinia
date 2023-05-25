@@ -453,7 +453,7 @@ cl_float4* runMergeSort(int listsize, int divisions,
     clGetEventProfilingInfo(mergePackEvent, CL_PROFILING_COMMAND_START, sizeof(time_start), &time_start, NULL);
     clGetEventProfilingInfo(mergePackEvent, CL_PROFILING_COMMAND_END, sizeof(time_end), &time_end, NULL);
     total_time = time_end - time_start;
-    mergesum+= total_time / 1000000;
+    mergesum += total_time / 1000000;
     printf("Merge Pack Kernel Time: %0.3f \n", total_time/1000000);
     err = clEnqueueReadBuffer( mergeCommands, d_orig, CL_TRUE, 0, listsize*sizeof(float), d_origList, 0, NULL, NULL );
     if (err != CL_SUCCESS)
