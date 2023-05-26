@@ -24,7 +24,7 @@
 ***************************************************************************/
 
 
-/* Sparse matrix factorise/solve header */
+/* Sparse matrix factorize/solve header */
 /* RCS id: $Id: sparse2.h,v 1.4 1994/01/13 05:33:46 des Exp $ */
 
 

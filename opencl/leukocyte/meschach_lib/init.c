@@ -25,7 +25,7 @@
 
 
 /*
-	This is a file of routines for zero-ing, and initialising
+	This is a file of routines for zero-ing, and initializing
 	vectors, matrices and permutations.
 	This is to be included in the matrix.a library
 */

@@ -137,11 +137,11 @@ srad_cuda_1(
 	den  = 1 + (.25*l);
 	qsqr = num/(den*den);
 
-	// diffusion coefficent (equ 33)
+	// diffusion coefficient (equ 33)
 	den = (qsqr-q0sqr) / (q0sqr * (1+q0sqr)) ;
 	c = 1.0 / (1.0+den) ;
 
-    // saturate diffusion coefficent
+    // saturate diffusion coefficient
 	if (c < 0){temp_result[ty][tx] = 0;}
 	else if (c > 1) {temp_result[ty][tx] = 1;}
 	else {temp_result[ty][tx] = c;}

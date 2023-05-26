@@ -30,7 +30,7 @@
 
 	All the following routines use routines to define a matrix
 		rather than use any explicit representation
-		(with the exeception of the pccg() pre-conditioner)
+		(with the exception of the pccg() pre-conditioner)
 	The matrix A is defined by
 
 		VEC *(*A)(void *params, VEC *x, VEC *y)

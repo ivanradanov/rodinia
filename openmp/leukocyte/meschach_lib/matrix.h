@@ -121,7 +121,7 @@ void	m_version( void );
 /* allocate num objects of given type */
 #define	NEW_A(num,type)	((type *)calloc((size_t)(num),sizeof(type)))
 
- /* re-allocate arry to have num objects of the given type */
+ /* re-allocate array to have num objects of the given type */
 #define	RENEW(var,num,type) \
     ((var)=(type *)((var) ? \
 		    realloc((char *)(var),(size_t)(num)*sizeof(type)) : \
@@ -137,7 +137,7 @@ void	m_version( void );
 /* allocate num objects of given type */
 #define	NEW_A(num,type)	((type *)calloc((size_t)(num),(size_t)sizeof(type)))
 
- /* re-allocate arry to have num objects of the given type */
+ /* re-allocate array to have num objects of the given type */
 #define	RENEW(var,num,type) \
     ((var)=(type *)((var) ? \
 		    realloc((char *)(var),(size_t)((num)*sizeof(type))) : \
@@ -390,7 +390,7 @@ extern  BAND    *bd_copy(const BAND *in,BAND *out);
 #define	v_copy(in,out)	_v_copy(in,out,0)
 
 
-/* Initialisation routines -- to be zero, ones, random or identity */
+/* initialization routines -- to be zero, ones, random or identity */
 #ifndef ANSI_C
 extern	VEC     *v_zero(), *v_rand(), *v_ones();
 extern	MAT     *m_zero(), *m_ident(), *m_rand(), *m_ones();

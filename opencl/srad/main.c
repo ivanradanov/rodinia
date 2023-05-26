@@ -58,13 +58,13 @@ main(	int argc,
 	// 	VARIABLES
 	//======================================================================================================================================================150
 
-	// inputs image, input paramenters
-	fp* image_ori;																// originalinput image
+	// inputs image, input parameters
+	fp* image_ori;																// original input image
 	int image_ori_rows;
 	int image_ori_cols;
 	long image_ori_elem;
 
-	// inputs image, input paramenters
+	// inputs image, input parameters
 	fp* image;															// input image
 	int Nr,Nc;													// IMAGE nbr of rows/cols/elements
 	long Ne;

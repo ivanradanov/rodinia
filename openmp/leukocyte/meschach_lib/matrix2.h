@@ -116,7 +116,7 @@ extern	double	LUcondest(const MAT *A, PERM *pivot),
 /* Note: The make..() and ..update() routines assume that the factorization
         has already been carried out */
 
-     /* Qout is the "Q" (orthongonal) matrix from QR factorization */
+     /* Qout is the "Q" (orthogonal) matrix from QR factorization */
 extern	MAT	*makeQ(const MAT *QR,const VEC *diag,MAT *Qout),
                 /* Rout is the "R" (upper triangular) matrix
                         from QR factorization */
@@ -155,7 +155,7 @@ extern	VEC	*BKPsolve(const MAT *A,PERM *pivot,const PERM *blocks,
 
 
      /* Triangular equations solve routines;
-        U for upper triangular, L for lower traingular, D for diagonal
+        U for upper triangular, L for lower triangular, D for diagonal
         if diag_val == 0.0 use that values in the matrix */
 
 		*Usolve(const MAT *A,const VEC *b,VEC *x,double diag_val),

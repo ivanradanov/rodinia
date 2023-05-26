@@ -245,7 +245,7 @@ void kernel(public_struct public,
 		//====================================================================================================
 
 		//==================================================
-		//	1) PADD ARRAY										SAVE IN d_in2_pad
+		//	1) PAD ARRAY										SAVE IN d_in2_pad
 		//==================================================
 
 		// work
@@ -462,7 +462,7 @@ void kernel(public_struct public,
 		//	4) GET DIFFERENTIAL LOCAL SUM
 		//	5) GET DENOMINATOR A
 		//	6) GET DENOMINATOR
-		//	7) DIVIDE NUMBERATOR BY DENOMINATOR TO GET CORRELATION	SAVE IN d_conv
+		//	7) DIVIDE NUMERATOR BY DENOMINATOR TO GET CORRELATION	SAVE IN d_conv
 		//==================================================
 
 		// work

@@ -11,7 +11,7 @@
 //        --code cleanup & commenting
 //        --code optimization efforts   
 //    2006.04   Drew Gilliam
-//        --added diffusion coefficent saturation on [0,1]
+//        --added diffusion coefficient saturation on [0,1]
 //		2009.12 Lukasz G. Szafaryn
 //		-- reading from image, command line inputs
 //		2010.01 Lukasz G. Szafaryn
@@ -250,7 +250,7 @@ int main(int argc, char *argv []){
         varROI  = (sum2 / NeROI) - meanROI*meanROI;							// gets variance of ROI
         q0sqr   = varROI / (meanROI*meanROI);								// gets standard deviation of ROI
 
-        // directional derivatives, ICOV, diffusion coefficent
+        // directional derivatives, ICOV, diffusion coefficient
 		#pragma omp parallel for shared(image, dN, dS, dW, dE, c, Nr, Nc, iN, iS, jW, jE) private(i, j, k, Jc, G2, L, num, den, qsqr)
 		for (j=0; j<Nc; j++) {												// do for the range of columns in IMAGE
 
@@ -260,7 +260,7 @@ int main(int argc, char *argv []){
                 k = i + Nr*j;												// get position of current element
                 Jc = image[k];													// get value of the current element
 
-                // directional derivates (every element of IMAGE)
+                // directional derivatives (every element of IMAGE)
                 dN[k] = image[iN[i] + Nr*j] - Jc;								// north direction derivative
                 dS[k] = image[iS[i] + Nr*j] - Jc;								// south direction derivative
                 dW[k] = image[i + Nr*jW[j]] - Jc;								// west direction derivative
@@ -278,11 +278,11 @@ int main(int argc, char *argv []){
                 den  = 1 + (.25*L);											// den (based on laplacian)
                 qsqr = num/(den*den);										// qsqr (based on num and den)
  
-                // diffusion coefficent (equ 33) (every element of IMAGE)
+                // diffusion coefficient (equ 33) (every element of IMAGE)
                 den = (qsqr-q0sqr) / (q0sqr * (1+q0sqr)) ;					// den (based on qsqr and q0sqr)
                 c[k] = 1.0 / (1.0+den) ;									// diffusion coefficient (based on den)
 
-                // saturate diffusion coefficent to 0-1 range
+                // saturate diffusion coefficient to 0-1 range
                 if (c[k] < 0)												// if diffusion coefficient < 0
 					{c[k] = 0;}												// ... set to 0
                 else if (c[k] > 1)											// if diffusion coefficient > 1
@@ -303,7 +303,7 @@ int main(int argc, char *argv []){
                 // current index
                 k = i + Nr*j;												// get position of current element
 
-                // diffusion coefficent
+                // diffusion coefficient
                 cN = c[k];													// north diffusion coefficient
                 cS = c[iS[i] + Nr*j];										// south diffusion coefficient
                 cW = c[k];													// west diffusion coefficient

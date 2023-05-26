@@ -25,7 +25,7 @@
 
 
 /*
-	This is a file of routines for zero-ing, and initialising
+	This is a file of routines for zero-ing, and initializing
 	vectors, matrices and permutations.
 	This is to be included in the matrix.a library
 */
@@ -234,7 +234,7 @@ void smrand(int seed)
     started = TRUE;
 
     /* run mrand() through the list sufficient times to
-       thoroughly randomise the array */
+       thoroughly randomize the array */
     for ( i = 0; i < 55*55; i++ )
 	mrand();
 }
@@ -243,7 +243,7 @@ void smrand(int seed)
 #undef FAC
 
 /* v_rand -- initializes x to be a random vector, components
-	independently & uniformly ditributed between 0 and 1 */
+	independently & uniformly distributed between 0 and 1 */
 #ifndef ANSI_C
 VEC	*v_rand(x)
 VEC	*x;

@@ -604,7 +604,7 @@ SPMAT	*comp_AAT(SPMAT *A)
 
 	for ( i = 0; i < m; i++ )
 	{
-		/* initialisation */
+		/* initialization */
 		r = &(A->row[i]);
 		elts = r->elt;
 

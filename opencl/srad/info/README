@@ -14,7 +14,7 @@
 //		--code cleanup & commenting
 //		--code optimization efforts   
 //	2006.04 Drew Gilliam
-//		--added diffusion coefficent saturation on [0,1]
+//		--added diffusion coefficient saturation on [0,1]
 //	2009.07 Lukasz G. Szafaryn
 //		-- converted from C to CUDA
 //	2009.12 Lukasz G. Szafaryn

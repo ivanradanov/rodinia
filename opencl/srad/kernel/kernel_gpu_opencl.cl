@@ -94,7 +94,7 @@ reduce_kernel(	long d_Ne,													// number of elements in array
 
 	}
 
-    // Lingjie Zhang modificated at Nov 1, 2015
+    // Lingjie Zhang modified at Nov 1, 2015
 	//	barrier(CLK_LOCAL_MEM_FENCE);
 	barrier(CLK_LOCAL_MEM_FENCE | CLK_GLOBAL_MEM_FENCE); // Lukasz proposed, Ke modified 2015/12/12 22:31:00
     // end Lingjie Zhang modification
@@ -111,7 +111,7 @@ reduce_kernel(	long d_Ne,													// number of elements in array
 			// synchronization
 			barrier(CLK_LOCAL_MEM_FENCE);
 		}
-		// final sumation by last thread in every block
+		// final summation by last thread in every block
 		if(tx==(NUMBER_THREADS-1)){											// block result stored in global memory
 			d_sums[bx*d_mul*NUMBER_THREADS] = d_psum[tx];
 			d_sums2[bx*d_mul*NUMBER_THREADS] = d_psum2[tx];
@@ -131,7 +131,7 @@ reduce_kernel(	long d_Ne,													// number of elements in array
 				// synchronization
 				barrier(CLK_LOCAL_MEM_FENCE);
 			}
-			// final sumation by last thread in every block
+			// final summation by last thread in every block
 			if(tx==(NUMBER_THREADS-1)){										// block result stored in global memory
 				d_sums[bx*d_mul*NUMBER_THREADS] = d_psum[tx];
 				d_sums2[bx*d_mul*NUMBER_THREADS] = d_psum2[tx];
@@ -162,7 +162,7 @@ reduce_kernel(	long d_Ne,													// number of elements in array
 					d_psum[tx] = d_psum[tx] + d_sums[i];
 					d_psum2[tx] = d_psum2[tx] + d_sums2[i];
 				}
-				// final sumation by last thread in every block
+				// final summation by last thread in every block
 				d_sums[bx*d_mul*NUMBER_THREADS] = d_psum[tx];
 				d_sums2[bx*d_mul*NUMBER_THREADS] = d_psum2[tx];
 			}
@@ -217,10 +217,10 @@ srad_kernel(fp d_lambda,
 	
 	if(ei<d_Ne){															// make sure that only threads matching jobs run
 		
-		// directional derivatives, ICOV, diffusion coefficent
+		// directional derivatives, ICOV, diffusion coefficient
 		d_Jc = d_I[ei];														// get value of the current element
 		
-		// directional derivates (every element of IMAGE)(try to copy to shared memory or temp files)
+		// directional deviates (every element of IMAGE)(try to copy to shared memory or temp files)
 		d_dN_loc = d_I[d_iN[row] + d_Nr*col] - d_Jc;						// north direction derivative
 		d_dS_loc = d_I[d_iS[row] + d_Nr*col] - d_Jc;						// south direction derivative
 		d_dW_loc = d_I[row + d_Nr*d_jW[col]] - d_Jc;						// west direction derivative
@@ -237,11 +237,11 @@ srad_kernel(fp d_lambda,
 		d_den  = 1 + (0.25*d_L);												// den (based on laplacian)
 		d_qsqr = d_num/(d_den*d_den);										// qsqr (based on num and den)
 	 
-		// diffusion coefficent (equ 33) (every element of IMAGE)
+		// diffusion coefficient (equ 33) (every element of IMAGE)
 		d_den = (d_qsqr-d_q0sqr) / (d_q0sqr * (1+d_q0sqr)) ;				// den (based on qsqr and q0sqr)
 		d_c_loc = 1.0 / (1.0+d_den) ;										// diffusion coefficient (based on den)
 	    
-		// saturate diffusion coefficent to 0-1 range
+		// saturate diffusion coefficient to 0-1 range
 		if (d_c_loc < 0){													// if diffusion coefficient < 0
 			d_c_loc = 0;													// ... set to 0
 		}
@@ -303,7 +303,7 @@ srad2_kernel(	fp d_lambda,
 
 	if(ei<d_Ne){															// make sure that only threads matching jobs run
 
-		// diffusion coefficent
+		// diffusion coefficient
 		d_cN = d_c[ei];														// north diffusion coefficient
 		d_cS = d_c[d_iS[row] + d_Nr*col];										// south diffusion coefficient
 		d_cW = d_c[ei];														// west diffusion coefficient

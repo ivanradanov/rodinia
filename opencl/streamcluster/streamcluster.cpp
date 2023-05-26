@@ -393,7 +393,7 @@ int selectfeasible_fast(Points *points, int **feasible, int kmin, int pid, pthre
   float totalweight;
 
   /* 
-     Calcuate my block. 
+     Calculate my block. 
      For now this routine does not seem to be the bottleneck, so it is not parallelized. 
      When necessary, this can be parallelized by setting k1 and k2 to 
      proper values and calling this routine from all threads ( it is called only
@@ -505,7 +505,7 @@ float pkmedian(Points *points, long kmin, long kmax, long* kfinal,
 
   loz=0.0; z = (hiz+loz)/2.0;
   /* NEW: Check whether more centers than points! */
-  if (points->num <= kmax) {	//--cambine: just ignore for the timebeing
+  if (points->num <= kmax) {	//--cambine: just ignore for the time being
     /* just return all points as facilities */
     for (long kk=k1;kk<k2;kk++) {
       points->p[kk].assign = kk;
@@ -552,7 +552,7 @@ float pkmedian(Points *points, long kmin, long kmax, long* kfinal,
  
   /* now we begin the binary search for real */
   /* must designate some points as feasible centers */
-  /* this creates more consistancy between FL runs */
+  /* this creates more consistency between FL runs */
   /* helps to guarantee correct # of centers at the end */
   
   if( pid == 0 )

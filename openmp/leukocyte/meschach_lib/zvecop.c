@@ -551,7 +551,7 @@ ZVEC	*pxinv_zvec(PERM *px, ZVEC *x, ZVEC *out)
     return out;
 }
 
-/* zv_rand -- randomise a complex vector; uniform in [0,1)+[0,1)*i */
+/* zv_rand -- randomize a complex vector; uniform in [0,1)+[0,1)*i */
 #ifndef ANSI_C
 ZVEC	*zv_rand(x)
 ZVEC	*x;

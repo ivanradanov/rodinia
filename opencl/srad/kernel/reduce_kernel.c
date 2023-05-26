@@ -39,7 +39,7 @@ __global__ void reduce(	long d_Ne,											// number of elements in array
 			// synchronization
 			__syncthreads();
 		}
-		// final sumation by last thread in every block
+		// final summation by last thread in every block
 		if(tx==(NUMBER_THREADS-1)){											// block result stored in global memory
 			d_sums[bx*d_mul*NUMBER_THREADS] = d_psum[tx];
 			d_sums2[bx*d_mul*NUMBER_THREADS] = d_psum2[tx];
@@ -59,8 +59,8 @@ __global__ void reduce(	long d_Ne,											// number of elements in array
 				// synchronization
 				__syncthreads();											//
 			}
-			// final sumation by last thread in every block
-			if(tx==(NUMBER_THREADS-1)){										// block result stored in global memory
+            // final summation by last thread in every block
+            if(tx==(NUMBER_THREADS-1)){										// block result stored in global memory
 				d_sums[bx*d_mul*NUMBER_THREADS] = d_psum[tx];
 				d_sums2[bx*d_mul*NUMBER_THREADS] = d_psum2[tx];
 			}
@@ -90,8 +90,8 @@ __global__ void reduce(	long d_Ne,											// number of elements in array
 					d_psum[tx] = d_psum[tx] + d_sums[i];
 					d_psum2[tx] = d_psum2[tx] + d_sums2[i];
 				}
-				// final sumation by last thread in every block
-				d_sums[bx*d_mul*NUMBER_THREADS] = d_psum[tx];
+                // final summation by last thread in every block
+                d_sums[bx*d_mul*NUMBER_THREADS] = d_psum[tx];
 				d_sums2[bx*d_mul*NUMBER_THREADS] = d_psum2[tx];
 			}
 		}

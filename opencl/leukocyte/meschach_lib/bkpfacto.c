@@ -296,7 +296,7 @@ VEC	*BKPsolve(const MAT *A, PERM *pivot, const PERM *block,
 		}
 	}
 	/* printf("# BKPsolve: solving D part: tmp =\n");	v_output(tmp); */
-	/* solve for transpose of lower traingular part */
+	/* solve for transpose of lower triangular part */
 	for ( i = n-1; i >= 0; i-- )
 	{	/* use symmetry of factored form to get stride 1 */
 		sum = v_entry(tmp,i);

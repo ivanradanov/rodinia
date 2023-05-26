@@ -346,7 +346,7 @@ void getneighbors(int * se, int numOnes, double * neighbors, int radius) {
  * The synthetic video sequence we will work with here is composed of a
  * single moving object, circular in shape (fixed radius)
  * The motion here is a linear motion
- * the foreground intensity and the backgrounf intensity is known
+ * the foreground intensity and the background intensity is known
  * the image is corrupted with zero mean Gaussian noise
  * @param I The video itself
  * @param IszX The x dimension of the video

@@ -40,10 +40,10 @@ __global__ void srad(	fp d_lambda,
 	
 	if(ei<d_Ne){															// make sure that only threads matching jobs run
 		
-		// directional derivatives, ICOV, diffusion coefficent
+		// directional derivatives, ICOV, diffusion coefficient
 		d_Jc = d_I[ei];														// get value of the current element
 		
-		// directional derivates (every element of IMAGE)(try to copy to shared memory or temp files)
+		// directional derivatives (every element of IMAGE)(try to copy to shared memory or temp files)
 		d_dN_loc = d_I[d_iN[row] + d_Nr*col] - d_Jc;						// north direction derivative
 		d_dS_loc = d_I[d_iS[row] + d_Nr*col] - d_Jc;						// south direction derivative
 		d_dW_loc = d_I[row + d_Nr*d_jW[col]] - d_Jc;						// west direction derivative
@@ -60,11 +60,11 @@ __global__ void srad(	fp d_lambda,
 		d_den  = 1 + (0.25*d_L);												// den (based on laplacian)
 		d_qsqr = d_num/(d_den*d_den);										// qsqr (based on num and den)
 	 
-		// diffusion coefficent (equ 33) (every element of IMAGE)
+		// diffusion coefficient (equ 33) (every element of IMAGE)
 		d_den = (d_qsqr-d_q0sqr) / (d_q0sqr * (1+d_q0sqr)) ;				// den (based on qsqr and q0sqr)
 		d_c_loc = 1.0 / (1.0+d_den) ;										// diffusion coefficient (based on den)
 	    
-		// saturate diffusion coefficent to 0-1 range
+		// saturate diffusion coefficient to 0-1 range
 		if (d_c_loc < 0){													// if diffusion coefficient < 0
 			d_c_loc = 0;													// ... set to 0
 		}

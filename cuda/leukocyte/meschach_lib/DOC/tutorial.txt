@@ -33,7 +33,7 @@ and permutations.  These have been used to create data structures for
 simplex tableaus for linear programming, and used with data structures for
 sparse matrices etc.  To use the system reliably, you should always use
 pointers to these data structures and use library routines to do all the
-necessary initialisation.
+necessary initialization.
 
    In fact, for the operations that involve memory management (creation,
 destruction and resizing), it is essential that you use the routines
@@ -230,7 +230,7 @@ or, if you use any sparse factorization routines,
   #include   "sparse2.h"
 
 at the beginning of your file.  The routines contained in the library
-include routines for creating, destroying, initialising and updating sparse
+include routines for creating, destroying, initializing and updating sparse
 matrices, and also routines for sparse matrix-dense vector multiplication,
 sparse LU factorization and sparse Cholesky factorization.
 
@@ -758,7 +758,7 @@ termination of the arguments to work correctly.
 QR factorization) in order to find the best linear least squares solution
 to some data.  Thus in order to solve the (approximate) equations
   	A*x = b,
-where A is an m x n matrix (m > n) we really need to solve the optimisation
+where A is an m x n matrix (m > n) we really need to solve the optimization
 problem
   	min_x ||Ax-b||^2.  
 
@@ -831,7 +831,7 @@ errors ( ||Ax-b||_2 ) is.
 
    Note that as well as the usual memory allocation functions like m_get(),
 the I/O functions like m_input() and m_output(), and the
-factorise-and-solve functions QRfactor() and QRsolve(), there are also
+factorize-and-solve functions QRfactor() and QRsolve(), there are also
 functions for matrix-vector multiplication:
  	mv_mlt(MAT *A, VEC *x, VEC *out)  
 and also vector-matrix multiplication (with the vector on the left):

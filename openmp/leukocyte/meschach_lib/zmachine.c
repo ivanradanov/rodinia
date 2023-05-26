@@ -28,7 +28,7 @@
   This file contains basic routines which are used by the functions
   involving complex vectors.
   These are the routines that should be modified in order to take
-  full advantage of specialised architectures (pipelining, vector
+  full advantage of specialized architectures (pipelining, vector
   processors etc).
   */
 static	char	*rcsid = "$Id: zmachine.c,v 1.1 1994/01/13 04:25:41 des Exp $";

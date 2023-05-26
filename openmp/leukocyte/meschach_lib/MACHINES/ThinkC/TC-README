@@ -49,7 +49,7 @@ Procedure
 _____________________
 
 
-Note: all projects described here should have the folowing options made under "Set Project Type..."
+Note: all projects described here should have the following options made under "Set Project Type..."
 (which is found under the "Project" menu):
 	1)  "Application" type 
 	2)  "Far CODE" and "Far DATA" checked
@@ -82,7 +82,7 @@ _________
 		 -- first, under "Language Settings"
 			1)  choose "Factory Settings"
 			2)  also change "Infer prototypes" to "Require prototypes"
-				(as a former Pascal programmer, I curse the person who introduced infered prototypes!)
+				(as a former Pascal programmer, I curse the person who introduced inferred prototypes!)
 				
 			(Note: you _cannot_ choose "ANSI Settings"; if you do, then the compilation of the ANSI project
 			 will fail!  Talk to the people at Symantec about this one ...)
@@ -146,7 +146,7 @@ _________
 	Instead, what I had to do was create 7 smaller, single segment projects.  I added code to the segments
 	strictly in alphabetical order, with no regard to partitioning (i.e. putting similar routines together).
 	
-	To make each such project, I first opened a new project ("ANSI Project" type) and then added alot of
+	To make each such project, I first opened a new project ("ANSI Project" type) and then added a lot of
 	source code files.  I then selected these compiler ("THINK C...") options before bringing the project
 	up to date:
 	

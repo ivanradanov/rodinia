@@ -169,7 +169,7 @@ runTest( int argc, char** argv)
 				k = i * cols + j;
 				Jc = J[k];
  
-				// directional derivates
+				// directional derivatives
                 dN[k] = J[iN[i] * cols + j] - Jc;
                 dS[k] = J[iS[i] * cols + j] - Jc;
                 dW[k] = J[i * cols + jW[j]] - Jc;
@@ -184,11 +184,11 @@ runTest( int argc, char** argv)
                 den  = 1 + (.25*L);
                 qsqr = num/(den*den);
  
-                // diffusion coefficent (equ 33)
+                // diffusion coefficient (equ 33)
                 den = (qsqr-q0sqr) / (q0sqr * (1+q0sqr)) ;
                 c[k] = 1.0 / (1.0+den) ;
                 
-                // saturate diffusion coefficent
+                // saturate diffusion coefficient
                 if (c[k] < 0) {c[k] = 0;}
                 else if (c[k] > 1) {c[k] = 1;}
 		}
@@ -199,7 +199,7 @@ runTest( int argc, char** argv)
                 // current index
                 k = i * cols + j;
                 
-                // diffusion coefficent
+                // diffusion coefficient
 					cN = c[k];
 					cS = c[iS[i] * cols + j];
 					cW = c[k];

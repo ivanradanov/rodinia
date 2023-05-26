@@ -11,7 +11,7 @@
 //        --code cleanup & commenting
 //        --code optimization efforts   
 //    2006.04   Drew Gilliam
-//        --added diffusion coefficent saturation on [0,1]
+//        --added diffusion coefficient saturation on [0,1]
 //		2009.12 Lukasz G. Szafaryn
 //		-- reading from image, command line inputs
 //		2010.01 Lukasz G. Szafaryn

@@ -31,7 +31,7 @@ double	x;
 {
     static double	y;
     y = x;
-    return y;	/* prevents optimisation */
+    return y;	/* prevents optimization */
 }
 
 main()

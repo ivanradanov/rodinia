@@ -41,7 +41,7 @@ static	char	rcsid[] = "$Id: hsehldr.c,v 1.2 1994/01/13 05:36:29 des Exp $";
 #include        "matrix2.h"
 
 
-/* hhvec -- calulates Householder vector to eliminate all entries after the
+/* hhvec -- calculates Householder vector to eliminate all entries after the
 	i0 entry of the vector vec. It is returned as out. May be in-situ */
 #ifndef ANSI_C
 VEC	*hhvec(vec,i0,beta,out,newval)

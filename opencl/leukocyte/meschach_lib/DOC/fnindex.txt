@@ -267,7 +267,7 @@ v_norm_inf()	Computes  ||x||_inf  for a vector
 v_ones()	Set vector to all 1's
 v_output()	Output vector to  stdout (macro)
 v_pconv()	Periodic convolution of two vectors
-v_rand()	Randomise entries of a vector
+v_rand()	randomize entries of a vector
 v_resize()	Resize a vector
 v_resize_vars()	Resize a list of vectors
 v_save()	Save a vector in MATLAB format
@@ -322,7 +322,7 @@ zm_mlt()	Multiply complex matrices
 zm_norm1()	Complex matrix 1-norm
 zm_norm_frob()	Complex matrix Frobenius norm
 zm_norm_inf()	Complex matrix infinity-norm
-zm_rand()	Randomise complex matrix
+zm_rand()	randomize complex matrix
 zm_resize()	Resize complex matrix
 zm_resize_vars()	Resize a list of complex matrices
 zm_save()	Save complex matrix in MATLAB format
@@ -368,7 +368,7 @@ zvm_mltadd()	Computes  A^*x+y  (complex)
 zv_norm1()	Complex vector 1-norm	vnorm1()
 zv_norm2()	Complex vector 2-norm  (Euclidean norm)
 zv_norm_inf()	Complex vector infinity- (or supremum) norm
-zv_rand()	Randomise complex vector
+zv_rand()	randomize complex vector
 zv_resize()	Resize complex vector
 zv_resize_vars()	Resize a list of complex vectors
 zv_save()	Save complex vector in MATLAB format

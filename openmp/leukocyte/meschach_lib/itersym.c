@@ -188,7 +188,7 @@ VEC  *iter_cg(ITER *ip)
 
 
 
-/* iter_lanczos -- raw lanczos algorithm -- no re-orthogonalisation
+/* iter_lanczos -- raw lanczos algorithm -- no re-orthogonalization
    -- creates T matrix of size == m,
    but no larger than before beta_k == 0
    -- uses passed routine to do matrix-vector multiplies */

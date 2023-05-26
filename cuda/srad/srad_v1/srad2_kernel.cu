@@ -37,7 +37,7 @@ __global__ void srad2(	fp d_lambda,
 
 	if(ei<d_Ne){															// make sure that only threads matching jobs run
 
-		// diffusion coefficent
+		// diffusion coefficient
 		d_cN = d_c[ei];														// north diffusion coefficient
 		d_cS = d_c[d_iS[row] + d_Nr*col];										// south diffusion coefficient
 		d_cW = d_c[ei];														// west diffusion coefficient

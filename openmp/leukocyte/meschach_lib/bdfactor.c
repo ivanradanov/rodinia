@@ -764,7 +764,7 @@ VEC    *bdLDLsolve(const BAND *A, const VEC *b, VEC *x)
 
 /* ******************************************************
   This function is a contribution from Ruediger Franke.
-   His e-mail addres is: Ruediger.Franke@rz.tu-ilmenau.de
+   His e-mail address is: Ruediger.Franke@rz.tu-ilmenau.de
    
    ******************************************************
 */

@@ -90,7 +90,7 @@ MAT	*Hfactor(MAT *A, VEC *diag, VEC *beta)
 	return (A);
 }
 
-/* makeHQ -- construct the Hessenberg orthogonalising matrix Q;
+/* makeHQ -- construct the Hessenberg orthogonalizing matrix Q;
 	-- i.e. Hess M = Q.M.Q'	*/
 #ifndef ANSI_C
 MAT	*makeHQ(H, diag, beta, Qout)

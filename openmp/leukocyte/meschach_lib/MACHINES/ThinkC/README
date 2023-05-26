@@ -6,7 +6,7 @@ Received 8th June, 1995 from Brent Boyer (boyer@jumpjibe.stanford.edu).
 
 I have modified this file to make the Meschach routines work on a
 Macintosh with THINK C 7.0.4.  I realize that THINK C is now on
-version 8.x and that Metrowerk's CodeWarrior is a competetive
+version 8.x and that Metrowerk's CodeWarrior is a competitive
 development environment, but 7.0.4 is what I have available.  My
 system is a Quadra 650 running MacOS 7.5.1.  The compile options
 described below should work for any 68K Mac with a floating point

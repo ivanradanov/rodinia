@@ -274,8 +274,8 @@ char	*argv[];
     SP_FREE(B);
     SP_FREE(C);
 
-    /* now test Cholesky and LU factorise and solve */
-    notice("sparse Cholesky factorise/solve");
+    /* now test Cholesky and LU factorize and solve */
+    notice("sparse Cholesky factorize/solve");
     A = iter_gen_sym(120,8);
     B = sp_copy(A);
     spCHfactor(A);
@@ -334,7 +334,7 @@ char	*argv[];
     }
 
     /* now test sparse LU factorization */
-    notice("sparse LU factorise/solve");
+    notice("sparse LU factorize/solve");
     SP_FREE(A);
     SP_FREE(B);
     A = iter_gen_nonsym(100,100,8,1.0);

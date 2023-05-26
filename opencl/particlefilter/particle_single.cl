@@ -53,7 +53,7 @@ void cdfCalc(__global float * CDF, __global float * weights, int Nparticles){
 /*****************************
 * RANDU
 * GENERATES A UNIFORM DISTRIBUTION
-* returns a float representing a randomily generated number from a uniform distribution with range [0, 1)
+* returns a float representing a randomly generated number from a uniform distribution with range [0, 1)
 ******************************/
 float d_randu(__global int * seed, int index)
 {
@@ -75,7 +75,7 @@ float d_randu(__global int * seed, int index)
 * @see http://en.wikipedia.org/wiki/Normal_distribution, section computing value for normal random distribution
 */
 float d_randn(__global int * seed, int index){
-	//Box-Muller algortihm
+	//Box-Muller algorithm
 	float pi = 3.14159265358979323846;
 	float u = d_randu(seed, index);
 	float v = d_randu(seed, index);

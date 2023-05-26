@@ -230,7 +230,7 @@ or, if you use any sparse factorization routines,
   #include   "sparse2.h"
 
 at the beginning of your file.  The routines contained in the library
-include routines for creating, destroying, initialising and updating sparse
+include routines for creating, destroying, initializing and updating sparse
 matrices, and also routines for sparse matrix-dense vector multiplication,
 sparse LU factorization and sparse Cholesky factorization.
 

@@ -5,8 +5,8 @@ extern "C" {
 /*
  *  avilib.c
  *
- *  Copyright (C) Thomas Östreich - June 2001
- *  multiple audio track support Copyright (C) 2002 Thomas Östreich 
+ *  Copyright (C) Thomas ï¿½streich - June 2001
+ *  multiple audio track support Copyright (C) 2002 Thomas ï¿½streich 
  *
  *  Original code:
  *  Copyright (C) 1999 Rainer Johanni <Rainer@Johanni.de> 
@@ -329,7 +329,7 @@ void AVI_set_audio(avi_t *AVI, int channels, long rate, int bits, int format, lo
    nhb += 2
 
 
-//ThOe write preliminary AVI file header: 0 frames, max vid/aud size
+//The write preliminary AVI file header: 0 frames, max vid/aud size
 int avi_update_header(avi_t *AVI)
 {
    int njunk, sampsize, hasIndex, ms_per_frame, frate, flag;
@@ -471,7 +471,7 @@ int avi_update_header(avi_t *AVI)
        OUT4CC ("strh");
        OUTLONG(56);            /* # of bytes to follow */
        OUT4CC ("auds");
-       
+
        // -----------
        // ThOe
        OUTLONG(0);             /* Format (Optionally) */
@@ -480,7 +480,7 @@ int avi_update_header(avi_t *AVI)
        OUTLONG(0);             /* Flags */
        OUTLONG(0);             /* Reserved, MS says: wPriority, wLanguage */
        OUTLONG(0);             /* InitialFrames */
-       
+
        // ThOe /4
        OUTLONG(sampsize/4);      /* Scale */
        OUTLONG(1000*AVI->track[j].mp3rate/8);
@@ -488,7 +488,7 @@ int avi_update_header(avi_t *AVI)
        OUTLONG(4*AVI->track[j].audio_bytes/sampsize);   /* Length */
        OUTLONG(0);             /* SuggestedBufferSize */
        OUTLONG(-1);            /* Quality */
-       
+
        // ThOe /4
        OUTLONG(sampsize/4);    /* SampleSize */
        
@@ -557,7 +557,7 @@ int avi_update_header(avi_t *AVI)
    OUT4CC ("movi");
 
    /* Output the header, truncate the file to the number of bytes
-      actually written, report an error if someting goes wrong */
+      actually written, report an error if something goes wrong */
 
    if ( lseek(AVI->fdes,0,SEEK_SET)<0 ||
         avi_write(AVI->fdes,(char *)AVI_header,HEADERBYTES)!=HEADERBYTES ||

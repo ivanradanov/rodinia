@@ -264,7 +264,7 @@ void _clCmdParams(int argc, char* argv[]){
 	@function:	Initialize CL objects
 	@params:	
 		device_id: device id
-		device_type: the types of devices, e.g. CPU, GPU, ACCERLERATOR,...	
+		device_type: the types of devices, e.g. CPU, GPU, ACCELERATOR,...	
 		(1) -t cpu/gpu/acc -d 0/1/2/...
 		(2) -t cpu/gpu/acc [-d 0]
 		(3) [-t default] -d 0/1/2/...
@@ -662,10 +662,10 @@ cl_mem _clMalloc(int size) throw(string){
 	return d_mem;
 }
 /*------------------------------------------------------------
-	@function:	malloc pinned memoty
+	@function:	malloc pinned memory
 	@params:
 		size: 	the size of data to be transferred in bytes
-	@return:	the pointer of host adress
+	@return:	the pointer of host address
 	@date:		06/04/2011
 ------------------------------------------------------------*/
 
@@ -819,7 +819,7 @@ void _clFreeHost(int io, void * mem_h){
 	 	 }		
 	}
 	else
-		throw(string("encounter invalid choice when freeing pinned memmory"));
+		throw(string("encounter invalid choice when freeing pinned memory"));
 }
 /*------------------------------------------------------------
 	@function:	transfer data from host to device

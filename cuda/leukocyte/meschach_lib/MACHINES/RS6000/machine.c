@@ -27,7 +27,7 @@
   This file contains basic routines which are used by the functions
   in matrix.a etc.
   These are the routines that should be modified in order to take
-  full advantage of specialised architectures (pipelining, vector
+  full advantage of specialized architectures (pipelining, vector
   processors etc).
   */
 static	char	*rcsid = "$Header: /usr/local/home/des/meschach/meschach/RCS/machine.c,v 1.3 1991/08/29 06:42:11 des Exp $";

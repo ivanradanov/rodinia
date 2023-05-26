@@ -119,7 +119,7 @@ float pgain( long x, Points *points, float z, long int *numcenters, int kmax, bo
     mem_alloc_time += tv.tv_sec * 1000.0 + (float) tv.tv_usec / 1000.0;
 #endif
 
-	p_h = (Point_Struct*)malloc(num*sizeof(Point_Struct));	//by cambine: not compatibal with original Point
+	p_h = (Point_Struct*)malloc(num*sizeof(Point_Struct));	//by cambine: not compatible with original Point
 	
 	// prepare mapping for point coordinates
 	//--cambine: what's the use of point coordinates? for computing distance.

@@ -248,7 +248,7 @@ below is the new machine.h file for Macs:
 #define LONG_DOUBLE 	3
 
 /* #undef REAL_FLT */
-/* #undef REAL_DBL */					/* leave these both commented out, so that the dafault of double is used */
+/* #undef REAL_DBL */					/* leave these both commented out, so that the default of double is used */
 
 /* choose double precision by default */
 #ifndef REAL_DBL
