@@ -83,8 +83,8 @@ MAT	*LDLupdate(MAT *CHmat, VEC *w, double alpha)
 }
 
 
-/* QRupdate -- updates QR factorization in expanded form (seperate matrices)
-	Finds Q+, R+ s.t. Q+.R+ = Q.(R+u.v') and Q+ orthogonal, R+ upper triang
+/* QRupdate -- updates QR factorization in expanded form (separate matrices)
+	Finds Q+, R+ s.t. Q+.R+ = Q.(R+u.v') and Q+ orthogonal, R+ upper triangular
 	Ref: Golub & van Loan Matrix Computations pp437-443
 	-- does not update Q if it is NULL */
 #ifndef ANSI_C

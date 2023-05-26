@@ -70,7 +70,7 @@ For more information on the LCG, check out the Wikipedia article on it: http://e
 
 [4.3] d_randn
 
-An implementation of the Normal (Gaussian) RNG using the Box-Muller transformation of the uniformation distribution in rng.cu as a device function.
+An implementation of the Normal (Gaussian) RNG using the Box-Muller transformation of the uniform distribution in rng.cu as a device function.
 Its inputs are the GPU seed array and the index to the specific seed to work with.
 Its output is a float representing a normally generated random number.
 For more information on the Box-Muller transformation, check out the Wikipedia article on it: http://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform
@@ -81,7 +81,7 @@ For detailed information on the Box-Muller transformation, check out the origina
 An implementation of the Uniform RNG using the Linear Congruential Generator (LCG) in rng.cu as a device function.
 It uses the same settings as GCC for its random number generation.
 Its inputs are the GPU seed array and the index to the specific seed to work with.
-Its ouput is a float representing a uniformly distributed number on the range [0, 1).
+Its output is a float representing a uniformly distributed number on the range [0, 1).
 For more information on the LCG, check out the Wikipedia article on it: http://en.wikipedia.org/wiki/Linear_congruential_generator
 
 [5] Contact Info

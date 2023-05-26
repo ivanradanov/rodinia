@@ -347,7 +347,7 @@ ZVEC  *zv_linlist(va_alist) va_dcl
 
 
 
-/* zv_star -- computes componentwise (Hadamard) product of x1 and x2
+/* zv_star -- computes component-wise (Hadamard) product of x1 and x2
 	-- result out is returned */
 #ifndef ANSI_C
 ZVEC	*zv_star(x1, x2, out)
@@ -377,7 +377,7 @@ ZVEC	*zv_star(const ZVEC *x1, const ZVEC *x2, ZVEC *out)
     return out;
 }
 
-/* zv_slash -- computes componentwise ratio of x2 and x1
+/* zv_slash -- computes component-wise ratio of x2 and x1
 	-- out[i] = x2[i] / x1[i]
 	-- if x1[i] == 0 for some i, then raise E_SING error
 	-- result out is returned */

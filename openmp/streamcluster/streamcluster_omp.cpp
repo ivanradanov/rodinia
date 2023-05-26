@@ -668,7 +668,7 @@ int selectfeasible_fast(Points *points, int **feasible, int kmin, int pid, pthre
   float totalweight;
 
   /* 
-     Calcuate my block. 
+     Calculate my block. 
      For now this routine does not seem to be the bottleneck, so it is not parallelized. 
      When necessary, this can be parallelized by setting k1 and k2 to 
      proper values and calling this routine from all threads ( it is called only

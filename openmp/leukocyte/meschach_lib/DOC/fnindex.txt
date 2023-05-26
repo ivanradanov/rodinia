@@ -255,7 +255,7 @@ v_get_vars()	Allocate list of vectors
 v_input()	Input vector from  stdin (macro)
 v_lincomb()	Compute  sum of a_i x_i  for an array of vectors
 v_linlist()	Compute  sum of a_i x_i  for a list of vectors
-v_map()		Apply function componentwise to a vector
+v_map()		Apply function component-wise to a vector
 v_max()		Computes max vector entry and index
 v_min()		Computes min vector entry and index
 v_mltadd()	Computes  y <- alpha*x+y  for vectors  x ,  y 
@@ -271,9 +271,9 @@ v_rand()	randomize entries of a vector
 v_resize()	Resize a vector
 v_resize_vars()	Resize a list of vectors
 v_save()	Save a vector in MATLAB format
-v_slash()	Computes componentwise ratio of vectors
+v_slash()	Computes component-wise ratio of vectors
 v_sort()	Sorts vector components
-v_star()	Componentwise vector product
+v_star()	component-wise vector product
 v_sub()		Subtract two vectors
 v_sum()		Sum of components of a vector
 v_zero()	Zero a vector
@@ -360,7 +360,7 @@ zv_get_vars()	Allocate a list of complex vectors
 zv_input()	Input complex vector from a stdin
 zv_lincomb()	Compute  sum of a_i x_i  for an array of vectors
 zv_linlist()	Compute  sum of a_i x_i  for a list of vectors
-zv_map()	Apply function componentwise to a complex vector
+zv_map()	Apply function component-wise to a complex vector
 zv_mlt()	Complex scalar-vector product
 zv_mltadd()	Complex scalar-vector multiply and add
 zvm_mlt()	Computes  A^*x  (complex)
@@ -372,8 +372,8 @@ zv_rand()	randomize complex vector
 zv_resize()	Resize complex vector
 zv_resize_vars()	Resize a list of complex vectors
 zv_save()	Save complex vector in MATLAB format
-zv_slash()	Componentwise ratio of complex vectors
-zv_star()	Componentwise product of complex vectors
+zv_slash()	component-wise ratio of complex vectors
+zv_star()	component-wise product of complex vectors
 zv_sub()	Subtract complex vectors
 zv_sum()	Sum of components of a complex vector
 zv_zero()	Zero complex vector

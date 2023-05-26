@@ -494,7 +494,7 @@ void	schur_evals(MAT *T, VEC *real_pt, VEC *imag_pt)
 /* schur_vecs -- returns eigenvectors computed from the real Schur
 		decomposition of a matrix
 	-- T is the block upper triangular Schur matrix
-	-- Q is the orthognal matrix where A = Q.T.Q^T
+	-- Q is the orthogonal matrix where A = Q.T.Q^T
 	-- if Q is null, the eigenvectors of T are returned
 	-- X_re is the real part of the matrix of eigenvectors,
 		and X_im is the imaginary part of the matrix.

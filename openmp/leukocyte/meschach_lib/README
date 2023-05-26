@@ -400,7 +400,7 @@ but with the use of configure, and the new information needed for version
 Hopefully, though, they are redundant.  Non-Unix platforms at present
 require ``manual'' installation.  Because of the variety of platforms
 (MS-DOS, Macintosh, VAX/VMS, Prime, Amiga, Atari, ....) this is left up to
-the users of these platforms.  We hope that you can use the distibutable
+the users of these platforms.  We hope that you can use the distributable
 machine-dependent files as a starting point for this task.
 
    If you have programs or routines written using Meschach v.1.1x, you

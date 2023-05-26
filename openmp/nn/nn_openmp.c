@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
 		//Read in REC_WINDOW number of records
 		rec_count = fread(sandbox, REC_LENGTH, REC_WINDOW, fp);
 		if( rec_count != REC_WINDOW ) {
-			if(!ferror(flist)) {// an eof occured
+			if(!ferror(flist)) {// an eof occurred
 				fclose(fp);
 
 				if(feof(flist))

@@ -162,7 +162,7 @@ before main function return.
 12. kmeans OpenCL: Add shutdown() in main function to release CL resource before quit.
 
 C. CUDA
-1. CFD CUDA: solve compatablity problem with CUDA 5.0.
+1. CFD CUDA: solve compatibility problem with CUDA 5.0.
 2. Backprop CUDA: Correct include command in backprop_cuda.cu
 3. BFS CUDA: Correct include command in backprop_cuda.cu
 4. kmeans CUDA: Add “-lm” in link command.

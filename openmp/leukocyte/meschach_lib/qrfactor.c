@@ -32,7 +32,7 @@
   entries of the Householder vectors. The 1st non-zero entries are held in
   the diag parameter of QRfactor(). The reason for this non-standard
   representation is that it enables direct use of the Usolve() function
-  rather than requiring that  a seperate function be written just for this case.
+  rather than requiring that a separate function be written just for this case.
   See, e.g., QRsolve() below for more details.
   
 */

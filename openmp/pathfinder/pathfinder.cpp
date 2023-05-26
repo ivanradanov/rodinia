@@ -27,7 +27,7 @@ init(int argc, char** argv)
 		cols = atoi(argv[1]);
 		rows = atoi(argv[2]);
 	}else{
-                printf("Usage: pathfiner width num_of_steps\n");
+                printf("Usage: pathfinder width num_of_steps\n");
                 exit(0);
         }
 	data = new int[rows*cols];
@@ -111,13 +111,20 @@ void run(int argc, char** argv)
     pin_stats_pause(cycles);
     pin_stats_dump(cycles);
 
-#ifdef BENCH_PRINT
-    for (int i = 0; i < cols; i++)
-            printf("%d ",data[i]) ;
-    printf("\n") ;
-    for (int i = 0; i < cols; i++)
-            printf("%d ",dst[i]) ;
-    printf("\n") ;
+#ifdef BENCH_PRINT
+
+    for (int i = 0; i < cols; i++)
+
+            printf("%d ",data[i]) ;
+
+    printf("\n") ;
+
+    for (int i = 0; i < cols; i++)
+
+            printf("%d ",dst[i]) ;
+
+    printf("\n") ;
+
 #endif
 
     delete [] data;

@@ -1,7 +1,7 @@
 
 (The original rodinia readme is at [README](README))
 
-## Running the cuda benchmarks
+## Running the CUDA benchmarks
 
 ### Dataset
 Download and place the `data/` contents from the 3.1 release from
@@ -11,7 +11,7 @@ http://lava.cs.virginia.edu/Rodinia/download_links.htm in `data/`.
 Create a file defining Makefile variables used in compilation (refer to [common/epyc02.polygeist.host.make.config](common/epyc02.polygeist.host.make.config) or [common/kiev0.nvcc.host.make.config](common/kiev0.nvcc.host.make.config) for an example) and link it to `common/host.make.config`
 ```
 cd common
-# For cuda
+# For CUDA
 vim my.host.make.config
 ln -s my.host.make.config host.make.config
 # For openmp
@@ -21,7 +21,7 @@ ln -s my.openmp.host.make.config openmp.host.make.config
 
 This will cause it to be included from the Makefiles
 
-All of the commands commands regarding the cuda benchmarks act on the ones listed in [scripts/cuda_apps.sh](scripts/cuda_apps.sh).
+All of the commands commands regarding the CUDA benchmarks act on the ones listed in [scripts/cuda_apps.sh](scripts/cuda_apps.sh).
 
 ### Compilation
 ```sh
@@ -44,7 +44,7 @@ make MY_VERIFICATION_DISABLE=1 TIMED_CUDA
 Will run the benchmarks and dump output and timing information in `results/cuda/`
 
 #### Verification:
-Dump verification information (can be done when running the benchmarks natively on cuda)
+Dump verification information (can be done when running the benchmarks natively on CUDA)
 ```sh
 ./scripts/dump_cuda_correctness_info.sh
 ```

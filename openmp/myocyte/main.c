@@ -23,7 +23,7 @@
 //	1) The original version of the current solver code was obtained from: Mathematics Source Library (http://mymathlib.webtrellis.net/index.html). The solver has been 
 //      somewhat modified to tailor it to our needs. However, it can be reverted back to original form or modified to suit other simulations.
 // 2) This solver and particular solving algorithm used with it (embedded_fehlberg_7_8) were adapted to work with a set of equations, not just one like in original version.
-//	3) In order for solver to provide deterministic number of steps (needed for particular amount of memore previously allocated for results), every next step is 
+//	3) In order for solver to provide deterministic number of steps (needed for particular amount of memory previously allocated for results), every next step is 
 //      incremented by 1 time unit (h_init).
 //	4) Function assumes that simulation starts at some point of time (whatever time the initial values are provided for) and runs for the number of milliseconds (xmax) 
 //      specified by the uses as a parameter on command line.
@@ -57,8 +57,8 @@
 // 1) When running with parallelization inside each simulation instance (value of 3rd command line parameter equal to 0), performance is bad because:
 // a) thread launch overhead
 // b) small amount of work for each forked thread
-// 2) When running with parallelization across simulation instances, code gets continues speedup with the increasing number of simulation insances which saturates
-//     around 4 instances on Quad Core CPU (roughly corresponding to the number of multiprocessorsXprocessors in GTX280), with the speedup of around 3.5x compared
+// 2) When running with parallelization across simulation instances, code gets continues speedup with the increasing number of simulation instances which saturates
+//     around 4 instances on Quad Core CPU (roughly corresponding to the number of multiprocessors X processors in GTX280), with the speedup of around 3.5x compared
 //     to serial C version of code, as expected.
 
 // The following are the command parameters to the application:

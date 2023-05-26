@@ -58,26 +58,26 @@ int main(int argc, char *argv []){
 
 	time0 = get_time();
 
-    // inputs image, input paramenters
-    fp* image_ori;																// originalinput image
+    // inputs image, input parameters
+    fp* image_ori;														// original input image
 	int image_ori_rows;
 	int image_ori_cols;
 	long image_ori_elem;
 
-    // inputs image, input paramenters
+    // inputs image, input parameters
     fp* image;															// input image
-    long Nr,Nc;													// IMAGE nbr of rows/cols/elements
-	long Ne;
+    long Nr,Nc;															// IMAGE nbr of rows/cols/elements
+	long Ne;		
 
-	// algorithm parameters
-    int niter;																// nbr of iterations
+	// algorithm parameters		
+    int niter;															// nbr of iterations
     fp lambda;															// update step size
 
-    // size of IMAGE
-	int r1,r2,c1,c2;												// row/col coordinates of uniform ROI
-	long NeROI;														// ROI nbr of elements
-    
-    // ROI statistics
+    // size of IMAGE		
+	int r1,r2,c1,c2;													// row/col coordinates of uniform ROI
+	long NeROI;															// ROI nbr of elements
+
+    // ROI statistics		
     fp meanROI, varROI, q0sqr;											//local region statistics
     
     // surrounding pixel indicies
@@ -118,8 +118,8 @@ int main(int argc, char *argv []){
 	else{
 		niter = atoi(argv[1]);
 		lambda = atof(argv[2]);
-		Nr = atoi(argv[3]);						// it is 502 in the original image
-		Nc = atoi(argv[4]);						// it is 458 in the original image
+		Nr = atoi(argv[3]);												// it is 502 in the original image
+		Nc = atoi(argv[4]);												// it is 458 in the original image
 		threads = atoi(argv[5]);
 	}
 
@@ -170,19 +170,19 @@ int main(int argc, char *argv []){
 	// 	SETUP
 	//================================================================================80
 
-    r1     = 0;											// top row index of ROI
-    r2     = Nr - 1;									// bottom row index of ROI
-    c1     = 0;											// left column index of ROI
-    c2     = Nc - 1;									// right column index of ROI
+    r1     = 0;																// top row index of ROI
+    r2     = Nr - 1;														// bottom row index of ROI
+    c1     = 0;																// left column index of ROI
+    c2     = Nc - 1;														// right column index of ROI
 
     // ROI image size    
     NeROI = (r2-r1+1)*(c2-c1+1);											// number of elements in ROI, ROI size
     
     // allocate variables for surrounding pixels
-    iN = malloc(sizeof(int*)*Nr) ;									// north surrounding element
-    iS = malloc(sizeof(int*)*Nr) ;									// south surrounding element
-    jW = malloc(sizeof(int*)*Nc) ;									// west surrounding element
-    jE = malloc(sizeof(int*)*Nc) ;									// east surrounding element
+    iN = malloc(sizeof(int*)*Nr) ;											// north surrounding element
+    iS = malloc(sizeof(int*)*Nr) ;											// south surrounding element
+    jW = malloc(sizeof(int*)*Nc) ;											// west surrounding element
+    jE = malloc(sizeof(int*)*Nc) ;											// east surrounding element
     
 	// allocate variables for directional derivatives
 	dN = malloc(sizeof(fp)*Ne) ;											// north direction derivative
@@ -218,7 +218,7 @@ int main(int argc, char *argv []){
 
 	// #pragma omp parallel
 	for (i=0; i<Ne; i++) {													// do for the number of elements in input IMAGE
-		image[i] = exp(image[i]/255);											// exponentiate input IMAGE and copy to output image
+		image[i] = exp(image[i]/255);										// exponentiate input IMAGE and copy to output image
     }
 
 	time6 = get_time();
@@ -241,7 +241,7 @@ int main(int argc, char *argv []){
 		sum2=0;
         for (i=r1; i<=r2; i++) {											// do for the range of rows in ROI
             for (j=c1; j<=c2; j++) {										// do for the range of columns in ROI
-                tmp   = image[i + Nr*j];										// get coresponding value in IMAGE
+                tmp = image[i + Nr * j];                                    // get corresponding value in IMAGE
                 sum  += tmp ;												// take corresponding value and add to sum
                 sum2 += tmp*tmp;											// take square of corresponding value and add to sum2
             }
@@ -258,13 +258,13 @@ int main(int argc, char *argv []){
 
                 // current index/pixel
                 k = i + Nr*j;												// get position of current element
-                Jc = image[k];													// get value of the current element
+                Jc = image[k];												// get value of the current element
 
                 // directional derivatives (every element of IMAGE)
-                dN[k] = image[iN[i] + Nr*j] - Jc;								// north direction derivative
-                dS[k] = image[iS[i] + Nr*j] - Jc;								// south direction derivative
-                dW[k] = image[i + Nr*jW[j]] - Jc;								// west direction derivative
-                dE[k] = image[i + Nr*jE[j]] - Jc;								// east direction derivative
+                dN[k] = image[iN[i] + Nr*j] - Jc;							// north direction derivative
+                dS[k] = image[iS[i] + Nr*j] - Jc;							// south direction derivative
+                dW[k] = image[i + Nr*jW[j]] - Jc;							// west direction derivative
+                dE[k] = image[i + Nr*jE[j]] - Jc;							// east direction derivative
 
                 // normalized discrete gradient mag squared (equ 52,53)
                 G2 = (dN[k]*dN[k] + dS[k]*dS[k]								// gradient (based on derivatives)
@@ -313,7 +313,7 @@ int main(int argc, char *argv []){
                 D = cN*dN[k] + cS*dS[k] + cW*dW[k] + cE*dE[k];				// divergence
 
                 // image update (equ 61) (every element of IMAGE)
-                image[k] = image[k] + 0.25*lambda*D;								// updates image (based on input time step and divergence)
+                image[k] = image[k] + 0.25*lambda*D;						// updates image (based on input time step and divergence)
 
             }
 
@@ -331,8 +331,8 @@ int main(int argc, char *argv []){
 	//================================================================================80
 
 	// #pragma omp parallel
-	/*for (i=0; i<Ne; i++) {													// do for the number of elements in IMAGE
-		image[i] = log(image[i])*255;													// take logarithm of image, log compress
+	/*for (i=0; i<Ne; i++) {												// do for the number of elements in IMAGE
+		image[i] = log(image[i])*255;										// take logarithm of image, log compress
 	}*/
 
 	time8 = get_time();

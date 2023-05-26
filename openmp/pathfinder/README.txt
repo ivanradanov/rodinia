@@ -3,5 +3,5 @@ make
 
 To execute:
 
-pathfiner width number_of_steps
+pathfinder width number_of_steps
 typical command: ./pathfinder 100000 100 > out

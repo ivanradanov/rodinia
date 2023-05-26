@@ -383,7 +383,7 @@ VEC  *v_linlist(va_alist) va_dcl
 
 
 
-/* v_star -- computes componentwise (Hadamard) product of x1 and x2
+/* v_star -- computes component-wise (Hadamard) product of x1 and x2
 	-- result out is returned */
 #ifndef ANSI_C
 VEC	*v_star(x1, x2, out)
@@ -406,7 +406,7 @@ VEC	*v_star(const VEC *x1, const VEC *x2, VEC *out)
     return out;
 }
 
-/* v_slash -- computes componentwise ratio of x2 and x1
+/* v_slash -- computes component-wise ratio of x2 and x1
 	-- out[i] = x2[i] / x1[i]
 	-- if x1[i] == 0 for some i, then raise E_SING error
 	-- result out is returned */

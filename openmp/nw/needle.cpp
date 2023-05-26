@@ -121,7 +121,7 @@ void nw_optimized(int *input_itemsets, int *output_itemsets, int *referrence,
             int input_itemsets_l[(BLOCK_SIZE + 1) *(BLOCK_SIZE+1)] __attribute__ ((aligned (64)));
             int reference_l[BLOCK_SIZE * BLOCK_SIZE] __attribute__ ((aligned (64)));
 
-            // Copy referrence to local memory
+            // Copy reference to local memory
             for ( int i = 0; i < BLOCK_SIZE; ++i )
             {
 #pragma omp simd

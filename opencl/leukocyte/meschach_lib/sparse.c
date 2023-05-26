@@ -946,7 +946,7 @@ SPMAT   *sp_mlt(const SPMAT *A, const SPMAT *B, SPMAT *out)
   out = sp_resize(out,A->m,B->n);
   sp_zero(out);
   rtemp = sprow_get(B->n);
-  for ( i = 0; i < A->m; i++ ) /* per ogni riga (for each row)*/
+  for ( i = 0; i < A->m; i++ ) /* per ogni riga (for each row) */
     {
       rtemp = sprow_resize(rtemp,0,TYPE_SPROW);
       rA = &(A->row[i]);

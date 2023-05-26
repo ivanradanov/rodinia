@@ -818,7 +818,7 @@ float pkmedian(Points *points, long kmin, long kmax, long* kfinal,
 
   /* now we begin the binary search for real */
   /* must designate some points as feasible centers */
-  /* this creates more consistancy between FL runs */
+  /* this creates more consistency between FL runs */
   /* helps to guarantee correct # of centers at the end */
   
   if( pid == 0 )
