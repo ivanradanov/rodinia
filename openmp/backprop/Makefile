@@ -1,7 +1,7 @@
 include ../../common/openmp.make.config
 
 backprop: backprop.o facetrain.o imagenet.o backprop_kernel.o
-	$(SYSTEM_LINKER) backprop.o facetrain.o imagenet.o backprop_kernel.o -o backprop -lm $(SYSTEM_LINKER_FLAGS)
+	$(LINKER) backprop.o facetrain.o imagenet.o backprop_kernel.o -o backprop -lm $(LINKER_FLAGS)
 
 %.o: %.[ch]
 	$(CC) $(CC_FLAGS) $< -c -o $@

@@ -93,14 +93,14 @@ b+tree.out:	./main.o \
 		./util/timer/timer.o \
 		./util/num/num.o \
 		./util/cuda/cuda.o
-	$(SYSTEM_LINKER)	./main.o \
+	$(LINKER)	./main.o \
 			./kernel/kernel_gpu_cuda_wrapper.o \
 			./kernel/kernel_gpu_cuda_wrapper_2.o \
 			./util/timer/timer.o \
 			./util/num/num.o \
 			./util/cuda/cuda.o \
 			-lm \
-			$(SYSTEM_LINKER_FLAGS)\
+			$(LINKER_FLAGS)\
                        -o b+tree.out
 
 

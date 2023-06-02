@@ -11,13 +11,13 @@ b+tree.out:	./main.o \
 		./kernel/kernel_cpu_2.o \
 		./util/timer/timer.o \
 		./util/num/num.o
-	$(SYSTEM_LINKER)	./main.o \
+	$(LINKER)	./main.o \
 			./kernel/kernel_cpu.o \
 			./kernel/kernel_cpu_2.o \
 			./util/timer/timer.o \
 			./util/num/num.o \
 			-lm \
-			$(SYSTEM_LINKER_FLAGS) \
+			$(LINKER_FLAGS) \
                         -o b+tree.out
 # ========================================================================================================================================================================================================200
 #	OBJECTS (COMPILE SOURCE FILES INTO OBJECTS)

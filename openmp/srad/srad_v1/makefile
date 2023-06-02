@@ -10,8 +10,8 @@ include ../../../common/openmp.make.config
 
 # link objects(binaries) together
 srad:	main.o
-	$(SYSTEM_LINKER)	main.o \
-			-lm -fopenmp -o srad $(SYSTEM_LINKER_FLAGS)
+	$(LINKER)	main.o \
+			-lm -fopenmp -o srad $(LINKER_FLAGS)
 
 # compile main function file into object (binary)
 main.o: 	main.c \

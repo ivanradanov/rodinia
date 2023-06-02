@@ -10,7 +10,7 @@ OBJ = bfs.o
 EXE = bfs.out
 
 $(EXE): $(OBJ)
-	$(SYSTEM_LINKER) $(OBJ) -o $(EXE) $(SYSTEM_LINKER_FLAGS)
+	$(LINKER) $(OBJ) -o $(EXE) $(LINKER_FLAGS)
 
 $(OBJ): $(SRC)
 	$(NVCC) $(NVCC_FLAGS) -c $< -o $@ -I../util

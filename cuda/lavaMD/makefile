@@ -27,12 +27,12 @@ lavaMD:		main.o \
 			./util/num/num.o \
 			./util/timer/timer.o \
 			./util/device/device.o
-	$(SYSTEM_LINKER)	$(KERNEL_DIM) main.o \
+	$(LINKER)	$(KERNEL_DIM) main.o \
 			./util/num/num.o \
 			./util/timer/timer.o \
 			./util/device/device.o \
 			-lm \
-			$(SYSTEM_LINKER_FLAGS) \
+			$(LINKER_FLAGS) \
 			-o lavaMD 
 
 # compile function files into objects (binaries)

@@ -6,7 +6,7 @@ endif
 
 # link objects(binaries) together
 heartwall: main.o ./AVI/avilib.o ./AVI/avimod.o
-	$(SYSTEM_LINKER) main.o ./AVI/avilib.o ./AVI/avimod.o -lm -o heartwall $(SYSTEM_LINKER_FLAGS)
+	$(LINKER) main.o ./AVI/avilib.o ./AVI/avimod.o -lm -o heartwall $(LINKER_FLAGS)
 
 # compile main function file into object (binary)
 main.o: main.c define.c kernel.c
