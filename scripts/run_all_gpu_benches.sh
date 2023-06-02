@@ -62,7 +62,7 @@ while [ : ]; do
           ;;
       --clang)
           echo "Run clang"
-          TEST_CONFIGS="0 $TEST_CONFIGS"
+          RUN_CLANG=1
           shift
           ;;
       --nvcc)
@@ -84,6 +84,10 @@ while [ : ]; do
     esac
 done
 
+echo -n "Run the following benchmarks: "
+./scripts/cuda_apps.sh
+echo
+
 if [ "$DRY_RUN" == "1" ]; then
     exit
 fi
@@ -95,6 +99,18 @@ echo ----------------------------------------------
 rm -r results/
 
 ./scripts/enable-config.sh common/host.make.config common/$HOST.polygeist.host.make.config
+
+if [ "1" = "$RUN_CLANG" ]; then
+    echo Starting clang "$(date -Ins)"
+    echo Compiling clang
+    make cuda_clean &> /dev/null
+    make CONFIG=0 MY_VERIFICATION_DISABLE=1 cuda -kj &> /dev/null
+
+    echo Running clang...
+    ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL
+
+    echo Finished clang cuda "$(date -Ins)"
+fi
 
 
 for target in $TARGETS; do
