@@ -8,7 +8,7 @@ bm="$2"
 
 run_script="$3"
 
-TIMEOUT_CMD="timeout --kill-after=2m 2m"
+TIMEOUT_CMD="timeout --kill-after=5m 5m"
 
 DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
