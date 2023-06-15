@@ -1,23 +1,17 @@
 #!/usr/bin/env bash
 
-VALID_ARGS=$(getopt -o h --long dry-run,targets:,clang,nvcc,nruns:,pgo-prof-nruns:,pgo-alternatives:,pgo-prof:,pgo-opt:,host:,configs: -- "$@")
+VALID_ARGS=$(getopt -o h --long dry-run,targets:,clang,nvcc,nruns:,pgo-prof-nruns:,pgo-prof:,pgo-opt:,host:,configs: -- "$@")
 if [[ $? -ne 0 ]]; then
     exit 1;
 fi
 
 # Default vals
-PGO_ALTERNATIVE_NUM=7
 NRUNS=5
 PGO_PROF_NRUNS=3
 
 eval set -- "$VALID_ARGS"
 while [ : ]; do
     case "$1" in
-      --pgo-alternatives)
-          echo "Profile $2 alternatives"
-          PGO_ALTERNATIVE_NUM="$2"
-          shift 2
-          ;;
       --pgo-prof-nruns)
           echo "Do $2 PGO profiling runs"
           PGO_PROF_NRUNS="$2"
@@ -129,10 +123,12 @@ for target in $TARGETS; do
 
     if [ "$PGO_PROF" == "1" ]; then
         for i in $PGO_PROF_CONFIGS; do
+            rm -r "/var/tmp/polygeist/pgo/$i/"
             echo Compiling polygeist configuration $i for profiling...
             make cuda_clean &> /dev/null
-            make POLYGEIST_ALTERNATIVES_MODE=pgo_prof CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -kj &> /dev/null
-            ALTS=$(seq 0 $(($PGO_ALTERNATIVE_NUM - 1)))
+            MAX_ALTS=$(make POLYGEIST_ALTERNATIVES_MODE=pgo_prof CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -kj 2>&1 | grep -E "Generated ([0-9]+) alternatives" | sed --expression='s/Generated //' | sed --expression='s/ alternatives//' | sort -n | tail -1)
+            ALTS=$(seq 0 $(($MAX_ALTS - 1)))
+            echo Will profile $MAX_ALTS alternatives
             for j in $ALTS; do
                 echo Profiling polygeist configuration $i alternative $j...
                 POLYGEIST_PGO_DATA_DIR="/var/tmp/polygeist/pgo/$i/" POLYGEIST_PGO_ALTERNATIVE="$j" \
