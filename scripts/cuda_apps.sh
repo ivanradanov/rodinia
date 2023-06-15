@@ -8,7 +8,6 @@ echo -n streamcluster ""
 echo -n lud ""
 echo -n backprop ""
 echo -n bfs ""
-echo -n b+tree ""
 echo -n hotspot ""
 echo -n hotspot3D ""
 echo -n myocyte ""
@@ -27,6 +26,9 @@ echo -n huffman ""
 # Undeterministic behaviour, thus excluded
 echo -n dwt2d ""
 echo -n srad/srad_v2 ""
+
+# Buggy code - race condition
+echo -n b+tree ""
 
 # Textures
 echo -n hybridsort ""
