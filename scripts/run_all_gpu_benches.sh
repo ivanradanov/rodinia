@@ -86,11 +86,18 @@ if [ "$DRY_RUN" == "1" ]; then
     exit
 fi
 
+DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+RODINIA_ROOT_DIR="$DIR/../"
+
 echo ----------------------------------------------
 echo Start "$(date -Ins)"
 echo ----------------------------------------------
 
 rm -r results/
+
+COMPILATION_LOG_DIR="$RODINIA_ROOT_DIR/results/compilation/"
+mkdir -p "$COMPILATION_LOG_DIR"
 
 ./scripts/enable-config.sh common/host.make.config common/$HOST.polygeist.host.make.config
 
@@ -119,14 +126,13 @@ for target in $TARGETS; do
         ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL
     done
 
-    # TODO should we delete the PGO info somewhere?
-
     if [ "$PGO_PROF" == "1" ]; then
         for i in $PGO_PROF_CONFIGS; do
             rm -r "/var/tmp/polygeist/pgo/$i/"
             echo Compiling polygeist configuration $i for profiling...
             make cuda_clean &> /dev/null
-            MAX_ALTS=$(make POLYGEIST_ALTERNATIVES_MODE=pgo_prof CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -kj 2>&1 | grep -E "Generated ([0-9]+) alternatives" | sed --expression='s/Generated //' | sed --expression='s/ alternatives//' | sort -n | tail -1)
+            COMPILATION_LOG="$COMPILATION_LOG_DIR/polygeist_pgo_prof-$target-$i.log"
+            MAX_ALTS=$(POLYGEIST_GPU_ALTERNATIVES_PRINT_INFO=1 make POLYGEIST_ALTERNATIVES_MODE=pgo_prof CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -kj 2>&1 | tee "$COMPILATION_LOG" | grep -E "Generated ([0-9]+) alternatives" | sed --expression='s/Generated //' | sed --expression='s/ alternatives//' | sort -n | tail -1)
             ALTS=$(seq 0 $(($MAX_ALTS - 1)))
             echo Will profile $MAX_ALTS alternatives
             for j in $ALTS; do
