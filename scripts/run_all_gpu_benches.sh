@@ -94,11 +94,12 @@ echo ----------------------------------------------
 echo Start "$(date -Ins)"
 echo ----------------------------------------------
 
-rm -r results/
+RESULTS_DIR="$RODINIA_ROOT_DIR/results/"
+rm -r "$RESULTS_DIR"
 
-COMPILATION_LOG_DIR="$RODINIA_ROOT_DIR/results/compilation/"
+COMPILATION_LOG_DIR="$RESULTS_DIR/compilation/"
 mkdir -p "$COMPILATION_LOG_DIR"
-PGO_RESULT_DIR="$RODINIA_ROOT_DIR/results/pgo/"
+PGO_RESULT_DIR="$RESULTS_DIR/pgo/"
 mkdir -p "$PGO_RESULT_DIR"
 
 ./scripts/enable-config.sh common/host.make.config common/$HOST.polygeist.host.make.config
@@ -130,8 +131,8 @@ for target in $TARGETS; do
 
   if [ "$PGO_PROF" == "1" ]; then
     for i in $PGO_PROF_CONFIGS; do
-      PGO_DIR="/var/tmp/polygeist/pgo/$i/"
-      rm -r "$PGO_DIR"
+      PGO_DIR="$PGO_RESULT_DIR/$TARGET/$i/"
+      mkdir -p "$PGO_DIR"
       echo Compiling polygeist configuration $i for profiling...
       make cuda_clean &> /dev/null
       COMPILATION_LOG="$COMPILATION_LOG_DIR/polygeist_pgo_prof-$target-$i.log"
@@ -143,8 +144,6 @@ for target in $TARGETS; do
         POLYGEIST_PGO_DATA_DIR="$PGO_DIR" POLYGEIST_PGO_ALTERNATIVE="$j" \
           ./scripts/run_timed_cuda_big_n_times.sh $PGO_PROF_NRUNS 2>&1 | grep -B2 FAIL
       done
-      mkdir -p "$PGO_RESULT_DIR/$TARGET/"
-      cp -a "$PGO_DIR" "$PGO_RESULT_DIR/$TARGET/"
     done
   fi
 
@@ -181,7 +180,7 @@ fi
 echo COPYING RESULTS, DONT QUIT
 RESULTS="rodinia_results_$HOSTNAME_$(date -Ins)"
 mkdir -p "$HOME/rodinia_results/$RESULTS"
-cp -a results "$HOME/rodinia_results/$RESULTS"
+cp -a "$RESULTS_DIR" "$HOME/rodinia_results/$RESULTS"
 cd "$HOME/rodinia_results/"
 zip -r "$RESULTS" "$RESULTS/results/cuda/out/"
 
