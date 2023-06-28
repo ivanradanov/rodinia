@@ -98,6 +98,8 @@ rm -r results/
 
 COMPILATION_LOG_DIR="$RODINIA_ROOT_DIR/results/compilation/"
 mkdir -p "$COMPILATION_LOG_DIR"
+PGO_RESULT_DIR="$RODINIA_ROOT_DIR/results/pgo/"
+mkdir -p "$PGO_RESULT_DIR"
 
 ./scripts/enable-config.sh common/host.make.config common/$HOST.polygeist.host.make.config
 
@@ -128,7 +130,8 @@ for target in $TARGETS; do
 
   if [ "$PGO_PROF" == "1" ]; then
     for i in $PGO_PROF_CONFIGS; do
-      rm -r "/var/tmp/polygeist/pgo/$i/"
+      PGO_DIR="/var/tmp/polygeist/pgo/$i/"
+      rm -r "$PGO_DIR"
       echo Compiling polygeist configuration $i for profiling...
       make cuda_clean &> /dev/null
       COMPILATION_LOG="$COMPILATION_LOG_DIR/polygeist_pgo_prof-$target-$i.log"
@@ -137,9 +140,11 @@ for target in $TARGETS; do
       echo Will profile $MAX_ALTS alternatives
       for j in $ALTS; do
         echo Profiling polygeist configuration $i alternative $j...
-        POLYGEIST_PGO_DATA_DIR="/var/tmp/polygeist/pgo/$i/" POLYGEIST_PGO_ALTERNATIVE="$j" \
+        POLYGEIST_PGO_DATA_DIR="$PGO_DIR" POLYGEIST_PGO_ALTERNATIVE="$j" \
           ./scripts/run_timed_cuda_big_n_times.sh $PGO_PROF_NRUNS 2>&1 | grep -B2 FAIL
       done
+      mkdir -p "$PGO_RESULT_DIR/$TARGET/"
+      cp -a "$PGO_DIR" "$PGO_RESULT_DIR/$TARGET/"
     done
   fi
 
