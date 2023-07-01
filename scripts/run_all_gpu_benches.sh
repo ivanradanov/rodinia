@@ -149,9 +149,10 @@ for target in $TARGETS; do
 
   if [ "$PGO_OPT" == "1" ]; then
     for i in $PGO_OPT_CONFIGS; do
+      PGO_DIR="$PGO_RESULT_DIR/$TARGET/$i/"
       echo Compiling polygeist configuration $i pgo...
       make cuda_clean &> /dev/null
-      POLYGEIST_PGO_DATA_DIR="/var/tmp/polygeist/pgo/$i/" \
+      POLYGEIST_PGO_DATA_DIR="$PGO_DIR" \
         make POLYGEIST_ALTERNATIVES_MODE=pgo_opt CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -kj &> /dev/null
       echo Running polygeist configuration $i pgo...
       ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL
