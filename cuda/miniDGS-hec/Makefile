@@ -34,7 +34,7 @@ LIBS	= -lm -L./3rdParty/ParMetis-3.1/ -lparmetis -lmetis -L$(CUDADIR)/lib64 -lcu
 .c.o:
 	$(CC) $(NVCC_FLAGS) -o $*.o -c $*.c
 .cu.o: 
-	$(NVCC) -Xcompiler -Wall $(NVCC_FLAGS) $(DEBUG) $(FAST) -o $*.o -c $*.cu  
+	$(NVCC) $(NVCC_FLAGS) $(DEBUG) $(FAST) -o $*.o -c $*.cu  
 
 # list of objects to be compiled
 OBJS    = \

@@ -21,7 +21,7 @@ source = lud.cu ./common/common.cu
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall -I./common
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -I./common
 
 # Linker Flags
 LINKER_FLAGS = 

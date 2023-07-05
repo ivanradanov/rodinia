@@ -19,7 +19,7 @@ program = vj-cpu vj-gpu
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = 

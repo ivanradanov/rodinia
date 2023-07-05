@@ -24,7 +24,7 @@ obj = main.o kernel.o host_task.o
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = -lpthread

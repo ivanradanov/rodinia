@@ -23,7 +23,7 @@ obj = $(source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -fopenmp -Xcompiler -Wall -I../openmp-omp
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -fopenmp -I../openmp-omp
 
 # Linker Flags
 LINKER_FLAGS = 

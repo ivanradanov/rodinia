@@ -24,7 +24,7 @@ obj = main.o warpsort.o
 
 # Standard Flags
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -DWARP_SIZE=32 -DHALF_WARP_SIZE=16 \
-          -std=c++14 -I. -Xcompiler -Wall
+          -std=c++14 -I.
 
 # Linker Flags
 LINKER_FLAGS = 

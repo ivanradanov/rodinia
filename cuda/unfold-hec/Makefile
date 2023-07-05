@@ -24,7 +24,7 @@ obj = $(source:.cu=.o)
 
 # Standard Flags
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) --extended-lambda -std=c++14 \
-          -Xcompiler -Wall
+         
 
 # Linker Flags
 LINKER_FLAGS = 

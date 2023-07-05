@@ -32,7 +32,7 @@ obj = $(source:.cpp=.o) $(kernels:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = 
