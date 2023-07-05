@@ -47,10 +47,10 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 kernel.o: kernel.cu datatypes.h ../include/benchmark.h Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 main.o: ../common/main.cpp ../include/benchmark.h Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 checkdata:
 ifeq ($(wildcard ../../data/p2i_input.dat),)

@@ -48,7 +48,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu histogram_gmem_atomics.h histogram_smem_atomics.h mersenne.h test_util.h Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

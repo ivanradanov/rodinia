@@ -51,12 +51,12 @@ $(program): $(obj) Makefile
           support/setup.h \
           support/verify.h \
           Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 %.o: %.cpp kernel.h \
            support/common.h \
            Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

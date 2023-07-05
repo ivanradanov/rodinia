@@ -53,7 +53,7 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.c asaxpy.h check1ns.h hsaxpy.h wtcalc.h
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

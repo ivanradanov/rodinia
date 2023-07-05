@@ -49,7 +49,7 @@ $(program): $(obj) Makefile
 
 %.o: %.cu matrix.h graph_io.h linear_algebra.h \
           lanczos.h cycle_timer.h eigen.h utils.h Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

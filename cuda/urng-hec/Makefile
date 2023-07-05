@@ -47,7 +47,7 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu kernel.cu urng.h ../include/SDKBitMap.h  
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

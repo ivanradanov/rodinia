@@ -52,7 +52,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu backprop.h bpnn_adjust_weights.h bpnn_layerforward.h Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

@@ -46,7 +46,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu utils.hpp noise.hpp noise_params.hpp Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

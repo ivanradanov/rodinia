@@ -47,13 +47,13 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cu particles.h
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 bitonicSort.o : bitonicSort.cu bitonicSort_kernels.cu particles.h
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 particles.o : particles.cu particles_kernels.cu particles.h
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

@@ -49,7 +49,7 @@ $(program): $(obj) Makefile
 %.o: %.cu graphics.c resize.c timer.c \
 	extract_kernel.cu prepare_kernel.cu \
 	reduce_kernel.cu srad_kernel.cu srad2_kernel.cu compress_kernel.cu
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 # delete all object files
 clean:

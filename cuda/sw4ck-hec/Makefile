@@ -47,7 +47,7 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cu utils.cpp utils.h 
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 curvilinear4sg.o : curvilinear4sg.cu \
        	           kernel1.cpp \
@@ -57,7 +57,7 @@ curvilinear4sg.o : curvilinear4sg.cu \
 	           kernel5.cpp \
 	           utils.h \
 	           curvilinear4sg.h
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

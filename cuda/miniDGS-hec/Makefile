@@ -32,7 +32,7 @@ LIBS	= -lm -L./3rdParty/ParMetis-3.1/ -lparmetis -lmetis -L$(CUDADIR)/lib64 -lcu
 
 # rule for .c files
 .c.o:
-	$(CC) $(NVCC_FLAGS) -o $*.o -c $*.c
+	$(NVCC) $(NVCC_FLAGS) -o $*.o -c $*.c
 .cu.o: 
 	$(NVCC) $(NVCC_FLAGS) $(DEBUG) $(FAST) -o $*.o -c $*.cu  
 

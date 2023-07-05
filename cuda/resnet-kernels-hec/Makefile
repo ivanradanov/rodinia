@@ -52,10 +52,10 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 %.o: %.c
-	$(CC) -x cu $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) -x cu $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

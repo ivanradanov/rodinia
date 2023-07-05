@@ -117,13 +117,13 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.c
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 %.o: %.cpp
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 %.o: %.cu
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj) *.m8

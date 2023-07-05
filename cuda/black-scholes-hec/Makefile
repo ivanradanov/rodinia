@@ -51,7 +51,7 @@ $(program): $(obj) Makefile
           blackScholesAnalyticEngineKernels.cu \
           blackScholesAnalyticEngineKernelsCpu.cu \
           Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

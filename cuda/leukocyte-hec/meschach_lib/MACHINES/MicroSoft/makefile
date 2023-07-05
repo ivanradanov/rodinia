@@ -21,7 +21,7 @@ NVCC_FLAGS = -O2 -ffast-math -fexpensive-optimizations
 
 
 .c.o:
-	$(CC) -c $(NVCC_FLAGS) $(DEFS) $<
+	$(NVCC) -c $(NVCC_FLAGS) $(DEFS) $<
 
 SHELL = /bin/sh
 MES_PAK = mesch12b
@@ -185,32 +185,32 @@ realclean:
 alltorture: torture sptort ztorture memtort itertort mfuntort iotort
 
 torture:torture.o libmeschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o torture torture.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o torture torture.o \
 	libmeschach.a $(LIBS)
 sptort:sptort.o libmeschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o sptort sptort.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o sptort sptort.o \
 	libmeschach.a $(LIBS)
 memtort: memtort.o libmeschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o memtort memtort.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o memtort memtort.o \
 	libmeschach.a $(LIBS)
 ztorture:ztorture.o libmeschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o ztorture ztorture.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o ztorture ztorture.o \
 	libmeschach.a $(LIBS)
 itertort: itertort.o libmeschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o itertort itertort.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o itertort itertort.o \
 	libmeschach.a $(LIBS)
 
 iotort: iotort.o libmeschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o iotort iotort.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o iotort iotort.o \
 	libmeschach.a $(LIBS)
 mfuntort: mfuntort.o libmeschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o mfuntort mfuntort.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o mfuntort mfuntort.o \
 	libmeschach.a $(LIBS)
 tstmove: tstmove.o libmeschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o tstmove tstmove.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o tstmove tstmove.o \
 	libmeschach.a $(LIBS)
 tstpxvec: tstpxvec.o libmeschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o tstpxvec tstpxvec.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o tstpxvec tstpxvec.o \
 	libmeschach.a $(LIBS)
 
 OBJ=$(LIST1) $(LIST2) $(LIST3) $(ZLIST1) $(ZLIST2)
@@ -227,7 +227,7 @@ DLL_LDLIBS    =  -lm
 DLL_NVCC_FLAGS =  --verbose --export-all-symbols
 DLLWRAP_FLAGS =  --output-def $(DLL_EXP_DEF) \
                  --implib $(DLL_EXP_LIB)  \
-                 --driver-name $(CC)   #--no-delete
+                 --driver-name $(NVCC)   #--no-delete
 
 $(DLL_NAME) $(DLL_EXP_DEF) $(DLL_EXP_LIB): $(OBJ)
 	$(DLLWRAP) $(DLL_NVCC_FLAGS) $(DLLWRAP_FLAGS) -o $(DLL_NAME) \

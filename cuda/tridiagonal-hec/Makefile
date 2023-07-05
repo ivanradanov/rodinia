@@ -59,13 +59,13 @@ main.o : main.cu \
          pcr_kernels.cu\
          cyclic_kernels.cu\
          sweep_kernels.cu
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 shrUtils.o: shrUtils.cu shrUtils.h cmd_arg_reader.h exception.h
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 cmd_arg_reader.o: cmd_arg_reader.cu cmd_arg_reader.h exception.h
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj) *.dat *.timing *.txt *.csv

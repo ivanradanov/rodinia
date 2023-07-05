@@ -18,7 +18,7 @@ OBJS = coarsen.o fm.o initpart.o match.o ccgraph.o \
        mfm.o memory.o mrefine.o checkgraph.o
 
 .c.o:
-	$(CC) $(NVCC_FLAGS) -c $*.c
+	$(NVCC) $(NVCC_FLAGS) -c $*.c
 
 ../libmetis.a: $(OBJS)
 	$(AR) $@ $(OBJS)

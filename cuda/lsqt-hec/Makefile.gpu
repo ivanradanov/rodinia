@@ -20,10 +20,10 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 all: lsqt_gpu
 
 $(ODIR)/%.o: %.cu $(HEADERS)
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 lsqt_gpu: $(OBJ)
-	$(CC) $^ -o $@
+	$(NVCC) $^ -o $@
 
 clean:
 	rm -f $(ODIR)/*.o lsqt_gpu

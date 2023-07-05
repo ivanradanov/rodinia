@@ -48,7 +48,7 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu
-	$(CC) $(NVCC_FLAGS) -dc $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -dc $< -o $@
 
 main.cu: bench_merkle_tree.hpp
 bench_merkle_tree.cu: bench_merkle_tree.hpp

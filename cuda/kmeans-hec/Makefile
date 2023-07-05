@@ -23,10 +23,10 @@ kmeans: cluster.o getopt.o read_input.o rmse.o kmeans.cpp
 	$(LINKER) $(KERNEL_DIM) $^ -o kmeans $(LINKER_FLAGS)
 
 %.o: %.cpp
-	$(CC) $(NVCC_FLAGS) $< -c
+	$(NVCC) $(NVCC_FLAGS) $< -c
 
 cluster.o: cluster.cu kmeans.h
-	$(CC) $(NVCC_FLAGS) cluster.cu -c
+	$(NVCC) $(NVCC_FLAGS) cluster.cu -c
 
 getopt.o: getopt.cpp getopt.h
 

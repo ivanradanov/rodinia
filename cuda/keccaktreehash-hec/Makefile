@@ -48,7 +48,7 @@ $(program): $(obj) KeccakTypes.h KeccakF.h KeccakTree.h KeccakTreeCPU.h KeccakTr
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu KeccakTypes.h KeccakF.h KeccakTree.h KeccakTreeCPU.h KeccakTreeGPU.h Test.h Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

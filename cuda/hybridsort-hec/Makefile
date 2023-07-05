@@ -30,21 +30,21 @@ override TIMER = -DTIMER
 endif
 
 hybridsort: hybridsort.o bucketsort.o mergesort.o
-	$(CC) $(NVCC_FLAGS) -o hybridsort $(VERIFY) $(OUTPUT) $(TIMER) \
+	$(NVCC) $(NVCC_FLAGS) -o hybridsort $(VERIFY) $(OUTPUT) $(TIMER) \
 		hybridsort.o bucketsort.o mergesort.o $(LINKER_FLAGS)
 
 hybridsort.o: hybridsort.cu bucketsort.h mergesort.h
-	$(CC) $(NVCC_FLAGS) -o hybridsort.o -c hybridsort.cu
+	$(NVCC) $(NVCC_FLAGS) -o hybridsort.o -c hybridsort.cu
 
 bucketsort.o: bucketsort.cu \
 	kernel_bucketprefix.h \
 	kernel_histogram.h \
 	kernel_bucketcount.h \
        	kernel_bucketsort.h  
-	$(CC) $(NVCC_FLAGS) -o bucketsort.o -c bucketsort.cu
+	$(NVCC) $(NVCC_FLAGS) -o bucketsort.o -c bucketsort.cu
 
 mergesort.o: mergesort.cu mergesort.h kernel_mergeSortPass.h
-	$(CC) $(NVCC_FLAGS) -o mergesort.o -c mergesort.cu
+	$(NVCC) $(NVCC_FLAGS) -o mergesort.o -c mergesort.cu
 
 run: hybridsort
 	./hybridsort r

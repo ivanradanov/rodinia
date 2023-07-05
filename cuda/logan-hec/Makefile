@@ -49,17 +49,17 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 src/main.o: src/main.cu src/logan.cuh Makefile
-	$(CC) $(NVCC_FLAGS) -c -dc $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c -dc $< -o $@
 
 src/seed.o: src/seed.cu src/seed.cuh Makefile
-	$(CC) $(NVCC_FLAGS) -c -dc $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c -dc $< -o $@
 
 src/score.o: src/score.cu src/score.cuh Makefile
-	$(CC) $(NVCC_FLAGS) -c -dc $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c -dc $< -o $@
 
 src/logan_functions.o: src/logan_functions.cu \
                        src/logan_functions.cuh src/seed.cuh Makefile
-	$(CC) $(NVCC_FLAGS) -c -dc $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c -dc $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

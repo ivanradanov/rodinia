@@ -46,7 +46,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 linear_par.o: linear_par.cu linear.h kernel.h
 linear_iter.o: linear_iter.cu linear.h

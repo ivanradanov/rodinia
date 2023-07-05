@@ -43,22 +43,22 @@ all: build
 build: $(program)
 
 image.o: image.cu $(HEADERS)
-	$(CC) $(NVCC_FLAGS) -o $@ -c $<
+	$(NVCC) $(NVCC_FLAGS) -o $@ -c $<
 
 stdio-wrapper.o: stdio-wrapper.cu $(HEADERS)
-	$(CC) $(NVCC_FLAGS) -o $@ -c $<
+	$(NVCC) $(NVCC_FLAGS) -o $@ -c $<
 
 main.o: main.cu $(HEADERS)
-	$(CC) $(NVCC_FLAGS) -o $@ -c $<
+	$(NVCC) $(NVCC_FLAGS) -o $@ -c $<
 
 haar-gpu.o: haar.cu $(HEADERS)
-	$(CC) $(NVCC_FLAGS) -DGPU -o $@ -c $<
+	$(NVCC) $(NVCC_FLAGS) -DGPU -o $@ -c $<
 
 haar-cpu.o: haar.cu $(HEADERS)
-	$(CC) $(NVCC_FLAGS) -o $@ -c $<
+	$(NVCC) $(NVCC_FLAGS) -o $@ -c $<
 
 rectangles.o: rectangles.cu $(HEADERS)
-	$(CC) $(NVCC_FLAGS) -o $@ -c $<
+	$(NVCC) $(NVCC_FLAGS) -o $@ -c $<
 
 vj-cpu: main.o haar-cpu.o image.o stdio-wrapper.o rectangles.o
 	$(LINKER) -o $@ $+ $(LINKER_FLAGS)

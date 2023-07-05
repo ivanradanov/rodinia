@@ -20,7 +20,7 @@ OBJS = comm.o util.o debug.o setup.o grsetup.o timer.o \
        mmetis.o mesh.o memory.o weird.o backcompat.o
 
 .c.o:
-	$(CC) $(NVCC_FLAGS) -c $*.c
+	$(NVCC) $(NVCC_FLAGS) -c $*.c
 
 
 ../libparmetis.a: $(OBJS)

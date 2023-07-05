@@ -18,7 +18,7 @@ PARMETISOBJS = parmetis.o io.o adaptgraph.o
 
           
 .c.o:
-	$(CC) $(NVCC_FLAGS) -c $*.c
+	$(NVCC) $(NVCC_FLAGS) -c $*.c
 
 
 default: $(BINDIR)/ptest$(VERNUM) $(BINDIR)/mtest$(VERNUM) 
