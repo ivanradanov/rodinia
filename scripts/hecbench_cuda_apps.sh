@@ -69,7 +69,6 @@ hec-clink
 hec-clock
 hec-cm
 hec-cmembench
-hec-cmp
 hec-cobahh
 hec-collision
 hec-columnarSolver
@@ -428,4 +427,9 @@ hec-boxfilter
 # Other compilation failures
 echo "
 hec-axhelm
+"
+
+# No input file
+echo "
+hec-cmp
 "
