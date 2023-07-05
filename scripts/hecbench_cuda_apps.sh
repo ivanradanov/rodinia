@@ -29,9 +29,7 @@ attention-cuda
 attentionMultiHead-cuda
 babelstream-cuda
 background-subtract-cuda
-backprop-cuda
 bezier-surface-cuda
-bfs-cuda
 bh-cuda
 bilateral-cuda
 bincount-cuda
@@ -47,7 +45,6 @@ bsearch-cuda
 bspline-vgh-cuda
 bsw-cuda
 b+tree-cuda
-btree-cuda
 burger-cuda
 bwt-cuda
 car-cuda
@@ -56,7 +53,6 @@ cc-cuda
 ccs-cuda
 ccsd-trpdrv-cuda
 ced-cuda
-cfd-cuda
 chacha20-cuda
 channelShuffle-cuda
 channelSum-cuda
@@ -141,7 +137,6 @@ fwt-cuda
 ga-cuda
 gabor-cuda
 gamma-correction-cuda
-gaussian-cuda
 gc-cuda
 gd-cuda
 geam-cuda
@@ -163,7 +158,6 @@ halo-finder-cuda
 hausdorff-cuda
 haversine-cuda
 hbc-cuda
-heartwall-cuda
 heat-cuda
 heat2d-cuda
 hellinger-cuda
@@ -172,11 +166,8 @@ hexciton-cuda
 histogram-cuda
 hmm-cuda
 hogbom-cuda
-hotspot-cuda
-hotspot3D-cuda
 hungarian-cuda
 hwt1d-cuda
-hybridsort-cuda
 hypterm-cuda
 idivide-cuda
 interleave-cuda
@@ -192,7 +183,6 @@ kalman-cuda
 keccaktreehash-cuda
 keogh-cuda
 kmc-cuda
-kmeans-cuda
 knn-cuda
 kurtosis-cuda
 lanczos-cuda
@@ -206,7 +196,6 @@ lci-cuda
 lda-cuda
 ldpc-cuda
 lebesgue-cuda
-leukocyte-cuda
 lfib4-cuda
 libor-cuda
 lid-driven-cavity-cuda
@@ -220,7 +209,6 @@ loopback-cuda
 lr-cuda
 lrn-cuda
 lsqt-cuda
-lud-cuda
 lulesh-cuda
 mallocFree-cuda
 mandelbrot-cuda
@@ -270,18 +258,15 @@ mtf-cuda
 multimaterial-cuda
 multinomial-cuda
 murmurhash3-cuda
-myocyte-cuda
 nbnxm-cuda
 nbody-cuda
 ne-cuda
 nlll-cuda
 nms-cuda
-nn-cuda
 nonzero-cuda
 norm2-cuda
 nqueen-cuda
 ntt-cuda
-nw-cuda
 openmp-cuda
 overlap-cuda
 overlay-cuda
@@ -290,9 +275,7 @@ p4-cuda
 pad-cuda
 page-rank-cuda
 particle-diffusion-cuda
-particlefilter-cuda
 particles-cuda
-pathfinder-cuda
 perlin-cuda
 permutate-cuda
 perplexity-cuda
@@ -368,13 +351,11 @@ sph-cuda
 split-cuda
 spm-cuda
 sptrsv-cuda
-srad-cuda
 ss-cuda
 sssp-cuda
 stddev-cuda
 stencil1d-cuda
 stencil3d-cuda
-streamcluster-cuda
 su3-cuda
 surfel-cuda
 svd3x3-cuda
@@ -435,4 +416,28 @@ cmp-cuda
 # --default-stream unsupported
 echo "
 bmf-cuda
+"
+
+# rodinia dupes
+echo "
+btree-cuda
+hybridsort-cuda
+srad-cuda
+streamcluster-cuda
+cfd-cuda
+gaussian-cuda
+particlefilter-cuda
+lud-cuda
+backprop-cuda
+bfs-cuda
+hotspot-cuda
+hotspot3D-cuda
+myocyte-cuda
+nn-cuda
+nw-cuda
+pathfinder-cuda
+heartwall-cuda
+hybridsort-cuda
+kmeans-cuda
+leukocyte-cuda
 "
