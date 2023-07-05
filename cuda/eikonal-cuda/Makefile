@@ -49,7 +49,7 @@ $(program): $(obj) Makefile
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 %.o: %.cpp Makefile
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) $(CXX_FLAGS) -c $< -o $@
 
 kernel.o: kernel.cu kernel.h
 fim.o: fim.cu fim.h kernel.h
