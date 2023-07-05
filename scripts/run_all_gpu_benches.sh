@@ -152,8 +152,9 @@ for target in $TARGETS; do
       PGO_DIR="$PGO_RESULT_DIR/$target/$i/"
       echo Compiling polygeist configuration $i pgo...
       make cuda_clean &> /dev/null
+      COMPILATION_LOG="$COMPILATION_LOG_DIR/polygeist_pgo_opt-$target-$i.log"
       POLYGEIST_PGO_DATA_DIR="$PGO_DIR" \
-        make POLYGEIST_ALTERNATIVES_MODE=pgo_opt CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -kj &> /dev/null
+        make POLYGEIST_ALTERNATIVES_MODE=pgo_opt CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -kj &> "$COMPILATION_LOG"
       echo Running polygeist configuration $i pgo...
       ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL
     done
