@@ -24,7 +24,7 @@ obj = $(source:.c=.o)
 #===============================================================================
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -Wall 
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -Wall 
 
 # Linker Flags
 LINKER_FLAGS = 

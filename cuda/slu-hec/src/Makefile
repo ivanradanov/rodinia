@@ -28,7 +28,7 @@ SLU_INC = -I$(SLU_PATH)/../include \
           -I$(SLU_PATH)/nicslu/util
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 $(SLU_INC)
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 $(SLU_INC)
 
 # Linker Flags
 LINKER_FLAGS = 

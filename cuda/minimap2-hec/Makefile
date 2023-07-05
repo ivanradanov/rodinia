@@ -41,7 +41,7 @@ default_target: release
 
 .PHONY: release
 release: export CXXFLAGS := $(CXXFLAGS) $(COMPILE_FLAGS)
-release: export NVCHEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) $(NVCC_COMPILE_FLAGS)
+release: export NVCHEC_NVCC_FLAGS := $(NVCC_FLAGS) $(NVCC_COMPILE_FLAGS)
 release: dirs
 	@$(MAKE) all
 

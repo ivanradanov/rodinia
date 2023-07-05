@@ -23,7 +23,7 @@ obj = main.o shrUtils.o cmd_arg_reader.o reference.o
 #===============================================================================
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 -I../boxfilter-sycl
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 -I../boxfilter-sycl
 
 # Linker Flags
 LINKER_FLAGS = 

@@ -21,7 +21,7 @@ source = lud.cu ./common/common.cu
 #===============================================================================
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 -I./common
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 -I./common
 
 # Linker Flags
 LINKER_FLAGS = 

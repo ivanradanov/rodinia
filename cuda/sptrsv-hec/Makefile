@@ -21,7 +21,7 @@ obj = main.o sptrsv_syncfree.o
 #===============================================================================
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 \
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 \
           -DWARP_SIZE=32 -DWARP_PER_BLOCK=8 \
           -DVALUE_TYPE=double -I../sptrsv-sycl
 
