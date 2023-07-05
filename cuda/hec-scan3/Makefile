@@ -26,7 +26,7 @@ obj = $(source:.cu=.o)
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 -I../scan2-cuda
 
 # Linker Flags
-LINKER_FLAGS = 
+LINKER_FLAGS += 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

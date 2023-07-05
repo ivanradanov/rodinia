@@ -26,7 +26,7 @@ obj = $(source:.cu=.o)
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14
 
 # Linker Flags
-LINKER_FLAGS = -lcublas
+LINKER_FLAGS += -lcublas
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

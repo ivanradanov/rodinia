@@ -28,7 +28,7 @@ obj = $(source:.cu=.o)
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -I$(BOOST) -std=c++14
 
 # Linker Flags
-LINKER_FLAGS = -lpthread
+LINKER_FLAGS += -lpthread
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

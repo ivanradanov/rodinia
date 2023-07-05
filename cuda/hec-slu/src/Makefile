@@ -31,7 +31,7 @@ SLU_INC = -I$(SLU_PATH)/../include \
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 $(SLU_INC)
 
 # Linker Flags
-LINKER_FLAGS = 
+LINKER_FLAGS += 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

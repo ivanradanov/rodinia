@@ -25,7 +25,7 @@ HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 \
           -Ddfloat=float -Ddlong=int 
 
 # Linker Flags
-LINKER_FLAGS = BlasLapack/libBlasLapack.a -lgfortran
+LINKER_FLAGS += BlasLapack/libBlasLapack.a -lgfortran
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

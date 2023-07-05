@@ -11,7 +11,7 @@ MINIFE_TYPES =  \
 HEC_NVCC_FLAGS = -g
 CXXFLAGS = -g
 CPPFLAGS = -I. -I../utils -I../fem $(MINIFE_TYPES)
-LINKER_FLAGS =
+LINKER_FLAGS +=
 LIBS=-lm
 
 CXX=g++

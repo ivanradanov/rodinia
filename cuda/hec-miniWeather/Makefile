@@ -33,7 +33,7 @@ HEC_NVCC_FLAGS := -DNX=400 \
           -std=c++14
 
 # Linker Flags
-LINKER_FLAGS = -L$(MPI_LIB_DIR) -lmpi
+LINKER_FLAGS += -L$(MPI_LIB_DIR) -lmpi
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

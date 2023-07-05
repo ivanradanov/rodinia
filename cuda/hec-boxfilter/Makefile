@@ -26,7 +26,7 @@ obj = main.o shrUtils.o cmd_arg_reader.o reference.o
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 -I../boxfilter-sycl
 
 # Linker Flags
-LINKER_FLAGS = 
+LINKER_FLAGS += 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
