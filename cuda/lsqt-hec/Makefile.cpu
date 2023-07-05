@@ -1,5 +1,4 @@
 include ../../common/make.config
-CC = g++
 NVCC_FLAGS = -O3 -std=c++11 -x c++ -DDEBUG -DCPU_ONLY
 
 

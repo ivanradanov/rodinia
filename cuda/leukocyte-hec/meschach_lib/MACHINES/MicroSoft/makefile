@@ -11,7 +11,6 @@ include ../../common/make.config
 srcdir = .
 VPATH = .
 
-CC = gcc
 
 DEFS = -DHAVE_CONFIG_H
 LIBS =  -lm

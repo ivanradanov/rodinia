@@ -22,7 +22,6 @@ LINKER_FLAGS =
 LIBS =
 
 CXX=mpicxx
-CC=mpicc
 
 include make_targets
 include ./optional/make_targets

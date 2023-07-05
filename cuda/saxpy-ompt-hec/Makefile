@@ -4,7 +4,6 @@ include ../../common/make.config
 #===============================================================================
 
 # Compiler can be set below, or via environment variable
-CC        = nvc++
 OPTIMIZE  = yes
 DEBUG     = no
 DEVICE    = gpu

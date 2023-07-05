@@ -4,7 +4,6 @@ include ../../common/make.config
 #===============================================================================
 
 #intel
-CC        = nvcc 
 OPTIMIZE  = yes
 DEBUG     = no
 ARCH      = sm_60

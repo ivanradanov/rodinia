@@ -4,7 +4,6 @@ include ../../common/make.config
 #===============================================================================
 
 # Compiler can be set below, or via environment variable
-CC        = nvcc
 OPTIMIZE  = no
 DEBUG     = yes
 ARCH      = sm_60

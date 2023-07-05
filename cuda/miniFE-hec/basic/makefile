@@ -29,7 +29,6 @@ LIBS=
 # such as the one on my cygwin machine.
 
 CXX=mpicxx
-CC=mpicc
 
 include make_targets
 include ./optional/make_targets

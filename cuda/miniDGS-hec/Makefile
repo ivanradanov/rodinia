@@ -13,7 +13,6 @@ OPENMPI_BINDIR=/usr/lib64/openmpi3/bin
 
 # set options for this machine
 # specify which compilers to use for c, fortran and linking
-CC	= $(OPENMPI_BINDIR)/mpicc
 LD	= $(OPENMPI_BINDIR)/mpicc
 NVCC	= $(CUDADIR)/bin/nvcc
 #DEBUG   = -g -G -DDEBUG
