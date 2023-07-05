@@ -27,7 +27,7 @@ obj = $(source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -I$(MPI_ROOT)/include -std=c++11
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -I$(MPI_ROOT)/include -std=c++11
 
 # Linker Flags
 LINKER_FLAGS = -L$(CUBLAS_ROOT)/targets/x86_64-linux/lib/ -lcublas \

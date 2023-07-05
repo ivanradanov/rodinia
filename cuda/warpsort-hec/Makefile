@@ -23,7 +23,7 @@ obj = main.o warpsort.o
 #===============================================================================
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -DWARP_SIZE=32 -DHALF_WARP_SIZE=16 \
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -DWARP_SIZE=32 -DHALF_WARP_SIZE=16 \
           -std=c++14 -I.
 
 # Linker Flags

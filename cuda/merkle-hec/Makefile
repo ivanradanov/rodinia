@@ -24,7 +24,7 @@ obj = $(source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++17 --expt-relaxed-constexpr
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++17 --expt-relaxed-constexpr
 
 # Linker Flags
 LINKER_FLAGS = 

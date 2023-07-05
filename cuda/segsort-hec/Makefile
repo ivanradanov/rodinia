@@ -36,7 +36,7 @@ headers = \
 #===============================================================================
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 --expt-relaxed-constexpr
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 --expt-relaxed-constexpr
 
 # Linker Flags
 LINKER_FLAGS = 

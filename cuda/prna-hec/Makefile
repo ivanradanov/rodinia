@@ -24,7 +24,7 @@ obj = $(c_source:.c=.o) $(cuda_source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -DFLOAT -std=c++14
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -DFLOAT -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = 

@@ -23,7 +23,7 @@ obj = $(source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 -DNUM_BLOCKS=8192
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 -DNUM_BLOCKS=8192
 
 # Linker Flags
 LINKER_FLAGS = 

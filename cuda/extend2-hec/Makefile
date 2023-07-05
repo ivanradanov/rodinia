@@ -22,7 +22,7 @@ obj = main.o read_data.o
 #===============================================================================
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 -I../extend2-sycl
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 -I../extend2-sycl
 
 # Linker Flags
 LINKER_FLAGS = 

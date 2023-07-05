@@ -21,7 +21,7 @@ obj = main.o force_kernel.o
 #===============================================================================
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 \
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 \
           -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES -D__STRICT_ANSI__ \
           -DGPU
 
