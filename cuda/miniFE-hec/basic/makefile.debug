@@ -10,7 +10,7 @@ MINIFE_MATRIX_TYPE = -DMINIFE_CSR_MATRIX
 
 #-----------------------------------------------------------------------
 
-CFLAGS = -g
+NVCC_FLAGS = -g
 CXXFLAGS = -g
 
 # For debugging, the macro MINIFE_DEBUG will cause miniFE to dump a log file

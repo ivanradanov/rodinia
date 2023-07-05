@@ -1,7 +1,7 @@
 include ../Makefile.in
 
 
-CFLAGS = $(COPTIONS) $(OPTFLAGS) -I. $(INCDIR)
+NVCC_FLAGS = $(COPTIONS) $(OPTFLAGS) -I. $(INCDIR)
 
 
 OBJS = comm.o util.o debug.o setup.o grsetup.o timer.o \
@@ -19,7 +19,7 @@ OBJS = comm.o util.o debug.o setup.o grsetup.o timer.o \
        mmetis.o mesh.o memory.o weird.o backcompat.o
 
 .c.o:
-	$(CC) $(CFLAGS) -c $*.c
+	$(CC) $(NVCC_FLAGS) -c $*.c
 
 
 ../libparmetis.a: $(OBJS)

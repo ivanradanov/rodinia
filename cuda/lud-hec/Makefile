@@ -21,20 +21,20 @@ source = lud.cu ./common/common.cu
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall -I./common
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall -I./common
 
 # Linker Flags
 LDFLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g
+  NVCC_FLAGS += -g
   LDFLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3
+  NVCC_FLAGS += -O3
 endif
 
 #===============================================================================
@@ -42,7 +42,7 @@ endif
 #===============================================================================
 
 $(program): $(source) lud_kernels.cu ./common/common.h Makefile
-	$(CC) $(CFLAGS) $(source) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(source) -o $@ $(LDFLAGS)
 
 clean:
 	rm -rf $(program) $(obj)

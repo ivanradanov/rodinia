@@ -24,7 +24,7 @@ obj = $(source:.cu=.o)
 
 # Standard Flags
 # Double precision the grid size is 32^4 
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 \
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 \
           -DMILC_COMPLEX \
           -DLDIM=32 \
           -DPRECISION=1 \
@@ -38,14 +38,14 @@ LDFLAGS =
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g -DDEBUG
+  NVCC_FLAGS += -g -DDEBUG
   LDFLAGS  += -g
 endif
 
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3 -use_fast_math
+  NVCC_FLAGS += -O3 -use_fast_math
 endif
 
 #===============================================================================
@@ -53,10 +53,10 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
 
 %.o: %.cu dslash.h
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

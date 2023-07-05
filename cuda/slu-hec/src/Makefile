@@ -28,46 +28,46 @@ SLU_INC = -I$(SLU_PATH)/../include \
           -I$(SLU_PATH)/nicslu/util
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall $(SLU_INC)
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall $(SLU_INC)
 
 # Linker Flags
 LDFLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g -DDEBUG
+  NVCC_FLAGS += -g -DDEBUG
   LDFLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3
+  NVCC_FLAGS += -O3
 endif
 
 ifeq ($(VERIFY),yes)
-  CFLAGS += -DVERIFY
+  NVCC_FLAGS += -DVERIFY
 endif
 #===============================================================================
 # Targets to Build
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
 
 Timer.o: $(SLU_PATH)/Timer.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 numeric.o: numeric.cu
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 symbolic.o: $(SLU_PATH)/symbolic.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 main.o: $(SLU_PATH)/main.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 preprocess.o: $(SLU_PATH)/preprocess.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 $(SLU_PATH)/nicslu/lib/nicslu.a:
 	make -C $(SLU_PATH)/nicslu/

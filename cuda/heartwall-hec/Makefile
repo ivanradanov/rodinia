@@ -6,14 +6,14 @@ DUMP      = yes
 
 
 # Standard flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker flags
 LDFLAGS = -lm
 
 # Enable checksum and output file
 ifeq ($(DEBUG),yes)
-	CFLAGS += -g  
+	NVCC_FLAGS += -g  
 	TEST_ON = -DTEST_CHECKSUM 
 endif
 
@@ -23,7 +23,7 @@ endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-	CFLAGS += -O3
+	NVCC_FLAGS += -O3
 endif
 
 
@@ -33,7 +33,7 @@ heartwall:	./main.o \
 	./util/avi/avimod.o \
 	./util/file/file.o \
 	./util/timer/timer.o 
-	$(CC)	$(CFLAGS) ./main.o \
+	$(CC)	$(NVCC_FLAGS) ./main.o \
 		./kernel/kernel.o \
 		./util/avi/avilib.o \
 		./util/avi/avimod.o \
@@ -58,7 +58,7 @@ heartwall:	./main.o \
 # ======================================================================================================================================================150
 
 ./kernel/kernel.o:./kernel/kernel.h ./kernel/kernel.cu
-	$(CC) $(CFLAGS) $(TEST_ON) $(KERNEL_DIM) ./kernel/kernel.cu \
+	$(CC) $(NVCC_FLAGS) $(TEST_ON) $(KERNEL_DIM) ./kernel/kernel.cu \
 		-c \
 		-o ./kernel/kernel.o 
 
@@ -68,21 +68,21 @@ heartwall:	./main.o \
 
 ./util/avi/avilib.o:./util/avi/avilib.h \
 	./util/avi/avilib.c
-	$(CC)	$(CFLAGS) ./util/avi/avilib.c \
+	$(CC)	$(NVCC_FLAGS) ./util/avi/avilib.c \
 		-I./util/avi \
 		-c \
 		-o ./util/avi/avilib.o 
 
 ./util/avi/avimod.o:./util/avi/avilib.h \
 	./util/avi/avimod.c
-	$(CC)	$(CFLAGS) ./util/avi/avimod.c \
+	$(CC)	$(NVCC_FLAGS) ./util/avi/avimod.c \
 		-I./util/avi \
 		-c \
 		-o ./util/avi/avimod.o 
 
 ./util/file/file.o:	./util/file/file.h \
 	./util/file/file.c
-	$(CC)	$(CFLAGS) ./util/file/file.c \
+	$(CC)	$(NVCC_FLAGS) ./util/file/file.c \
 		-I./util/file \
 		-I./util/timer \
 		-c \
@@ -90,7 +90,7 @@ heartwall:	./main.o \
 
 ./util/timer/timer.o:	./util/timer/timer.h \
 	./util/timer/timer.c
-	$(CC)	$(CFLAGS) ./util/timer/timer.c \
+	$(CC)	$(NVCC_FLAGS) ./util/timer/timer.c \
 		-I./util/timer \
 		-c \
 		-o ./util/timer/timer.o 

@@ -24,21 +24,21 @@ obj = $(c_source:.c=.o) $(cuda_source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -DINT -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -DINT -std=c++14 -Xcompiler -Wall
 
 # Linker Flags
 LDFLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g
+  NVCC_FLAGS += -g
   LDFLAGS  += -g
 endif
 
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3 -use_fast_math
+  NVCC_FLAGS += -O3 -use_fast_math
 endif
 
 #===============================================================================
@@ -46,13 +46,13 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
 
 %.o: %.cu
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 fbase.o : fbase.c fbase.h util.h cu.h
 main.o : main.c frna.h util.h fbase.h

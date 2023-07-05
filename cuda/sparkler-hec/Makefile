@@ -27,7 +27,7 @@ obj = $(source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -I$(MPI_ROOT)/include -std=c++11 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -I$(MPI_ROOT)/include -std=c++11 -Xcompiler -Wall
 
 # Linker Flags
 LDFLAGS = -L$(CUBLAS_ROOT)/targets/x86_64-linux/lib/ -lcublas \
@@ -35,13 +35,13 @@ LDFLAGS = -L$(CUBLAS_ROOT)/targets/x86_64-linux/lib/ -lcublas \
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g
+  NVCC_FLAGS += -g
   LDFLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3
+  NVCC_FLAGS += -O3
 endif
 
 #===============================================================================
@@ -52,7 +52,7 @@ $(program): $(obj) Makefile
 	$(LD) $(obj) -o $@ $(LDFLAGS)
 
 %.o: %.cu Makefile
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

@@ -7,7 +7,7 @@ ARCH      = sm_60
 MATRIX_DIR = ./meschach_lib
 
 # Standard flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall -I$(MATRIX_DIR) --x cu
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall -I$(MATRIX_DIR) --x cu
 
 # Linker flags
 LDFLAGS = -lm
@@ -15,17 +15,17 @@ LDFLAGS = -lm
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g -DDEBUG
+  NVCC_FLAGS += -g -DDEBUG
 endif
 
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g  
+  NVCC_FLAGS += -g  
   OUTPUT = -DOUTPUT
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3
+  NVCC_FLAGS += -O3
 endif
 
 leukocyte: detect_main.o \
@@ -46,7 +46,7 @@ leukocyte: detect_main.o \
 		$(MATRIX_DIR)/meschach.a $(LDFLAGS)
 
 %.o: %.c
-	$(CC) $(OUTPUT) $(CFLAGS) $< -c
+	$(CC) $(OUTPUT) $(NVCC_FLAGS) $< -c
 
 detect_main.o: detect_main.c \
                kernel_GICOV.h kernel_dilated.h \

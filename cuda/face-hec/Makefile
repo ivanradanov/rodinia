@@ -19,21 +19,21 @@ program = vj-cpu vj-gpu
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker Flags
 LDFLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g -G
+  NVCC_FLAGS += -g -G
   LDFLAGS  += -g
 endif
 
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3
+  NVCC_FLAGS += -O3
 endif
 
 HEADERS := image.h haar.h stdio-wrapper.h
@@ -43,28 +43,28 @@ all: build
 build: $(program)
 
 image.o: image.cu $(HEADERS)
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(NVCC_FLAGS) -o $@ -c $<
 
 stdio-wrapper.o: stdio-wrapper.cu $(HEADERS)
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(NVCC_FLAGS) -o $@ -c $<
 
 main.o: main.cu $(HEADERS)
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(NVCC_FLAGS) -o $@ -c $<
 
 haar-gpu.o: haar.cu $(HEADERS)
-	$(CC) $(CFLAGS) -DGPU -o $@ -c $<
+	$(CC) $(NVCC_FLAGS) -DGPU -o $@ -c $<
 
 haar-cpu.o: haar.cu $(HEADERS)
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(NVCC_FLAGS) -o $@ -c $<
 
 rectangles.o: rectangles.cu $(HEADERS)
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(NVCC_FLAGS) -o $@ -c $<
 
 vj-cpu: main.o haar-cpu.o image.o stdio-wrapper.o rectangles.o
-	$(CC) $(CFLAGS) -o $@ $+ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) -o $@ $+ $(LDFLAGS)
 
 vj-gpu: main.o haar-gpu.o image.o stdio-wrapper.o rectangles.o
-	$(CC) $(CFLAGS) -o $@ $+ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) -o $@ $+ $(LDFLAGS)
 
 clean:
 	rm -f $(program) *.o Output-cpu.pgm Output-gpu.pgm

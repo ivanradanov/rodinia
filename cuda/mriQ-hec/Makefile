@@ -23,33 +23,33 @@ obj = main.o file.o
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker Flags
 LDFLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g -DDEBUG
+  NVCC_FLAGS += -g -DDEBUG
   LDFLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3 -use_fast_math
+  NVCC_FLAGS += -O3 -use_fast_math
 endif
 #===============================================================================
 # Targets to Build
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
 
 main.o: main.cu computeQ.cu Makefile
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 file.o: file.cc file.h Makefile
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj) output*

@@ -19,7 +19,7 @@ NVCC	= $(CUDADIR)/bin/nvcc
 FAST    = -O3 --use_fast_math 
 
 # compiler flags to be used (set to compile with debugging on)
-CFLAGS = -Dp_N=$(N) -DNDG3d -DCUDA -I$(HDRDIR) -O3 -I$(CUDADIR)/include
+NVCC_FLAGS = -Dp_N=$(N) -DNDG3d -DCUDA -I$(HDRDIR) -O3 -I$(CUDADIR)/include
 
 # link flags to be used 
 LDFLAGS	= -I$(HDRDIR) -O3 
@@ -32,9 +32,9 @@ LIBS	= -lm -L./3rdParty/ParMetis-3.1/ -lparmetis -lmetis -L$(CUDADIR)/lib64 -lcu
 
 # rule for .c files
 .c.o:
-	$(CC) $(CFLAGS) -o $*.o -c $*.c
+	$(CC) $(NVCC_FLAGS) -o $*.o -c $*.c
 .cu.o: 
-	$(NVCC) -Xcompiler -Wall $(CFLAGS) $(DEBUG) $(FAST) -o $*.o -c $*.cu  
+	$(NVCC) -Xcompiler -Wall $(NVCC_FLAGS) $(DEBUG) $(FAST) -o $*.o -c $*.cu  
 
 # list of objects to be compiled
 OBJS    = \

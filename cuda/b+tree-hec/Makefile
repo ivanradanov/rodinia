@@ -13,21 +13,21 @@ ARCH      = sm_60
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker Flags
 LDFLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g -DDEBUG
+  NVCC_FLAGS += -g -DDEBUG
   LDFLAGS  += -g
 endif
 
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3
+  NVCC_FLAGS += -O3
 
 endif
 
@@ -36,7 +36,7 @@ b+tree.out:	./main.o \
 		./kernel/kernel2_wrapper.o \
 		./util/timer/timer.o \
 		./util/num/num.o 
-	$(CC)	$(CFLAGS) ./main.o \
+	$(CC)	$(NVCC_FLAGS) ./main.o \
 			./kernel/kernel_wrapper.o \
 			./kernel/kernel2_wrapper.o \
 			./util/timer/timer.o \
@@ -48,7 +48,7 @@ b+tree.out:	./main.o \
 main.o:	./common.h \
 		./main.h \
 		./main.cu
-	$(CC)	$(CFLAGS) $(KERNEL_DIM) ./main.cu \
+	$(CC)	$(NVCC_FLAGS) $(KERNEL_DIM) ./main.cu \
 			-c \
 			-o ./main.o
 
@@ -62,7 +62,7 @@ main.o:	./common.h \
 	$(CC) $(KERNEL_DIM) ./kernel/kernel_wrapper.cu \
 				-c \
 				-o ./kernel/kernel_wrapper.o \
-				$(CFLAGS)
+				$(NVCC_FLAGS)
 
 ./kernel/kernel2_wrapper.o:	./common.h \
 										./kernel/kernel2_wrapper.h \
@@ -70,7 +70,7 @@ main.o:	./common.h \
 	$(CC) $(KERNEL_DIM) ./kernel/kernel2_wrapper.cu \
 				-c \
 				-o ./kernel/kernel2_wrapper.o \
-				$(CFLAGS)
+				$(NVCC_FLAGS)
 
 # ======================================================================================================================================================150
 #	UTILITIES

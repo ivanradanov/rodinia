@@ -24,24 +24,24 @@ obj = $(source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -Ddfloat=double -Ddlong=int -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -Ddfloat=double -Ddlong=int -std=c++14 -Xcompiler -Wall
 
 # Linker Flags
 LDFLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g
+  NVCC_FLAGS += -g
   LDFLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3
+  NVCC_FLAGS += -O3
 endif
 
 ifeq ($(DUMP),yes)
-  CFLAGS += -DOUTPUT
+  NVCC_FLAGS += -DOUTPUT
 endif
 
 #===============================================================================
@@ -49,10 +49,10 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
 
 %.o: %.cu adv.cu
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

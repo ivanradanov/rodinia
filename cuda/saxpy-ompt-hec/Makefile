@@ -24,36 +24,36 @@ obj = $(source:.c=.o)
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -Wall 
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -Wall 
 
 # Linker Flags
 LDFLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g
+  NVCC_FLAGS += -g
   LDFLAGS  += -g 
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3
+  NVCC_FLAGS += -O3
 endif
 
 ifeq ($(DEVICE),gpu)
-  CFLAGS +=-Minfo -mp=gpu -gpu=$(SM) -cudalib=cublas
+  NVCC_FLAGS +=-Minfo -mp=gpu -gpu=$(SM) -cudalib=cublas
 else
-  CFLAGS +=
+  NVCC_FLAGS +=
 endif
 #===============================================================================
 # Targets to Build
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
 
 %.o: %.c asaxpy.h check1ns.h hsaxpy.h wtcalc.h
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)
