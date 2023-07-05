@@ -24,7 +24,7 @@ obj = $(source:.cu=.o)
 
 # Standard Flags
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 \
-          -I../hec-tensorAccessor
+          -I../tensorAccessor-cuda
 
 # Linker Flags
 LINKER_FLAGS += 
@@ -46,7 +46,7 @@ endif
 $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
-%.o: %.cu ../hec-tensorAccessor/tensorAccessor.h Makefile
+%.o: %.cu ../tensorAccessor-cuda/tensorAccessor.h Makefile
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 clean:
