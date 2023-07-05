@@ -37,7 +37,6 @@ binomial-cuda
 bitonic-sort-cuda
 bitpacking-cuda
 black-scholes-cuda
-bm3d-cuda
 bn-cuda
 bonds-cuda
 bscan-cuda
@@ -154,7 +153,6 @@ grep-cuda
 grrt-cuda
 gru-cuda
 haccmk-cuda
-halo-finder-cuda
 hausdorff-cuda
 haversine-cuda
 hbc-cuda
@@ -246,7 +244,6 @@ minmax-cuda
 mis-cuda
 mixbench-cuda
 mkl-sgemm-cuda
-mmcsf-cuda
 mnist-cuda
 morphology-cuda
 mpc-cuda
@@ -344,7 +341,6 @@ sobel-cuda
 sobol-cuda
 softmax-cuda
 sort-cuda
-sortKV-cuda
 sosfil-cuda
 sparkler-cuda
 sph-cuda
@@ -389,7 +385,6 @@ wlcpow-cuda
 wordcount-cuda
 wsm5-cuda
 wyllie-cuda
-xlqc-cuda
 xsbench-cuda
 zerocopy-cuda
 zeropoint-cuda
@@ -399,27 +394,25 @@ zoom-cuda
 exit
 
 # Failing with the __noinline__ problem
-echo "
+mmcsf-cuda
 ans-cuda
 boxfilter-cuda
-"
+sortKV-cuda
+
 # Other compilation failures
-echo "
 axhelm-cuda
 daphne-cuda
-"
+
+# nvcc -dc
+xlqc-cuda
 
 # No input file
-echo "
 cmp-cuda
-"
+
 # --default-stream unsupported
-echo "
 bmf-cuda
-"
 
 # rodinia dupes
-echo "
 btree-cuda
 hybridsort-cuda
 srad-cuda
@@ -440,4 +433,9 @@ heartwall-cuda
 hybridsort-cuda
 kmeans-cuda
 leukocyte-cuda
-"
+
+# mpi
+halo-finder-cuda
+
+# shuffle
+bm3d-cuda
