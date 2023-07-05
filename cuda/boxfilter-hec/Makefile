@@ -23,7 +23,7 @@ obj = main.o shrUtils.o cmd_arg_reader.o reference.o
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall -arch=$(ARCH) -I../boxfilter-sycl
+CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall -I../boxfilter-sycl
 
 # Linker Flags
 LDFLAGS = 

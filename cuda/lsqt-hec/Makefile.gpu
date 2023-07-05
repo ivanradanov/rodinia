@@ -2,7 +2,7 @@ CC   = nvcc
 ARCH = sm_60
 
 # -DDEBUG sets a constant seed for random number generation
-CFLAGS = -O3 -std=c++11 -arch=$(ARCH) -use_fast_math -DDEBUG
+CFLAGS = -O3 -std=c++11 -use_fast_math -DDEBUG
 
 
 SOURCES = main.cu lsqt.cu sigma.cu vector.cu hamiltonian.cu model.\

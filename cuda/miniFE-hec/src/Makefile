@@ -22,7 +22,7 @@ CFLAGS = -v -O3
 #CFLAGS = -qreport -O3 -fopenmp -mcpu=power8 -mtune=power8
 
 CXXFLAGS = -I. -I../utils -I../fem $(MINIFE_TYPES) -O3 -x cu \
-	-arch=$(ARCH) \
+	 \
 	$(MINIFE_MATRIX_TYPE) \
 #            -DMINIFE_DEBUG \
 #	-DHAVE_MPI -DMPICH_IGNORE_CXX_SEEK \

@@ -21,7 +21,7 @@ obj = main.o sptrsv_syncfree.o
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall -arch=$(ARCH) \
+CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall \
           -DWARP_SIZE=32 -DWARP_PER_BLOCK=8 \
           -DVALUE_TYPE=double -I../sptrsv-sycl
 

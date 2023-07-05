@@ -7,7 +7,7 @@ ARCH      = sm_60
 MATRIX_DIR = ./meschach_lib
 
 # Standard flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall -arch=$(ARCH) -I$(MATRIX_DIR) --x cu
+CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall -I$(MATRIX_DIR) --x cu
 
 # Linker flags
 LDFLAGS = -lm

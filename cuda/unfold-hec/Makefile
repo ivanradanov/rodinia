@@ -24,7 +24,7 @@ obj = $(source:.cu=.o)
 
 # Standard Flags
 CFLAGS := $(EXTRA_CFLAGS) --extended-lambda -std=c++14 \
-          -Xcompiler -Wall -arch=$(ARCH)
+          -Xcompiler -Wall
 
 # Linker Flags
 LDFLAGS = 

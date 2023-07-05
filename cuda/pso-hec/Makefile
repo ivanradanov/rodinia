@@ -23,7 +23,7 @@ obj = main.o kernel_gpu.o kernel_cpu.o
 #===============================================================================
 
 # Standard Flags
-CFLAGS := -std=c++14 -Xcompiler -Wall -arch=$(ARCH)
+CFLAGS := -std=c++14 -Xcompiler -Wall
 
 # Linker Flags
 LDFLAGS = 

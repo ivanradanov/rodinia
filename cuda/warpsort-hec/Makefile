@@ -24,7 +24,7 @@ obj = main.o warpsort.o
 
 # Standard Flags
 CFLAGS := $(EXTRA_CFLAGS) -DWARP_SIZE=32 -DHALF_WARP_SIZE=16 \
-          -std=c++14 -I. -Xcompiler -Wall -arch=$(ARCH)
+          -std=c++14 -I. -Xcompiler -Wall
 
 # Linker Flags
 LDFLAGS = 
