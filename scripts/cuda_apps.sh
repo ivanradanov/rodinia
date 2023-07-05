@@ -1,39 +1,8 @@
 #!/bin/bash
 
-echo -n cfd ""
-echo -n gaussian ""
-echo -n particlefilter ""
-echo -n lavaMD ""
-echo -n streamcluster ""
-echo -n lud ""
-echo -n backprop ""
-echo -n bfs ""
-echo -n hotspot ""
-echo -n hotspot3D ""
-echo -n myocyte ""
-echo -n nn ""
-echo -n nw ""
-echo -n pathfinder ""
-echo -n srad/srad_v1 ""
-exit
+DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-# Mem2Reg hang
-echo -n heartwall ""
-
-# Uses inheritance - not yet supported
-echo -n huffman ""
-
-# Undeterministic behaviour, thus excluded
-echo -n dwt2d ""
-echo -n srad/srad_v2 ""
-
-# Buggy code - race condition
-echo -n b+tree ""
-
-# Textures
-echo -n hybridsort ""
-echo -n kmeans ""
-echo -n leukocyte ""
-echo -n mummergpu ""
+"$DIR/rodinia_cuda_apps.sh"
+"$DIR/hecbench_cuda_apps.sh"
 
 exit
