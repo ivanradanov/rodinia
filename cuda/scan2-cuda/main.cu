@@ -291,7 +291,7 @@ int main(int argc, char * argv[])
   std::cout << "-------------------------------------------\n";
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(scan2-cuda main.cu,0);
 
   for(int n = 0; n < iterations; n++)
   {
@@ -320,7 +320,7 @@ int main(int argc, char * argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(scan2-cuda main.cu,0);
   std::cout << "Average execution time of scan kernels: " << time * 1e-3f / iterations
             << " (us)\n";
 

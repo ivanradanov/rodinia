@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
   std::cout << "Searching for roots in [" << i.lower() << ", " << i.upper()
             << "]...\n";
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(interval-cuda main.cu,0);
 
   for (int it = 0; it < repeat; ++it) {
     test_interval_newton<T><<<GRID_SIZE, BLOCK_SIZE>>>(
@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(interval-cuda main.cu,0);
 
   I_CPU *h_result = new I_CPU[THREADS * DEPTH_RESULT];
   cudaMemcpy(h_result, d_result, THREADS * DEPTH_RESULT * sizeof(*d_result),

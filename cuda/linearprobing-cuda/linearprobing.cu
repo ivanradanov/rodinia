@@ -49,13 +49,13 @@ double insert_hashtable(KeyValue* pHashTable, const KeyValue* kvs, uint32_t num_
   int gridsize = ((uint32_t)num_kvs + threadblocksize - 1) / threadblocksize;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(linearprobing-cuda linearprobing.cu,0);
 
   k_hashtable_insert<<<gridsize, threadblocksize>>>(pHashTable, kvs, (uint32_t)num_kvs);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(linearprobing-cuda linearprobing.cu,0);
   
   return time;
 }
@@ -97,13 +97,13 @@ double delete_hashtable(KeyValue* pHashTable, const KeyValue* kvs, uint32_t num_
   int gridsize = ((uint32_t)num_kvs + threadblocksize - 1) / threadblocksize;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(linearprobing-cuda linearprobing.cu,1);
 
   k_hashtable_delete<<<gridsize, threadblocksize>>>(pHashTable, kvs, (uint32_t)num_kvs);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(linearprobing-cuda linearprobing.cu,1);
 
   return time;
 }
@@ -142,13 +142,13 @@ std::vector<KeyValue> iterate_hashtable(KeyValue* pHashTable)
   int gridsize = (kHashTableCapacity + threadblocksize - 1) / threadblocksize;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(linearprobing-cuda linearprobing.cu,2);
 
   k_iterate_hashtable<<<gridsize, threadblocksize>>>(pHashTable, device_kvs, device_num_kvs);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(linearprobing-cuda linearprobing.cu,2);
   printf("Kernel execution time (iterate): %f (s)\n", time * 1e-9f);
 
   uint32_t num_kvs;

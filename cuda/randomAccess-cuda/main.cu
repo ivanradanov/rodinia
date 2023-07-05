@@ -121,7 +121,7 @@ int main(int argc, char** argv) {
   u64Int *d_ran;
   cudaMalloc((void**)&d_ran, 128 * sizeof(u64Int));
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(randomAccess-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     /* initialize the table */
@@ -136,7 +136,7 @@ int main(int argc, char** argv) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(randomAccess-cuda main.cu,0);
   printf("Average kernel execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(Table, d_Table, TableSize * sizeof(u64Int), cudaMemcpyDeviceToHost);

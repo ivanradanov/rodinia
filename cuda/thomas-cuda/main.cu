@@ -87,7 +87,7 @@ int main(int argc, char const *argv[])
     }
   }
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(thomas-cuda main.cu,0);
 
   // Sequantial CPU Execution for correct error check
   for (int n = 0; n < repeat; n++) {
@@ -95,7 +95,7 @@ int main(int argc, char const *argv[])
   }
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(thomas-cuda main.cu,0);
   printf("Average serial execution time: %f (ms)\n", (time * 1e-6f) / repeat);
 
   for (size_t i = 0; i < matrix_size; ++i) {
@@ -153,7 +153,7 @@ int main(int argc, char const *argv[])
   cudaMemcpy(rhs_device, rhs_Thomas_host, matrix_size_bytes, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(thomas-cuda main.cu,1);
 
   for (int n = 0; n < repeat; n++) {
     cuThomasBatch<<<(N/BlockSize)+1, BlockSize>>>(l_device, d_device, u_device, rhs_device, M, N);
@@ -161,7 +161,7 @@ int main(int argc, char const *argv[])
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(thomas-cuda main.cu,1);
   printf("Average kernel execution time: %f (ms)\n", (time * 1e-6f) / repeat);
 
   cudaMemcpy(rhs_Thomas_host, rhs_device, matrix_size_bytes, cudaMemcpyDeviceToHost);

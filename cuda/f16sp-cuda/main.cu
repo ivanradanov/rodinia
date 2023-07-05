@@ -166,14 +166,14 @@ int main(int argc, char *argv[])
     scalarProductKernel_intrinsics<<<NUM_OF_BLOCKS, NUM_OF_THREADS>>>(d_a, d_b, d_r, size);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(f16sp-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     scalarProductKernel_intrinsics<<<NUM_OF_BLOCKS, NUM_OF_THREADS>>>(d_a, d_b, d_r, size);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(f16sp-cuda main.cu,0);
   printf("Average kernel execution time %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(r, d_r, result_bytes, cudaMemcpyDeviceToHost);
@@ -190,14 +190,14 @@ int main(int argc, char *argv[])
     scalarProductKernel_native<<<NUM_OF_BLOCKS, NUM_OF_THREADS>>>(d_a, d_b, d_r, size);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(f16sp-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     scalarProductKernel_native<<<NUM_OF_BLOCKS, NUM_OF_THREADS>>>(d_a, d_b, d_r, size);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(f16sp-cuda main.cu,1);
   printf("Average kernel execution time %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(r, d_r, result_bytes, cudaMemcpyDeviceToHost);

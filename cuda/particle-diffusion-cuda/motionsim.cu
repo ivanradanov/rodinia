@@ -183,7 +183,7 @@ void motion_device(float* particleX, float* particleY,
     cudaMemcpy(d_map, map, sizeof(size_t) * MAP_SIZE, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(particle-diffusion-cuda motionsim.cu,0);
 
     Simulation<<< dim3((n_particles + 255) / 256), dim3(256) >>> (
       d_particleX, 
@@ -198,7 +198,7 @@ void motion_device(float* particleX, float* particleY,
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(particle-diffusion-cuda motionsim.cu,0);
     time_total += time;
   }
 
@@ -280,14 +280,14 @@ int main(int argc, char* argv[]) {
   }
 
   // Start timers
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(particle-diffusion-cuda motionsim.cu,1);
 
   // Call simulation function
   motion_device(particleX, particleY, randomX, randomY, grid, grid_size,
                 n_particles, nIterations, radius, map, nRepeat);
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(particle-diffusion-cuda motionsim.cu,1);
   std::cout << std::endl;
   std::cout << "Simulation time: " << time * 1e-9 << " (s) ";
   std::cout << std::endl;

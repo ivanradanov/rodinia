@@ -455,7 +455,7 @@ std::vector<float> bc_gpu(
   }
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(hbc-cuda kernels.cu,0);
   
   bc_kernel<<<dimGrid,dimBlock>>>(
       bc_d,
@@ -488,7 +488,7 @@ std::vector<float> bc_gpu(
 
   cudaDeviceSynchronize();
   auto stop = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count();
+MY_STOP_CLOCK(hbc-cuda kernels.cu,0);
   std::cout << "Kernel execution time " << time * 1e-9f << " (s)\n";
 
   // GPU result

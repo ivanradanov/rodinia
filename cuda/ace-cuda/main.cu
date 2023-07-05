@@ -359,7 +359,7 @@ int main(int argc, char *argv[])
   reference(phi_ref, u_ref, vol, num_steps);
 #endif 
 
-  auto offload_start = std::chrono::steady_clock::now();
+MY_START_CLOCK(ace-cuda main.cu,0);
 
   // define the chunk sizes that each threadblock will work on
   dim3 grid ((DATAZSIZE+7)/8, (DATAYSIZE+7)/8, (DATAXSIZE+3)/4);
@@ -380,7 +380,7 @@ int main(int argc, char *argv[])
   int t = 0;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(ace-cuda main.cu,1);
 
   while (t <= num_steps) {
 
@@ -408,7 +408,7 @@ int main(int argc, char *argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(ace-cuda main.cu,0);
   printf("Total kernel execution time: %.3f (ms)\n", time * 1e-6f);
 
   cudaMemcpy(phi_host, d_phiold, vol_in_bytes, cudaMemcpyDeviceToHost);
@@ -423,7 +423,7 @@ int main(int argc, char *argv[])
   cudaFree(d_Fz);
 
   auto offload_end = std::chrono::steady_clock::now();
-  auto offload_time = std::chrono::duration_cast<std::chrono::nanoseconds>(offload_end - offload_start).count();
+MY_STOP_CLOCK(ace-cuda main.cu,1);
   printf("Offload time: %.3f (ms)\n", offload_time * 1e-6f);
 
 #ifdef VERIFY

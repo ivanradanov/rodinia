@@ -194,7 +194,7 @@ int main(int argc, char **argv) {
     int * d_consumed;
     cudaMalloc((void**)&d_consumed, sizeof(int));
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(tqs-cuda main.cu,0);
 
     for(int rep = 0; rep < p.n_reps + p.n_warmup; rep++) {
 
@@ -221,7 +221,7 @@ int main(int argc, char **argv) {
     }
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(tqs-cuda main.cu,0);
     printf("Total task execution time for %d iterations: %f (ms)\n", p.n_reps + p.n_warmup, time * 1e-6f);
 
     cudaFree(d_task_queues);

@@ -172,7 +172,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+MY_STOP_CLOCK(shuffle-cuda main.cu,0);
   std::cout << "Average kernel time (subgroup size = 8): "
             << time * 1e-3f / repeat << " (us)\n";
 
@@ -186,7 +186,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+MY_STOP_CLOCK(shuffle-cuda main.cu,1);
   std::cout << "Average kernel time (subgroup size = 16): "
             << time * 1e-3f / repeat << " (us)\n";
 
@@ -200,7 +200,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+MY_STOP_CLOCK(shuffle-cuda main.cu,2);
   std::cout << "Average kernel time (subgroup size = 32): "
             << time * 1e-3f / repeat << " (us)\n";
 
@@ -215,7 +215,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+MY_STOP_CLOCK(shuffle-cuda main.cu,3);
   std::cout << "Average kernel time (subgroup size = 8): "
             << time * 1e-3f / repeat << " (us)\n";
 
@@ -229,7 +229,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+MY_STOP_CLOCK(shuffle-cuda main.cu,4);
   std::cout << "Average kernel time (subgroup size = 16): "
             << time * 1e-3f / repeat << " (us)\n";
 
@@ -244,7 +244,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+MY_STOP_CLOCK(shuffle-cuda main.cu,5);
   std::cout << "Average kernel time (subgroup size = 32): "
             << time * 1e-3f / repeat << " (us)\n";
 
@@ -282,7 +282,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+MY_STOP_CLOCK(shuffle-cuda main.cu,6);
   std::cout << "Average kernel time (subgroup size = 8): "
             << time * 1e-3f / repeat2 << " (us)\n";
 
@@ -298,7 +298,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+MY_STOP_CLOCK(shuffle-cuda main.cu,7);
   std::cout << "Average kernel time (subgroup size = 16): "
             << time * 1e-3f / repeat2 << " (us)\n";
 
@@ -314,7 +314,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+MY_STOP_CLOCK(shuffle-cuda main.cu,8);
   std::cout << "Average kernel time (subgroup size = 32): "
             << time * 1e-3f / repeat2 << " (us)\n";
 

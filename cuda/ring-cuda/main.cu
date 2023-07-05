@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
     cudaMemcpy(device_ptr[0], host_ptr.data(), data_size_bytes, cudaMemcpyDefault);
     std::memset(host_ptr.data(), 0, data_size_bytes);
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(ring-cuda main.cu,0);
 
     // The circular exchange
     for (int n = 0; n < repeat; n++) {
@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
     }
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(ring-cuda main.cu,0);
     printf("Total circular exchange time (length = %ld): %f (us)\n",
            len, time * 1e-3f / repeat);
 

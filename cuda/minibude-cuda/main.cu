@@ -60,7 +60,7 @@ __global__ void fasten_main(
 
 double elapsedMillis( const TimePoint &start, const TimePoint &end){
   auto elapsedNs = static_cast<double>(
-      std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count());
+MY_STOP_CLOCK(minibude-cuda main.cu,0);
   return elapsedNs * 1e-6;
 }
 

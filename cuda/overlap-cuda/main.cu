@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
 float processWithStreams(int streams_used) {
   int current_stream = 0;
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(overlap-cuda main.cu,0);
 
   // Do processing in a loop
   //
@@ -157,7 +157,7 @@ float processWithStreams(int streams_used) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(overlap-cuda main.cu,0);
 
   return (time * 1e-6f); // milliseconds
 }

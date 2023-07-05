@@ -94,14 +94,14 @@ int main(int argc, char* argv[])
 
     cudaMemset(d_minValue, 0, sizeof(float));
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(michalewicz-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++)
       eval<<<grids, blocks>>>(d_values, d_minValue, n, dim);
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(michalewicz-cuda main.cu,0);
     printf("Average execution time of kernel (dim = %d): %f (us)\n",
            dim, (time * 1e-3f) / repeat);
 

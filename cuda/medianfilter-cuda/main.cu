@@ -133,14 +133,14 @@ double MedianFilterGPU(
            szGlobalWorkSize[1] / szLocalWorkSize[1]);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(medianfilter-cuda main.cu,0);
 
   ckMedian<<<gws, lws, sizeof(uchar4)*iLocalPixPitch*(iBlockDimY+2)>>>(
        cmDevBufIn, cmDevBufOut, iLocalPixPitch, uiImageWidth, uiImageHeight);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(medianfilter-cuda main.cu,0);
 
   cudaMemcpy((uchar4*)uiOutputImage, cmDevBufOut, 
     uiImageWidth * uiImageHeight * sizeof(uchar4), cudaMemcpyDeviceToHost);

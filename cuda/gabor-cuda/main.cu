@@ -62,7 +62,7 @@ double* generateGaborKernelDevice(
   dim3 blocks (16, 16);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(gabor-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     gabor<<<grids, blocks>>>(d_gabor_spatial,
@@ -80,7 +80,7 @@ double* generateGaborKernelDevice(
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(gabor-cuda main.cu,0);
   printf("Average kernel execution time: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(h_gabor_spatial, d_gabor_spatial, image_size_bytes, cudaMemcpyDeviceToHost);

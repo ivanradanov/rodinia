@@ -70,7 +70,7 @@ int main()
   cudaMemcpy(d_VariablesIn, VariablesIn, sizeof(double) * VarINNUM, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(grrt-cuda main.cu,0);
 
   for(int GridIdxY = 0; GridIdxY < ImaDimY; GridIdxY++){
     for(int GridIdxX = 0; GridIdxX < ImaDimX; GridIdxX++){                      
@@ -80,7 +80,7 @@ int main()
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(grrt-cuda main.cu,0);
   printf("Total kernel execution time (task1) %f (s)\n", time * 1e-9f);
   
 
@@ -110,7 +110,7 @@ int main()
   cudaMemcpy(d_VariablesIn, VariablesIn, sizeof(double) * VarINNUM, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(grrt-cuda main.cu,1);
 
   //compute number of grides, to cover the whole image plane
   for(int GridIdxY = 0; GridIdxY < ImaDimY; GridIdxY++){
@@ -121,7 +121,7 @@ int main()
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(grrt-cuda main.cu,1);
   printf("Total kernel execution time (task2) %f (s)\n", time * 1e-9f);
 
   cudaMemcpy(Results, d_ResultsPixel, sizeof(double) * IMAGE_SIZE * IMAGE_SIZE * 3, cudaMemcpyDeviceToHost);

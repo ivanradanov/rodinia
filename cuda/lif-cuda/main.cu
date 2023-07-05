@@ -173,7 +173,7 @@ int main(int argc, char* argv[]) {
   dim3 grids ((num_neurons + 255) / 256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lif-cuda main.cu,0);
 
   for(int step = 0; step < num_steps; step++) {
     lif<<<grids, blocks>>>(
@@ -192,7 +192,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto elapsed_time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lif-cuda main.cu,0);
   printf("Average kernel execution time: %f (us)\n", (elapsed_time * 1e-3) / num_steps);
 
   cudaMemcpy(spikes, d_spikes, neurons_size, cudaMemcpyDeviceToHost); 

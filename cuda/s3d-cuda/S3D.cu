@@ -88,13 +88,13 @@ void RunBenchmark(OptionParser &op)
   auto t1 = std::chrono::high_resolution_clock::now();
   RunTest<float>("S3D-SP", op);
   auto t2 = std::chrono::high_resolution_clock::now();
-  double total_time = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+MY_STOP_CLOCK(s3d-cuda S3D.cu,0);
   printf("Total time %lf secs \n", total_time * 1e-9);
 
   t1 = std::chrono::high_resolution_clock::now();
   RunTest<double>("S3D-DP", op);
   t2 = std::chrono::high_resolution_clock::now();
-  total_time = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+MY_STOP_CLOCK(s3d-cuda S3D.cu,1);
   printf("Total time %lf secs \n", total_time * 1e-9);
 }
 
@@ -205,7 +205,7 @@ void RunTest(string testName, OptionParser &op)
   unsigned int passes = op.getOptionInt("passes");
 
   cudaDeviceSynchronize();
-  auto start  = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(s3d-cuda S3D.cu,0);
 
   for (unsigned int i = 0; i < passes; i++)
   {
@@ -265,7 +265,7 @@ void RunTest(string testName, OptionParser &op)
 
   cudaDeviceSynchronize();
   auto end  = std::chrono::high_resolution_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(s3d-cuda S3D.cu,2);
   printf("\nAverage time of executing s3d kernels: %lf (us)\n", (time * 1e-3) / passes);
 
   // Copy back result

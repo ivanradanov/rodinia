@@ -88,14 +88,14 @@ void surfelRenderTest(int n, int w, int h, int repeat)
   for (int f = 0; f < 3; f++) {
     printf("\nf = %d\n", f);
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(surfel-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++)
       surfel_render<T><<<blocks, threads>>>(d_src, n, inverseFocalLength[f], w, h, d_dst);
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(surfel-cuda main.cu,0);
     printf("Average kernel execution time: %f (ms)\n", (time * 1e-6f) / repeat);
 
     cudaMemcpy(h_dst, d_dst, dst_size * sizeof(T), cudaMemcpyDeviceToHost); 

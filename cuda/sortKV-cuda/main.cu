@@ -30,7 +30,7 @@ void sort_key_value (int n, int repeat, bool verify) {
     thrust::shuffle(keys.begin(), keys.end(), thrust::default_random_engine(seed));
     for (int i = 0; i < n; i++) vals[i] = keys[i] % 256;
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(sortKV-cuda main.cu,0);
 
     d_keys = keys;
     d_vals = vals;
@@ -41,7 +41,7 @@ void sort_key_value (int n, int repeat, bool verify) {
     vals = d_vals;
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(sortKV-cuda main.cu,0);
     total_time += time;
   }
 

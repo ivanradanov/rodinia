@@ -74,14 +74,14 @@ int main(int argc, char* argv[]) {
   cudaMemset(d_probs, 0.0, alphas_size_byte);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(mcpr-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     compute_probs<<<blocks, threads>>>(d_alphas, d_rands, d_probs, n, K, M);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(mcpr-cuda main.cu,0);
   printf("Average kernel execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(probs, d_probs, alphas_size_byte, cudaMemcpyDeviceToHost);
@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
   cudaMemset(d_probs, 0.0, alphas_size_byte);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(mcpr-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     compute_probs_unitStrides<<<blocks, threads>>>(
@@ -106,7 +106,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(mcpr-cuda main.cu,1);
   printf("Average kernel execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(probs, d_probs, alphas_size_byte, cudaMemcpyDeviceToHost);
@@ -123,7 +123,7 @@ int main(int argc, char* argv[]) {
   cudaMemset(d_probs, 0.0, alphas_size_byte);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(mcpr-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++)
     compute_probs_unitStrides_sharedMem<<<blocks2, threads2, sm_size, 0>>>(
@@ -131,7 +131,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(mcpr-cuda main.cu,2);
   printf("Average kernel execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(probs, d_probs, alphas_size_byte, cudaMemcpyDeviceToHost);

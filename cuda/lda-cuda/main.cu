@@ -103,7 +103,7 @@ int main(int argc, char* argv[]) {
   bool init_gamma = false;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lda-cuda main.cu,0);
 
   for (i = 0; i < repeat; i++) {
     init_gamma = (i == 0) ? true : false;
@@ -125,14 +125,14 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lda-cuda main.cu,0);
   printf("Average kernel execution time (training): %f (s)\n", (time * 1e-9f) / repeat);
 
   // validation
   cudaMemset(d_vali, 0xFFFFFFFF, sizeof(bool) * num_cols); 
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lda-cuda main.cu,1);
 
   for (i = 0; i < repeat; i++) {
     EstepKernel<<<block_cnt, block_dim, 4 * num_topics * sizeof(float)>>>(
@@ -153,7 +153,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lda-cuda main.cu,1);
   printf("Average kernel execution time (validation): %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(vali_losses.data(), d_vali_losses, sizeof(float) * block_cnt, cudaMemcpyDeviceToHost);

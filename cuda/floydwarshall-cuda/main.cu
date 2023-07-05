@@ -241,7 +241,7 @@ int main(int argc, char** argv) {
         matrixSizeBytes, cudaMemcpyHostToDevice, 0);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(floydwarshall-cuda main.cu,0);
 
     for(unsigned int i = 0; i < numPasses; i++)
     {
@@ -250,7 +250,7 @@ int main(int argc, char** argv) {
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(floydwarshall-cuda main.cu,0);
     total_time += time;
   }
 

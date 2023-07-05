@@ -197,7 +197,7 @@ int main(int argc, char** argv) {
       checkCudaError(cudaMemset((void*)C_dev, 0, A_nrows*B_ncols*sizeof(C_dev[0])));
 
       cudaDeviceSynchronize();
-      auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(ge-spmm-cuda main.cu,0);
 
       for (int i=0; i<repeat; i++)
         spmmWrapper(method, tile_row,  A_nrows, B_ncols, A_indptr_dev,
@@ -205,7 +205,7 @@ int main(int argc, char** argv) {
 
       cudaDeviceSynchronize();
       auto end = std::chrono::steady_clock::now();
-      auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(ge-spmm-cuda main.cu,0);
       printf("Average kernel (method %d) execution time %f (us)\n", method, (time * 1e-3f) / repeat);
 
       checkCudaError(cudaMemcpy(C, C_dev, A_nrows*B_ncols*sizeof(C[0]), cudaMemcpyDeviceToHost));

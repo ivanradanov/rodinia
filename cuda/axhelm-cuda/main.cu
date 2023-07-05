@@ -83,7 +83,7 @@ int main(int argc, char **argv){
     axhelmReference(Nq, Nelements, lambda1, ggeo, DrV, x, Ax);
   }
 
-  auto start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(axhelm-cuda main.cu,0);
 
   dfloat *o_ggeo, *o_q, *o_Aq, *o_DrV, *o_lambda;
   cudaMalloc((void**) &o_ggeo, Np*Nelements*p_Nggeo*sizeof(dfloat));
@@ -116,7 +116,7 @@ int main(int argc, char **argv){
   cudaFree(o_lambda);
 
   auto end = std::chrono::high_resolution_clock::now();
-  const double elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() / Ntests;
+MY_STOP_CLOCK(axhelm-cuda main.cu,0);
 
   // verify
   dfloat maxDiff = 0;

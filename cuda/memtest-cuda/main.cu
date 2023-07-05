@@ -159,7 +159,7 @@ int main(int argc, char* argv[]) {
   dim3 block5 (64);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(memtest-cuda main.cu,0);
   
   for (int i = 0; i < repeat; i++) {
     kernel5_init <<<grid5, block5>>> (dev_mem, mem_size);
@@ -176,7 +176,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(memtest-cuda main.cu,0);
   
   check(err_cnt);
 

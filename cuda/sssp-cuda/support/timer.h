@@ -48,12 +48,12 @@ struct Timer {
     if(!time.count(name)) {
       time[name] = 0.0;
     }
-    startTime[name] = std::chrono::steady_clock::now();
+MY_START_CLOCK(sssp-cuda support timer.h,0);
   }
 
   void stop(const std::string &name) {
     stopTime[name] = std::chrono::steady_clock::now();
-    float part_time = std::chrono::duration_cast<std::chrono::nanoseconds>(stopTime[name] - startTime[name]).count();
+MY_STOP_CLOCK(sssp-cuda support timer.h,0);
     time[name] += part_time;
   }
 

@@ -60,7 +60,7 @@ double master(fp timeinst,
   blocks.y = 1;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(myocyte-cuda master.cu,0);
 
   kernel<<<blocks, threads>>>(
       timeinst,
@@ -71,7 +71,7 @@ double master(fp timeinst,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(myocyte-cuda master.cu,0);
 
   cudaMemcpy(finavalu, d_finavalu, d_finavalu_mem, cudaMemcpyDeviceToHost);
   cudaMemcpy(com, d_com, d_com_mem, cudaMemcpyDeviceToHost);

@@ -396,7 +396,7 @@ sort(const std::vector<float>& data, double &time) {
   int outSizes[] = { (int) data.size() };
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(warpsort-cuda warpsort.cu,0);
 
   sortDevice<<<grid, block>>>(
     DeviceTensor<float, 1>(devFloat, dataSizes),
@@ -404,7 +404,7 @@ sort(const std::vector<float>& data, double &time) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(warpsort-cuda warpsort.cu,0);
 
   std::vector<float> vals(data.size());
   cudaMemcpy(vals.data(), devResult, sizeBytes, cudaMemcpyDeviceToHost);
@@ -438,7 +438,7 @@ sortWithIndices(const std::vector<float>& data, double &time) {
   int outSizes[] = { (int) data.size() };
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(warpsort-cuda warpsort.cu,1);
 
   sortDevice<<<grid, block>>>(
     DeviceTensor<float, 1>(devFloat, dataSizes),
@@ -447,7 +447,7 @@ sortWithIndices(const std::vector<float>& data, double &time) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(warpsort-cuda warpsort.cu,1);
 
   std::vector<float> vals(data.size());
   cudaMemcpy(vals.data(),

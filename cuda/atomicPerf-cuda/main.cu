@@ -94,79 +94,79 @@ void atomicPerf (int n, int t, int repeat)
 
   CHECK_ERROR( cudaMemcpy(d_data, data, data_size, cudaMemcpyHostToDevice) );
   CHECK_ERROR( cudaDeviceSynchronize() );
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atomicPerf-cuda main.cu,0);
   for(int i=0; i<repeat; i++)
   {
     BlockRangeAtomicOnGlobalMem<T><<<grid, block>>>(d_data, n);
   }
   CHECK_ERROR( cudaDeviceSynchronize() );
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atomicPerf-cuda main.cu,0);
   printf("Average execution time of BlockRangeAtomicOnGlobalMem: %f (us)\n",
           time * 1e-3f / repeat);
 
   CHECK_ERROR( cudaMemcpy(d_data, data, data_size, cudaMemcpyHostToDevice) );
   CHECK_ERROR( cudaDeviceSynchronize() );
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atomicPerf-cuda main.cu,1);
   for(int i=0; i<repeat; i++)
   {
     WarpRangeAtomicOnGlobalMem<T><<<grid, block>>>(d_data, n);
   }
   CHECK_ERROR( cudaDeviceSynchronize() );
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atomicPerf-cuda main.cu,1);
   printf("Average execution time of WarpRangeAtomicOnGlobalMem: %f (us)\n",
           time * 1e-3f / repeat);
 
   CHECK_ERROR( cudaMemcpy(d_data, data, data_size, cudaMemcpyHostToDevice) );
   CHECK_ERROR( cudaDeviceSynchronize() );
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atomicPerf-cuda main.cu,2);
   for(int i=0; i<repeat; i++)
   {
     SingleRangeAtomicOnGlobalMem<T><<<grid, block>>>(d_data, i % BLOCK_SIZE, n);
   }
   CHECK_ERROR( cudaDeviceSynchronize() );
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atomicPerf-cuda main.cu,2);
   printf("Average execution time of SingleRangeAtomicOnGlobalMem: %f (us)\n",
           time * 1e-3f / repeat);
 
   CHECK_ERROR( cudaMemcpy(d_data, data, data_size, cudaMemcpyHostToDevice) );
   CHECK_ERROR( cudaDeviceSynchronize() );
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atomicPerf-cuda main.cu,3);
   for(int i=0; i<repeat; i++)
   {
     BlockRangeAtomicOnSharedMem<T><<<grid, block>>>(d_data, n);
   }
   CHECK_ERROR( cudaDeviceSynchronize() );
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atomicPerf-cuda main.cu,3);
   printf("Average execution time of BlockRangeAtomicOnSharedMem: %f (us)\n",
           time * 1e-3f / repeat);
 
   CHECK_ERROR( cudaMemcpy(d_data, data, data_size, cudaMemcpyHostToDevice) );
   CHECK_ERROR( cudaDeviceSynchronize() );
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atomicPerf-cuda main.cu,4);
   for(int i=0; i<repeat; i++)
   {
     WarpRangeAtomicOnSharedMem<T><<<grid, block>>>(d_data, n);
   }
   CHECK_ERROR( cudaDeviceSynchronize() );
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atomicPerf-cuda main.cu,4);
   printf("Average execution time of WarpRangeAtomicOnSharedMem: %f (us)\n",
           time * 1e-3f / repeat);
 
   CHECK_ERROR( cudaMemcpy(d_data, data, data_size, cudaMemcpyHostToDevice) );
   CHECK_ERROR( cudaDeviceSynchronize() );
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atomicPerf-cuda main.cu,5);
   for(int i=0; i<repeat; i++)
   {
     SingleRangeAtomicOnSharedMem<T><<<grid, block>>>(d_data, i % BLOCK_SIZE, n);
   }
   CHECK_ERROR( cudaDeviceSynchronize() );
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atomicPerf-cuda main.cu,5);
   printf("Average execution time of SingleRangeAtomicOnSharedMem: %f (us)\n",
           time * 1e-3f / repeat);
 

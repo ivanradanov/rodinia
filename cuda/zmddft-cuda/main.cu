@@ -1611,7 +1611,7 @@ int main(int argc, char* argv[])
   dim3 g1(16384), g2(16384), g3(16384);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(zmddft-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     ker_zmddft_fwd_256x256x256_cu0<<<g1, b1>>>(X, P1);
@@ -1621,7 +1621,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(zmddft-cuda main.cu,0);
   printf("Average kernel execution time: %.3f (ms)\n", time * 1e-6f / repeat);
 
   cudaMemcpy(y, Y, dat_size, cudaMemcpyDeviceToHost);

@@ -525,7 +525,7 @@ int main(int argc, char* argv[])
 
     cudaMemcpy(&countedBlockNumLv2, countedBlockNumLv2Device, sizeof(unsigned int), cudaMemcpyDeviceToHost);
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(marchingCubes-cuda main.cu,0);
 
     generatingTriangles <<< countedBlockNumLv2, BlockSizeGenerating >>> (
         isoValue, blockIndicesLv2Device,
@@ -535,7 +535,7 @@ int main(int argc, char* argv[])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(marchingCubes-cuda main.cu,0);
     time += ktime;
 
     cudaMemcpy(&countedVerticesNum, countedVerticesNumDevice, sizeof(unsigned int), cudaMemcpyDeviceToHost);

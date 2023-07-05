@@ -99,14 +99,14 @@ int main(int argc, char* argv[]) {
     const float p = (float)k;
     const float one_over_p = 1.f / p;
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(minkowski-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++)
       minkowski<<<dimGrid, dimBlock>>>(a_device, b_device, c_device, p, one_over_p, M, N, P);
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(minkowski-cuda main.cu,0);
     printf("Average kernel execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
     cudaMemcpy(c_back, c_device, sizeof(int)*M*P, cudaMemcpyDeviceToHost);

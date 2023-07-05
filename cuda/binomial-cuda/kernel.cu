@@ -142,14 +142,14 @@ extern "C" void binomialOptionsGPU(
   cudaMalloc ((void**)&d_CallValue, sizeof(real) * MAX_OPTIONS);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(binomial-cuda kernel.cu,0);
 
   for (int i = 0; i < numIterations; i++)
     binomialOptionsKernel<<<optN, THREADBLOCK_SIZE>>>(d_OptionData, d_CallValue);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(binomial-cuda kernel.cu,0);
   printf("Average kernel execution time : %f (us)\n", time * 1e-3f / numIterations);
 
   cudaMemcpy(callValue, d_CallValue, optN *sizeof(real), cudaMemcpyDeviceToHost);

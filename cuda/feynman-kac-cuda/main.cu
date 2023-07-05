@@ -168,13 +168,13 @@ int main ( int argc, char **argv )
     cudaMemcpy(d_n_inside, &n_inside, sizeof(int), cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(feynman-kac-cuda main.cu,0);
 
     fk <<< grids, blocks >>> (ni, nj, seed, N, a, b, h, rth, d_n_inside, d_err);
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(feynman-kac-cuda main.cu,0);
   }
   printf("Average kernel time: %lf (s)\n", time * 1e-9 / repeat);
 

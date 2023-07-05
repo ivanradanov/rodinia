@@ -376,7 +376,7 @@ int main(int argc, char *argv[])
   // initialize the gene data
   readgene(infile,gene,Hd,n,D);  
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(ccs-cuda main.cu,0);
 
   float *d_gene;
   cudaMalloc((void**)&d_gene, sizeof(float) * n * (D+1));
@@ -410,7 +410,7 @@ int main(int argc, char *argv[])
   dim3 grids (maxbcn);
 
   cudaDeviceSynchronize();
-  auto kstart = std::chrono::steady_clock::now();
+MY_START_CLOCK(ccs-cuda main.cu,1);
 
   for (i = 0; i < repeat; i++) {
     compute_bicluster <<< grids, blocks >>> (
@@ -427,7 +427,7 @@ int main(int argc, char *argv[])
 
   cudaDeviceSynchronize();
   auto kend = std::chrono::steady_clock::now();
-  auto ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+MY_STOP_CLOCK(ccs-cuda main.cu,0);
   printf("Average kernel execution time %f (s)\n", ktime * 1e-9f / repeat);
 
   float *bicluster_temp_score = (float *)calloc(maxbcn,sizeof(float));
@@ -480,7 +480,7 @@ int main(int argc, char *argv[])
   free(bicluster);
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(ccs-cuda main.cu,1);
   printf("Elapsed time = %f (s)\n", time * 1e-9f);
   if (print_type==0) fprintf(out,"\n\nElapsed time = %f s\n", time * 1e-9f);
   if (out) fclose(out);

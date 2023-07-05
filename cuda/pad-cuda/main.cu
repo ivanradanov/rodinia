@@ -202,7 +202,7 @@ int main(int argc, char **argv) {
     cudaMemcpy(d_flags, h_flags, n_flags * sizeof(int), cudaMemcpyHostToDevice);
 #endif
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(pad-cuda main.cu,0);
 
     // Loop over main kernel
     for(int rep = 0; rep < p.n_warmup + p.n_reps; rep++) {
@@ -247,7 +247,7 @@ int main(int argc, char **argv) {
     }
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(pad-cuda main.cu,0);
     printf("Total padding execution time for %d iterations: %f (ms)\n", p.n_reps + p.n_warmup, time * 1e-6f);
 
 #ifndef DYNAMIC_PARTITION

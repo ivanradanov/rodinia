@@ -180,7 +180,7 @@ bool fdtdGPU(float *output, const float *input, const float *coeff,
   shrLog(" GPU FDTD loop\n");
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(fdtd3d-cuda FDTD3dGPU.cu,0);
 
   for (int it = 0 ; it < timesteps ; it++)
   {
@@ -195,7 +195,7 @@ bool fdtdGPU(float *output, const float *input, const float *coeff,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(fdtd3d-cuda FDTD3dGPU.cu,0);
   printf("Average kernel execution time %f (s)\n", (time * 1e-9f) / timesteps);
 
   // Read the result back, result is in bufferSrc (after final toggle)

@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
       d_a, d_b, d_r, size);
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(f16max-cuda main.cu,0);
   
   // run hmax2
   for (int i = 0; i < repeat; i++)
@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(f16max-cuda main.cu,0);
   printf("Average kernel execution time %f (us)\n", (time * 1e-3f) / repeat);
 
   // verify
@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
       (half*)d_a, (half*)d_b, (half*)d_r, size*2);
   cudaDeviceSynchronize();
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(f16max-cuda main.cu,1);
   
   // run hmax (the size is doubled)
   for (int i = 0; i < repeat; i++)
@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(f16max-cuda main.cu,1);
   printf("Average kernel execution time %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(r, d_r, size_bytes, cudaMemcpyDeviceToHost);

@@ -187,7 +187,7 @@ int main(int argc, char* argv[]) {
     cudaMemcpy(d_norm, norm, size_bytes, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(asmooth-cuda main.cu,0);
 
     // launch three kernels
     smoothingFilter<<<grids, blocks>>>(Lx, Ly, Threshold, MaxRad, d_img, d_box, d_norm);
@@ -196,7 +196,7 @@ int main(int argc, char* argv[]) {
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(asmooth-cuda main.cu,0);
   }
 
   printf("Average filtering time %lf (s)\n", (time * 1e-9) / repeat);

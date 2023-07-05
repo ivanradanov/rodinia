@@ -477,7 +477,7 @@ int main(int argc, char* argv[]) {
       0);
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(nbnxm-cuda main.cu,0);
 
   for (int i = 0; i < repeat; ++i) {
     nbnxmKernelTest<<<grids, blocks>>>(
@@ -499,7 +499,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(nbnxm-cuda main.cu,0);
   printf("Average kernel execution time (w/o shift): %f (us)\n", (time * 1e-3f) / repeat);
 
 #ifdef DEBUG
@@ -548,7 +548,7 @@ int main(int argc, char* argv[]) {
     nbfp[i] = make_float2(0.5f, 0.25f);
   }
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(nbnxm-cuda main.cu,1);
 
   for (int i = 0; i < repeat; ++i) {
     nbnxmKernelTest<<<grids, blocks>>>(
@@ -570,7 +570,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(nbnxm-cuda main.cu,1);
   printf("Average kernel execution time (w/ shift): %f (us)\n", (time * 1e-3f) / repeat);
 
 #ifdef DEBUG

@@ -149,7 +149,7 @@ int main(int argc, char ** argv) {
   cudaMalloc((void**)&d_gicov, sizeof(float)*grad_m*grad_n);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(leukocyte-cuda detect_main.c,0);
 
   kernel_GICOV<<<global_work_size/work_group_size, work_group_size>>>(
     d_grad_x,
@@ -165,7 +165,7 @@ int main(int argc, char ** argv) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(leukocyte-cuda detect_main.c,0);
   printf("Kernel execution time (GICOV): %f (s)\n", time * 1e-9f);
 
   cudaMemcpy(host_gicov, d_gicov, sizeof(float)*grad_m*grad_n, cudaMemcpyDeviceToHost);
@@ -215,14 +215,14 @@ int main(int argc, char ** argv) {
 #endif
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(leukocyte-cuda detect_main.c,1);
 
   kernel_dilated<<<global_work_size/local_work_size, local_work_size>>>(
 	  d_strel, d_gicov, d_img_dilated, strel_m, strel_n, max_gicov_m, max_gicov_n);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(leukocyte-cuda detect_main.c,1);
   printf("Kernel execution time (dilated): %f (s)\n", time * 1e-9f);
 
   cudaMemcpy(host_dilated, d_img_dilated, sizeof(float)*grad_m*grad_n, cudaMemcpyDeviceToHost);

@@ -50,7 +50,7 @@ double l2norm(const int n, const double * u, const int nsteps, const double dt, 
 int main(int argc, char *argv[]) {
 
   // Start the total program runtime timer
-  auto start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(heat-cuda heat.cu,0);
 
   // Problem size, forms an nxn grid
   int n = 1000;

@@ -128,7 +128,7 @@ int main(int argc, char **argv)
   cudaMalloc(&g1, buf_size);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(p2p-cuda main.cu,0);
 
   for (int i=0; i<repeat; i++)
   {
@@ -147,7 +147,7 @@ int main(int argc, char **argv)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time_memcpy = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(p2p-cuda main.cu,0);
 
   printf("Peer-to-peer copy between GPU%d and GPU%d: %.2fGB/s\n", gpuid[0], gpuid[1],
          1.0f / time_memcpy * (repeat * buf_size));

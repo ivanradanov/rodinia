@@ -542,7 +542,7 @@ int main(int argc, char** argv)
       int foundIndex = -1;
       unsigned char foundKey[8] = {0,0,0,0, 0,0,0,0};
 
-      auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(md5hash-cuda MD5Hash.cu,0);
       if (offload == 0)
       {
         FindKeyWithDigest_CPU(randomDigest, byteLength, valsPerByte,

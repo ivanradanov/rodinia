@@ -106,7 +106,7 @@ void layer(int repeat) {
     cudaMemcpy(d_beta, h_beta, beta_size_bytes, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(addBiasResidualLayerNorm-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++) {
       invokeAddBiasResidualLayerNorm(d_output,
@@ -120,7 +120,7 @@ void layer(int repeat) {
     }
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(addBiasResidualLayerNorm-cuda main.cu,0);
     printf("Average execution time of AddBiasResidualLayerNorm (%d x %d): %f (us)\n",
            m, n, (time * 1e-3f) / repeat);
 

@@ -50,7 +50,7 @@ void device_chain_kernel_wrapper(
   cudaMemcpy(d_arg, h_arg, arg.size() * sizeof(anchor_dt), cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto k_start = std::chrono::steady_clock::now();
+MY_START_CLOCK(minimap2-cuda device device_kernel_wrapper.cu,0);
   
   for (auto batch = 0; batch < batch_count; batch++) {
     device_chain_tiled<<<BLOCK_NUM, BACK_SEARCH_COUNT_GPU>>> (
@@ -64,7 +64,7 @@ void device_chain_kernel_wrapper(
 
   cudaDeviceSynchronize();
   auto k_end = std::chrono::steady_clock::now();
-  auto k_time = std::chrono::duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();
+MY_STOP_CLOCK(minimap2-cuda device device_kernel_wrapper.cu,0);
   printf("Total kernel execution time: %f (s)\n", k_time * 1e-9);
 
   cudaMemcpy(h_ret, d_ret, batch_count * TILE_SIZE * PE_NUM * sizeof(return_dt), cudaMemcpyDeviceToHost);

@@ -70,13 +70,13 @@ int main (int argc, char* argv[]) {
     cudaMemcpy(d_c, c, size, cudaMemcpyHostToDevice); 
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lci-cuda main.cu,0);
 
     RHS_f <<<1, 96>>> (t_next, d_c, d_n);  // work-group size >= L_max
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lci-cuda main.cu,0);
     total_time += time;
 
 #ifdef DUMP

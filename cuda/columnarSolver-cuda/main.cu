@@ -103,7 +103,7 @@ int main(int argc, char* argv[]) {
   cudaMalloc(&devStates, THREADS*sizeof(unsigned int));
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(columnarSolver-cuda main.cu,0);
 
   setupKernel<<<B,T>>>(devStates);
 
@@ -111,7 +111,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(columnarSolver-cuda main.cu,0);
   printf("Kernel execution time %f (s)\n", time * 1e-9f);
 
   cudaMemcpy(decrypted, d_decrypted, sizeof(int)*ENCRYPTEDLEN*THREADS, cudaMemcpyDeviceToHost);

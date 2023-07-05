@@ -53,14 +53,14 @@ void GpuParallel(std::vector<Projectile>& in_vect,
   dim3 blocks (BLOCK_SIZE);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(projectile-cuda Projectile.cu,0);
 
   for (int i = 0; i < repeat; i++)
     CalculateRange <<< grids, blocks >>> (bufin_vect, bufout_vect);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(projectile-cuda Projectile.cu,0);
   printf("Average kernel execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(out_vect.data(), bufout_vect, sizeof(Projectile) * num_elements, cudaMemcpyDeviceToHost);

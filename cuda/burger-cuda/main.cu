@@ -91,7 +91,7 @@ int main(int argc, char* argv[])
   dim3 block4 (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(burger-cuda main.cu,0);
 
   for(int itr = 0; itr < num_itrs; itr++){
 
@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(burger-cuda main.cu,0);
   printf("Total kernel execution time %f (s)\n", time * 1e-9f);
 
   cudaMemcpy(du, d_u, grid_size, cudaMemcpyDeviceToHost);

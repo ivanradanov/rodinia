@@ -202,7 +202,7 @@ int main(int argc, char* argv[]) {
   for (int sample=0; sample<Nsample; sample++) {
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(vmc-cuda vmc.cu,0);
 
     zero_stats<<<NBLOCK,NTHR_PER_BLK>>>(Npoint, stats);
     propagate<<<NBLOCK,NTHR_PER_BLK>>>(Npoint, Ngen_per_block, x1, y1, z1, x2, y2, z2, psi, stats, ranstates);
@@ -211,7 +211,7 @@ int main(int argc, char* argv[]) {
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(vmc-cuda vmc.cu,0);
 
     struct {FLOAT r1, r2, r12, accept;} s;
     CHECK(cudaMemcpy(&s, statsum, sizeof(s), cudaMemcpyDeviceToHost));

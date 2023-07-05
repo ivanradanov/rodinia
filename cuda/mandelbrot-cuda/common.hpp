@@ -17,7 +17,7 @@ using Duration = std::chrono::duration<double>;
 
 class MyTimer {
  public:
-   MyTimer() : start(std::chrono::steady_clock::now()) {}
+MY_START_CLOCK(mandelbrot-cuda common.hpp,0);
 
   Duration elapsed() {
     auto now = std::chrono::steady_clock::now();

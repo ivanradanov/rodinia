@@ -124,7 +124,7 @@ void flip (const int64_t num_dims, const int64_t num_flip_dims,
   dim3 block (threadsPerBlock);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(flip-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     flip_kernel<scalar_t><<<grid, block>>> (
@@ -141,7 +141,7 @@ void flip (const int64_t num_dims, const int64_t num_flip_dims,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(flip-cuda main.cu,0);
   printf("Average execution time of the flip kernel: %f (ms)\n", (time * 1e-6f) / repeat);
 
   cudaMemcpy(output, d_output, output_size_bytes, cudaMemcpyDeviceToHost);

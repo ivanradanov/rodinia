@@ -157,39 +157,39 @@ void conv1D(const int input_width, const int mask_width, const int repeat)
   cudaDeviceSynchronize();
 
   // conv1D basic
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(convolution1D-cuda main.cu,0);
   for (int i = 0; i < repeat; i++) {
     conv1d <<< grids, blocks >>> (d_a, d_b, input_width, mask_width);
   }
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(convolution1D-cuda main.cu,0);
   printf("Average kernel execution time of conv1d kernel: %f (us)\n",
          (time * 1e-3f) / repeat);
   cudaMemcpy(b, d_b, size_bytes, cudaMemcpyDeviceToHost);
   reference(a, b, h_mask, input_width, mask_width);
 
   // conv1D tiling
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(convolution1D-cuda main.cu,1);
   for (int i = 0; i < repeat; i++) {
     conv1d_tiled <<< grids, blocks >>> (d_a, d_b, input_width, mask_width);
   }
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(convolution1D-cuda main.cu,1);
   printf("Average kernel execution time of conv1d-tiled kernel: %f (us)\n",
          (time * 1e-3f) / repeat);
   cudaMemcpy(b, d_b, size_bytes, cudaMemcpyDeviceToHost);
   reference(a, b, h_mask, input_width, mask_width);
 
   // conv1D tiling and caching
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(convolution1D-cuda main.cu,2);
   for (int i = 0; i < repeat; i++) {
     conv1d_tiled_caching <<< grids, blocks >>> (d_a, d_b, input_width, mask_width);
   }
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(convolution1D-cuda main.cu,2);
   printf("Average kernel execution time of conv1d-tiled-caching kernel: %f (us)\n",
          (time * 1e-3f) / repeat);
   cudaMemcpy(b, d_b, size_bytes, cudaMemcpyDeviceToHost);

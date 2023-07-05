@@ -361,7 +361,7 @@ int main(int argc, char **argv) {
 
   // Launch the device computation threads
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(libor-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     Pathcalc_Portfolio_KernelGPU2
@@ -375,7 +375,7 @@ int main(int argc, char **argv) {
                               h_Nopt);
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(libor-cuda main.cu,0);
   printf("Average kernel execution time : %f (s)\n", (time * 1e-9f) / repeat);
 
   // Read back GPU results and compute average
@@ -394,7 +394,7 @@ int main(int argc, char **argv) {
 
   // Launch the device computation threads
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(libor-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     Pathcalc_Portfolio_KernelGPU
@@ -410,7 +410,7 @@ int main(int argc, char **argv) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(libor-cuda main.cu,1);
   printf("Average kernel execution time : %f (s)\n", (time * 1e-9f) / repeat);
 
   // Read back GPU results and compute average

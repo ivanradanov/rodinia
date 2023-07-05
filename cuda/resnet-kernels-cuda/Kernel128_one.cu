@@ -94,7 +94,7 @@ void kernel_128_1_in(double &time, double &ktime) {
   int nInput = 14*14*512, nOutput = 14*14*128, nWeights = 128*512;
   float result[nOutput];
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(resnet-kernels-cuda Kernel128_one.cu,0);
 
   cudaMalloc((void **) &input_, nInput<<2);
   cudaMalloc((void **) &output_, nOutput<<2);
@@ -108,14 +108,14 @@ void kernel_128_1_in(double &time, double &ktime) {
   cudaMemcpy(bnScale_, bnScale_myKernel, 128<<2, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto kstart = std::chrono::steady_clock::now();
+MY_START_CLOCK(resnet-kernels-cuda Kernel128_one.cu,1);
 
   kernel_512_one_128 <<<dim3(49), dim3(128, 4), (4*512 + 64*128 + 4*128 + 2*128)<<2 >>>(
       input_, weight_, bnBias_, bnScale_, output_);
 
   cudaDeviceSynchronize();
   auto kend = std::chrono::steady_clock::now();
-  ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+MY_STOP_CLOCK(resnet-kernels-cuda Kernel128_one.cu,0);
 
   cudaMemcpy(result, output_, nOutput<<2, cudaMemcpyDeviceToHost);
 
@@ -126,7 +126,7 @@ void kernel_128_1_in(double &time, double &ktime) {
   cudaFree(weight_);
 
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(resnet-kernels-cuda Kernel128_one.cu,1);
 
   #ifdef DEBUG
   double s = 0;
@@ -153,7 +153,7 @@ void kernel_128_1_out(double &time, double &ktime) {
   int nInput = 14*14*128, nOutput = 14*14*512, nWeights = 128*512;
   float result[nOutput];
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(resnet-kernels-cuda Kernel128_one.cu,2);
 
   cudaMalloc((void **) &input_, nInput<<2);
   cudaMalloc((void **) &output_, nOutput<<2);
@@ -167,19 +167,19 @@ void kernel_128_1_out(double &time, double &ktime) {
   cudaMemcpy(bnScale_, bnScale_myKernel, 512<<2, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto kstart = std::chrono::steady_clock::now();
+MY_START_CLOCK(resnet-kernels-cuda Kernel128_one.cu,3);
 
   kernel_128_one_512 <<<dim3(49, 4), dim3(128, 4), (4*128 + 64*128 + 4*128 + 2*128)<<2 >>> (
       input_, weight_, bnBias_, bnScale_, output_);
 
   cudaDeviceSynchronize();
   auto kend = std::chrono::steady_clock::now();
-  ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+MY_STOP_CLOCK(resnet-kernels-cuda Kernel128_one.cu,2);
 
   cudaMemcpy(result, output_, nOutput<<2, cudaMemcpyDeviceToHost);
 
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(resnet-kernels-cuda Kernel128_one.cu,3);
 
   cudaFree(input_);
   cudaFree(output_);

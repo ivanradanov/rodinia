@@ -92,14 +92,14 @@ int main(int argc, char** argv) {
   cudaMemcpy(D_LG, LG, (DATA_N + 2) * sizeof(float), cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(bn-cuda main.cu,0);
 
   for (i = 0; i < repeat; i++)
     genScoreKernel<<<grid, threads>>>(sizepernode, D_localscore, D_data, D_LG);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(bn-cuda main.cu,0);
   printf("Average execution time of genScoreKernel: %f (s)\n", time * 1e-9f / repeat);
 
   cudaMemcpy(localscore, D_localscore, NODE_N * sizepernode * sizeof(float), cudaMemcpyDeviceToHost);
@@ -121,12 +121,12 @@ int main(int argc, char** argv) {
     for (j = 0; j < tmp; j++)
       genOrders();
 
-    start = std::chrono::steady_clock::now();
+MY_START_CLOCK(bn-cuda main.cu,1);
 
     score = findBestGraph(D_localscore, D_resP, D_Score, D_parent);
 
     end = std::chrono::steady_clock::now();
-    findBestGraph_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(bn-cuda main.cu,1);
 
     ConCore();
 

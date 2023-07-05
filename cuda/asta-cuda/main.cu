@@ -266,14 +266,14 @@ int main(int argc, char **argv) {
     cudaMemcpyAsync(d_head, h_head, sizeof(int), cudaMemcpyHostToDevice, 0);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(asta-cuda main.cu,0);
 
     PTTWAC_soa_asta<<<dimGrid, dimBlock>>>(p.m, tiled_n, p.s, d_in_out, d_finished, d_head);
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
     if (rep >= p.n_warmup) 
-      time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(asta-cuda main.cu,0);
 
     cudaMemcpy(h_in_out, d_in_out, in_size_bytes, cudaMemcpyDeviceToHost);
   }

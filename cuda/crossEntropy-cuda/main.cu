@@ -134,7 +134,7 @@ float loss_bwd_kernel(
   dim3 blocks ( threadX, threadBS );
   dim3 grids ( (H + threadX - 1) / threadX, bs );
 
-  auto start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(crossEntropy-cuda main.cu,0);
 
   loss_bwd<<<grids, blocks>>>(log_softmax, grad_output, grad_output_neg,
                               target, weight, mask, grad_predict);
@@ -196,7 +196,7 @@ void LossNLL_BWD(int iterations) {
     mask[i] = static_cast<int64_t>(random_int(0, 1));
 
   // malloc device memory
-  auto start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(crossEntropy-cuda main.cu,1);
 
   gscalar_t* grad_predict_device;
   cudaMalloc((void**)&grad_predict_device, grad_predict_size);
@@ -243,13 +243,13 @@ void LossNLL_BWD(int iterations) {
     }
   }
 
-  start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(crossEntropy-cuda main.cu,2);
   cudaMemcpy(grad_predict_device_host, grad_predict_device, grad_predict_size, cudaMemcpyDeviceToHost);
   end = std::chrono::high_resolution_clock::now();
   time = std::chrono::duration<float, std::milli>(end - start).count(); // ms
   durations[0] += time;
 
-  start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(crossEntropy-cuda main.cu,3);
 
   loss_bwd_cpu<scalar_t, gscalar_t>(log_softmax, target, weight, mask, grad_output, grad_output_neg, grad_predict);
 

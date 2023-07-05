@@ -115,7 +115,7 @@ int test_case (int *a, long gridsize, int repeat) {
 
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(cmembench-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) { 
     benchmark_constant<T><<< dimGrid, dimBlock >>>(cd, repeat);
@@ -123,7 +123,7 @@ int test_case (int *a, long gridsize, int repeat) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(cmembench-cuda main.cu,0);
 
   // verify
   cudaMemcpy(&c, cd, sizeof(int), cudaMemcpyDeviceToHost);

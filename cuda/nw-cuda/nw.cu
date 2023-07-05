@@ -316,7 +316,7 @@ int main(int argc, char **argv){
   }
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(nw-cuda nw.cu,0);
 
 #ifdef DEBUG
   printf("Processing upper-left matrix\n");
@@ -336,7 +336,7 @@ int main(int argc, char **argv){
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(nw-cuda nw.cu,0);
   printf("Total kernel execution time: %f (s)\n", time * 1e-9f);
 
   cudaMemcpy(output_itemsets, d_input_itemsets, max_cols * max_rows * sizeof(int), cudaMemcpyDeviceToHost);

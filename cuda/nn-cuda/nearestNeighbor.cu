@@ -27,13 +27,13 @@ int main(int argc, char *argv[]) {
 
   if (resultsCount > numRecords) resultsCount = numRecords;
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(nn-cuda nearestNeighbor.cu,0);
 
   recordDistances = (float *)malloc(sizeof(float) * numRecords);
   FindNearestNeighbors(numRecords,locations,lat,lng,recordDistances,repeat,timing);
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(nn-cuda nearestNeighbor.cu,0);
   if (timing)
     printf("Device offloading time %f (s)\n", time * 1e-9);
 
@@ -81,14 +81,14 @@ void FindNearestNeighbors(
   dim3 blockDim(64);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(nn-cuda nearestNeighbor.cu,1);
 
   for (int i = 0; i < repeat; i++)
     nn<<<gridDim, blockDim>>> (numRecords, lat, lng, d_locations, d_distances);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(nn-cuda nearestNeighbor.cu,1);
   printf("Average kernel execution time: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(distances, d_distances, numRecords * sizeof(float), cudaMemcpyDeviceToHost);

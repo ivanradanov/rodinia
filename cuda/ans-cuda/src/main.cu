@@ -38,7 +38,7 @@ void run(long int input_size) {
   std::cout << "\u03BB | compressed size (bytes) | ";
   std::cout << std::endl << std::endl;
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(ans-cuda src main.cu,0);
 
   for(float lambda = 0.1f; lambda < 2.5f; lambda += 0.16) {
 
@@ -155,7 +155,7 @@ void run(long int input_size) {
   }
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(ans-cuda src main.cu,0);
   std::cout << "Total elapsed time " << time * 1e-9f << " (s)\n";
 }
 

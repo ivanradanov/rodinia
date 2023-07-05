@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
   }
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(tensorAccessor-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     raw_accessor_kernel<<<grid, block>>>(nrow, ncol, d_r, d_m, d_v);
@@ -117,11 +117,11 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(tensorAccessor-cuda main.cu,0);
   printf("Average execution time of raw_accessor_kernel: %f (us)\n", 
           time * 1e-3f / repeat);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(tensorAccessor-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) {
     tensor_packed_accessor_kernel<<<grid, block>>>(r_acc, m_acc, v_acc);
@@ -129,7 +129,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(tensorAccessor-cuda main.cu,1);
   printf("Average execution time of tensor_packed_accessor_kernel: %f (us)\n", 
           time * 1e-3f / repeat);
 

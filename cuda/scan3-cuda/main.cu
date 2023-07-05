@@ -69,7 +69,7 @@ int main(int argc, char * argv[])
   // warmup
   thrust::exclusive_scan(ibuf, ibuf + length, obuf, 0.f);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(scan3-cuda main.cu,0);
 
   for(int n = 0; n < iterations; n++)
   {
@@ -77,7 +77,7 @@ int main(int argc, char * argv[])
   }
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(scan3-cuda main.cu,0);
   std::cout << "Average execution time of CUDA Thrust exclusive scan: "
             << time * 1e-3f / iterations << " (us)\n";
 

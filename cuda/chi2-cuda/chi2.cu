@@ -137,7 +137,7 @@ int main(int argc, char* argv[]) {
   int nblocks = (jobs + nthreads - 1)/nthreads;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(chi2-cuda chi2.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     kernel <<< dim3(nblocks), dim3(nthreads) >>> (rows,cols,ncases,ncontrols,d_data,d_results);
@@ -145,7 +145,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::high_resolution_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(chi2-cuda chi2.cu,0);
   printf("Average kernel execution time = %f (s)\n", time * 1e-9f / repeat);
 
   cudaMemcpy(h_results, d_results, result_size, cudaMemcpyDeviceToHost);
@@ -153,12 +153,12 @@ int main(int argc, char* argv[]) {
   cudaFree(d_data);
   cudaFree(d_results);
 
-  start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(chi2-cuda chi2.cu,1);
 
   cpu_kernel(rows,cols,ncases,ncontrols,dataT,cpu_results);
 
   end = std::chrono::high_resolution_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(chi2-cuda chi2.cu,1);
   printf("Host execution time = %f (s)\n", time * 1e-9f);
 
   // verify

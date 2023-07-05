@@ -187,7 +187,7 @@ void dwconv2d_forward (const int m,
   PackedTensorAccessor32<scalar_t, 1, RestrictPtrTraits> bias_a (d_bias, &bias_size, bias_stride_sizes);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(dwconv-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     if (kW == 3 && kH == 3) {
@@ -210,7 +210,7 @@ void dwconv2d_forward (const int m,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(dwconv-cuda main.cu,0);
   printf("Average execution time of dwconv2d_forward kernel: %f (ms)\n", 
           time * 1e-6f / repeat);
 

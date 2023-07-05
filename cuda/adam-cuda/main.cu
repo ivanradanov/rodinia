@@ -99,7 +99,7 @@ int main(int argc, char* argv[])
   adamMode_t mode = ADAM_MODE_0;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(adam-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     adam<float, float><<<grids, blocks>>> (
@@ -116,7 +116,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(adam-cuda main.cu,0);
   printf("Average kernel execution time %f (ms)\n", time * 1e-6f / repeat);
 
   cudaMemcpy(p, d_p, size_bytes, cudaMemcpyDeviceToHost); 

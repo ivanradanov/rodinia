@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
                       (DATAZSIZE+BLKZSIZE-1)/BLKZSIZE);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(che-cuda main.cu,0);
 
   for (int t = 0; t < t_f; t++) {
 
@@ -144,7 +144,7 @@ int main(int argc, char *argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(che-cuda main.cu,0);
   printf("Kernel exeuction time on the GPU (%d iterations) = %.3f (s)\n", t_f, time * 1e-9f);
 
   free(c_host);

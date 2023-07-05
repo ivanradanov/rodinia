@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
     cudaMemcpy(d_Data, h_Data, DATA_SIZE, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(fwt-cuda main.cu,0);
 
     fwtBatchGPU(d_Data, 1, log2Data);
     fwtBatchGPU(d_Kernel, 1, log2Data);
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(fwt-cuda main.cu,0);
     total_time += time;
   }
   printf("Average device execution time %f (s)\n", (total_time * 1e-9f) / repeat);

@@ -231,7 +231,7 @@ double GPUGaussianFilterRGBA(const unsigned int* uiInput,
   unsigned int szBuffBytes = uiImageWidth * uiImageHeight * sizeof (unsigned int);
   cudaMemcpy(d_BufIn, uiInput, szBuffBytes, cudaMemcpyHostToDevice); 
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(recursiveGaussian-cuda main.cu,0);
   
   // const int iTransposeBlockDim = 16; // initial height and width dimension of 2D transpose workgroup 
   size_t szGaussLocalWork = 256;
@@ -283,7 +283,7 @@ double GPUGaussianFilterRGBA(const unsigned int* uiInput,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(recursiveGaussian-cuda main.cu,0);
 
   cudaMemcpy(uiOutput, d_BufOut, szBuffBytes, cudaMemcpyDeviceToHost); 
   return time;

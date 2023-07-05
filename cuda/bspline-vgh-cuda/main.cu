@@ -179,7 +179,7 @@ int main(int argc, char ** argv) {
     dim3 local_size(256);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(bspline-vgh-cuda main.cu,0);
 
     bspline<<<global_size, local_size>>>(
         d_spline_coefs,
@@ -204,7 +204,7 @@ int main(int argc, char ** argv) {
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(bspline-vgh-cuda main.cu,0);
     total_time += time;
   }
   printf("Total kernel execution time %lf (s)\n", total_time * 1e-9);

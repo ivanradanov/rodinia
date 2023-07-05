@@ -226,14 +226,14 @@ long test_1D (const int length, const int order, const bool clip,
   dim3 threads (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(extrema-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++)
     relextrema_1D<T><<<grids, threads>>>(length, order, clip, d_x, d_result);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(extrema-cuda main.cu,0);
   printf("Average 1D kernel (type = %s, order = %d, clip = %d) execution time %f (s)\n", 
          type, order, clip, (time * 1e-9f) / repeat);
 
@@ -279,14 +279,14 @@ long test_2D (const int length_x, const int length_y, const int order,
   dim3 threads (16, 16);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(extrema-cuda main.cu,1);
 
   for (int n = 0; n < repeat; n++)
     relextrema_2D<<<grids, threads>>>(length_x, length_y, order, clip, axis, d_x, d_result);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(extrema-cuda main.cu,1);
 
   printf("Average 2D kernel (type = %s, order = %d, clip = %d, axis = %d) execution time %f (s)\n", 
          type, order, clip, axis, (time * 1e-9f) / repeat);

@@ -161,7 +161,7 @@ int main(int argc, char* argv[])
   dim3 block (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(gru-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     gru_cell_forward<half, float, int> <<<grid, block>>>(
@@ -171,7 +171,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(gru-cuda main.cu,0);
   printf("Average execution time of gru_cell_forward: %f (us)\n",
           (time * 1e-3f) / repeat);
 

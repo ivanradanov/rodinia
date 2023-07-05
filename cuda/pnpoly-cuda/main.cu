@@ -58,88 +58,88 @@ int main(int argc, char* argv[]) {
   cudaMemcpy(d_vertex, vertex, vertices*sizeof(float2), cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(pnpoly-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     pnpoly_base<<<grid, threads>>>(d_bitmap_ref, d_point, d_vertex, nPoints);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(pnpoly-cuda main.cu,0);
   printf("Average kernel execution time (pnpoly_base): %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(bitmap_ref, d_bitmap_ref, nPoints*sizeof(int), cudaMemcpyDeviceToHost);
 
   // performance tuning with tile sizes
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(pnpoly-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     pnpoly_opt<1><<<grid, threads>>>(d_bitmap_opt, d_point, d_vertex, nPoints);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(pnpoly-cuda main.cu,1);
   printf("Average kernel execution time (pnpoly_opt<1>): %f (s)\n", (time * 1e-9f) / repeat);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(pnpoly-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++)
     pnpoly_opt<2><<<grid, threads>>>(d_bitmap_opt, d_point, d_vertex, nPoints);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(pnpoly-cuda main.cu,2);
   printf("Average kernel execution time (pnpoly_opt<2>): %f (s)\n", (time * 1e-9f) / repeat);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(pnpoly-cuda main.cu,3);
 
   for (int i = 0; i < repeat; i++)
     pnpoly_opt<4><<<grid, threads>>>(d_bitmap_opt, d_point, d_vertex, nPoints);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(pnpoly-cuda main.cu,3);
   printf("Average kernel execution time (pnpoly_opt<4>): %f (s)\n", (time * 1e-9f) / repeat);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(pnpoly-cuda main.cu,4);
 
   for (int i = 0; i < repeat; i++)
     pnpoly_opt<8><<<grid, threads>>>(d_bitmap_opt, d_point, d_vertex, nPoints);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(pnpoly-cuda main.cu,4);
   printf("Average kernel execution time (pnpoly_opt<8>): %f (s)\n", (time * 1e-9f) / repeat);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(pnpoly-cuda main.cu,5);
 
   for (int i = 0; i < repeat; i++)
     pnpoly_opt<16><<<grid, threads>>>(d_bitmap_opt, d_point, d_vertex, nPoints);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(pnpoly-cuda main.cu,5);
   printf("Average kernel execution time (pnpoly_opt<16>): %f (s)\n", (time * 1e-9f) / repeat);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(pnpoly-cuda main.cu,6);
 
   for (int i = 0; i < repeat; i++)
     pnpoly_opt<32><<<grid, threads>>>(d_bitmap_opt, d_point, d_vertex, nPoints);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(pnpoly-cuda main.cu,6);
   printf("Average kernel execution time (pnpoly_opt<32>): %f (s)\n", (time * 1e-9f) / repeat);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(pnpoly-cuda main.cu,7);
 
   for (int i = 0; i < repeat; i++)
     pnpoly_opt<64><<<grid, threads>>>(d_bitmap_opt, d_point, d_vertex, nPoints);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(pnpoly-cuda main.cu,7);
   printf("Average kernel execution time (pnpoly_opt<64>): %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(bitmap_opt, d_bitmap_opt, nPoints*sizeof(int), cudaMemcpyDeviceToHost);

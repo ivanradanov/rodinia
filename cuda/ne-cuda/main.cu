@@ -125,14 +125,14 @@ int main(int argc, char* argv[]) {
   dim3 blocks (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(ne-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     ne <<< grids, blocks >>> (d_points, d_normal_points, width, height, numPts); 
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(ne-cuda main.cu,0);
   printf("Average kernel execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(normal_points, d_normal_points, normal_size, cudaMemcpyDeviceToHost);

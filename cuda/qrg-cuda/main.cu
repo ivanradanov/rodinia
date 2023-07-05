@@ -177,7 +177,7 @@ int main(int argc, const char **argv)
   const unsigned int seed = 0;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(qrg-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
   {
@@ -186,7 +186,7 @@ int main(int argc, const char **argv)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(qrg-cuda main.cu,0);
   printf("Average kernel execution time (qrng): %f (us)\n", (time * 1e-3f) / repeat);
 
   printf("\nRead back results...\n"); 
@@ -224,7 +224,7 @@ int main(int argc, const char **argv)
   const unsigned int distance = ((unsigned int)-1) / (pathN  + 1);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(qrg-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
   {
@@ -233,7 +233,7 @@ int main(int argc, const char **argv)
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(qrg-cuda main.cu,1);
   printf("Average kernel execution time (icnd): %f (us)\n", (time * 1e-3f) / repeat);
 
   printf("\nRead back results...\n"); 

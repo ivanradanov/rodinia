@@ -95,7 +95,7 @@ int main(int argc, char** argv)
   std::cout << "-------------------------------------------" << std::endl;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(urng-cuda main.cu,0);
 
   for(int i = 0; i < iterations; i++)
   {
@@ -104,7 +104,7 @@ int main(int argc, char** argv)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(urng-cuda main.cu,0);
   std::cout << "Average kernel execution time: " <<  (time * 1e-3f) / iterations << " (us)\n";
 
   cudaMemcpy(outputImageData, outputImageBuffer, imageSize, cudaMemcpyDeviceToHost);

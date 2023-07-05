@@ -203,7 +203,7 @@ int main(int argc, char* argv[])
     std::cout << "\nExecuting String search naive for " <<
       iterations << " iterations" << std::endl;
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(ss-cuda main.cu,0);
 
     for(int i = 0; i < iterations; i++)
       StringSearchNaive<<<grid, block, subStrLength>>>(
@@ -217,7 +217,7 @@ int main(int argc, char* argv[])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(ss-cuda main.cu,0);
 
     // Read Results Count per workGroup
     cudaMemcpy(resultCount, resultCountBuf, workGroupCount * sizeof(uint), cudaMemcpyDeviceToHost);
@@ -231,7 +231,7 @@ int main(int argc, char* argv[])
     std::cout << "\nExecuting String search with load balance for " <<
       iterations << " iterations" << std::endl;
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(ss-cuda main.cu,1);
 
     for(int i = 0; i < iterations; i++)
       StringSearchLoadBalance<<<grid, block, subStrLength>>>(
@@ -245,7 +245,7 @@ int main(int argc, char* argv[])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(ss-cuda main.cu,1);
 
     // Read Results Count per workGroup
     cudaMemcpy(resultCount, resultCountBuf, workGroupCount * sizeof(uint), cudaMemcpyDeviceToHost);

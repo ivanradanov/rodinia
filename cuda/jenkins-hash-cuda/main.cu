@@ -280,7 +280,7 @@ int main(int argc, char** argv) {
   dim3 threads (block_size);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(jenkins-hash-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++) {
     kernel<<<grids,threads>>>(d_lens, d_initvals, d_keys, d_out, N);
@@ -288,7 +288,7 @@ int main(int argc, char** argv) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(jenkins-hash-cuda main.cu,0);
   printf("Average kernel execution time : %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(out, d_out, sizeof(unsigned int)*N, cudaMemcpyDeviceToHost);

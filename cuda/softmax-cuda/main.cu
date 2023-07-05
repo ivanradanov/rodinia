@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
   dim3 local_work_size (BLOCK_SIZE);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(softmax-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++) {
     softMax<<<global_work_size, local_work_size>>>(numSlice, sliceSize, d_input, d_output);
@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(softmax-cuda main.cu,0);
   printf("Average kernel execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(output_gpu, d_output, sizeof(float) * numElem, cudaMemcpyDeviceToHost);

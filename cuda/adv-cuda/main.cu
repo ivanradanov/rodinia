@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
   cudaMemcpy(d_adv, adv, 3*Np*Nelements*sizeof(dfloat), cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(adv-cuda main.cu,0);
 
   // run kernel
   for(int test=0;test<Ntests;++test) 
@@ -92,7 +92,7 @@ int main(int argc, char **argv) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::high_resolution_clock::now();
-  const double elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() / Ntests;
+MY_STOP_CLOCK(adv-cuda main.cu,0);
 
   cudaMemcpy(adv, d_adv, 3*Np*Nelements*sizeof(dfloat), cudaMemcpyDeviceToHost);
 

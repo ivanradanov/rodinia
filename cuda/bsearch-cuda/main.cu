@@ -114,14 +114,14 @@ void bs ( const size_t aSize,
     const size_t n,
     const int repeat )
 {
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(bsearch-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     kernel_BS<<<zSize/256, 256>>>(d_a, d_z, d_r, n);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(bsearch-cuda main.cu,0);
   std::cout << "Average kernel execution time (bs1) " << (time * 1e-9f) / repeat << " (s)\n";
 }
 
@@ -134,14 +134,14 @@ void bs2 ( const size_t aSize,
     const size_t n,
     const int repeat )
 {
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(bsearch-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     kernel_BS2<<<zSize/256, 256>>>(d_a, d_z, d_r, n);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(bsearch-cuda main.cu,1);
   std::cout << "Average kernel execution time (bs2) " << (time * 1e-9f) / repeat << " (s)\n";
 }
 
@@ -154,14 +154,14 @@ void bs3 ( const size_t aSize,
     const size_t n,
     const int repeat )
 {
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(bsearch-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++)
     kernel_BS3<<<zSize/256, 256>>>(d_a, d_z, d_r, n);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(bsearch-cuda main.cu,2);
   std::cout << "Average kernel execution time (bs3) " << (time * 1e-9f) / repeat << " (s)\n";
 }
 
@@ -174,14 +174,14 @@ void bs4 ( const size_t aSize,
     const size_t n,
     const int repeat )
 {
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(bsearch-cuda main.cu,3);
 
   for (int i = 0; i < repeat; i++)
     kernel_BS4<<<zSize/256, 256>>>(d_a, d_z, d_r, n);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(bsearch-cuda main.cu,3);
   std::cout << "Average kernel execution time (bs4) " << (time * 1e-9f) / repeat << " (s)\n";
 }
 

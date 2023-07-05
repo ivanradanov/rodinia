@@ -78,7 +78,7 @@ int main(int argc, char **argv)
 
   printf("Running GPU binomial tree...\n");
 
-  auto start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(binomial-cuda main.cu,0);
 
   binomialOptionsGPU(callValueGPU, optionData, OPT_N, NUM_ITERATIONS);
 

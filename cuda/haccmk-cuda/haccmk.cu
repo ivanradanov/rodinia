@@ -106,7 +106,7 @@ void haccmk (
     cudaMemcpy(d_vz2, vz2, sizeof(float) * n1, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(haccmk-cuda haccmk.cu,0);
 
     haccmk_kernel <<< grids, blocks >>> (
       n1, n2, d_xx, d_yy, d_zz, d_mass,
@@ -114,7 +114,7 @@ void haccmk (
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(haccmk-cuda haccmk.cu,0);
     total_time += time;
   }
 

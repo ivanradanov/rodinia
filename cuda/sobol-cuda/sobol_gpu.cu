@@ -181,7 +181,7 @@ double sobolGPU(int repeat, int n_vectors, int n_dimensions,
     dimBlock.x = threadsperblock;
   
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(sobol-cuda sobol_gpu.cu,0);
   
     // Execute GPU kernel
     for (int i = 0; i < repeat; i++)
@@ -190,7 +190,7 @@ double sobolGPU(int repeat, int n_vectors, int n_dimensions,
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    double time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(sobol-cuda sobol_gpu.cu,0);
     return time;
 }
 

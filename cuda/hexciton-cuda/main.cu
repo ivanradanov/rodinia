@@ -88,7 +88,7 @@ long benchmark(
                cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(hexciton-cuda main.cu,0);
 
     // empty kernel
     switch(kernel_id) {
@@ -297,7 +297,7 @@ long benchmark(
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(hexciton-cuda main.cu,0);
     total_time += time;
   }
 

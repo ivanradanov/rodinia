@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
   range<2> lws (tile_rows, tile_cols);
 
   q.wait();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(debayer-sycl main.cpp,0);
 
   //this version takes a tile (z=1) and each tile job does 4 line median sorts
   for (int i = 0; i < repeat; i++) {
@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
 
   q.wait();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(debayer-sycl main.cpp,0);
   printf("Average kernel execution time %f (s)\n", time * 1e-9f / repeat);
 
   q.memcpy(output, d_output, output_image_size);

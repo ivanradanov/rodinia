@@ -255,7 +255,7 @@ int main(int argc, char* argv[]) {
   const int sm_size = (n_type+1) * 8 * sizeof(r32);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(wlcpow-cuda main.cu,0);
 
   // note the outputs are not reset for each run
   for (i = 0; i < repeat; i++) {
@@ -284,7 +284,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(wlcpow-cuda main.cu,0);
   printf("Average kernel execution time: %f (us)\n", time * 1e-3f / repeat);
 
   download (force_x, dev_force_x, n+1);

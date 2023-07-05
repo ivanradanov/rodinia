@@ -54,7 +54,7 @@ void eval_direct_copy (bool warmup, const int repeat) {
 
     bool ok = true;
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(copy-cuda main.cu,0);
 
     for (int r = 0; r < repeat; r++) {
 
@@ -102,7 +102,7 @@ void eval_direct_copy (bool warmup, const int repeat) {
     }
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(copy-cuda main.cu,0);
     if (!warmup) {
       printf("Total time: %lf ms | ", time * 1e-6 / repeat);
       printf("%s\n", ok ? "PASS" : "FAIL");
@@ -122,7 +122,7 @@ void eval_zero_copy (bool warmup, const int repeat) {
 
     bool ok = true;
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(copy-cuda main.cu,1);
 
     for (int r = 0; r < repeat; r++) {
 
@@ -164,7 +164,7 @@ void eval_zero_copy (bool warmup, const int repeat) {
     }
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(copy-cuda main.cu,1);
     if (!warmup) {
       printf("Total time: %lf ms | ", time * 1e-6 / repeat);
       printf("%s\n", ok ? "PASS" : "FAIL");
@@ -182,7 +182,7 @@ void eval_managed_copy (bool warmup, const int repeat) {
 
     bool ok = true;
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(copy-cuda main.cu,2);
 
     for (int r = 0; r < repeat; r++) {
 
@@ -216,7 +216,7 @@ void eval_managed_copy (bool warmup, const int repeat) {
     }
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(copy-cuda main.cu,2);
     if (!warmup) {
       printf("Total time: %lf ms | ", time * 1e-6 / repeat);
       printf("%s\n", ok ? "PASS" : "FAIL");

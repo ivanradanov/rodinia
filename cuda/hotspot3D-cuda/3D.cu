@@ -157,7 +157,7 @@ int main(int argc, char** argv)
   dim3 blockDim(WG_SIZE_X, WG_SIZE_Y);
 
   cudaDeviceSynchronize();
-  auto kstart = std::chrono::steady_clock::now();
+MY_START_CLOCK(hotspot3D-cuda 3D.cu,0);
 
   for(int j = 0; j < iterations; j++)
   {
@@ -172,7 +172,7 @@ int main(int argc, char** argv)
 
   cudaDeviceSynchronize();
   auto kend = std::chrono::steady_clock::now();
-  auto ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+MY_STOP_CLOCK(hotspot3D-cuda 3D.cu,0);
   printf("Average kernel execution time %f (us)\n", (ktime * 1e-3f) / iterations);
 
   float* d_sel = (iterations & 01) ? d_tIn : d_tOut;

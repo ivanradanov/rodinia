@@ -72,7 +72,7 @@ void test(const int size, const int repeat) {
   dim3 blocks (block_size_x, block_size_y);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(expdist-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     distance<FP><<<grids, blocks>>>(d_A, d_B, size, size, d_scaleA, d_scaleB, d_cost);  
@@ -81,7 +81,7 @@ void test(const int size, const int repeat) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(expdist-cuda main.cu,0);
   printf("Average kernel execution time %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(&output, d_output, sizeof(FP), cudaMemcpyDeviceToHost);

@@ -219,7 +219,7 @@ void jaccard_weight (const int iteration, const int n, const int e,
   cudaMemcpy(d_csrVal, csr_val, sizeof(T) * e, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(jaccard-cuda main.cu,0);
 
   for (int i = 0; i < iteration; i++) {
     dim3 nthreads, nblocks; // reuse for multiple kernels
@@ -286,7 +286,7 @@ void jaccard_weight (const int iteration, const int n, const int e,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(jaccard-cuda main.cu,0);
   cout << "Average execution time of kernels: " << (time * 1e-9f) / iteration << " (s)\n";
 
   cudaMemcpy(weight_j, d_weight_j, sizeof(T) * e, cudaMemcpyDeviceToHost);

@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
   int nchunks = (voxels + c - 1) / c;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(fhd-cuda main.cu,0);
 
   for (int i = 0; i < nchunks; i++) {
     if (i == nchunks - 1) {
@@ -138,7 +138,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(fhd-cuda main.cu,0);
   printf("Device execution time %f (s)\n", time * 1e-9f);
 
   cudaMemcpy(rfhd, d_rfhd, sampleSize, cudaMemcpyDeviceToHost);

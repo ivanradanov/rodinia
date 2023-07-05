@@ -214,7 +214,7 @@ int main(int argc, char *argv[])
   dim3 pkgrid(pkgrid_x, pkgrid_y, 1);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(nms-cuda main.cu,0);
 
   /* We build up the non-maximum supression bitmap matrix by removing overlapping windows */
   for (int n = 0; n < repeat; n++)
@@ -222,7 +222,7 @@ int main(int argc, char *argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(nms-cuda main.cu,0);
   printf("Average kernel execution time (generate_nms_bitmap): %f (s)\n", (time * 1e-9f) / repeat);
 
   pkthreads.x = MAX_DETECTIONS / N_PARTITIONS; 
@@ -230,7 +230,7 @@ int main(int argc, char *argv[])
   pkgrid.x = ndetections;
   pkgrid.y = 1;
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(nms-cuda main.cu,1);
 
   /* Then we perform a reduction for generating a point bitmap vector */
   for (int n = 0; n < repeat; n++)
@@ -238,7 +238,7 @@ int main(int argc, char *argv[])
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(nms-cuda main.cu,1);
   printf("Average kernel execution time (reduce_nms_bitmap): %f (s)\n", (time * 1e-9f) / repeat);
 
   /* Dump detections after having performed the NMS */

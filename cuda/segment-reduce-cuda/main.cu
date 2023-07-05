@@ -33,7 +33,7 @@ void segreduce (const size_t num_elements, const int repeat ) {
     cudaMalloc(&d_out, num_segments * sizeof(int));
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(segment-reduce-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++)
       thrust::reduce_by_key(thrust::device, d_keys, d_keys + num_elements, d_in,
@@ -41,7 +41,7 @@ void segreduce (const size_t num_elements, const int repeat ) {
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(segment-reduce-cuda main.cu,0);
     printf("num_segments = %zu ", num_segments);
     printf("segment_size = %zu ", segment_size);
     printf("Throughput = %f (G/s)\n", 1.f * num_elements * repeat / time);

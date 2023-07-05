@@ -58,7 +58,7 @@ void cal_km(struct svm_problem *pecm)
   double time = 0.0;
   for ( trvei = 0; trvei < ntv; trvei++ )
   {
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(kmc-cuda main.cpp,0);
 
     cublasSetVector( len_tv, sizeof(float), &tva[trvei * len_tv], 1, g_vtm, 1 );
 
@@ -67,7 +67,7 @@ void cal_km(struct svm_problem *pecm)
     cublasGetVector( ntv, sizeof(float), g_dp, 1, dp, 1 );
 
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(kmc-cuda main.cpp,0);
 
     for ( i_c = 0; i_c < ntv; i_c++ ) {
       v_f_g[i_c] = exp( -g_val * (tv_sq[trvei] + tv_sq[i_c]-((double)2.0)* (double)dp[i_c] ));

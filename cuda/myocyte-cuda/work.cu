@@ -203,12 +203,12 @@ int work(int xmax, int workload)
 
   // DISPLAY TIMING
 
-  auto etime1 = std::chrono::duration_cast<std::chrono::nanoseconds>(time1 - time0).count();
-  auto etime2 = std::chrono::duration_cast<std::chrono::nanoseconds>(time2 - time1).count();
-  auto etime3 = std::chrono::duration_cast<std::chrono::nanoseconds>(time3 - time2).count();
-  auto etime4 = std::chrono::duration_cast<std::chrono::nanoseconds>(time4 - time3).count();
-  auto etime5 = std::chrono::duration_cast<std::chrono::nanoseconds>(time5 - time4).count();
-  auto etime6 = std::chrono::duration_cast<std::chrono::nanoseconds>(time5 - time0).count();
+MY_STOP_CLOCK(myocyte-cuda work.cu,0);
+MY_STOP_CLOCK(myocyte-cuda work.cu,1);
+MY_STOP_CLOCK(myocyte-cuda work.cu,2);
+MY_STOP_CLOCK(myocyte-cuda work.cu,3);
+MY_STOP_CLOCK(myocyte-cuda work.cu,4);
+MY_STOP_CLOCK(myocyte-cuda work.cu,5);
 
   printf("Time spent in different stages of the application:\n");
   printf("%.12f s, %.12f %% : SETUP VARIABLES\n", 

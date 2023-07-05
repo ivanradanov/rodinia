@@ -244,7 +244,7 @@ void fluidSim (
   dim3 blocks (dims[0]/groupSize, dims[1]);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(fluidSim-cuda kernels.cu,0);
 
   for(int i = 0; i < iterations; ++i) {
     lbm<<<grids, blocks>>>(
@@ -269,7 +269,7 @@ void fluidSim (
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(fluidSim-cuda kernels.cu,0);
   printf("Average kernel execution time %f (s)\n", (time * 1e-9f) / iterations);
 
   cudaMemcpy(h_of0, d_if0, dbl_size, cudaMemcpyDeviceToHost);

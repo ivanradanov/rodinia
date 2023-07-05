@@ -154,7 +154,7 @@ void distance_device(const float4* VA, float* VC, const size_t N, const int iter
   cudaMalloc((void**)&d_VC, sizeof(float)*N);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(geodesic-cuda main.cu,0);
 
   for (int n = 0; n < iteration; n++) {
     kernel_distance<<<grids, threads>>>(d_VA, d_VC, N);
@@ -162,7 +162,7 @@ void distance_device(const float4* VA, float* VC, const size_t N, const int iter
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(geodesic-cuda main.cu,0);
   printf("Average kernel execution time %f (s)\n", (time * 1e-9f) / iteration);
 
   cudaMemcpy(VC, d_VC, sizeof(float)*N, cudaMemcpyDeviceToHost);

@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
 
   cudaMalloc((void**)&d_grad_out, output_size_bytes);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(unfold-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     unfold_backward_internal_kernel(d_grad_out,
@@ -127,7 +127,7 @@ int main(int argc, char* argv[])
   cudaDeviceSynchronize();
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(unfold-cuda main.cu,0);
   printf("Average execution time of unfold backward kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(h_grad_out, d_grad_out, output_size_bytes, cudaMemcpyDeviceToHost); 

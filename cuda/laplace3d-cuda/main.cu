@@ -88,7 +88,7 @@ int main(int argc, char **argv){
   cudaDeviceSynchronize();
 
   // Execute GPU kernel
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(laplace3d-cuda main.cu,0);
 
   for (i = 1; i <= REPEAT; ++i) {
     laplace3d<<<dimGrid, dimBlock>>>(NX, NY, NZ, pitch, d_u1, d_u2);
@@ -97,7 +97,7 @@ int main(int argc, char **argv){
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(laplace3d-cuda main.cu,0);
   printf("Average kernel execution time: %f (s)\n", (time * 1e-9f) / REPEAT);
 
   // Read back GPU results

@@ -96,24 +96,24 @@ int main(int argc, char* argv[])
   }
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(mrc-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) 
     MRCGradient <<<grid, block>>> (length, d_Y, d_X1, d_X2, d_O, m, d_dX1, d_dX2);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(mrc-cuda main.cu,0);
   printf("Average execution time of MRC kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(mrc-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) 
     MRCGradient2 <<<grid, block>>> (length, d_Y, d_X1, d_X2, d_O, m, d_dX1, d_dX2);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(mrc-cuda main.cu,1);
   printf("Average execution time of MRC2 kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   // verify

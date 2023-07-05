@@ -185,14 +185,14 @@ int main(int argc, char* argv[])
   cudaMalloc((void**)&d_tempKeys, N*sizeof(unsigned int));
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(split-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     radixSortBlocksKeysK<<<teams, threads>>>(d_keys, d_tempKeys, nbits, startbit);
  
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(split-cuda main.cu,0);
   printf("Average kernel execution time: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(out, d_tempKeys, N*sizeof(unsigned int), cudaMemcpyDeviceToHost);

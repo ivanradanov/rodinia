@@ -114,14 +114,14 @@ int main(int argc, char* argv[]) {
 
   // baseline kernel
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(entropy-cuda main.cu,0);
   
   for (int i = 0; i < repeat; i++)
     entropy <<< grids, blocks >>> (d_output, d_input, height, width);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(entropy-cuda main.cu,0);
   printf("Average kernel (baseline) execution time %f (s)\n", (time * 1e-9f) / repeat);
 
   // optimized kernel
@@ -133,14 +133,14 @@ int main(int argc, char* argv[]) {
   cudaMemcpy(d_logTable, logTable, sizeof(logTable), cudaMemcpyHostToDevice);
  
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(entropy-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     entropy_opt<16, 16> <<< grids, blocks >>> (d_output, d_input, d_logTable, height, width);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(entropy-cuda main.cu,1);
   printf("Average kernel (optimized) execution time %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(output, d_output, output_bytes, cudaMemcpyDeviceToHost);

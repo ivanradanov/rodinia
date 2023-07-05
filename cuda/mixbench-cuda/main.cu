@@ -67,7 +67,7 @@ void mixbenchGPU(long size, int repeat) {
   }
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(mixbench-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     benchmark_func<<<grid_dim, block_dim>>>(d_cd, block_dim, i);
@@ -75,7 +75,7 @@ void mixbenchGPU(long size, int repeat) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(mixbench-cuda main.cu,0);
   printf("Total kernel execution time: %f (s)\n", time * 1e-9f);
 
   cudaMemcpy(cd, d_cd, size*sizeof(float), cudaMemcpyDeviceToHost);

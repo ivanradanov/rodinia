@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
     for (int logD_trick = 0; logD_trick <= logD; logD_trick++) {
 
       cudaDeviceSynchronize();
-      auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(scel-cuda main.cu,0);
 
       for (int i = 0; i < repeat; i++) {
         SigmoidCrossEntropyWithLogitsKernel<<< outer_size, GPU_NUM_THREADS >>>(
@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
 
       cudaDeviceSynchronize();
       auto end = std::chrono::steady_clock::now();
-      auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(scel-cuda main.cu,0);
       printf("Average execution time of SigmoidCrossEntropyWithLogits kernel: %f (us)\n",
              (time * 1e-3f) / repeat);
 

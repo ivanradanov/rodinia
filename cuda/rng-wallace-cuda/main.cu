@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
   dim3 rng_wallace_threads(WALLACE_NUM_THREADS, 1, 1);
   const unsigned seed = 1;
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(rng-wallace-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     rng_wallace <<< rng_wallace_grid, rng_wallace_threads >>> (
@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(rng-wallace-cuda main.cu,0);
   printf("Average kernel execution time: %f (s)\n", time * 1e-9f / repeat);
 
   cudaMemcpy(randomNumbers, device_randomNumbers,

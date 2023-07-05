@@ -281,7 +281,7 @@ int main(int argc, char *argv[])
   double total_time = 0.0;
 
   for(int i = 0; i < trials; i++) {
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(gibbs-cuda main.cu,0);
 
     sample_theta<<<nBlocks, THREADS_PER_BLOCK>>>(
       devStates, dev_theta, dev_y, dev_n, a, b, N);
@@ -292,7 +292,7 @@ int main(int argc, char *argv[])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(gibbs-cuda main.cu,0);
     total_time += time; 
 
     CUDA_CALL(cudaMemcpy(host_fpsum, dev_fpsum, nSumBlocks * sizeof(float), 

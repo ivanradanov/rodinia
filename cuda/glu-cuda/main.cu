@@ -94,7 +94,7 @@ int main(int argc, char* argv[])
     dim3 blocks (block_size);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(glu-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++) {
       glu_kernel<<<grids, blocks>>>(m, split_dim_size, n, d_X, d_Y);
@@ -102,7 +102,7 @@ int main(int argc, char* argv[])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(glu-cuda main.cu,0);
     printf("Average execution time of GLU kernel (split dimension = %d): %f (us)\n",
            split_index, (time * 1e-3f) / repeat);
 

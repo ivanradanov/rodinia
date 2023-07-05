@@ -1233,7 +1233,7 @@ int main(int argc, char **argv) {
   unsigned char *d_output;
   cudaMalloc((void**)&d_output, 32);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(secp256k1-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++) {
     secp256k1<<<1, 1>>>(d_prec, d_output); 
@@ -1241,7 +1241,7 @@ int main(int argc, char **argv) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  float time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(secp256k1-cuda main.cu,0);
   printf("Average kernel execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(output, d_output, 32, cudaMemcpyDeviceToHost);

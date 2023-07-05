@@ -132,7 +132,7 @@ int main(int argc, char **argv) {
       dim_output * sizeof(int), cudaMemcpyHostToDevice );
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(tensorT-cuda main.cu,0);
 
   for (int i = 0; i < repeat; ++i) {
     tensor_transpose<<<nblocks, NTHREADS>>>(dim_input, 
@@ -151,7 +151,7 @@ int main(int argc, char **argv) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(tensorT-cuda main.cu,0);
   printf("Average kernel execution time: %f (ms)\n", (time * 1e-6f) / repeat);
 
   cudaMemcpy(output, d_output, data_size * sizeof(double), cudaMemcpyDeviceToHost);

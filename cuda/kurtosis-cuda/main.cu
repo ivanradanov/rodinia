@@ -30,13 +30,13 @@ int main(int argc, char* argv[]) {
   cudaMalloc((void**)&d_elem, sizeof(storeElement) * elemCount);
   cudaMemcpy(d_elem, elem, sizeof(storeElement) * elemCount, cudaMemcpyHostToDevice);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(kurtosis-cuda main.cu,0);
 
   kurtosisResult* result;
   const size_t s = kurtosis(d_elem, elemCount, repeat, (void**)&result);
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(kurtosis-cuda main.cu,0);
   std::cout << "Total device compute time: " << time * 1e-9 << " (s)\n";
   
   cudaFree(d_elem);

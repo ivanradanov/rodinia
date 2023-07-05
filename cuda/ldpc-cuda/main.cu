@@ -226,7 +226,7 @@ int main()
 
         // kernel launch
         cudaDeviceSynchronize();
-        auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(ldpc-cuda main.cu,0);
 
         for(int ii = 0; ii < MAX_ITERATION; ii++)
         {
@@ -280,7 +280,7 @@ int main()
 
         cudaDeviceSynchronize();
         auto end = std::chrono::steady_clock::now();
-        auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(ldpc-cuda main.cu,0);
         total_time += time;
 
         // copy the decoded data from device to host

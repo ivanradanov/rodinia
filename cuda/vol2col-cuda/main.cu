@@ -196,7 +196,7 @@ void eval (
   int blocksPerGrid = get_blocks(n);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(vol2col-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     vol2col_kernel<T><<<blocksPerGrid, threadsPerBlock>>>(
@@ -213,7 +213,7 @@ void eval (
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(vol2col-cuda main.cu,0);
   printf("Average execution time of vol2col kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(h_data_col, d_data_col, col_size_bytes, cudaMemcpyDeviceToHost);
@@ -225,7 +225,7 @@ void eval (
   printf("Checksum = %f\n", checksum / col_size);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(vol2col-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) {
     col2vol_kernel<T, T><<<blocksPerGrid, threadsPerBlock>>>(
@@ -242,7 +242,7 @@ void eval (
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(vol2col-cuda main.cu,1);
   printf("Average execution time of col2vol kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(h_data_vol, d_data_vol, vol_size_bytes, cudaMemcpyDeviceToHost);

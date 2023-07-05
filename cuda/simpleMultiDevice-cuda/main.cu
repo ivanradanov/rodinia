@@ -121,7 +121,7 @@ int main(int argc, char **argv)
   //Start timing and compute on GPU(s)
   printf("Computing with %d GPUs...\n", GPU_N);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(simpleMultiDevice-cuda main.cu,0);
 
   for (k = 0; k < repeat; k++)
   {
@@ -156,7 +156,7 @@ int main(int argc, char **argv)
   }
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(simpleMultiDevice-cuda main.cu,0);
 
   printf("  Average GPU Processing time: %f (us)\n\n", time * 1e-3f / repeat); 
 

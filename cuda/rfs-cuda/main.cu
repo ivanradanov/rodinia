@@ -142,7 +142,7 @@ int main(int argc, char* argv[]) {
   cudaMemcpy(d_arrays, arrays, array_size, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(rfs-cuda main.cu,0);
 
   for (int n = 0; n < nArrays; n++) {
     // sum over each array
@@ -151,7 +151,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(rfs-cuda main.cu,0);
   printf("Average kernel execution time (sumArray): %f (s)\n", (time * 1e-9f) / nArrays);
 
   // bit accurate sum
@@ -159,14 +159,14 @@ int main(int argc, char* argv[]) {
   bool ok = !memcmp(result_ref, result, narray_size);
   printf("%s\n", ok ? "PASS" : "FAIL");
   
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(rfs-cuda main.cu,1);
 
   // sum over arrays
   sumArrays <<<grids, blocks>>> (nArrays, nElems, d_arrays, d_result, d_maxVal);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(rfs-cuda main.cu,1);
   printf("Kernel execution time (sumArrays): %f (s)\n", time * 1e-9f);
 
   // bit accurate sum

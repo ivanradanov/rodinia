@@ -194,7 +194,7 @@ void filtering (const int repeat,
   const int shared_mem = (out_size + z_size + sos_size) * sizeof(T); 
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(sosfil-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++)
     sosfilt<T><<<blocksPerGrid, threadsPerBlock, shared_mem, 0>>>(n_signals, 
@@ -207,7 +207,7 @@ void filtering (const int repeat,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(sosfil-cuda main.cu,0);
   printf("Average kernel execution time %lf (s)\n", time * 1e-9 / repeat);
 
   cudaMemcpy(x, d_x, sizeof(T) * x_size, cudaMemcpyDeviceToHost);

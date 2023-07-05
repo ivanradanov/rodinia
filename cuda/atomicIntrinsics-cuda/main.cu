@@ -48,7 +48,7 @@ void testcase(const int repeat)
 
   computeGold<T>(gpuData, numThreads * numBlocks);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atomicIntrinsics-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     // ignore result verification
@@ -57,7 +57,7 @@ void testcase(const int repeat)
   cudaDeviceSynchronize();
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atomicIntrinsics-cuda main.cu,0);
   printf("Average kernel execution time: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaFree(dOData);

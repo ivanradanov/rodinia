@@ -203,7 +203,7 @@ int main(int argc, char **argv) {
                achtemp_im_size * sizeof(dataType), cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(gpp-cuda main.cu,0);
 
     solver<<<grid, threads>>>(
         number_bands, ngpown, ncouls, d_inv_igp_index, d_indinv, d_wx_array,
@@ -212,7 +212,7 @@ int main(int argc, char **argv) {
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(gpp-cuda main.cu,0);
     total_time += time;
   }
 

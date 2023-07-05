@@ -41,14 +41,14 @@ double runKernels(
   dim3 block (16, 16);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(tonemapping-cuda main.cu,0);
 
   toneMapping<<<grid, block>>>(inputImageBuffer, outputImageBuffer,
               averageLuminance, gamma, c, delta, width, numChannels, height);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(tonemapping-cuda main.cu,0);
 
   cudaMemcpy(output, outputImageBuffer, sizeof(float) * width * height * numChannels,
              cudaMemcpyDeviceToHost);

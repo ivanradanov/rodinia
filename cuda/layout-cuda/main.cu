@@ -126,14 +126,14 @@ int main(int argc, char * argv[])
   cudaMemcpy(inputBuffer, data, inputSize, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(layout-cuda main.cu,0);
 
   for (int i = 0; i < iterations; i++)
     AoSKernel<<<grid, block>>>((AppleTree*)inputBuffer, outputBuffer, treeSize);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(layout-cuda main.cu,0);
   std::cout << "Average kernel execution time (AoS): "
             << (time * 1e-3f) / iterations << " (us)\n";
 
@@ -161,14 +161,14 @@ int main(int argc, char * argv[])
   cudaMemcpy(inputBuffer, data, inputSize, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(layout-cuda main.cu,1);
 
   for (int i = 0; i < iterations; i++)
     SoAKernel<<<grid, block>>>((ApplesOnTrees*)inputBuffer, outputBuffer, treeSize);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(layout-cuda main.cu,1);
   std::cout << "Average kernel execution time (SoA): "
             << (time * 1e-3f) / iterations << " (us)\n";
 

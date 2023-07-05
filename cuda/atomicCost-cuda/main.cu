@@ -57,7 +57,7 @@ void atomicCost (int t, int repeat)
     dim3 grid_wi (t / BLOCK_SIZE);
 
     CHECK_ERROR( cudaDeviceSynchronize() );
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atomicCost-cuda main.cu,0);
     for(int i=0; i<repeat; i++)
     {
       CHECK_ERROR( cudaMemset(d_result, 0, result_size) );
@@ -65,12 +65,12 @@ void atomicCost (int t, int repeat)
     }
     CHECK_ERROR( cudaDeviceSynchronize() );
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atomicCost-cuda main.cu,0);
     printf("Average execution time of WithAtomicOnGlobalMem: %f (us)\n",
             time * 1e-3f / repeat);
     CHECK_ERROR( cudaMemcpy(result_wi, d_result, result_size, cudaMemcpyDeviceToHost) );
 
-    start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atomicCost-cuda main.cu,1);
     for(int i=0; i<repeat; i++)
     {
       CHECK_ERROR( cudaMemset(d_result, 0, result_size) );
@@ -78,7 +78,7 @@ void atomicCost (int t, int repeat)
     }
     CHECK_ERROR( cudaDeviceSynchronize() );
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atomicCost-cuda main.cu,1);
     printf("Average execution time of WithoutAtomicOnGlobalMem: %f (us)\n",
             time * 1e-3f / repeat);
     CHECK_ERROR( cudaMemcpy(result_wo, d_result, result_size, cudaMemcpyDeviceToHost) );

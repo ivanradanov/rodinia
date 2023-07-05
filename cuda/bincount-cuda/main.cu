@@ -91,7 +91,7 @@ __global__ void bincount (
 }
 
 #define HANDLE_CASE(MEMORY_TYPE, SHARED_MEM)                 \
-  auto start = std::chrono::steady_clock::now();             \
+MY_START_CLOCK(bincount-cuda main.cu,0);
   for (int i = 0; i < repeat; i++)                           \
   bincount<                                                  \
       output_t,                                              \
@@ -107,7 +107,7 @@ __global__ void bincount (
       output_size);                                          \
   cudaDeviceSynchronize();                                   \
   auto end = std::chrono::steady_clock::now();               \
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count(); \
+MY_STOP_CLOCK(bincount-cuda main.cu,0);
   printf("Average execution time of bincount kernel: %f (us)\n", \
          (time * 1e-3f) / repeat)
 

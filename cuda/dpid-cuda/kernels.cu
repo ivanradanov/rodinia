@@ -266,7 +266,7 @@ void run(const Params& p, const void* hInput, void* hOutput) {
   const dim3 blocks((uint32_t)std::ceil(p.oWidth / (float)TSIZE), p.oHeight, 1);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(dpid-cuda kernels.cu,0);
 
   for (uint32_t i = 0; i < p.repeat; i++) {
     kernelGuidance <<<blocks, threads>>> (dInput, dGuidance, p);
@@ -275,7 +275,7 @@ void run(const Params& p, const void* hInput, void* hOutput) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(dpid-cuda kernels.cu,0);
   printf("Average kernel execution time %f (s)\n", (time * 1e-9f) / p.repeat);
 
   cudaMemcpy(hOutput, dOutput, sOutput, cudaMemcpyDeviceToHost);

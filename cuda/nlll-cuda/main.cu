@@ -104,7 +104,7 @@ void eval(const int64_t nframe,
   dim3 block (GPU_THREADS);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(nlll-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     nll_loss_forward_reduce2d_kernel
@@ -122,7 +122,7 @@ void eval(const int64_t nframe,
   cudaDeviceSynchronize();
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(nlll-cuda main.cu,0);
   printf("\nThread block size: %d\n", GPU_THREADS);
   printf("Average execution time of nll loss forward reduce 2D kernel: %f (us)\n",
          (time * 1e-3f) / repeat);

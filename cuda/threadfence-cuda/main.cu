@@ -115,13 +115,13 @@ int main(int argc, char** argv) {
     cudaMemcpy(d_array, h_array, N * sizeof(float), cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(threadfence-cuda main.cu,0);
 
     sum <<< grids, blocks >>> (d_array, N, d_count, d_result);
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(threadfence-cuda main.cu,0);
 
     cudaMemcpy(&h_sum, d_result, sizeof(float), cudaMemcpyDeviceToHost);
 

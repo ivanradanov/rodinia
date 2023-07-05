@@ -90,7 +90,7 @@ void ParallelBitonicSort(int input[], int n) {
   cudaMalloc((void**)&d_input, size_bytes);
   cudaMemcpy(d_input, input, size_bytes, cudaMemcpyHostToDevice);
   
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(bitonic-sort-cuda main.cu,0);
 
   // step from 0, 1, 2, ...., n-1
   for (int step = 0; step < n; step++) {
@@ -109,7 +109,7 @@ void ParallelBitonicSort(int input[], int n) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(bitonic-sort-cuda main.cu,0);
   printf("Total kernel execution time: %f (ms)\n", time * 1e-6f);
 
   cudaMemcpy(input, d_input, size_bytes, cudaMemcpyDeviceToHost);
@@ -208,12 +208,12 @@ int main(int argc, char *argv[]) {
   }
 
   std::cout << "Bitonic sort (parallel)..\n";
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(bitonic-sort-cuda main.cu,1);
 
   ParallelBitonicSort(data_gpu, n);
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(bitonic-sort-cuda main.cu,1);
   std::cout << "Total execution time " << (time * 1e-9f) << " (s)\n";
 
   std::cout << "Bitonic sort (serial)..\n";

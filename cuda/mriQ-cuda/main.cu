@@ -87,13 +87,13 @@ int main (int argc, char *argv[]) {
   CUDA_ERRCK;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(mriQ-cuda main.cu,0);
 
   computePhiMag_GPU(numK, phiR_d, phiI_d, phiMag_d);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(mriQ-cuda main.cu,0);
   printf("computePhiMag time: %f s\n", time * 1e-9);
 
   cleanupMemoryGPU(numK, sizeof(float), phiMag_d, phiMag);
@@ -123,13 +123,13 @@ int main (int argc, char *argv[]) {
   cudaMemset((void *)Qi_d, 0, numX * sizeof(float));
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(mriQ-cuda main.cu,1);
 
   computeQ_GPU(numK, numX, x_d, y_d, z_d, kVals, Qr_d, Qi_d);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(mriQ-cuda main.cu,1);
   printf("computeQ time: %f s\n", time * 1e-9);
 
   cudaFree(x_d);

@@ -153,7 +153,7 @@ void Perlin::calculate(uint8_t *hPixels, NoiseParams params, cudaStream_t *strea
             << ", total threads = " << threads.x * blocks.x * threads.y * blocks.y << std::endl;
 
   CHECK(cudaDeviceSynchronize());
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(perlin-cuda noise.cu,0);
 
   // Note that all kernels use the same device pointer, but they all write on
   // different parts of the pointer memory, so no data race occurs.
@@ -164,7 +164,7 @@ void Perlin::calculate(uint8_t *hPixels, NoiseParams params, cudaStream_t *strea
   CHECK(cudaDeviceSynchronize());
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(perlin-cuda noise.cu,0);
   std::cout << "Total kernel execution time " <<  time * 1e-6  << " (ms)" << std::endl;
 
   CHECK(cudaMemcpy(hPixels, dPixels, sizeof(uint8_t) * 4 * WIN_WIDTH * WIN_HEIGHT,

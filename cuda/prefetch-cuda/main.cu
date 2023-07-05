@@ -62,7 +62,7 @@ void prefetch (const int gpuDeviceId, const int numElements, const int repeat)
   dim3 dimGrid(numBlocks, 1, 1);
   dim3 dimBlock(blockSize, 1, 1);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(prefetch-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
 
@@ -80,7 +80,7 @@ void prefetch (const int gpuDeviceId, const int numElements, const int repeat)
     maxError = fmaxf(maxError, fabsf(B[i]-(repeat+2)));
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(prefetch-cuda main.cu,0);
   printf("Average execution time: %f (ms)\n", time * 1e-6f / repeat);
 
   CUDACHECK(cudaFree(A));
@@ -113,7 +113,7 @@ void naive (const int numElements, const int repeat)
   dim3 dimGrid(numBlocks, 1, 1);
   dim3 dimBlock(blockSize, 1, 1);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(prefetch-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) {
     add <<< dimGrid, dimBlock >>> (numElements, A, B);
@@ -125,7 +125,7 @@ void naive (const int numElements, const int repeat)
     maxError = fmaxf(maxError, fabsf(B[i]-(repeat+2)));
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(prefetch-cuda main.cu,1);
   printf("Average execution time: %f (ms)\n", time * 1e-6f / repeat);
 
   CUDACHECK(cudaFree(A));

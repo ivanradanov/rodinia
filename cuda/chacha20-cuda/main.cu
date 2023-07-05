@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
   cudaMalloc((void**)&d_result, result_len); 
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(chacha20-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     cudaMemset(d_result, 0, result_len);
@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(chacha20-cuda main.cu,0);
   printf("Average execution time of kernels: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(result, d_result, result_len, cudaMemcpyDeviceToHost);

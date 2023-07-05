@@ -339,7 +339,7 @@ int main(int argc, char **argv)
   atom_arr[7] = atom_arr[9] = 0xff;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atomicSystemWide-cuda main.cu,0);
 
   atomicKernel<<<numBlocks, numThreads>>>(atom_arr, loop_num);
 
@@ -348,7 +348,7 @@ int main(int argc, char **argv)
   cudaDeviceSynchronize();
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atomicSystemWide-cuda main.cu,0);
   printf("Execution time of atomic kernels on host and device: %f (s)\n", time * 1e-9f);
 
   // Compute & verify reference solution

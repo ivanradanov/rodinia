@@ -33,12 +33,12 @@ void test01 ( int nfun  )
   {
     x = chebyshev1 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lebesgue-cuda main.cpp,0);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lebesgue-cuda main.cpp,0);
     total_time += time;
 
     free ( x );
@@ -82,12 +82,12 @@ void test02 ( int nfun  )
   {
     x = chebyshev2 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lebesgue-cuda main.cpp,1);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lebesgue-cuda main.cpp,1);
     total_time += time;
 
     free ( x );
@@ -131,12 +131,12 @@ void test03 ( int nfun  )
   {
     x = chebyshev3 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lebesgue-cuda main.cpp,2);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lebesgue-cuda main.cpp,2);
     total_time += time;
 
     free ( x );
@@ -180,12 +180,12 @@ void test04 ( int nfun  )
   {
     x = chebyshev4 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lebesgue-cuda main.cpp,3);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lebesgue-cuda main.cpp,3);
     total_time += time;
 
     free ( x );
@@ -229,12 +229,12 @@ void test05 ( int nfun  )
   {
     x = equidistant1 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lebesgue-cuda main.cpp,4);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lebesgue-cuda main.cpp,4);
     total_time += time;
 
     free ( x );
@@ -278,12 +278,12 @@ void test06 ( int nfun  )
   {
     x = equidistant2 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lebesgue-cuda main.cpp,5);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lebesgue-cuda main.cpp,5);
     total_time += time;
 
     free ( x );
@@ -327,12 +327,12 @@ void test07 ( int nfun  )
   {
     x = equidistant3 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lebesgue-cuda main.cpp,6);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lebesgue-cuda main.cpp,6);
     total_time += time;
 
     free ( x );
@@ -376,12 +376,12 @@ void test08 ( int nfun  )
   {
     x = fejer1 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lebesgue-cuda main.cpp,7);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lebesgue-cuda main.cpp,7);
     total_time += time;
 
     free ( x );
@@ -425,12 +425,12 @@ void test09 ( int nfun  )
   {
     x = fejer2 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lebesgue-cuda main.cpp,8);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lebesgue-cuda main.cpp,8);
     total_time += time;
 
     free ( x );

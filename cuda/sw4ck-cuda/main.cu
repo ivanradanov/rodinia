@@ -175,7 +175,7 @@ int main(int argc, char* argv[]) {
       cudaMemcpy(d_uacc_ptr, uacc_ptr, uacc_size, cudaMemcpyHostToDevice);
 
       cudaDeviceSynchronize();
-      auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(sw4ck-cuda main.cu,0);
 
       curvilinear4sg_ci(optr[6], optr[7], optr[8], optr[9], optr[10], optr[11],
           d_alpha_ptr, d_mua_ptr, d_lambdaa_ptr, d_met_ptr, d_jac_ptr,
@@ -185,7 +185,7 @@ int main(int argc, char* argv[]) {
 
       cudaDeviceSynchronize();
       auto end = std::chrono::steady_clock::now();
-      time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(sw4ck-cuda main.cu,0);
     }
 
     CheckDeviceError(cudaPeekAtLastError());

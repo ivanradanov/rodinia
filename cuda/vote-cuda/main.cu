@@ -43,13 +43,13 @@ int main(int argc, char **argv) {
   VoteAnyKernel1<<<gridBlock, threadBlock>>>(d_input, d_result, repeat);
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(vote-cuda main.cu,0);
 
   VoteAnyKernel1<<<gridBlock, threadBlock>>>(d_input, d_result, repeat);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(vote-cuda main.cu,0);
   printf("\tkernel execution time: %f (s)\n", time * 1e-9f);
 
   cudaMemcpy(h_result, d_result,
@@ -66,13 +66,13 @@ int main(int argc, char **argv) {
   VoteAllKernel2<<<gridBlock, threadBlock>>>(d_input, d_result, repeat);
   cudaDeviceSynchronize();
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(vote-cuda main.cu,1);
 
   VoteAllKernel2<<<gridBlock, threadBlock>>>(d_input, d_result, repeat);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(vote-cuda main.cu,1);
   printf("\tkernel execution time: %f (s)\n", time * 1e-9f);
 
   cudaMemcpy(h_result, d_result,
@@ -93,13 +93,13 @@ int main(int argc, char **argv) {
 
   printf("\tRunning <<Vote.Any>> kernel3 ...\n");
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(vote-cuda main.cu,2);
 
   VoteAnyKernel3<<<1, warp_size * 3>>>(dinfo, warp_size, repeat);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(vote-cuda main.cu,2);
   printf("\tkernel execution time: %f (s)\n", time * 1e-9f);
 
   hinfo = (bool*) malloc (warp_size * 3 * 3 * sizeof(bool));

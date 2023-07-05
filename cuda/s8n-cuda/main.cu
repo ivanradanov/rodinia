@@ -174,41 +174,41 @@ int main(int argc, char* argv[])
   dim3 blocks (512);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(s8n-cuda main.cu,0);
   for (int i = 0; i < repeat; i++) {
    k_cube_select<<<grids, blocks>>>(b, n, radius, d_xyz, d_out); 
   }
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(s8n-cuda main.cu,0);
   printf("Average execution time of select kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(h_out, d_out, output_size_bytes, cudaMemcpyDeviceToHost);
   cube_select(b, n, radius, h_xyz, r_out);
   int error = memcmp(h_out, r_out, output_size_bytes);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(s8n-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) {
     k_cube_select_two<<<grids, blocks>>>(b, n, radius, d_xyz, d_out2); 
   }
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(s8n-cuda main.cu,1);
   printf("Average execution time of select2 kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(h_out2, d_out2, 2 * output_size_bytes, cudaMemcpyDeviceToHost);
   cube_select_two(b, n, radius, h_xyz, r_out2);
   error += memcmp(h_out2, r_out2, 2 * output_size_bytes);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(s8n-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++) {
     k_cube_select_four<<<grids, blocks>>>(b, n, radius, d_xyz, d_out4); 
   }
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(s8n-cuda main.cu,2);
   printf("Average execution time of select4 kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(h_out4, d_out4, 4 * output_size_bytes, cudaMemcpyDeviceToHost);

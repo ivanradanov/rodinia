@@ -226,7 +226,7 @@ int main(int argc, char *argv[]) {
   double ktime = 0.0;
  
   for (t=1; t<=iter && max_diff>=thresh; ++t) {
-    auto start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(page-rank-cuda main.cu,0);
 
     map <<< dim3(num_blocks), dim3(block_size) >>> (
       d_pages, d_page_ranks, d_maps, d_noutlinks, n);

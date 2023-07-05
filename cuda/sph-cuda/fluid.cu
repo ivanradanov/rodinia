@@ -477,7 +477,7 @@ int main(int argc, char *argv[])
     dim3 grid1D_BP((num_boundary_particles + 255)/256);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(sph-cuda fluid.cu,0);
 
     // Main simulation loop
     for(int n=0; n<params.number_steps; n++) {
@@ -489,7 +489,7 @@ int main(int argc, char *argv[])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(sph-cuda fluid.cu,0);
     printf("Average execution time of sph kernels: %f (ms)\n", (time * 1e-6f) / params.number_steps);
 
     cudaMemcpy(fluid_particles, d_fluid_particles, 

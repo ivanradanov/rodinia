@@ -374,7 +374,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(gc-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++) {
     cudaMemset(wlsize_d, 0, sizeof(int));

@@ -211,7 +211,7 @@ int main(int argc, char* argv[])
   fprintf(file_res, "VARIABLES = x nde ndi rho phi ef\n");
   WriteResults(0);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(sheath-cuda main.cu,0);
 
   /* MAIN LOOP*/
   for (ts = 1; ts <= NUM_TS; ts++)
@@ -246,7 +246,7 @@ int main(int argc, char* argv[])
   }
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(sheath-cuda main.cu,0);
 
   fclose(file_res);
 
@@ -321,13 +321,13 @@ void ScatterSpecies(Species* species, Particle* species_part_gpu,
   int nblocks = 1 + size / THREADS_PER_BLOCK;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(sheath-cuda main.cu,1);
 
   scatterParticle<<<nblocks, THREADS_PER_BLOCK>>>(species_part_gpu, den_gpu, size);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(sheath-cuda main.cu,1);
 
   /*copy density back to CPU*/
   CUDA_ERROR(cudaMemcpy(den, den_gpu, sizeof(float) * domain.ni, cudaMemcpyDeviceToHost));

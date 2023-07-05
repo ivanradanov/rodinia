@@ -231,7 +231,7 @@ int main(int argc, char**argv) {
     for (uint32_t k = 0; k < P4; k++) x[k] = z[k] = rand();
 
     // compute on the host
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lfib4-cuda main.cu,0);
     LFIB4(n, x);
     auto end = std::chrono::steady_clock::now();
     std::chrono::duration<float> host_time = end - start;
@@ -240,7 +240,7 @@ int main(int argc, char**argv) {
     uint32_t *x_d;
     cudaMalloc((void **) &x_d, sizeof(uint32_t) * r * s);
 
-    start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lfib4-cuda main.cu,1);
     gLFIB4(n, x_d, s, r, z);
     end = std::chrono::steady_clock::now();
     std::chrono::duration<float> device_time = end - start;

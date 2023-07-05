@@ -84,7 +84,7 @@ void log2_approx (
 
   for(int i = 0; i < precision_count; ++i) {
     cudaDeviceSynchronize();
-    auto start = std::chrono::high_resolution_clock::now(); 
+MY_START_CLOCK(log2-cuda kernel.h,0);
 
     for (int k = 0; k < repeat; ++k) {
       compute_log<<<grid, block>>>(d_outputs, d_inputs, i, num_inputs, precision[i]);
@@ -92,7 +92,7 @@ void log2_approx (
 
     cudaDeviceSynchronize();
     auto end = std::chrono::high_resolution_clock::now(); 
-    auto etime = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(log2-cuda kernel.h,0);
     std::cout << "\nIterative approximation with " << precision[i] <<" bits of precision\n";
     std::cout << "Average kernel execution time " << etime * 1e-3 / repeat << " (us)\n";
   }

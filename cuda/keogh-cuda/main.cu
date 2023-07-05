@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
   int smem_size = (M+blocks)*sizeof(float);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(keogh-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     lb_keogh<<<grids, blocks, smem_size>>>
@@ -109,7 +109,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(keogh-cuda main.cu,0);
   printf("Average kernel execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(lb, d_lb, sizeof(float)*(N-M+1), cudaMemcpyDeviceToHost);

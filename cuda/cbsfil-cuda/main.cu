@@ -53,14 +53,14 @@ int main(int argc, char* argv[]) {
   long total_time = 0;
   for (int i = 0; i < repeat; i++) {
     cudaMemcpy(d_image, image, image_size, cudaMemcpyHostToDevice);
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(cbsfil-cuda main.cu,0);
 
     toCoef2DX<<<dimGridX, dimBlockX>>>(d_image, image_pitch, width, height);
     toCoef2DY<<<dimGridY, dimBlockY>>>(d_image, image_pitch, width, height);
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(cbsfil-cuda main.cu,0);
     total_time += time;
   }
   printf("Average kernel execution time %f (s)\n", total_time * 1e-9f / repeat);

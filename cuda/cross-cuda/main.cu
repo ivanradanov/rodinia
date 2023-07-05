@@ -141,38 +141,38 @@ void eval(const int nrows, const int repeat) {
   dim3 block (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(cross-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) 
     cross_kernel<<<grid, block>>>(nrows, d_o, d_a, d_b, 1, 1, 1);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(cross-cuda main.cu,0);
   printf("Average execution time of cross1 kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(o, d_o, size_bytes, cudaMemcpyDeviceToHost);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(cross-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) 
     cross2_kernel<<<grid, block>>>(nrows, d_o, d_a, d_b, 1, 1, 1);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(cross-cuda main.cu,1);
   printf("Average execution time of cross2 kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(o2, d_o, size_bytes, cudaMemcpyDeviceToHost);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(cross-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++) 
     cross3_kernel<<<grid, block>>>(nrows, d_o, d_a, d_b);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(cross-cuda main.cu,2);
   printf("Average execution time of cross3 kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(o3, d_o, size_bytes, cudaMemcpyDeviceToHost);

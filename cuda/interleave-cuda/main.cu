@@ -138,14 +138,14 @@ void add_test_interleaved(
   cudaMemcpy(d_dst, h_dst, num_bytes, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(interleave-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++)
     add_kernel_interleaved<<<num_blocks, num_threads>>>(d_dst, d_src, num_elements);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(interleave-cuda main.cu,0);
   printf("Average kernel (interleaved) execution time %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(h_dst, d_dst, num_bytes, cudaMemcpyDeviceToHost);
@@ -173,14 +173,14 @@ void add_test_non_interleaved(
   cudaMemcpy(d_dst, h_dst, num_bytes, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(interleave-cuda main.cu,1);
 
   for (int n = 0; n < repeat; n++)
     add_kernel_non_interleaved<<<num_blocks, num_threads>>>(d_dst, d_src, num_elements);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(interleave-cuda main.cu,1);
   printf("Average kernel (non-interleaved) execution time %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(h_dst, d_dst, num_bytes, cudaMemcpyDeviceToHost);

@@ -92,7 +92,7 @@ float* attention_device(const float* key, const float* value, const float* query
   dim3 d_block(256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(attention-cuda main.cu,0);
 
   for (int k = 0; k < repeat; k++) {
     cudaMemset(d_exp_sum, 0, 4);
@@ -106,7 +106,7 @@ float* attention_device(const float* key, const float* value, const float* query
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(attention-cuda main.cu,0);
   printf("Average execution time of kernels %f (ms)\n", time * 1e-6f / repeat);
 
   cudaMemcpy(output, d_output, d * sizeof(float), cudaMemcpyDeviceToHost);

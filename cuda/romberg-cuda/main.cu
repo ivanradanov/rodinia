@@ -99,7 +99,7 @@ int main( int argc, char** argv)
   dim3 grids (nwg);
   dim3 blocks (wgs);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(romberg-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     romberg <<< grids, blocks, ROW_SIZE*wgs*sizeof(double) >>> (A,B,d_result);
@@ -107,7 +107,7 @@ int main( int argc, char** argv)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(romberg-cuda main.cu,0);
   printf("Average kernel execution time: %f (s)\n", time * 1e-9f / repeat);
 
   // verify

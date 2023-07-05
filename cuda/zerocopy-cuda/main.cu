@@ -81,7 +81,7 @@ void eval (bool warmup, bool bPinGenericMemory, const int repeat) {
     bytes = nelem * sizeof(float);
 
     if (bPinGenericMemory) {
-      auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(zerocopy-cuda main.cu,0);
 
       // Allocate generic memory with malloc() and pin it later 
       // instead of using cudaHostAlloc()
@@ -100,17 +100,17 @@ void eval (bool warmup, bool bPinGenericMemory, const int repeat) {
       cudaHostRegister(c, bytes, cudaHostRegisterMapped);
 
       auto end = std::chrono::steady_clock::now();
-      auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(zerocopy-cuda main.cu,0);
       if (!warmup)
         printf("Memory allocation (cudaHostRegister): %lf ms\n", time * 1e-6);
     } else {
-      auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(zerocopy-cuda main.cu,1);
       flags = cudaHostAllocMapped;
       cudaHostAlloc((void **)&a, bytes, flags);
       cudaHostAlloc((void **)&b, bytes, flags);
       cudaHostAlloc((void **)&c, bytes, flags);
       auto end = std::chrono::steady_clock::now();
-      auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(zerocopy-cuda main.cu,1);
       if (!warmup)
         printf("Memory allocation (cudaHostAlloc): %lf ms\n", time * 1e-6);
     }
@@ -123,12 +123,12 @@ void eval (bool warmup, bool bPinGenericMemory, const int repeat) {
 
     // Get the device pointers for the pinned CPU memory mapped into the GPU
     // memory space
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(zerocopy-cuda main.cu,2);
     cudaHostGetDevicePointer((void **)&d_a, (void *)a, 0);
     cudaHostGetDevicePointer((void **)&d_b, (void *)b, 0);
     cudaHostGetDevicePointer((void **)&d_c, (void *)c, 0);
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(zerocopy-cuda main.cu,2);
     if (!warmup)
       printf("cudaHostGetDevicePointer: %lf ms\n", time * 1e-6);
 
@@ -136,13 +136,13 @@ void eval (bool warmup, bool bPinGenericMemory, const int repeat) {
     dim3 block(256);
     dim3 grid((unsigned int)ceil(nelem / (float)block.x));
 
-    start = std::chrono::steady_clock::now();
+MY_START_CLOCK(zerocopy-cuda main.cu,3);
     for (n = 0; n < repeat; n++) {
       vectorAddGPU<<<grid, block>>>(d_a, d_b, d_c, nelem);
     }
     cudaDeviceSynchronize();
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(zerocopy-cuda main.cu,3);
 
     if (!warmup)
       printf("Average kernel execution time: %lf ms\n", time * 1e-6 / repeat);
@@ -168,7 +168,7 @@ void eval (bool warmup, bool bPinGenericMemory, const int repeat) {
     // Memory clean up
 
     if (bPinGenericMemory) {
-      auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(zerocopy-cuda main.cu,4);
       cudaHostUnregister(a);
       cudaHostUnregister(b);
       cudaHostUnregister(c);
@@ -176,16 +176,16 @@ void eval (bool warmup, bool bPinGenericMemory, const int repeat) {
       free(b_UA);
       free(c_UA);
       auto end = std::chrono::steady_clock::now();
-      auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(zerocopy-cuda main.cu,4);
       if (!warmup)
         printf("Memory deallocation (cudaHostUnregister): %lf ms\n", time * 1e-6);
     } else {
-      auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(zerocopy-cuda main.cu,5);
       cudaFreeHost(a);
       cudaFreeHost(b);
       cudaFreeHost(c);
       auto end = std::chrono::steady_clock::now();
-      auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(zerocopy-cuda main.cu,5);
       if (!warmup)
         printf("Memory deallocation (cudaFreeHost): %lf ms\n", time * 1e-6);
     }

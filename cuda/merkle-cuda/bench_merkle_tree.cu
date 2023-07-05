@@ -57,11 +57,11 @@ benchmark_merklize_approach_1(const size_t leaf_count,
   cudaMemcpy(ark2_d, ark2_h, ark_size, cudaMemcpyHostToDevice);
 
   // this itself does host synchronization
-  auto start_time = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(merkle-cuda bench_merkle_tree.cu,0);
   merklize_approach_1(
     leaves_d, intermediates_d, leaf_count, wg_size, mds_d, ark1_d, ark2_d);
   auto end_time = std::chrono::high_resolution_clock::now();
-  uint64_t ts = std::chrono::duration_cast<std::chrono::nanoseconds>(
+MY_STOP_CLOCK(merkle-cuda bench_merkle_tree.cu,0);
                 end_time - start_time).count();
 
 #ifdef DEBUG

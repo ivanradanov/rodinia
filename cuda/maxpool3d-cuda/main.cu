@@ -101,7 +101,7 @@ int main(int argc, char** argv)
   const int pool_height = Vstride;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(maxpool3d-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++) {
     maxpool3d<<<grid_dim, block_dim>>>(d_image, d_result, Hstride, Vstride, 
@@ -110,7 +110,7 @@ int main(int argc, char** argv)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(maxpool3d-cuda main.cu,0);
   printf("Average kernel execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
   // verification using the CPU results

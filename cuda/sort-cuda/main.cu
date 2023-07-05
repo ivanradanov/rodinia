@@ -99,7 +99,7 @@ int main(int argc, char** argv)
   for (int k = 0; k < passes; k++)
   {
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(sort-cuda main.cu,0);
 
     // Assuming an 8 bit byte.
     // shift is uint because Computecpp compiler has no operator>>(unsigned int, int);
@@ -122,7 +122,7 @@ int main(int argc, char** argv)
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(sort-cuda main.cu,0);
   }  // passes
 
   printf("Average elapsed time per pass %lf (s)\n", time * 1e-9 / passes);

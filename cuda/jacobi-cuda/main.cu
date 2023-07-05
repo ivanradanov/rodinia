@@ -175,7 +175,7 @@ int main () {
   dim3 block (16, 16);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(jacobi-cuda main.cu,0);
 
   while (error > tolerance && num_iters < max_iters) {
     // Initialize error to zero (we'll add to it the following step)
@@ -206,7 +206,7 @@ int main () {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(jacobi-cuda main.cu,0);
   std::cout << "Average execution time per iteration: " << (time * 1e-9f) / num_iters << " (s)\n";
 
   // If we took fewer than max_iters steps and the error is below the tolerance,

@@ -215,7 +215,7 @@ int main(int argc, char* argv[])
   cudaMalloc((void**)&data_threshold_d,vol_size*sizeof(bool));
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(spm-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     spm<<<NUM_BLOCKS,NUM_THREADS>>>(M_d, vol_size, g_d, f_d, g_vol, f_vol,
@@ -223,7 +223,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(spm-cuda main.cu,0);
   printf("Average kernel execution time: %f (ms)\n", (time * 1e-6f) / repeat);
 
   cudaMemcpy(ivf_h,ivf_d,vol_size*sizeof(unsigned char),cudaMemcpyDeviceToHost);

@@ -21,7 +21,7 @@ template <typename T>
 void testMin (T *h_ptr, T *d_ptr, const int repeat, const char* name) {
   cudaMemcpy(d_ptr, h_ptr, sizeof(T), cudaMemcpyHostToDevice);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atomicCAS-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++) {
     atomicMinDerived<T><<<NUM_BLOCKS, BLOCK_SIZE>>> (d_ptr);
@@ -29,7 +29,7 @@ void testMin (T *h_ptr, T *d_ptr, const int repeat, const char* name) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atomicCAS-cuda main.cu,0);
   printf("Atomic min for data type %s | ", name);
   printf("Average execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
@@ -40,7 +40,7 @@ template <typename T>
 void testMax (T *h_ptr, T *d_ptr, const int repeat, const char* name) {
   cudaMemcpy(d_ptr, h_ptr, sizeof(T), cudaMemcpyHostToDevice);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atomicCAS-cuda main.cu,1);
 
   for (int n = 0; n < repeat; n++) {
     atomicMaxDerived<T><<<NUM_BLOCKS, BLOCK_SIZE>>> (d_ptr);
@@ -48,7 +48,7 @@ void testMax (T *h_ptr, T *d_ptr, const int repeat, const char* name) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atomicCAS-cuda main.cu,1);
   printf("Atomic max for data type %s | ", name);
   printf("Average execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
@@ -59,7 +59,7 @@ template <typename T>
 void testAdd (T *h_ptr, T *d_ptr, const int repeat, const char* name) {
   cudaMemcpy(d_ptr, h_ptr, sizeof(T), cudaMemcpyHostToDevice);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atomicCAS-cuda main.cu,2);
 
   for (int n = 0; n < repeat; n++) {
     atomicAddDerived<T><<<NUM_BLOCKS, BLOCK_SIZE>>> (d_ptr);
@@ -67,7 +67,7 @@ void testAdd (T *h_ptr, T *d_ptr, const int repeat, const char* name) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atomicCAS-cuda main.cu,2);
   printf("Atomic add for data type %s | ", name);
   printf("Average execution time: %f (s)\n", (time * 1e-9f) / repeat);
 

@@ -54,7 +54,7 @@ bool ChannelShuffleNCHW (T *X, int N, int C, int G, int numel, T *Y,
   const int HxW = numel / (N * C);
   const int S = (HxW + NUM_THREADS - 1) / NUM_THREADS;
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(channelShuffle-cuda main.cu,0);
 
   if (N <= GridDimMaxY) {
     const dim3 dim_grid(S, N, C);
@@ -70,7 +70,7 @@ bool ChannelShuffleNCHW (T *X, int N, int C, int G, int numel, T *Y,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(channelShuffle-cuda main.cu,0);
 
   return true;
 }
@@ -85,7 +85,7 @@ bool ChannelShuffleNHWC (T *X, int N, int C, int G, int numel, T *Y,
   const int HxW = numel / (N * C);
   const int outer_size = N * HxW;
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(channelShuffle-cuda main.cu,1);
 
   if (C <= 32) {
     for (int i = 0; i < repeat; i++)
@@ -103,7 +103,7 @@ bool ChannelShuffleNHWC (T *X, int N, int C, int G, int numel, T *Y,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(channelShuffle-cuda main.cu,1);
 
   return true;
 }

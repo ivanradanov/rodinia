@@ -84,7 +84,7 @@ void nonzero (int nrows, int ncols, int repeat) {
     cudaMalloc((void**)&d_nzeros, sizeof(int64_t));
 
     // Time the sum reduction on a device
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(nonzero-cuda main.cu,0);
 
     NonZero<scalar_t> conversion_op;
 
@@ -105,7 +105,7 @@ void nonzero (int nrows, int ncols, int repeat) {
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    sum_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(nonzero-cuda main.cu,0);
 
     cudaMemcpy(&h_nzeros, d_nzeros, sizeof(int64_t), cudaMemcpyDeviceToHost);
 
@@ -127,7 +127,7 @@ void nonzero (int nrows, int ncols, int repeat) {
       cudaMalloc((void**)&d_out, d_out_size_bytes);
 
       // Time the index operations on a device
-      auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(nonzero-cuda main.cu,1);
 
       cub::CountingInputIterator<int64_t> counting_itr(0);
 
@@ -151,7 +151,7 @@ void nonzero (int nrows, int ncols, int repeat) {
 
       cudaDeviceSynchronize();
       auto end = std::chrono::steady_clock::now();
-      idx_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(nonzero-cuda main.cu,1);
     
       cudaMemcpy(h_out, d_out, d_out_size_bytes, cudaMemcpyDeviceToHost);
 

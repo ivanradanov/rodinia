@@ -90,7 +90,7 @@ void GPU_force(System &system) {
   if (theval == POTENTIAL_LJESPOLAR)
     pform=2;
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(mcmd-cuda kernels.cpp,0);
 
   // compute forces on a device
   force_kernel (
@@ -110,7 +110,7 @@ void GPU_force(System &system) {
                 H); 
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(mcmd-cuda kernels.cpp,0);
   printf("Device offload time: %f (s)\n", time * 1e-9f);
 
   index=0;

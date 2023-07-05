@@ -314,7 +314,7 @@ void QTC(const string& name, OptionParser& op, int matrix_type){
       break;
     cwrank = comm_get_rank();
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(qtclustering-cuda QTC.cu,0);
 
     // Main kernel
     QTC_device<<<thread_block_count, tpb>>>((float*)distance_matrix, (char *)Ai_mask, (char *)clustered_pnts_mask,
@@ -325,7 +325,7 @@ void QTC(const string& name, OptionParser& op, int matrix_type){
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    qtc_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(qtclustering-cuda QTC.cu,0);
 
     CHECK_CUDA_ERROR();
 
@@ -355,7 +355,7 @@ void QTC(const string& name, OptionParser& op, int matrix_type){
       cout << "[" << cwrank << "] Cluster Cardinality: " << max_card << " (Node: " << cwrank << ", index: " << winner_index << ")" << endl;
     }
 
-    start = std::chrono::steady_clock::now();
+MY_START_CLOCK(qtclustering-cuda QTC.cu,1);
 
     trim_ungrouped_pnts_indr_array<<<1, tpb>>>(winner_index, (int*)ungrpd_pnts_indr, (float*)distance_matrix,
         (int *)result, (char *)Ai_mask, (char *)clustered_pnts_mask,
@@ -365,7 +365,7 @@ void QTC(const string& name, OptionParser& op, int matrix_type){
     CHECK_CUDA_ERROR();
 
     end = std::chrono::steady_clock::now();
-    trim_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(qtclustering-cuda QTC.cu,1);
 
     if( cwrank == winner_node){ // for non-parallel cases, these should both be zero.
       if( save_clusters ){
@@ -384,14 +384,14 @@ void QTC(const string& name, OptionParser& op, int matrix_type){
       }
     }
 
-    start = std::chrono::steady_clock::now();
+MY_START_CLOCK(qtclustering-cuda QTC.cu,2);
 
     update_clustered_pnts_mask<<<1, tpb>>>((char *)clustered_pnts_mask, (char *)Ai_mask, max_point_count);
     cudaDeviceSynchronize();
     CHECK_CUDA_ERROR();
 
     end = std::chrono::steady_clock::now();
-    update_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(qtclustering-cuda QTC.cu,2);
 
     point_count -= max_card;
 

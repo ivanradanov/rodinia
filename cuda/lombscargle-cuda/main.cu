@@ -176,14 +176,14 @@ int main(int argc, char* argv[]) {
   dim3 threads (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lombscargle-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++)
     lombscargle<<<grids, threads>>>(x_shape, freqs_shape, d_x, d_y, d_f, d_p, y_dot);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lombscargle-cuda main.cu,0);
   printf("Average kernel execution time %f (us)\n", (time * 1e-3) / repeat);
 
   cudaMemcpy(p, d_p, sizeof(float)*freqs_shape, cudaMemcpyDeviceToHost);

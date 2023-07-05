@@ -891,7 +891,7 @@ int main (int argc, char *argv[])
   Real dt_Re = 0.5 * Re_num / ((1.0 / (dx * dx)) + (1.0 / (dy * dy)));
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lid-driven-cavity-cuda main.cu,0);
 
   // time iteration loop
   while (time < time_end) {
@@ -1008,7 +1008,7 @@ int main (int argc, char *argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto elapsed_time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lid-driven-cavity-cuda main.cu,0);
   printf("\nTotal execution time of the iteration loop: %f (s)\n", elapsed_time * 1e-9f);
 
   // transfer final temperature values back

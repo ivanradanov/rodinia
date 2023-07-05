@@ -112,7 +112,7 @@ void ComputeChannelSumNCHW (
     long &time,
     int repeat)
 {
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(channelSum-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     DISPATCH_REDUCE_KERNEL_BY_2D_BLOCK_WITH_TYPE(
@@ -131,7 +131,7 @@ void ComputeChannelSumNCHW (
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(channelSum-cuda main.cu,0);
 }
 
 void ComputeChannelSumNHWC (
@@ -144,7 +144,7 @@ void ComputeChannelSumNHWC (
     long &time,
     int repeat)
 {
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(channelSum-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) {
     ChannelSumNHWC<scalar_t> <<<C, NUM_THREADS>>>(N, C, HxW, X, sum, sumsq);
@@ -152,7 +152,7 @@ void ComputeChannelSumNHWC (
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(channelSum-cuda main.cu,1);
 }
 
 

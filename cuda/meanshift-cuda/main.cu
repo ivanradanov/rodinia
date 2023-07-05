@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
   cudaMemcpy(d_data, data.data(), data_bytes, cudaMemcpyHostToDevice);
 
   // Run mean shift clustering and time the execution
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(meanshift-cuda main.cu,0);
 
   for (size_t i = 0; i < mean_shift::gpu::NUM_ITER; ++i) {
     mean_shift::gpu::mean_shift<<<BLOCKS, THREADS>>>(d_data, d_data_next);
@@ -129,7 +129,7 @@ int main(int argc, char* argv[]) {
   }
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(meanshift-cuda main.cu,0);
   std::cout << "\nAverage execution time of mean-shift (base) "
             << (time * 1e-6f) / mean_shift::gpu::NUM_ITER << " ms\n" << std::endl;
 
@@ -144,14 +144,14 @@ int main(int argc, char* argv[]) {
   // Reset device data
   cudaMemcpy(d_data, data.data(), data_bytes, cudaMemcpyHostToDevice);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(meanshift-cuda main.cu,1);
   for (size_t i = 0; i < mean_shift::gpu::NUM_ITER; ++i) {
     mean_shift::gpu::mean_shift_tiling<<<BLOCKS, THREADS>>>(d_data, d_data_next);
     cudaDeviceSynchronize();
     mean_shift::gpu::utils::swap(d_data, d_data_next);
   }
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(meanshift-cuda main.cu,1);
   std::cout << "\nAverage execution time of mean-shift (opt) "
             << (time * 1e-6f) / mean_shift::gpu::NUM_ITER << " ms\n" << std::endl;
 

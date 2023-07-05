@@ -79,7 +79,7 @@ int main(int argc, char* argv[])
   for (i = 0; i < n; i++) h_inp[i] = (int)data[i];
   h_inp[i] = 0; h_inp[i + 1] = 0; h_inp[i + 2] = 0; //prepare for triples
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(sa-cuda main.cu,0);
 
   for (i = 0; i < repeat; i++) {
     d_inp = h_inp;

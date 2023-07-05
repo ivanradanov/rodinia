@@ -177,7 +177,7 @@ int main(int argc, char* argv[])
   dim3 blocks (BSIZE, BSIZE, 1);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(stencil3d-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     stencil3d <<< grids, blocks >>> (
@@ -185,7 +185,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(stencil3d-cuda main.cu,0);
   printf("Average kernel execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
   // read dVm

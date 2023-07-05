@@ -187,7 +187,7 @@ int main(int argc, char* argv[])
   dim3 block(requiredThreads);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(multinomial-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     sampleMultinomialOnce<float, float> <<<grid, block>>>(
@@ -196,7 +196,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(multinomial-cuda main.cu,0);
   printf("Average execution time of sampleMultinomialOnce kernel: %f (us)\n", (time * 1e-3f) / repeat);
   cudaMemcpy(result, d_result, result_size_bytes, cudaMemcpyDeviceToHost);
 

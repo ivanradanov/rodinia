@@ -213,7 +213,7 @@ int main(int argc, char* argv[])
   kBlock = divup(half_count, kThreadInBlock);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(relu-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     ReluGrad_impl1 <<< kBlock, kThreadInBlock >>> (
@@ -221,7 +221,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(relu-cuda main.cu,0);
   printf("Average execution time of ReluGrad_impl1 Kernel: %f (us)\n",
           (time * 1e-3f) / repeat);
 
@@ -241,7 +241,7 @@ int main(int argc, char* argv[])
   kBlock = divup(half_count, kThreadInBlock);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(relu-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     ReluGrad_impl2 <<< kBlock, kThreadInBlock >>> (
@@ -249,7 +249,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(relu-cuda main.cu,1);
   printf("Average execution time of ReluGrad_impl2 Kernel: %f (us)\n",
           (time * 1e-3f) / repeat);
 
@@ -293,14 +293,14 @@ int main(int argc, char* argv[])
   kBlock = divup(count, kThreadInBlock);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(relu-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++)
     Relu_impl1 <<< kBlock, kThreadInBlock >>> (count, d_in, d_out);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(relu-cuda main.cu,2);
   printf("Average execution time of Relu_impl1 Kernel : %f (us)\n",
           (time * 1e-3f) / repeat);
 
@@ -309,14 +309,14 @@ int main(int argc, char* argv[])
   fail = memcmp(h_out, r_out, size);
   printf("%s\n", fail ? "FAIL" : "PASS");
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(relu-cuda main.cu,3);
 
   for (int i = 0; i < repeat; i++)
     Relu_impl2 <<< kBlock, kThreadInBlock >>> (count, d_in, d_out);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(relu-cuda main.cu,3);
   printf("Average execution time of Relu_impl2 Kernel: %f (us)\n",
           (time * 1e-3f) / repeat);
 

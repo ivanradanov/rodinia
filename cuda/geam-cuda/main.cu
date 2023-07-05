@@ -15,14 +15,14 @@ void transpose_f64(int nrow, int ncol, int repeat) {
 
   T *matrixT = (T *) malloc (size_byte);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(geam-cuda main.cu,0);
 
   for (int i = 0; i < nrow; i++)
     for (int j = 0; j < ncol; j++)
       matrixT[(j*nrow)+i] = matrix[(i*ncol)+j];
 
   auto end = std::chrono::steady_clock::now();
-  double time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(geam-cuda main.cu,0);
   printf("Host: serial matrix transpose time = %f (ms)\n", time * 1e-6f);
 
   cublasStatus_t stat;
@@ -46,7 +46,7 @@ void transpose_f64(int nrow, int ncol, int repeat) {
 
   for (int i = 0; i < repeat + warmup; i++) {
     if (i >= warmup) {
-      start = std::chrono::steady_clock::now();
+MY_START_CLOCK(geam-cuda main.cu,1);
     }
     stat = cublasDgeam(handle, CUBLAS_OP_T, CUBLAS_OP_N,
                        nrow, ncol,
@@ -56,7 +56,7 @@ void transpose_f64(int nrow, int ncol, int repeat) {
     cudaDeviceSynchronize(); // required for timing correctness
     if (i >= warmup) {
       end = std::chrono::steady_clock::now();
-      time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(geam-cuda main.cu,1);
     }
 
     if (stat != CUBLAS_STATUS_SUCCESS) {
@@ -96,14 +96,14 @@ void transpose_f32(int nrow, int ncol, int repeat) {
 
   T *matrixT = (T *) malloc (size_byte);
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(geam-cuda main.cu,2);
 
   for (int i = 0; i < nrow; i++)
     for (int j = 0; j < ncol; j++)
       matrixT[(j*nrow)+i] = matrix[(i*ncol)+j];
 
   auto end = std::chrono::steady_clock::now();
-  double time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(geam-cuda main.cu,2);
   printf("Host: serial matrix transpose time = %f (ms)\n", time * 1e-6f);
 
   cublasStatus_t stat;
@@ -126,7 +126,7 @@ void transpose_f32(int nrow, int ncol, int repeat) {
 
   for (int i = 0; i < repeat + warmup; i++) {
     if (i >= warmup) {
-      start = std::chrono::steady_clock::now();
+MY_START_CLOCK(geam-cuda main.cu,3);
     }
     stat = cublasSgeam(handle, CUBLAS_OP_T, CUBLAS_OP_N,
                        nrow, ncol,
@@ -136,7 +136,7 @@ void transpose_f32(int nrow, int ncol, int repeat) {
     cudaDeviceSynchronize(); // required for timing correctness
     if (i >= warmup) {
       end = std::chrono::steady_clock::now();
-      time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(geam-cuda main.cu,3);
     }
 
     if (stat != CUBLAS_STATUS_SUCCESS) {

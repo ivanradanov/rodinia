@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
   complex_double<<<grids, blocks>>>(d_cs, n);
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(complex-cuda main.cu,0);
 
   // complex numbers in single precision
   for (int i = 0; i < repeat; i++) {
@@ -47,13 +47,13 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(complex-cuda main.cu,0);
   printf("Average kernel execution time (float) %f (s)\n", time * 1e-9f / repeat);
 
   cudaMemcpy(cs, d_cs, n, cudaMemcpyDeviceToHost);
   bool complex_float_check = check(cs, n);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(complex-cuda main.cu,1);
 
   // complex numbers in double precision
   for (int i = 0; i < repeat; i++) {
@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(complex-cuda main.cu,1);
   printf("Average kernel execution time (double) %f (s)\n", time * 1e-9f / repeat);
 
   cudaMemcpy(cs, d_cs, n, cudaMemcpyDeviceToHost);

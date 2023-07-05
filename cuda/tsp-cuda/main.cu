@@ -348,14 +348,14 @@ int main(int argc, char *argv[])
     cudaMemcpy(climbs_d, &climbs, sizeof(int), cudaMemcpyHostToDevice);
     cudaMemcpy(best_d, &best, sizeof(int), cudaMemcpyHostToDevice);
 
-    auto kstart = std::chrono::steady_clock::now();
+MY_START_CLOCK(tsp-cuda main.cu,0);
 
     TwoOpt<<<restarts, threads, sizeof(int) * threads>>>(cities, posx_d, posy_d, glob_d, climbs_d, best_d);
 
     cudaDeviceSynchronize();
     auto kend = std::chrono::steady_clock::now();
     if (i > 0)
-      ktime += std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+MY_STOP_CLOCK(tsp-cuda main.cu,0);
   }
 
   cudaMemcpy(&best, best_d, sizeof(int), cudaMemcpyDeviceToHost);

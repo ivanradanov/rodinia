@@ -189,7 +189,7 @@ int sptrsv_syncfree (
     cudaMemcpy(d_x, x, sizeof(VALUE_TYPE)*n, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(sptrsv-cuda sptrsv_syncfree.cu,0);
 
     sptrsv_mix<<<num_blocks, num_threads>>>(
         d_csrRowPtr, d_csrColIdx, d_csrVal, d_get_value,
@@ -198,7 +198,7 @@ int sptrsv_syncfree (
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
     if (i > 0)
-      time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(sptrsv-cuda sptrsv_syncfree.cu,0);
   }
 
   printf("Average kernel execution time: %f (us)\n", (time * 1e-3f) / repeat);

@@ -222,14 +222,14 @@ int main(int argc, char *argv[]) {
   double KH = 0.0;  // will be Henry coefficient
   for (int cycle = 0; cycle < ncycles; cycle++) {
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(henry-cuda main.cu,0);
 
     //  Perform Monte Carlo insertions in parallel on the GPU
     insertions<<<nBlocks, NUMTHREADS>>>(d_boltzmannFactors, d_structureAtoms, natoms, L);
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(henry-cuda main.cu,0);
     total_time += time;
 
     cudaMemcpy(boltzmannFactors, d_boltzmannFactors, insertionsPerCycle * sizeof(double), cudaMemcpyDeviceToHost);

@@ -71,14 +71,14 @@ void malloc2D (int repeat, int width, int height) {
   parallelPitched2DAccess<<<grid, block>>>(devPtr, pitch, width, height);
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(pitch-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     parallelPitched2DAccess<<<grid, block>>>(devPtr, pitch, width, height);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(pitch-cuda main.cu,0);
 
   cudaFree(devPtr);
 
@@ -87,14 +87,14 @@ void malloc2D (int repeat, int width, int height) {
   parallelSimple2DAccess<<<grid, block>>>(devPtr, width, height);
   cudaDeviceSynchronize();
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(pitch-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     parallelSimple2DAccess<<<grid, block>>>(devPtr, width, height);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  auto time2 = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(pitch-cuda main.cu,1);
   printf("Average execution time (pitched vs simple): %f %f (us)\n",
           (time * 1e-3f) / repeat, (time2 * 1e-3f) / repeat);
 
@@ -115,14 +115,14 @@ void malloc3D (int repeat, int width, int height, int depth) {
   parallelPitched3DAccess<<<grid, block>>>(devPitchedPtr, width, height, depth);
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(pitch-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++)
     parallelPitched3DAccess<<<grid, block>>>(devPitchedPtr, width, height, depth);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(pitch-cuda main.cu,2);
 
   cudaFree(devPitchedPtr.ptr);
 
@@ -132,14 +132,14 @@ void malloc3D (int repeat, int width, int height, int depth) {
   parallelSimple3DAccess<<<grid, block>>>(devPtr, width, height, depth);
   cudaDeviceSynchronize();
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(pitch-cuda main.cu,3);
 
   for (int i = 0; i < repeat; i++)
     parallelSimple3DAccess<<<grid, block>>>(devPtr, width, height, depth);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  auto time2 = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(pitch-cuda main.cu,3);
   printf("Average execution time (pitched vs simple): %f %f (us)\n",
           (time * 1e-3f) / repeat, (time2 * 1e-3f) / repeat);
 

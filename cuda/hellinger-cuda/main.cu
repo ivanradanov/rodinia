@@ -104,14 +104,14 @@ int main(int argc, char** argv)
   dim3 dimBlock(BLOCK_SIZE, BLOCK_SIZE);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(hellinger-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     hellinger<<<dimGrid, dimBlock>>>(a_device, b_device, c_device, M, N, P);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(hellinger-cuda main.cu,0);
   std::cout << "Average kernel execution time " << (time * 1e-9f) / repeat << " (s)\n";
 
   cudaMemcpy(c_back, c_device, sizeof(int)*M*P, cudaMemcpyDeviceToHost);

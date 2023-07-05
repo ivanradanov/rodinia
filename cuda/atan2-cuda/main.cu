@@ -445,14 +445,14 @@ int main(int argc, char* argv[])
   dim3 blocks (256);
 
   printf("\n======== output type is f32 ========\n");
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atan2-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     compute_f <<<grids, blocks>>> (n, dy, dx, df);
   cudaDeviceSynchronize();
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atan2-cuda main.cu,0);
   printf("Average execution time: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(hf, df, output_float_bytes, cudaMemcpyDeviceToHost);
@@ -468,14 +468,14 @@ int main(int argc, char* argv[])
 
   printf("\n======== output type is i32 ========\n");
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atan2-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     compute_i <<<grids, blocks>>> (n, dy, dx, di);
   cudaDeviceSynchronize();
 
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atan2-cuda main.cu,1);
   printf("Average execution time: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(hi, di, output_int_bytes, cudaMemcpyDeviceToHost);
@@ -491,14 +491,14 @@ int main(int argc, char* argv[])
 
   printf("\n======== output type is i16 ========\n");
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(atan2-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++)
     compute_s <<<grids, blocks>>> (n, dy, dx, ds);
   cudaDeviceSynchronize();
 
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(atan2-cuda main.cu,2);
   printf("Average execution time: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(hs, ds, output_short_bytes, cudaMemcpyDeviceToHost);

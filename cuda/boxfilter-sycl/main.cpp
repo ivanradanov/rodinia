@@ -75,7 +75,7 @@ void BoxFilterGPU ( sycl::queue &q,
     sycl::range<1> col_lws(64);
 
     q.wait();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(boxfilter-sycl main.cpp,0);
 
     for (int i = 0; i < iCycles; i++) {
       // Launch row kernel
@@ -170,7 +170,7 @@ void BoxFilterGPU ( sycl::queue &q,
 
    q.wait();
    auto end = std::chrono::steady_clock::now();
-   auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(boxfilter-sycl main.cpp,0);
    printf("Average device execution time %f (us)\n", (time * 1e-3f) / iCycles);
 }
 

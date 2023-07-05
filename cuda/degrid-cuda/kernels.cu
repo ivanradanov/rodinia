@@ -84,7 +84,7 @@ void degridGPU(CmplxType* out, CmplxType* in, CmplxType *img, CmplxType *gcf) {
   dim3 block(32, 8);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(degrid-cuda kernels.cu,0);
 
   for (int n = 0; n < REPEAT; n++) {
     // GCF_DIM is at least 32
@@ -96,7 +96,7 @@ void degridGPU(CmplxType* out, CmplxType* in, CmplxType *img, CmplxType *gcf) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(degrid-cuda kernels.cu,0);
   std::cout << "Average kernel execution time " << (time * 1e-9f) / REPEAT << " (s)\n";
 
   cudaMemcpy(out, d_out, sizeof(CmplxType)*NPOINTS, cudaMemcpyDeviceToHost);

@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
   dim3 blocks (tile_cols, tile_rows);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(debayer-cuda main.cu,0);
 
   //this version takes a tile (z=1) and each tile job does 4 line median sorts
   for (int i = 0; i < repeat; i++) {
@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(debayer-cuda main.cu,0);
   printf("Average kernel execution time %f (s)\n", time * 1e-9f / repeat);
 
   cudaMemcpy(output, d_output, output_image_size, cudaMemcpyDeviceToHost);

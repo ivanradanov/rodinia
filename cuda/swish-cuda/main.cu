@@ -70,24 +70,24 @@ void eval_swish (const int N, const int repeat) {
   dim3 block (GPU_THREADS);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(swish-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) 
     SwishKernel <<<grid, block>>> (N, d_X, d_Y);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(swish-cuda main.cu,0);
   printf("Average execution time of Swish kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(swish-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) 
     SwishGradientKernel <<<grid, block>>> (N, d_X, d_Y, d_dY, d_dX);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(swish-cuda main.cu,1);
   printf("Average execution time of SwishGradient kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   // verify

@@ -156,7 +156,7 @@ int main(int argc, char** argv)
       blocks, NUM_THREADS, blocks * NUM_THREADS);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(dxtc1-cuda main.cu,0);
 
   for (int i = 0; i < numIterations; ++i) {
     for( int j=0; j<blocks; j+= blocksPerLaunch ) {
@@ -175,7 +175,7 @@ int main(int argc, char** argv)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(dxtc1-cuda main.cu,0);
   printf("Average kernel execution time %f (s)\n", (time * 1e-9f) / numIterations);
 
   cudaMemcpy(h_result, (uint*)d_result, compressedSize, cudaMemcpyDeviceToHost);

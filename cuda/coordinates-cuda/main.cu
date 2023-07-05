@@ -28,7 +28,7 @@ void coordinates_transform(const int num_coords, const int repeat)
   thrust::device_vector<cartesian_2d<T>> d_output (num_coords);
  
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(coordinates-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     thrust::transform(d_input.cbegin(), d_input.cend(),
@@ -37,18 +37,18 @@ void coordinates_transform(const int num_coords, const int repeat)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(coordinates-cuda main.cu,0);
   printf("Average execution time of device transform: %f (us)\n", (time * 1e-3f) / repeat);
 
   h_output = d_output;  // copy results from device to host
 
-  start = std::chrono::steady_clock::now();
+MY_START_CLOCK(coordinates-cuda main.cu,1);
   for (int i = 0; i < 10; i++) {
     std::transform(h_input.cbegin(), h_input.cend(),
                    h_ref_output.begin(), to_cartesian_functor<T>(h_origin));
   }
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(coordinates-cuda main.cu,1);
   printf("Average execution time of host transform: %f (us)\n", (time * 1e-3f) / 10);
 
   bool ok = true;

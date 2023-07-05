@@ -95,12 +95,12 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(mtf-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) mtf(word);
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(mtf-cuda main.cu,0);
   std::cout << "Average execution time: " << (time * 1e-9f) / repeat << " (s)\n";
   return 0;
 }

@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
     // initialize timer
     double time_in_usec, time_total, time_mat_J, time_mat_K;
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(xlqc-cuda main.cu,0);
     std::string time_txt ("");
     time_total = 0.0;
     time_mat_J = 0.0;
@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
 #endif
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(xlqc-cuda main.cu,0);
     time_in_usec = time * 1e-3f;
     time_txt += "Time_Basis    = " + std::to_string(time_in_usec) + " usec\n";
     time_total += time_in_usec;
@@ -146,7 +146,7 @@ int main(int argc, char* argv[])
 
     //====== one-electron integrals ========
 
-    start = std::chrono::steady_clock::now();
+MY_START_CLOCK(xlqc-cuda main.cu,1);
 
     // overlap, kinetic energy and nuclear attraction integral
     gsl_matrix *S = gsl_matrix_alloc(p_basis->num, p_basis->num);
@@ -180,14 +180,14 @@ int main(int argc, char* argv[])
     }
 
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(xlqc-cuda main.cu,1);
     time_in_usec = time * 1e-3f;
     time_txt += "Time_1e_Ints  = " + std::to_string(time_in_usec) + " usec\n";
     time_total += time_in_usec;
 
     //====== allocate memory for arrays on host ========
 
-    start = std::chrono::steady_clock::now();
+MY_START_CLOCK(xlqc-cuda main.cu,2);
 
     // number of primitive basis functions (pbf)
     int n_pbf = 0;
@@ -261,14 +261,14 @@ int main(int argc, char* argv[])
 
 
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(xlqc-cuda main.cu,2);
     time_in_usec = time * 1e-3f;
     time_txt += "Time_2e_Prep  = " + std::to_string(time_in_usec) + " usec\n";
     time_total += time_in_usec;
 
     //====== start SCF calculation ========
 
-    start = std::chrono::steady_clock::now();
+MY_START_CLOCK(xlqc-cuda main.cu,3);
 
     // NOTE: assume zero charge and closed-shell electronics structure
     int n_elec = 0;
@@ -382,7 +382,7 @@ int main(int argc, char* argv[])
             "Iter", "E_total", "delta_E", "rms_D", "delta_DIIS");
 
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(xlqc-cuda main.cu,3);
     time_in_usec = time * 1e-3f;
     time_txt += "Time_SCF_Init = " + std::to_string(time_in_usec) + " usec\n";
     time_total += time_in_usec;
@@ -390,7 +390,7 @@ int main(int argc, char* argv[])
 
     // start SCF iterations
 
-    start = std::chrono::steady_clock::now();
+MY_START_CLOCK(xlqc-cuda main.cu,4);
 
     int iter = 0;
     while (1)
@@ -428,7 +428,7 @@ int main(int argc, char* argv[])
 
 
         // timer for J and K matrices
-        auto kstart = std::chrono::steady_clock::now();
+MY_START_CLOCK(xlqc-cuda main.cu,5);
 
         // use 1T1PI for J and K matrices
         if (use_dp) {
@@ -441,13 +441,13 @@ int main(int argc, char* argv[])
 
         cudaDeviceSynchronize();
         auto kend = std::chrono::steady_clock::now();
-        auto ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+MY_STOP_CLOCK(xlqc-cuda main.cu,4);
         time_in_usec = ktime * 1e-3f;
         time_mat_J += time_in_usec;
 
         my_cuda_safe(cudaMemcpy(h_mat_J_PI, dev_mat_J_PI, n_PI_bytes, cudaMemcpyDeviceToHost),"mem_mat_J_PI");
 
-        kstart = std::chrono::steady_clock::now();
+MY_START_CLOCK(xlqc-cuda main.cu,6);
 
         if (use_dp) {
             cuda_mat_K_PI_dp<<<grid_size, block_size>>>
@@ -459,7 +459,7 @@ int main(int argc, char* argv[])
 
         cudaDeviceSynchronize();
         kend = std::chrono::steady_clock::now();
-        ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+MY_STOP_CLOCK(xlqc-cuda main.cu,5);
         time_in_usec = ktime * 1e-3f;
         time_mat_K += time_in_usec;
 
@@ -574,14 +574,14 @@ int main(int argc, char* argv[])
 
 
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(xlqc-cuda main.cu,6);
     time_in_usec = time * 1e-3f;
     time_txt += "Time_SCF_Conv = " + std::to_string(time_in_usec) + " usec\n";
     time_total += time_in_usec;
 
 
     // print MO information
-    start = std::chrono::steady_clock::now();
+MY_START_CLOCK(xlqc-cuda main.cu,7);
 
     fprintf(stdout, "%5s %10s %15s %12s\n", "MO", "State", "E(Eh)", "E(eV)");
     for (ibasis = 0; ibasis < p_basis->num; ++ ibasis)
@@ -686,7 +686,7 @@ int main(int argc, char* argv[])
     free(p_basis);
 
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(xlqc-cuda main.cu,7);
     time_in_usec = time * 1e-3f;
     time_txt += "Time_Finalize = " + std::to_string(time_in_usec) + " usec\n";
     time_total += time_in_usec;

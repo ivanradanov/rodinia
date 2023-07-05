@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
     dim3 grid_size((length + block_size.x - 1) / block_size.x);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(ga-cuda main.cu,0);
 
     ga<<<grid_size, block_size>>>(
         d_target, d_query, d_batch_result, length, qseq_size,
@@ -101,7 +101,7 @@ int main(int argc, char* argv[])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(ga-cuda main.cu,0);
     total_time += time;
 
     reference(target_sequence.data(), query_sequence.data(), batch_result_ref, length, qseq_size,

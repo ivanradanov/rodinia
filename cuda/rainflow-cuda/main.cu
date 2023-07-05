@@ -215,7 +215,7 @@ int main(int argc, char* argv[]) {
   dim3 grids (num_history / 256 + 1);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(rainflow-cuda main.cu,0);
 
   for (n = 0; n < repeat; n++) {
     rainflow_count <<<grids, blocks>>> (
@@ -231,7 +231,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(rainflow-cuda main.cu,0);
   printf("Average kernel execution time: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(result_lengths, d_result_lengths, num_history * sizeof(int), cudaMemcpyDeviceToHost);

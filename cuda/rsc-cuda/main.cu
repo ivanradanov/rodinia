@@ -212,7 +212,7 @@ int main(int argc, char **argv) {
     cudaMemcpy(d_model_param_local, h_model_param_local, 4 * p.max_iter * sizeof(float), cudaMemcpyHostToDevice);
     cudaMemcpy(d_g_out_id, h_g_out_id, sizeof(int), cudaMemcpyHostToDevice);
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(rsc-cuda main.cu,0);
 
     for(int rep = 0; rep < p.n_warmup + p.n_reps; rep++) {
 
@@ -255,7 +255,7 @@ int main(int argc, char **argv) {
     }
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(rsc-cuda main.cu,0);
     printf("Total task execution time for %d iterations: %f (ms)\n", p.n_reps + p.n_warmup, time * 1e-6f);
 
     printf("Best model (test) %d\n", best_model);

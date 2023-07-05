@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
     dim3 grid (ngrid);
     printf("Grid size is %d\n", ngrid);
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(accuracy-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++) {
       cudaMemset(d_count, 0, sizeof(int));
@@ -102,7 +102,7 @@ int main(int argc, char* argv[])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(accuracy-cuda main.cu,0);
     printf("Average execution time of accuracy kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
     int count;

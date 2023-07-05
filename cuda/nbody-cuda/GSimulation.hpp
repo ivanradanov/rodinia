@@ -68,7 +68,7 @@ class GSimulation {
 
 class TimeInterval {
  public:
-  TimeInterval() : start_(std::chrono::steady_clock::now()) {}
+MY_START_CLOCK(nbody-cuda GSimulation.hpp,0);
 
   double Elapsed() {
     auto now = std::chrono::steady_clock::now();

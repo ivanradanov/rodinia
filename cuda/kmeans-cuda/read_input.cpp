@@ -198,7 +198,7 @@ int setup(int argc, char **argv) {
 
 	/* ======================= core of the clustering ===================*/
 
-	auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(kmeans-cuda read_input.cpp,0);
 	cluster_centres = NULL;
 	index = cluster(npoints,				/* number of data points */
 			nfeatures,				/* number of features for each point */

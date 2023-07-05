@@ -62,7 +62,7 @@ int main(int argc, char **argv)
   const dim3 grids (width / blocks.x + 1, height / blocks.y + 1);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(distort-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     barrel_distort<<<grids, blocks>>>(d_src, d_dst, d_prop);
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(distort-cuda main.cu,0);
   printf("Average kernel execution time: %f (ms)\n", (time * 1e-6f) / repeat);
 
   cudaMemcpy(h_dst, d_dst, imageSize_bytes, cudaMemcpyDeviceToHost);

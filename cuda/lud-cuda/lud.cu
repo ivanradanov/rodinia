@@ -115,7 +115,7 @@ int main ( int argc, char *argv[] )
   int i=0;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(lud-cuda lud.cu,0);
   
   for (i=0; i < matrix_dim-BLOCK_SIZE; i += BLOCK_SIZE) {
     offset = i;  // add the offset 
@@ -130,7 +130,7 @@ int main ( int argc, char *argv[] )
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(lud-cuda lud.cu,0);
   printf("Total kernel execution time : %f (s)\n", time * 1e-9f);
 
   cudaMemcpy(m, d_m, matrix_dim*matrix_dim*sizeof(float), cudaMemcpyDeviceToHost);

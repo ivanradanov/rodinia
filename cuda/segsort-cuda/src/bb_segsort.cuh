@@ -219,7 +219,7 @@ int bb_segsort(
     cudaEvent_t event;
     cudaEventCreate(&event);
 
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(segsort-cuda src bb_segsort.cuh,0);
 
     bb_segsort_run(
         keys_d, vals_d, keysB_d, valsB_d,
@@ -229,7 +229,7 @@ int bb_segsort(
 
     cudaStreamSynchronize(stream);
     auto end = std::chrono::steady_clock::now();
-    float time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(segsort-cuda src bb_segsort.cuh,0);
     printf("Kernel execution time: %f (s)\n", time * 1e-9f);
 
     std::swap(keys_d, keysB_d);

@@ -175,7 +175,7 @@ int main(int argc, char* argv[])
   int sum_d = 0;
   double avg_d = 0;
 
-  auto start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(graphB+-cuda main.cu,0);
 
   for (int iter = 0; iter < iterations; iter++) {
     // generate tree

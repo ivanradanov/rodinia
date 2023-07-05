@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
   dim3 grid(batch_size, seq_len);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(gelu-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     gelu_bias_loop <<<grid, block>>> (d_output, d_bias, hidden_dim, seq_len);
@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(gelu-cuda main.cu,0);
   printf("Average kernel execution time %f (ms)\n", (time * 1e-6f) / repeat);
 
   cudaMemcpy(output, d_output, src_size_bytes, cudaMemcpyDeviceToHost);

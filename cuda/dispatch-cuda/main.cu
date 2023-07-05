@@ -52,7 +52,7 @@ int main() {
   // Measure time taken to enqueue a kernel on the GPU
   //------------------------------------------------------------------------------------
   for (auto i = 0; i < TOTAL_RUN_COUNT; ++i) {
-    auto start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(dispatch-cuda main.cu,0);
     EmptyKernel<<<dim3(NUM_GROUPS), dim3(GROUP_SIZE)>>>();
     auto stop = std::chrono::high_resolution_clock::now();
     results[i] = std::chrono::duration<float, std::milli>(stop - start).count();
@@ -63,7 +63,7 @@ int main() {
   // Single dispatch execution latency
   //------------------------------------------------------------------------------------
   for (auto i = 0; i < TOTAL_RUN_COUNT; ++i) {
-    auto start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(dispatch-cuda main.cu,1);
     EmptyKernel<<<dim3(NUM_GROUPS), dim3(GROUP_SIZE)>>>();
     cudaDeviceSynchronize();
     auto stop = std::chrono::high_resolution_clock::now();
@@ -75,7 +75,7 @@ int main() {
   // Batch dispatch execution latency
   //------------------------------------------------------------------------------------
   for (auto i = 0; i < TOTAL_RUN_COUNT; ++i) {
-    auto start = std::chrono::high_resolution_clock::now();
+MY_START_CLOCK(dispatch-cuda main.cu,2);
     for (int j = 0; j < BATCH_SIZE; j++) {
       EmptyKernel<<<dim3(NUM_GROUPS), dim3(GROUP_SIZE)>>>();
     }

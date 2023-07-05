@@ -59,14 +59,14 @@ void run_benchmark()
     }
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(mr-cuda main.cu,0);
 
     // the efficient version is faster than the simple version on a device
     mr32_sf <<< grids, blocks >>> (d_bases32, d_n32, d_val, BENCHMARK_ITERATIONS);
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(mr-cuda main.cu,0);
     mr32_sf_time += time;
 
     cudaMemcpy(&val_dev, d_val, sizeof(int), cudaMemcpyDeviceToHost);
@@ -79,13 +79,13 @@ void run_benchmark()
     cudaMemset(d_val, 0, sizeof(int));
 
     cudaDeviceSynchronize();
-    start = std::chrono::steady_clock::now();
+MY_START_CLOCK(mr-cuda main.cu,1);
 
     mr32_eff <<< grids, blocks >>> (d_bases32, d_n32, d_val, BENCHMARK_ITERATIONS);
 
     cudaDeviceSynchronize();
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(mr-cuda main.cu,1);
     mr32_eff_time += time;
 
     cudaMemcpy(&val_dev, d_val, sizeof(int), cudaMemcpyDeviceToHost);

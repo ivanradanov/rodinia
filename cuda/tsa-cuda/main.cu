@@ -74,7 +74,7 @@ void tsa(int width, int height, int repeat) {
   cudaMemcpy(d_imag[0], p_imag, width * height * sizeof(T), cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(tsa-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     kernel<T, STEPS, BLOCK_X, BLOCK_Y, MARGIN_X, MARGIN_Y, STRIDE_Y>
@@ -85,7 +85,7 @@ void tsa(int width, int height, int repeat) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(tsa-cuda main.cu,0);
   printf("Average kernel execution time: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(p_real, d_real[sense], width * height * sizeof(T), cudaMemcpyDeviceToHost);

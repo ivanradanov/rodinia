@@ -156,7 +156,7 @@ int main(int argc, char** argv)
   cudaMemcpy(d_source, source, (long)N * sizeof(T2), cudaMemcpyHostToDevice);
  
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+MY_START_CLOCK(fft-cuda main.cu,0);
 
   for (int k=0; k<passes; k++) {
     fft1D_512<<<n_ffts, 64>>>(d_source);
@@ -165,7 +165,7 @@ int main(int argc, char** argv)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+MY_STOP_CLOCK(fft-cuda main.cu,0);
   std::cout << "Average kernel execution time " << (time * 1e-9f) / passes << " (s)\n";
 
   cudaMemcpy(source, d_source, (long)N * sizeof(T2), cudaMemcpyDeviceToHost);
