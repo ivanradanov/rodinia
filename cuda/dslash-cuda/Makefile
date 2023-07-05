@@ -30,7 +30,7 @@ HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 \
           -DPRECISION=1 \
           \
           \
-          -Xcompiler -fopenmp \
+          \
           -I../include
 
 # Linker Flags

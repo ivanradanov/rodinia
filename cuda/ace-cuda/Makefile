@@ -41,7 +41,7 @@ ifeq ($(OPTIMIZE),yes)
 endif
 
 ifeq ($(VERIFY),yes)
-  HEC_NVCC_FLAGS += -DVERIFY -Xcompiler -fopenmp
+  HEC_NVCC_FLAGS += -DVERIFY
 endif
 #===============================================================================
 # Targets to Build
