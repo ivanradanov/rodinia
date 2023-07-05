@@ -16,7 +16,7 @@ OPENMPI_BINDIR=/usr/lib64/openmpi3/bin
 LD	= $(OPENMPI_BINDIR)/mpicc
 NVCC	= $(CUDADIR)/bin/nvcc
 #DEBUG   = -g -G -DDEBUG
-FAST    = -O3 --use_fast_math 
+FAST    = -O3  
 
 # compiler flags to be used (set to compile with debugging on)
 HEC_NVCC_FLAGS = -Dp_N=$(N) -DNDG3d -DCUDA -I$(HDRDIR) -O3 -I$(CUDADIR)/include
