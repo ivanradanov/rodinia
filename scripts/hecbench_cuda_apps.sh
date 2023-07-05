@@ -90,7 +90,6 @@ hec-crs
 hec-d2q9-bgk
 hec-d3q19-bgk
 hec-damage
-hec-daphne
 hec-dct8x8
 hec-ddbp
 hec-debayer
@@ -427,6 +426,7 @@ hec-boxfilter
 # Other compilation failures
 echo "
 hec-axhelm
+hec-daphne
 "
 
 # No input file
