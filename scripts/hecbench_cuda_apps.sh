@@ -12,7 +12,6 @@ hec-aidw
 hec-aligned-types
 hec-all-pairs-distance
 hec-amgmk
-hec-ans
 hec-aobench
 hec-aop
 hec-asmooth
@@ -28,7 +27,6 @@ hec-atomicReduction
 hec-atomicSystemWide
 hec-attention
 hec-attentionMultiHead
-hec-axhelm
 hec-babelstream
 hec-background-subtract
 hec-backprop
@@ -45,7 +43,6 @@ hec-bm3d
 hec-bmf
 hec-bn
 hec-bonds
-hec-boxfilter
 hec-bscan
 hec-bsearch
 hec-bspline-vgh
@@ -420,4 +417,15 @@ hec-zerocopy
 hec-zeropoint
 hec-zmddft
 hec-zoom
+"
+exit
+
+# Failing with the __noinline__ problem
+echo "
+hec-ans
+hec-boxfilter
+"
+# Other compilation failures
+echo "
+hec-axhelm
 "

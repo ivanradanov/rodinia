@@ -23,7 +23,7 @@ obj = $(source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 -I../mis-cuda
+HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 -I../hec-mis
 
 # Linker Flags
 LINKER_FLAGS += 
@@ -47,7 +47,7 @@ endif
 $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
-main.o: main.cu ../mis-cuda/graph.h
+main.o: main.cu ../hec-mis/graph.h
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 clean:
