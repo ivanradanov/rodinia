@@ -28,12 +28,12 @@ obj = $(cpp_source:.cpp=.o) $(cuda_source:.cu=.o)
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker Flags
-LDFLAGS = 
+LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
   NVCC_FLAGS += -g -DDEBUG
-  LDFLAGS  += -g
+  LINKER_FLAGS  += -g
 endif
 
 
@@ -47,7 +47,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cpp OptionParser.h Utility.h 
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

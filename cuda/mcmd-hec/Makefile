@@ -26,12 +26,12 @@ NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 \
           -DGPU
 
 # Linker Flags
-LDFLAGS = 
+LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
   NVCC_FLAGS += -g -DDEBUG
-  LDFLAGS  += -g
+  LINKER_FLAGS  += -g
 endif
 
 # Optimization Flags
@@ -44,7 +44,7 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(obj) $(NVCC_FLAGS) -o $@ $(LDFLAGS)
+	$(CC) $(obj) $(NVCC_FLAGS) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cpp
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

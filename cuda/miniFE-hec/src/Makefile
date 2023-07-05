@@ -28,7 +28,7 @@ CXXFLAGS = -I. -I../utils -I../fem $(MINIFE_TYPES) -O3 -x cu \
 #	-DHAVE_MPI -DMPICH_IGNORE_CXX_SEEK \
 #	-DMINIFE_REPORT_RUSAGE
 
-LDFLAGS=-O3
+LINKER_FLAGS=-O3
 LIBS=
 
 # The MPICH_IGNORE_CXX_SEEK macro is required for some mpich versions,

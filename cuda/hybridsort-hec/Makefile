@@ -8,7 +8,7 @@ ARCH      = sm_60
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker flags
-LDFLAGS = -lm
+LINKER_FLAGS = -lm
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
@@ -31,7 +31,7 @@ endif
 
 hybridsort: hybridsort.o bucketsort.o mergesort.o
 	$(CC) $(NVCC_FLAGS) -o hybridsort $(VERIFY) $(OUTPUT) $(TIMER) \
-		hybridsort.o bucketsort.o mergesort.o $(LDFLAGS)
+		hybridsort.o bucketsort.o mergesort.o $(LINKER_FLAGS)
 
 hybridsort.o: hybridsort.cu bucketsort.h mergesort.h
 	$(CC) $(NVCC_FLAGS) -o hybridsort.o -c hybridsort.cu

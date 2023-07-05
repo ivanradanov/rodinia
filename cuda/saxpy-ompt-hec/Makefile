@@ -27,12 +27,12 @@ obj = $(source:.c=.o)
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -Wall 
 
 # Linker Flags
-LDFLAGS = 
+LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
   NVCC_FLAGS += -g
-  LDFLAGS  += -g 
+  LINKER_FLAGS  += -g 
 endif
 
 # Optimization Flags
@@ -50,7 +50,7 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.c asaxpy.h check1ns.h hsaxpy.h wtcalc.h
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

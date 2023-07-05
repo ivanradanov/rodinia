@@ -18,7 +18,7 @@ HACC_CC=${NVCC_BIN}/nvcc -x c
 HACC_CXXFLAGS=${OPT} ${OMP} ${NVCC_FLAGS}
 HACC_CXX=${NVCC_BIN}/nvcc
 
-HACC_LDFLAGS=-lm -lrt
+HACC_LINKER_FLAGS=-lm -lrt
 
 HACC_NUM_CUDA_DEV="1"
 HACC_MPI_NVCC_FLAGS=${OPT} ${OMP} ${NVCC_FLAGS}
@@ -28,7 +28,7 @@ HACC_MPI_CXXFLAGS=${OPT} ${OMP} ${NVCC_FLAGS}
 HACC_MPI_CXX=${NVCC_BIN}/nvcc
 HACC_MPI_LD=${NVCC_BIN}/nvcc
 
-HACC_MPI_LDFLAGS=-lm -lrt
+HACC_MPI_LINKER_FLAGS=-lm -lrt
 
 OBJDIR = ${HACC_OBJDIR}
 #SOBJDIR = ${HACC_OBJDIR}_serial
@@ -75,7 +75,7 @@ CXXFLAGS += ${DFFT_CXXFLAGS}
 
 NVCC_FLAGS += ${HACC_MPI_NVCC_FLAGS}
 CXXFLAGS += ${HACC_MPI_CXXFLAGS}
-LDFLAGS += ${HACC_MPI_LDFLAGS}
+LINKER_FLAGS += ${HACC_MPI_LINKER_FLAGS}
 
 #CXXFLAGS += ${MPI_COMPILE_FLAGS} 
 CXXFLAGS += ${HF_TYPE_FLAGS}
@@ -84,7 +84,7 @@ CXXFLAGS += ${HF_WARNING}
 #CXXFLAGS += -DDEBUG
 CXXFLAGS += -I.
 CXXFLAGS += -x cu
-#LDFLAGS  = ${MPI_LD_FLAGS} -lmpi_cxx
+#LINKER_FLAGS  = ${MPI_LD_FLAGS} -lmpi_cxx
 
 NVCC_FLAGS += -Idfft
 CXXFLAGS += -Idfft
@@ -121,7 +121,7 @@ dims-local.c: dfft/dims.c
 
 
 $(OBJDIR)/ForceTreeTest: $(OBJDIR)/ForceTreeTest.o $(OBJDIR)/libparticle.a $(OBJDIR)/libBHForceTree.a $(OBJDIR)/libpartition.a $(OBJDIR)/libhalotime.a $(OBJDIR)/libbigchunk.a $(OBJDIR)/dims-local.o
-	${HACC_MPI_CXX} -o $@ $^ ${LDFLAGS} -DUSE_SERIAL_COSMO=1
+	${HACC_MPI_CXX} -o $@ $^ ${LINKER_FLAGS} -DUSE_SERIAL_COSMO=1
 
 $(OBJDIR)/libpartition.a: $(OBJDIR)/libpartition.a($(OBJDIR)/Partition.o)
 	ranlib $@

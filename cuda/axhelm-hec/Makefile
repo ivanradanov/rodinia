@@ -25,12 +25,12 @@ NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall \
           -Ddfloat=float -Ddlong=int 
 
 # Linker Flags
-LDFLAGS = BlasLapack/libBlasLapack.a -lgfortran
+LINKER_FLAGS = BlasLapack/libBlasLapack.a -lgfortran
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
   NVCC_FLAGS += -g
-  LDFLAGS  += -g
+  LINKER_FLAGS  += -g
 endif
 
 # Optimization Flags
@@ -43,7 +43,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) BlasLapack/libBlasLapack.a 
-	$(CC) $(NVCC_FLAGS) $+ -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $+ -o $@ $(LINKER_FLAGS)
 
 main.o : main.cu axhelmKernel.cpp axhelmReference.cpp
 	$(CC) $(NVCC_FLAGS) -c $< -o $@
