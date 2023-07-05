@@ -1,0 +1,30 @@
+Version 0.4.4
+==================
+Water molecule
+O  0.0  -0.0757918380989205  0.0
+H  0.866811766181276  0.601435735705694  0.0
+H  -0.866811766181276  0.601435735705694  0.0
+
+Hartree-Fock/STO-3G
+reference(g09.d01)  -74.9420799522
+single precision    -74.9420775619    diff=2.4e-06    rel_diff=3.2e-08
+double precision    -74.9420799262    diff=2.6e-08    rel_diff=3.5e-10
+
+Hartree-Fock/6-31G* (6D)
+reference(g09.d01)  -75.9747482595
+single precision    -75.9747447109    diff=3.5e-06    rel_diff=4.7e-08
+double precision    -75.9747482532    diff=6.3e-09    rel_diff=8.3e-11
+
+Hartree-Fock/def-TZVP
+reference(g09.d01)  -76.0177547727
+single precision    -76.0177574147    diff=2.6e-06    rel_diff=3.5e-08
+double precision    -76.0177547738    diff=1.1e-09    rel_diff=1.4e-11
+==================
+HBr molecule
+Br  0.  0.  0.
+H   0.  0.  1.41
+
+Hartree-Fock/3-21G(Note: from EMSL), 5D
+reference(g09.d01)  -2560.61528610
+single precision    -2560.6152631204    diff=2.3e-05    rel_diff=9.0e-09
+double precision    -2560.6152860871    diff=1.3e-08    rel_diff=5.0e-12
