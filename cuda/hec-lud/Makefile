@@ -24,7 +24,7 @@ source = lud.cu ./common/common.cu
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 -I./common
 
 # Linker Flags
-LINKER_FLAGS = 
+LINKER_FLAGS += 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

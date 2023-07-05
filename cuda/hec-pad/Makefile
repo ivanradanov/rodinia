@@ -27,7 +27,7 @@ obj = main.o kernel.o host_task.o
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14
 
 # Linker Flags
-LINKER_FLAGS = -lpthread
+LINKER_FLAGS += -lpthread
 
 ifeq ($(DP),yes)
   HEC_NVCC_FLAGS += -DDYNAMIC_PARTITION

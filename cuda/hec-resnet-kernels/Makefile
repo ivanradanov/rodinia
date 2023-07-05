@@ -32,7 +32,7 @@ obj = main.o util.o Kernel256_winograd.o Kernel128_winograd.o \
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14
 
 # Linker Flags
-LINKER_FLAGS = 
+LINKER_FLAGS += 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

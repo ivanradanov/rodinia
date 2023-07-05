@@ -27,7 +27,7 @@ obj = $(source:.c=.o)
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -Wall 
 
 # Linker Flags
-LINKER_FLAGS = 
+LINKER_FLAGS += 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

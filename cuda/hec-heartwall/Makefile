@@ -9,7 +9,7 @@ DUMP      = yes
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14
 
 # Linker flags
-LINKER_FLAGS = -lm
+LINKER_FLAGS += -lm
 
 # Enable checksum and output file
 ifeq ($(DEBUG),yes)

@@ -28,7 +28,7 @@ obj=basis.o scf.o main.o crys.o cints.o cuda_rys_sp.o cuda_rys_dp.o
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 $(GSL_INC)
 
 # Linker Flags
-LINKER_FLAGS = $(GSL_LIB)
+LINKER_FLAGS += $(GSL_LIB)
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

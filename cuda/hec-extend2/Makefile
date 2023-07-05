@@ -25,7 +25,7 @@ obj = main.o read_data.o
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 -I../extend2-sycl
 
 # Linker Flags
-LINKER_FLAGS = 
+LINKER_FLAGS += 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

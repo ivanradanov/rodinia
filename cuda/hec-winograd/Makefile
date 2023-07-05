@@ -28,7 +28,7 @@ HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 \
           -DMAP_SIZE=$(INPUT_SIZE)
 
 # Linker Flags
-LINKER_FLAGS = 
+LINKER_FLAGS += 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

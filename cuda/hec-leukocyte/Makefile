@@ -10,7 +10,7 @@ MATRIX_DIR = ./meschach_lib
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14 -I$(MATRIX_DIR) --x cu
 
 # Linker flags
-LINKER_FLAGS = -lm
+LINKER_FLAGS += -lm
 
 
 # Debug Flags

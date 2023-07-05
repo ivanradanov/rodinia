@@ -30,7 +30,7 @@ obj = $(source:.cu=.o)
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -I$(MPI_ROOT)/include -std=c++11
 
 # Linker Flags
-LINKER_FLAGS = -L$(CUBLAS_ROOT)/targets/x86_64-linux/lib/ -lcublas \
+LINKER_FLAGS += -L$(CUBLAS_ROOT)/targets/x86_64-linux/lib/ -lcublas \
 	  -L$(CUDART_ROOT)/targets/x86_64-linux/lib/ -lcudart
 
 # Debug Flags

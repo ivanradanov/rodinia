@@ -24,7 +24,7 @@ obj = main.o utils.o heap.o
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14
 
 # Linker Flags
-LINKER_FLAGS = 
+LINKER_FLAGS += 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

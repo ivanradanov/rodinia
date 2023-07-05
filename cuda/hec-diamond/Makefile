@@ -94,7 +94,7 @@ obj = $(c_src:.c=.o) $(cpp_src:.cpp=.o) $(cuda_src:.cu=.o)
 HEC_NVCC_FLAGS := $(NVCC_FLAGS) -std=c++14
 
 # Linker Flags
-LINKER_FLAGS = -lz -lpthread
+LINKER_FLAGS += -lz -lpthread
 
 # Debug Flags
 ifeq ($(DEBUG),yes)

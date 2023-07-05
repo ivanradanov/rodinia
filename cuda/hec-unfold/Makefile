@@ -27,7 +27,7 @@ HEC_NVCC_FLAGS := $(NVCC_FLAGS) --extended-lambda -std=c++14 \
          
 
 # Linker Flags
-LINKER_FLAGS = 
+LINKER_FLAGS += 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
