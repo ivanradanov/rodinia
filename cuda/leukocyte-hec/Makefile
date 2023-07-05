@@ -7,7 +7,7 @@ ARCH      = sm_60
 MATRIX_DIR = ./meschach_lib
 
 # Standard flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall -I$(MATRIX_DIR) --x cu
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -I$(MATRIX_DIR) --x cu
 
 # Linker flags
 LINKER_FLAGS = -lm

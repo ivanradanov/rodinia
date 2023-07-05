@@ -4,7 +4,7 @@ DEBUG     = no
 ARCH      = sm_60
 
 # Standard flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14
 
 
 # Debug Flags

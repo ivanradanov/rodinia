@@ -55,7 +55,7 @@ endif
 
 ifeq ($(GPU),yes)
   NVCC_FLAGS +=-DUSE_GPU --default-stream per-thread \
-           -Xcompiler -Wall -Xcompiler="-fopenmp"
+           -Xcompiler="-fopenmp"
 else
   NVCC_FLAGS += -x c++ -Wall -fopenmp
 endif

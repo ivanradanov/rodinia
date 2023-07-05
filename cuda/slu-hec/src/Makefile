@@ -28,7 +28,7 @@ SLU_INC = -I$(SLU_PATH)/../include \
           -I$(SLU_PATH)/nicslu/util
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall $(SLU_INC)
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 $(SLU_INC)
 
 # Linker Flags
 LINKER_FLAGS = 

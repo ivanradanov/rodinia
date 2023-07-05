@@ -24,7 +24,7 @@ obj = main.o model_eval.o model_fitting.o
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = -lpthread

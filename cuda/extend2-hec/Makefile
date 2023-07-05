@@ -22,7 +22,7 @@ obj = main.o read_data.o
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall -I../extend2-sycl
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -I../extend2-sycl
 
 # Linker Flags
 LINKER_FLAGS = 

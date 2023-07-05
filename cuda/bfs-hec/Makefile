@@ -23,7 +23,7 @@ obj = $(source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall -I../bfs-sycl
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -I../bfs-sycl
 
 # Linker Flags
 LINKER_FLAGS = 

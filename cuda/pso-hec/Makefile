@@ -23,7 +23,7 @@ obj = main.o kernel_gpu.o kernel_cpu.o
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = 

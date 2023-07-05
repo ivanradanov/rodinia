@@ -30,7 +30,7 @@ NVCC_FLAGS := -DNX=400 \
 	  -DSIM_TIME=600 \
 	  -DDATA_SPEC=DATA_SPEC_THERMAL \
           -I$(MPI_INCLUDE) \
-          -std=c++14 -Xcompiler -Wall
+          -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = -L$(MPI_LIB_DIR) -lmpi

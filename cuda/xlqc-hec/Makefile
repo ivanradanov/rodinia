@@ -25,7 +25,7 @@ obj=basis.o scf.o main.o crys.o cints.o cuda_rys_sp.o cuda_rys_dp.o
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall $(GSL_INC)
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 $(GSL_INC)
 
 # Linker Flags
 LINKER_FLAGS = $(GSL_LIB)

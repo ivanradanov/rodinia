@@ -29,7 +29,7 @@ obj = main.o util.o Kernel256_winograd.o Kernel128_winograd.o \
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = 

@@ -21,7 +21,7 @@ obj = main.o meshBasis.o
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall \
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 \
           -Ddfloat=float -Ddlong=int 
 
 # Linker Flags

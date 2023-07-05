@@ -28,7 +28,7 @@ NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 \
           -DMILC_COMPLEX \
           -DLDIM=32 \
           -DPRECISION=1 \
-          -Xcompiler -Wall \
+          \
           \
           -Xcompiler -fopenmp \
           -I../include
