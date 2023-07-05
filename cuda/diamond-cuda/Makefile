@@ -120,7 +120,7 @@ $(program): $(obj)
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 %.o: %.cpp
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 %.o: %.cu
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@

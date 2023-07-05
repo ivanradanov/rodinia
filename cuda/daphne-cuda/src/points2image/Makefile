@@ -50,7 +50,7 @@ kernel.o: kernel.cu datatypes.h ../include/benchmark.h Makefile
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 main.o: ../common/main.cpp ../include/benchmark.h Makefile
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 checkdata:
 ifeq ($(wildcard ../../data/p2i_input.dat),)

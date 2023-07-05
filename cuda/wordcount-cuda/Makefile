@@ -49,7 +49,7 @@ wc.o: wc.cu Makefile
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 main.o: ../wordcount-sycl/main.cpp Makefile
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

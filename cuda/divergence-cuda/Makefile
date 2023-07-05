@@ -48,7 +48,7 @@ divergence.o: divergence.cu divergence.hpp Makefile
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 timer.o: timer/timer.cpp timer/timer.hpp
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 
 clean:

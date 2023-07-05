@@ -46,7 +46,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cpp sgd.h Makefile
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 sgd.o: sgd.cu sgd.h sgd_k128_kernel_hogwild_warp32.h
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@

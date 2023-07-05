@@ -58,7 +58,7 @@ $(program): $(obj) Makefile
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 %.o: %.cpp Makefile header.h
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

@@ -47,7 +47,7 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cu utils.cpp utils.h 
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 curvilinear4sg.o : curvilinear4sg.cu \
        	           kernel1.cpp \
