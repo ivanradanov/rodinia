@@ -46,7 +46,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cpp distance.h Makefile
-	$(NVCC) -x cu $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) -x cu $(HEC_NVCC_FLAGS) -c $< -o $@
 
 distance.o: distance.cu distance.h Makefile
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@

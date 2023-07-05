@@ -48,7 +48,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cpp Makefile
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 %.o: %.cu Makefile
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@

@@ -51,10 +51,10 @@ kernels.o: kernels.cu utils.h Makefile
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 main.o: main.cpp utils.h Makefile
-	$(NVCC) $(HEC_NVCC_FLAGS) -x cu -c $< -o $@
+	$(CXX) $(HEC_NVCC_FLAGS) -x cu -c $< -o $@
 
 reference.o: ../fluidSim-sycl/reference.cpp Makefile
-	$(NVCC) $(HEC_NVCC_FLAGS) -x cu -c $< -o $@
+	$(CXX) $(HEC_NVCC_FLAGS) -x cu -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

@@ -44,7 +44,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cpp utils.h Makefile
-	$(NVCC) -x cu $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) -x cu $(HEC_NVCC_FLAGS) -c $< -o $@
 
 process.o: process.cu kernels.h utils.h Makefile
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@

@@ -46,7 +46,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cpp driver.c svm.h Makefile
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

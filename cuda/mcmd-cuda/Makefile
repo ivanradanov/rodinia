@@ -47,7 +47,7 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cpp
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 force_kernel.o: force_kernel.cu
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@

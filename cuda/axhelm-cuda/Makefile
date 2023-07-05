@@ -46,7 +46,7 @@ $(program): $(obj) BlasLapack/libBlasLapack.a
 	$(LINKER) $+ -o $@ $(LINKER_FLAGS)
 
 main.o : main.cu axhelmKernel.cpp axhelmReference.cpp
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) $(HEC_NVCC_FLAGS) -c $< -o $@
 	
 meshBasis.o : meshBasis.cpp meshBasis.hpp
 	$(CXX) $(CXX_FLAGS) -c $< -o $@
