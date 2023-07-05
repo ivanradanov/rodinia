@@ -36,7 +36,7 @@ headers = \
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 --expt-relaxed-constexpr -Xcompiler -Wall -arch=$(ARCH)
+CFLAGS := $(EXTRA_CFLAGS) -std=c++14 --expt-relaxed-constexpr -Xcompiler -Wall
 
 # Linker Flags
 LDFLAGS = 

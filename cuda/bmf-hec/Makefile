@@ -55,7 +55,7 @@ endif
 
 ifeq ($(GPU),yes)
   CFLAGS +=-DUSE_GPU --default-stream per-thread \
-           -Xcompiler -Wall -Xcompiler="-fopenmp" -arch=$(ARCH)
+           -Xcompiler -Wall -Xcompiler="-fopenmp"
 else
   CFLAGS += -x c++ -Wall -fopenmp
 endif

@@ -29,7 +29,7 @@ CFLAGS := $(EXTRA_CFLAGS) -std=c++14 \
           -DLDIM=32 \
           -DPRECISION=1 \
           -Xcompiler -Wall \
-          -arch=$(ARCH) \
+          \
           -Xcompiler -fopenmp \
           -I../include
 
