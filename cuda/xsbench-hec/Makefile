@@ -49,7 +49,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) XSbench_header.h Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu XSbench_header.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

@@ -52,7 +52,7 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 Timer.o: $(SLU_PATH)/Timer.cpp
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

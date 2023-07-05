@@ -111,7 +111,7 @@ $(OBJDIR)/libdfft.a: $(OBJDIR)/libdfft.a($(OBJECTS))
 	ranlib $@
 
 $(OBJDIR)/test-%: $(OBJDIR)/test-%.o $(OBJDIR)/bigchunk-local.o $(OBJDIR)/libdfft.a
-	${HACC_MPI_CC} $(NVCC_FLAGS) $(LINKER_FLAGS) $^ -o $@ $(LDLIBS)
+	${HACC_MPI_CC} $(LINKER_FLAGS) $^ -o $@ $(LDLIBS)
 
 bigchunk-local.c: ../halo_finder/bigchunk.c
 	cp ../halo_finder/bigchunk.c bigchunk-local.c

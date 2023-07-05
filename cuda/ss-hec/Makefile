@@ -44,7 +44,7 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu kernels.cu StringSearch.h
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

@@ -45,7 +45,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 bfs.o: bfs.cu ../bfs-sycl/util.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

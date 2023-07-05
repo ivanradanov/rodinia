@@ -49,7 +49,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu backprop.h bpnn_adjust_weights.h bpnn_layerforward.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

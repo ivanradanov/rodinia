@@ -43,7 +43,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu EGS.h kernels.cu init.cu media.c output.c Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

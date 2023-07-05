@@ -45,7 +45,7 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu kernels.cu data45.h
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

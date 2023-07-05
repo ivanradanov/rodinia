@@ -29,7 +29,7 @@ SRC = streamcluster.cu
 EXE = streamcluster
 
 $(EXE):$(SRC) kernel.h streamcluster.h  streamcluster_cl.h
-	$(CC) $(NVCC_FLAGS) $(SRC) -o $(EXE) $(LINKER_FLAGS)	
+	$(LINKER) $(SRC) -o $(EXE) $(LINKER_FLAGS)	
 
 run: $(EXE)
 	./$(EXE) 10 20 256 65536 65536 1000 none output.txt 1 

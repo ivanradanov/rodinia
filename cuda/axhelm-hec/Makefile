@@ -43,7 +43,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) BlasLapack/libBlasLapack.a 
-	$(CC) $(NVCC_FLAGS) $+ -o $@ $(LINKER_FLAGS)
+	$(LINKER) $+ -o $@ $(LINKER_FLAGS)
 
 main.o : main.cu axhelmKernel.cpp axhelmReference.cpp
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

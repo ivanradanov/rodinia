@@ -43,7 +43,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) mandel.hpp common.hpp Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu mandel.hpp common.hpp Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

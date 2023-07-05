@@ -43,7 +43,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu petri.h petri_kernel.cu rand_gen.cu randomc.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

@@ -46,7 +46,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 src/main.o: src/main.cu src/logan.cuh Makefile
 	$(CC) $(NVCC_FLAGS) -c -dc $< -o $@

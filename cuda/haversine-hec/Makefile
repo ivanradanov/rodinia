@@ -43,7 +43,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cpp distance.h Makefile
 	$(CC) -x cu $(NVCC_FLAGS) -c $< -o $@

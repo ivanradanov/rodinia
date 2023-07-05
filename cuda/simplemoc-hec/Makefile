@@ -49,7 +49,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu SimpleMOC-kernel_header.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

@@ -50,7 +50,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu kernel.h support/partitioner.h support/verify.h
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

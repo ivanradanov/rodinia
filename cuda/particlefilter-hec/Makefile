@@ -44,7 +44,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu kernel_find_index.h  kernel_likelihood.h  kernel_normalize_weights.h  kernel_sum.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

@@ -45,7 +45,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 kernels.o: kernels.cu utils.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

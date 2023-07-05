@@ -44,7 +44,7 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(obj) $(NVCC_FLAGS) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cpp
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

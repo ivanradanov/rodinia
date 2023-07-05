@@ -45,7 +45,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu fft1D_512.h ifft1D_512.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

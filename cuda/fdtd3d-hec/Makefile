@@ -45,7 +45,7 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu shrUtils.h cmd_arg_reader.h exception.h FDTD3dGPU.h
 	$(CC) $(NVCC_FLAGS) -c $< -o $@
