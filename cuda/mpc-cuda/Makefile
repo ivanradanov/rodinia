@@ -36,7 +36,7 @@ endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  HEC_NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += 
 endif
 #===============================================================================
 # Targets to Build
@@ -52,7 +52,7 @@ clean:
 	rm -rf $(program) $(obj) *.mpc *.org fpc
 
 process: fpc.c
-	gcc -O3 fpc.c -o fpc
+	gcc  fpc.c -o fpc
 	./fpc < msg_sp.trace.fpc > msg_sp.trace.out
 
 run: process $(program)

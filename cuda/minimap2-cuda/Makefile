@@ -31,7 +31,7 @@ DEPS = $(OBJECTS:.o=.d)
 
 # flags #
 COMPILE_FLAGS = -std=c++11 -Wall -Wextra -g
-NVCC_COMPILE_FLAGS = -std=c++11 --default-stream per-thread -g -O3
+NVCC_COMPILE_FLAGS = -std=c++11 --default-stream per-thread -g 
 INCLUDES = -I include/ -I /usr/local/include
 # Space-separated pkg-config libraries used by this project
 LIBS =

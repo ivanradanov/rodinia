@@ -4,7 +4,7 @@ include ../../common/make.config
 
 
 # What optimization level to use
-OPTFLAGS = -O3
+OPTFLAGS = 
 
 # Include directories for the compiler
 INCDIR = -I/opt/local/include -I/usr/include/malloc

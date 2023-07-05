@@ -16,13 +16,13 @@ OPENMPI_BINDIR=/usr/lib64/openmpi3/bin
 LD	= $(OPENMPI_BINDIR)/mpicc
 NVCC	= $(CUDADIR)/bin/nvcc
 #DEBUG   = -g -G -DDEBUG
-FAST    = -O3  
+FAST    =   
 
 # compiler flags to be used (set to compile with debugging on)
-HEC_NVCC_FLAGS = -Dp_N=$(N) -DNDG3d -DCUDA -I$(HDRDIR) -O3 -I$(CUDADIR)/include
+HEC_NVCC_FLAGS = -Dp_N=$(N) -DNDG3d -DCUDA -I$(HDRDIR)  -I$(CUDADIR)/include
 
 # link flags to be used 
-LINKER_FLAGS	= -I$(HDRDIR) -O3 
+LINKER_FLAGS	= -I$(HDRDIR)  
 
 # libraries to be linked in
 LIBS	= -lm -L./3rdParty/ParMetis-3.1/ -lparmetis -lmetis -L$(CUDADIR)/lib64 -lcuda -lcudart

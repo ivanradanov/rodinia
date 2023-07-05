@@ -2,7 +2,7 @@ include ../../common/make.config
 ARCH = sm_60
 
 # -DDEBUG sets a constant seed for random number generation
-HEC_NVCC_FLAGS = -O3 -std=c++11 -use_fast_math -DDEBUG
+HEC_NVCC_FLAGS =  -std=c++11 -use_fast_math -DDEBUG
 
 
 SOURCES = main.cu lsqt.cu sigma.cu vector.cu hamiltonian.cu model.\

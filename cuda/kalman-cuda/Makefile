@@ -36,7 +36,7 @@ endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  HEC_NVCC_FLAGS += -O3 #--fmad=false
+  HEC_NVCC_FLAGS +=  #--fmad=false
 endif
 #===============================================================================
 # Targets to Build

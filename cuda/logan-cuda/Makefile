@@ -38,7 +38,7 @@ endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  HEC_NVCC_FLAGS += -O3 -maxrregcount=32 -DADAPTABLE
+  HEC_NVCC_FLAGS +=  -maxrregcount=32 -DADAPTABLE
 endif
 
 #===============================================================================

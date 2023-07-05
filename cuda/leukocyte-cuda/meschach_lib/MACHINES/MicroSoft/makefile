@@ -17,7 +17,7 @@ LIBS =  -lm
 RANLIB = ranlib
 
 
-HEC_NVCC_FLAGS = -O2 -ffast-math -fexpensive-optimizations
+HEC_NVCC_FLAGS =  -ffast-math -fexpensive-optimizations
 
 
 .c.o:

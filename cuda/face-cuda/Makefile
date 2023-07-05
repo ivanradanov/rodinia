@@ -33,7 +33,7 @@ endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  HEC_NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += 
 endif
 
 HEADERS := image.h haar.h stdio-wrapper.h

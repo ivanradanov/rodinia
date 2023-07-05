@@ -8,7 +8,7 @@ CUDA_DIR=/usr/local/cuda/3.0/cuda
 
 DEVICE_EMULATION=--device-emulation
 DEVICE_EMULATION=
-CUDAFLAGS = -arch=sm_13 -O3 $(DEVICE_EMULATION)
+CUDAFLAGS = -arch=sm_13  $(DEVICE_EMULATION)
 
 OPTIONAL_DEFS = -DMINIFE_HAVE_TBB -DMINIFE_HAVE_CUDA
 OPTIONAL_INCS = -I$(CUDA_DIR)/include -I./optional/cuda -I$(TBB_DIR)/include
@@ -24,8 +24,8 @@ MINIFE_TYPES =	\
 
 #-----------------------------------------------------------------------
 
-HEC_NVCC_FLAGS = -O3
-CXXFLAGS = -O3
+HEC_NVCC_FLAGS = 
+CXXFLAGS = 
 CPPFLAGS = -I. -I../utils -I../fem $(MINIFE_TYPES) $(OPTIONAL_INCS) $(OPTIONAL_DEFS)
 LINKER_FLAGS +=
 LIBS =
