@@ -1,3 +1,4 @@
+include ../../common/make.config
 #-----------------------------------------------------------------------
 # This file compiles for OpenMP and MPI hybrid operations using the GNU
 # compile chain.

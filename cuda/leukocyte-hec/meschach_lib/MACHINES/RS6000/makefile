@@ -1,3 +1,4 @@
+include ../../common/make.config
 # Generated automatically from makefile.in by configure.
 #
 # Makefile for Meschach via autoconf

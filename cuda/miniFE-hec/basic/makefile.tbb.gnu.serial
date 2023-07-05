@@ -1,3 +1,4 @@
+include ../../common/make.config
 TBB_BASE_DIR=/home/william/packages/tbb21_20080605oss
 
 OPTIONAL_DEFS=-DMINIFE_HAVE_TBB

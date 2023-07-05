@@ -1,3 +1,4 @@
+include ../../common/make.config
 dnl Enables export makefile specific code
 dnl 
 dnl The following AM_CONDITIONALS are set for makefiles to access:

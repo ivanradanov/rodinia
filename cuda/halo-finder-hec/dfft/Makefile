@@ -1,3 +1,4 @@
+include ../../common/make.config
 SHELL	:= /bin/sh
 
 OBJDIR := ${HACC_OBJDIR}

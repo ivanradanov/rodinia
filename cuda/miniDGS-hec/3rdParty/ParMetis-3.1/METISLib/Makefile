@@ -1,3 +1,4 @@
+include ../../common/make.config
 include ../Makefile.in
 
 

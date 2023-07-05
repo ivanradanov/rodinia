@@ -1,3 +1,4 @@
+include ../../common/make.config
 N       = 6
 # must be greater than 1 (README)
 NP      = 2  

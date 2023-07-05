@@ -1,3 +1,4 @@
+include ../../common/make.config
 ARCH = 60
 
 NVCC = nvcc

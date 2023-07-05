@@ -1,3 +1,4 @@
+include ../../common/make.config
 _THREADPOOL_INCLUDES = -I@abs_top_srcdir@/include -I@abs_top_builddir@/include
 
 _THREADPOOL_LIBS     = @LINKER_FLAGS@ -L@abs_top_builddir@/src -ltpi $(LIBS)

@@ -1,3 +1,4 @@
+include ../../common/make.config
 CC   = nvcc
 ARCH = sm_60
 

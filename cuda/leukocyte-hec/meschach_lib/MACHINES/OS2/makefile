@@ -1,3 +1,4 @@
+include ../../common/make.config
 # 
 #
 # Makefile for Meschach for GNU cc/emx (OS/2) 
