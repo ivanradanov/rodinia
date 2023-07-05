@@ -4,17 +4,17 @@ DEBUG     = no
 ARCH      = sm_60
 
 # Standard flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14
 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g
+  HEC_NVCC_FLAGS += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 
 all: kmeans
@@ -23,10 +23,10 @@ kmeans: cluster.o getopt.o read_input.o rmse.o kmeans.cpp
 	$(LINKER) $(KERNEL_DIM) $^ -o kmeans $(LINKER_FLAGS)
 
 %.o: %.cpp
-	$(NVCC) $(NVCC_FLAGS) $< -c
+	$(NVCC) $(HEC_NVCC_FLAGS) $< -c
 
 cluster.o: cluster.cu kmeans.h
-	$(NVCC) $(NVCC_FLAGS) cluster.cu -c
+	$(NVCC) $(HEC_NVCC_FLAGS) cluster.cu -c
 
 getopt.o: getopt.cpp getopt.h
 

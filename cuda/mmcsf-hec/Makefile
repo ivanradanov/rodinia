@@ -25,20 +25,20 @@ obj = $(source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -I$(BOOST) -std=c++14
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -I$(BOOST) -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = -lpthread
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g -DDEBUG
+  HEC_NVCC_FLAGS += -g -DDEBUG
   LINKER_FLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 
 #===============================================================================
@@ -49,7 +49,7 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu mttkrp_cpu.h mttkrp_gpu.h util.h   
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

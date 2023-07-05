@@ -15,12 +15,12 @@ MINIFE_MATRIX_TYPE = -DMINIFE_CSR_MATRIX
 #-----------------------------------------------------------------------
 
 ARCH   = sm_60
-NVCC_FLAGS = -v -O3 
+HEC_NVCC_FLAGS = -v -O3 
 #	-S -emit-llvm
 #\
 #	-S -emit-llvm
 #-mllvm -regalloc=pbqp
-#NVCC_FLAGS = -qreport -O3 -fopenmp -mcpu=power8 -mtune=power8
+#HEC_NVCC_FLAGS = -qreport -O3 -fopenmp -mcpu=power8 -mtune=power8
 
 CXXFLAGS = -I. -I../utils -I../fem $(MINIFE_TYPES) -O3 -x cu \
 	 \

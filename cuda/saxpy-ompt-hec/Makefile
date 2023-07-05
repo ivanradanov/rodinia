@@ -24,26 +24,26 @@ obj = $(source:.c=.o)
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -Wall 
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -Wall 
 
 # Linker Flags
 LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g
+  HEC_NVCC_FLAGS += -g
   LINKER_FLAGS  += -g 
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 
 ifeq ($(DEVICE),gpu)
-  NVCC_FLAGS +=-Minfo -mp=gpu -gpu=$(SM) -cudalib=cublas
+  HEC_NVCC_FLAGS +=-Minfo -mp=gpu -gpu=$(SM) -cudalib=cublas
 else
-  NVCC_FLAGS +=
+  HEC_NVCC_FLAGS +=
 endif
 #===============================================================================
 # Targets to Build
@@ -53,7 +53,7 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.c asaxpy.h check1ns.h hsaxpy.h wtcalc.h
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

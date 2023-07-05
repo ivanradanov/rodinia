@@ -23,20 +23,20 @@ obj = main.o kernels.o util.o parse.o sequential.o
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g -DDEBUG
+  HEC_NVCC_FLAGS += -g -DDEBUG
   LINKER_FLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 #===============================================================================
 # Targets to Build
@@ -46,19 +46,19 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cpp parse.h sequential.h util.h Makefile
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 kernels.o: kernels.cu util.h Makefile
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 util.o: util.cpp util.h Makefile 
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 sequential.o: sequential.cpp sequential.h Makefile
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 parse.o: parse.cpp parse.h Makefile
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj) output.txt

@@ -31,13 +31,13 @@ tests-fftw3 += $(OBJDIR)/test-fftw-guru
 
 fftw	:= $(FFTW_HOME)
 
-NVCC_FLAGS += ${HACC_MPI_NVCC_FLAGS}
+HEC_NVCC_FLAGS += ${HACC_MPI_HEC_NVCC_FLAGS}
 CXXFLAGS += ${HACC_MPI_CXXFLAGS}
 LINKER_FLAGS += ${HACC_MPI_LINKER_FLAGS}
 
-NVCC_FLAGS	+= $(WARN)
-NVCC_FLAGS	+= -DUSE_SLAB_WORKAROUND=1
-NVCC_FLAGS	+= -I$(fftw)/include -I../halo_finder
+HEC_NVCC_FLAGS	+= $(WARN)
+HEC_NVCC_FLAGS	+= -DUSE_SLAB_WORKAROUND=1
+HEC_NVCC_FLAGS	+= -I$(fftw)/include -I../halo_finder
 
 CXXFLAGS += $(WARN)
 CXXFLAGS += -I$(fftw)/include -I../halo_finder
@@ -45,20 +45,20 @@ CXXFLAGS += -I$(fftw)/include -I../halo_finder
 LINKER_FLAGS	+= -L$(fftw)/lib
 
 ifeq "${FFTW_MAJOR_VERSION}" "2"
-  NVCC_FLAGS   += -DFFTW2=1
+  HEC_NVCC_FLAGS   += -DFFTW2=1
   CXXFLAGS += -DFFTW2=1
   LDLIBS   += -lfftw_mpi -lfftw
 endif
 
 ifeq "${FFTW_MAJOR_VERSION}" "3"
-  NVCC_FLAGS	+= -DFFTW3=1
+  HEC_NVCC_FLAGS	+= -DFFTW3=1
   CXXFLAGS	+= -DFFTW3=1
 ifeq ("${FFTW_WRAPPER}", "essl")
-  NVCC_FLAGS += -DESSL_FFTW=1
+  HEC_NVCC_FLAGS += -DESSL_FFTW=1
   CXXFLAGS += -DESSL_FFTW=1
   LDLIBS += -lfftw3_esslbg -lesslsmpbg
 ifeq ("${FFTW_THREADING}", "omp")
-  NVCC_FLAGS	+= -DFFTW3_THREADS=1
+  HEC_NVCC_FLAGS	+= -DFFTW3_THREADS=1
   CXXFLAGS	+= -DFFTW3_THREADS=1
   LDLIBS	+= -lfftw3_mpi -lfftw3_omp -lfftw3
 else
@@ -66,7 +66,7 @@ else
 endif
 endif
 include pencil.mk
-  NVCC_FLAGS	+= ${DFFT_PEN_NVCC_FLAGS}
+  HEC_NVCC_FLAGS	+= ${DFFT_PEN_HEC_NVCC_FLAGS}
   CXXFLAGS	+= ${DFFT_PEN_CXXFLAGS}
 endif
 
@@ -76,7 +76,7 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
-	${HACC_MPI_CC} ${NVCC_FLAGS} -c -o $@ $<
+	${HACC_MPI_CC} ${HEC_NVCC_FLAGS} -c -o $@ $<
 
 $(OBJDIR)/%.o: %.cpp | $(OBJDIR)
 	${HACC_MPI_CXX} ${CXXFLAGS} -c -o $@ $<

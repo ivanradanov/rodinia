@@ -25,20 +25,20 @@ obj = $(source:.cpp=.o) $(cuda_source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g
+  HEC_NVCC_FLAGS += -g
   LINKER_FLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 
 #===============================================================================
@@ -49,19 +49,19 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cpp OptionParser.h Utility.h 
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 Option.o: Option.cpp Option.h 
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 OptionParser.o: OptionParser.cpp OptionParser.h  Utility.h
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 triad.o: triad.cu Timer.h OptionParser.h 
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 Timer.o: Timer.cpp Timer.h config.h  
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 
 clean:

@@ -6,23 +6,23 @@ PROFILE   = yes
 
 
 # Standard flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14
 
 # Linker flags
 LINKER_FLAGS = -lm
 
 ifeq ($(PROFILE),yes)
-  NVCC_FLAGS += -DPROFILE_TMP
+  HEC_NVCC_FLAGS += -DPROFILE_TMP
 endif
 
 # Enable checksum and output file
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g 
+  HEC_NVCC_FLAGS += -g 
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 
 SRC = streamcluster.cu

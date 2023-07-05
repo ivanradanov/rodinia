@@ -23,21 +23,21 @@ obj = $(source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -DUNIX -DBENCH_ITERATIONS=100 -std=c++14
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -DUNIX -DBENCH_ITERATIONS=100 -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g
+  HEC_NVCC_FLAGS += -g
   LINKER_FLAGS  += -g
 endif
 
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 
 #===============================================================================
@@ -59,13 +59,13 @@ main.o : main.cu \
          pcr_kernels.cu\
          cyclic_kernels.cu\
          sweep_kernels.cu
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 shrUtils.o: shrUtils.cu shrUtils.h cmd_arg_reader.h exception.h
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 cmd_arg_reader.o: cmd_arg_reader.cu cmd_arg_reader.h exception.h
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj) *.dat *.timing *.txt *.csv

@@ -88,14 +88,14 @@ CONFIG_CLEAN_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
 am_test_sum_OBJECTS = test_sum-test_mpi_sum.$(OBJEXT)
 test_sum_OBJECTS = $(am_test_sum_OBJECTS)
-test_sum_LINK = $(CCLD) $(test_sum_NVCC_FLAGS) $(AM_LINKER_FLAGS) \
+test_sum_LINK = $(CCLD) $(test_sum_HEC_NVCC_FLAGS) $(AM_LINKER_FLAGS) \
 	$(LINKER_FLAGS) -o $@
 am_test_tpi_OBJECTS = test_tpi-test_main.$(OBJEXT) \
 	test_tpi-test_tpi_unit.$(OBJEXT) \
 	test_tpi-test_c_dnax.$(OBJEXT) test_tpi-test_c_tpi.$(OBJEXT) \
 	test_tpi-test_pthreads.$(OBJEXT)
 test_tpi_OBJECTS = $(am_test_tpi_OBJECTS)
-test_tpi_LINK = $(CCLD) $(test_tpi_NVCC_FLAGS) $(AM_LINKER_FLAGS) \
+test_tpi_LINK = $(CCLD) $(test_tpi_HEC_NVCC_FLAGS) $(AM_LINKER_FLAGS) \
 	$(LINKER_FLAGS) -o $@
 am_test_tpi_cpp_OBJECTS = test_tpi_cpp-test_tpi.$(OBJEXT)
 test_tpi_cpp_OBJECTS = $(am_test_tpi_cpp_OBJECTS)
@@ -105,8 +105,8 @@ DEFAULT_INCLUDES = -I. -I$(top_builddir)/src@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__depfiles_maybe = depfiles
 COMPILE = $(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
-	$(CPPFLAGS) $(AM_NVCC_FLAGS) $(NVCC_FLAGS)
-LINK = $(CCLD) $(AM_NVCC_FLAGS) $(AM_LINKER_FLAGS) $(LINKER_FLAGS) -o $@
+	$(CPPFLAGS) $(AM_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS)
+LINK = $(CCLD) $(AM_HEC_NVCC_FLAGS) $(AM_LINKER_FLAGS) $(LINKER_FLAGS) -o $@
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 CXXLD = $(CXX)
@@ -136,7 +136,7 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
-NVCC_FLAGS = @NVCC_FLAGS@
+HEC_NVCC_FLAGS = @HEC_NVCC_FLAGS@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
 CXXCPP = @CXXCPP@
@@ -179,7 +179,7 @@ PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PERL_EXE = @PERL_EXE@
 PTHREAD_CC = @PTHREAD_CC@
-PTHREAD_NVCC_FLAGS = @PTHREAD_NVCC_FLAGS@
+PTHREAD_HEC_NVCC_FLAGS = @PTHREAD_HEC_NVCC_FLAGS@
 PTHREAD_LIBS = @PTHREAD_LIBS@
 RANLIB = @RANLIB@
 SET_MAKE = @SET_MAKE@
@@ -244,7 +244,7 @@ top_srcdir = @top_srcdir@
 SUBDIRS = 
 test_tpi_SOURCES = test_main.c test_tpi_unit.c test_c_dnax.c test_c_tpi.c test_pthreads.c
 test_tpi_DEPENDENCIES = $(top_builddir)/src/libtpi.a
-test_tpi_NVCC_FLAGS = $(THREADPOOL_INCLUDES)
+test_tpi_HEC_NVCC_FLAGS = $(THREADPOOL_INCLUDES)
 test_tpi_LDADD = $(THREADPOOL_LIBS)
 test_tpi_cpp_SOURCES = test_tpi.cpp
 test_tpi_cpp_DEPENDENCIES = $(top_builddir)/src/libtpi.a
@@ -252,7 +252,7 @@ test_tpi_cpp_CXXFLAGS = $(THREADPOOL_INCLUDES)
 test_tpi_cpp_LDADD = $(THREADPOOL_LIBS)
 test_sum_SOURCES = test_mpi_sum.c
 test_sum_DEPENDENCIES = $(top_builddir)/src/libtpi.a
-test_sum_NVCC_FLAGS = $(THREADPOOL_INCLUDES)
+test_sum_HEC_NVCC_FLAGS = $(THREADPOOL_INCLUDES)
 test_sum_LDADD = $(THREADPOOL_LIBS)
 all: all-recursive
 
@@ -329,88 +329,88 @@ distclean-compile:
 @am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
 
 test_sum-test_mpi_sum.o: test_mpi_sum.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_sum_NVCC_FLAGS) $(NVCC_FLAGS) -MT test_sum-test_mpi_sum.o -MD -MP -MF $(DEPDIR)/test_sum-test_mpi_sum.Tpo -c -o test_sum-test_mpi_sum.o `test -f 'test_mpi_sum.c' || echo '$(srcdir)/'`test_mpi_sum.c
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_sum_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT test_sum-test_mpi_sum.o -MD -MP -MF $(DEPDIR)/test_sum-test_mpi_sum.Tpo -c -o test_sum-test_mpi_sum.o `test -f 'test_mpi_sum.c' || echo '$(srcdir)/'`test_mpi_sum.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/test_sum-test_mpi_sum.Tpo $(DEPDIR)/test_sum-test_mpi_sum.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='test_mpi_sum.c' object='test_sum-test_mpi_sum.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_sum_NVCC_FLAGS) $(NVCC_FLAGS) -c -o test_sum-test_mpi_sum.o `test -f 'test_mpi_sum.c' || echo '$(srcdir)/'`test_mpi_sum.c
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_sum_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o test_sum-test_mpi_sum.o `test -f 'test_mpi_sum.c' || echo '$(srcdir)/'`test_mpi_sum.c
 
 test_sum-test_mpi_sum.obj: test_mpi_sum.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_sum_NVCC_FLAGS) $(NVCC_FLAGS) -MT test_sum-test_mpi_sum.obj -MD -MP -MF $(DEPDIR)/test_sum-test_mpi_sum.Tpo -c -o test_sum-test_mpi_sum.obj `if test -f 'test_mpi_sum.c'; then $(CYGPATH_W) 'test_mpi_sum.c'; else $(CYGPATH_W) '$(srcdir)/test_mpi_sum.c'; fi`
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_sum_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT test_sum-test_mpi_sum.obj -MD -MP -MF $(DEPDIR)/test_sum-test_mpi_sum.Tpo -c -o test_sum-test_mpi_sum.obj `if test -f 'test_mpi_sum.c'; then $(CYGPATH_W) 'test_mpi_sum.c'; else $(CYGPATH_W) '$(srcdir)/test_mpi_sum.c'; fi`
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/test_sum-test_mpi_sum.Tpo $(DEPDIR)/test_sum-test_mpi_sum.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='test_mpi_sum.c' object='test_sum-test_mpi_sum.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_sum_NVCC_FLAGS) $(NVCC_FLAGS) -c -o test_sum-test_mpi_sum.obj `if test -f 'test_mpi_sum.c'; then $(CYGPATH_W) 'test_mpi_sum.c'; else $(CYGPATH_W) '$(srcdir)/test_mpi_sum.c'; fi`
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_sum_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o test_sum-test_mpi_sum.obj `if test -f 'test_mpi_sum.c'; then $(CYGPATH_W) 'test_mpi_sum.c'; else $(CYGPATH_W) '$(srcdir)/test_mpi_sum.c'; fi`
 
 test_tpi-test_main.o: test_main.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -MT test_tpi-test_main.o -MD -MP -MF $(DEPDIR)/test_tpi-test_main.Tpo -c -o test_tpi-test_main.o `test -f 'test_main.c' || echo '$(srcdir)/'`test_main.c
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT test_tpi-test_main.o -MD -MP -MF $(DEPDIR)/test_tpi-test_main.Tpo -c -o test_tpi-test_main.o `test -f 'test_main.c' || echo '$(srcdir)/'`test_main.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/test_tpi-test_main.Tpo $(DEPDIR)/test_tpi-test_main.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='test_main.c' object='test_tpi-test_main.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -c -o test_tpi-test_main.o `test -f 'test_main.c' || echo '$(srcdir)/'`test_main.c
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o test_tpi-test_main.o `test -f 'test_main.c' || echo '$(srcdir)/'`test_main.c
 
 test_tpi-test_main.obj: test_main.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -MT test_tpi-test_main.obj -MD -MP -MF $(DEPDIR)/test_tpi-test_main.Tpo -c -o test_tpi-test_main.obj `if test -f 'test_main.c'; then $(CYGPATH_W) 'test_main.c'; else $(CYGPATH_W) '$(srcdir)/test_main.c'; fi`
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT test_tpi-test_main.obj -MD -MP -MF $(DEPDIR)/test_tpi-test_main.Tpo -c -o test_tpi-test_main.obj `if test -f 'test_main.c'; then $(CYGPATH_W) 'test_main.c'; else $(CYGPATH_W) '$(srcdir)/test_main.c'; fi`
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/test_tpi-test_main.Tpo $(DEPDIR)/test_tpi-test_main.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='test_main.c' object='test_tpi-test_main.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -c -o test_tpi-test_main.obj `if test -f 'test_main.c'; then $(CYGPATH_W) 'test_main.c'; else $(CYGPATH_W) '$(srcdir)/test_main.c'; fi`
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o test_tpi-test_main.obj `if test -f 'test_main.c'; then $(CYGPATH_W) 'test_main.c'; else $(CYGPATH_W) '$(srcdir)/test_main.c'; fi`
 
 test_tpi-test_tpi_unit.o: test_tpi_unit.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -MT test_tpi-test_tpi_unit.o -MD -MP -MF $(DEPDIR)/test_tpi-test_tpi_unit.Tpo -c -o test_tpi-test_tpi_unit.o `test -f 'test_tpi_unit.c' || echo '$(srcdir)/'`test_tpi_unit.c
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT test_tpi-test_tpi_unit.o -MD -MP -MF $(DEPDIR)/test_tpi-test_tpi_unit.Tpo -c -o test_tpi-test_tpi_unit.o `test -f 'test_tpi_unit.c' || echo '$(srcdir)/'`test_tpi_unit.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/test_tpi-test_tpi_unit.Tpo $(DEPDIR)/test_tpi-test_tpi_unit.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='test_tpi_unit.c' object='test_tpi-test_tpi_unit.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -c -o test_tpi-test_tpi_unit.o `test -f 'test_tpi_unit.c' || echo '$(srcdir)/'`test_tpi_unit.c
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o test_tpi-test_tpi_unit.o `test -f 'test_tpi_unit.c' || echo '$(srcdir)/'`test_tpi_unit.c
 
 test_tpi-test_tpi_unit.obj: test_tpi_unit.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -MT test_tpi-test_tpi_unit.obj -MD -MP -MF $(DEPDIR)/test_tpi-test_tpi_unit.Tpo -c -o test_tpi-test_tpi_unit.obj `if test -f 'test_tpi_unit.c'; then $(CYGPATH_W) 'test_tpi_unit.c'; else $(CYGPATH_W) '$(srcdir)/test_tpi_unit.c'; fi`
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT test_tpi-test_tpi_unit.obj -MD -MP -MF $(DEPDIR)/test_tpi-test_tpi_unit.Tpo -c -o test_tpi-test_tpi_unit.obj `if test -f 'test_tpi_unit.c'; then $(CYGPATH_W) 'test_tpi_unit.c'; else $(CYGPATH_W) '$(srcdir)/test_tpi_unit.c'; fi`
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/test_tpi-test_tpi_unit.Tpo $(DEPDIR)/test_tpi-test_tpi_unit.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='test_tpi_unit.c' object='test_tpi-test_tpi_unit.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -c -o test_tpi-test_tpi_unit.obj `if test -f 'test_tpi_unit.c'; then $(CYGPATH_W) 'test_tpi_unit.c'; else $(CYGPATH_W) '$(srcdir)/test_tpi_unit.c'; fi`
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o test_tpi-test_tpi_unit.obj `if test -f 'test_tpi_unit.c'; then $(CYGPATH_W) 'test_tpi_unit.c'; else $(CYGPATH_W) '$(srcdir)/test_tpi_unit.c'; fi`
 
 test_tpi-test_c_dnax.o: test_c_dnax.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -MT test_tpi-test_c_dnax.o -MD -MP -MF $(DEPDIR)/test_tpi-test_c_dnax.Tpo -c -o test_tpi-test_c_dnax.o `test -f 'test_c_dnax.c' || echo '$(srcdir)/'`test_c_dnax.c
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT test_tpi-test_c_dnax.o -MD -MP -MF $(DEPDIR)/test_tpi-test_c_dnax.Tpo -c -o test_tpi-test_c_dnax.o `test -f 'test_c_dnax.c' || echo '$(srcdir)/'`test_c_dnax.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/test_tpi-test_c_dnax.Tpo $(DEPDIR)/test_tpi-test_c_dnax.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='test_c_dnax.c' object='test_tpi-test_c_dnax.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -c -o test_tpi-test_c_dnax.o `test -f 'test_c_dnax.c' || echo '$(srcdir)/'`test_c_dnax.c
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o test_tpi-test_c_dnax.o `test -f 'test_c_dnax.c' || echo '$(srcdir)/'`test_c_dnax.c
 
 test_tpi-test_c_dnax.obj: test_c_dnax.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -MT test_tpi-test_c_dnax.obj -MD -MP -MF $(DEPDIR)/test_tpi-test_c_dnax.Tpo -c -o test_tpi-test_c_dnax.obj `if test -f 'test_c_dnax.c'; then $(CYGPATH_W) 'test_c_dnax.c'; else $(CYGPATH_W) '$(srcdir)/test_c_dnax.c'; fi`
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT test_tpi-test_c_dnax.obj -MD -MP -MF $(DEPDIR)/test_tpi-test_c_dnax.Tpo -c -o test_tpi-test_c_dnax.obj `if test -f 'test_c_dnax.c'; then $(CYGPATH_W) 'test_c_dnax.c'; else $(CYGPATH_W) '$(srcdir)/test_c_dnax.c'; fi`
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/test_tpi-test_c_dnax.Tpo $(DEPDIR)/test_tpi-test_c_dnax.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='test_c_dnax.c' object='test_tpi-test_c_dnax.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -c -o test_tpi-test_c_dnax.obj `if test -f 'test_c_dnax.c'; then $(CYGPATH_W) 'test_c_dnax.c'; else $(CYGPATH_W) '$(srcdir)/test_c_dnax.c'; fi`
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o test_tpi-test_c_dnax.obj `if test -f 'test_c_dnax.c'; then $(CYGPATH_W) 'test_c_dnax.c'; else $(CYGPATH_W) '$(srcdir)/test_c_dnax.c'; fi`
 
 test_tpi-test_c_tpi.o: test_c_tpi.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -MT test_tpi-test_c_tpi.o -MD -MP -MF $(DEPDIR)/test_tpi-test_c_tpi.Tpo -c -o test_tpi-test_c_tpi.o `test -f 'test_c_tpi.c' || echo '$(srcdir)/'`test_c_tpi.c
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT test_tpi-test_c_tpi.o -MD -MP -MF $(DEPDIR)/test_tpi-test_c_tpi.Tpo -c -o test_tpi-test_c_tpi.o `test -f 'test_c_tpi.c' || echo '$(srcdir)/'`test_c_tpi.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/test_tpi-test_c_tpi.Tpo $(DEPDIR)/test_tpi-test_c_tpi.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='test_c_tpi.c' object='test_tpi-test_c_tpi.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -c -o test_tpi-test_c_tpi.o `test -f 'test_c_tpi.c' || echo '$(srcdir)/'`test_c_tpi.c
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o test_tpi-test_c_tpi.o `test -f 'test_c_tpi.c' || echo '$(srcdir)/'`test_c_tpi.c
 
 test_tpi-test_c_tpi.obj: test_c_tpi.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -MT test_tpi-test_c_tpi.obj -MD -MP -MF $(DEPDIR)/test_tpi-test_c_tpi.Tpo -c -o test_tpi-test_c_tpi.obj `if test -f 'test_c_tpi.c'; then $(CYGPATH_W) 'test_c_tpi.c'; else $(CYGPATH_W) '$(srcdir)/test_c_tpi.c'; fi`
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT test_tpi-test_c_tpi.obj -MD -MP -MF $(DEPDIR)/test_tpi-test_c_tpi.Tpo -c -o test_tpi-test_c_tpi.obj `if test -f 'test_c_tpi.c'; then $(CYGPATH_W) 'test_c_tpi.c'; else $(CYGPATH_W) '$(srcdir)/test_c_tpi.c'; fi`
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/test_tpi-test_c_tpi.Tpo $(DEPDIR)/test_tpi-test_c_tpi.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='test_c_tpi.c' object='test_tpi-test_c_tpi.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -c -o test_tpi-test_c_tpi.obj `if test -f 'test_c_tpi.c'; then $(CYGPATH_W) 'test_c_tpi.c'; else $(CYGPATH_W) '$(srcdir)/test_c_tpi.c'; fi`
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o test_tpi-test_c_tpi.obj `if test -f 'test_c_tpi.c'; then $(CYGPATH_W) 'test_c_tpi.c'; else $(CYGPATH_W) '$(srcdir)/test_c_tpi.c'; fi`
 
 test_tpi-test_pthreads.o: test_pthreads.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -MT test_tpi-test_pthreads.o -MD -MP -MF $(DEPDIR)/test_tpi-test_pthreads.Tpo -c -o test_tpi-test_pthreads.o `test -f 'test_pthreads.c' || echo '$(srcdir)/'`test_pthreads.c
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT test_tpi-test_pthreads.o -MD -MP -MF $(DEPDIR)/test_tpi-test_pthreads.Tpo -c -o test_tpi-test_pthreads.o `test -f 'test_pthreads.c' || echo '$(srcdir)/'`test_pthreads.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/test_tpi-test_pthreads.Tpo $(DEPDIR)/test_tpi-test_pthreads.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='test_pthreads.c' object='test_tpi-test_pthreads.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -c -o test_tpi-test_pthreads.o `test -f 'test_pthreads.c' || echo '$(srcdir)/'`test_pthreads.c
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o test_tpi-test_pthreads.o `test -f 'test_pthreads.c' || echo '$(srcdir)/'`test_pthreads.c
 
 test_tpi-test_pthreads.obj: test_pthreads.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -MT test_tpi-test_pthreads.obj -MD -MP -MF $(DEPDIR)/test_tpi-test_pthreads.Tpo -c -o test_tpi-test_pthreads.obj `if test -f 'test_pthreads.c'; then $(CYGPATH_W) 'test_pthreads.c'; else $(CYGPATH_W) '$(srcdir)/test_pthreads.c'; fi`
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT test_tpi-test_pthreads.obj -MD -MP -MF $(DEPDIR)/test_tpi-test_pthreads.Tpo -c -o test_tpi-test_pthreads.obj `if test -f 'test_pthreads.c'; then $(CYGPATH_W) 'test_pthreads.c'; else $(CYGPATH_W) '$(srcdir)/test_pthreads.c'; fi`
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/test_tpi-test_pthreads.Tpo $(DEPDIR)/test_tpi-test_pthreads.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='test_pthreads.c' object='test_tpi-test_pthreads.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) -c -o test_tpi-test_pthreads.obj `if test -f 'test_pthreads.c'; then $(CYGPATH_W) 'test_pthreads.c'; else $(CYGPATH_W) '$(srcdir)/test_pthreads.c'; fi`
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_tpi_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o test_tpi-test_pthreads.obj `if test -f 'test_pthreads.c'; then $(CYGPATH_W) 'test_pthreads.c'; else $(CYGPATH_W) '$(srcdir)/test_pthreads.c'; fi`
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

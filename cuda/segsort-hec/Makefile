@@ -36,20 +36,20 @@ headers = \
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 --expt-relaxed-constexpr
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 --expt-relaxed-constexpr
 
 # Linker Flags
 LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g -DDEBUG
+  HEC_NVCC_FLAGS += -g -DDEBUG
   LINKER_FLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 #===============================================================================
 # Targets to Build
@@ -59,7 +59,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu $(headers) Makefile
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

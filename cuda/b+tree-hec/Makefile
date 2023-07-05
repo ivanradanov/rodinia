@@ -13,21 +13,21 @@ ARCH      = sm_60
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g -DDEBUG
+  HEC_NVCC_FLAGS += -g -DDEBUG
   LINKER_FLAGS  += -g
 endif
 
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 
 endif
 
@@ -36,7 +36,7 @@ b+tree.out:	./main.o \
 		./kernel/kernel2_wrapper.o \
 		./util/timer/timer.o \
 		./util/num/num.o 
-	$(NVCC)	$(NVCC_FLAGS) ./main.o \
+	$(NVCC)	$(HEC_NVCC_FLAGS) ./main.o \
 			./kernel/kernel_wrapper.o \
 			./kernel/kernel2_wrapper.o \
 			./util/timer/timer.o \
@@ -48,7 +48,7 @@ b+tree.out:	./main.o \
 main.o:	./common.h \
 		./main.h \
 		./main.cu
-	$(NVCC)	$(NVCC_FLAGS) $(KERNEL_DIM) ./main.cu \
+	$(NVCC)	$(HEC_NVCC_FLAGS) $(KERNEL_DIM) ./main.cu \
 			-c \
 			-o ./main.o
 
@@ -62,7 +62,7 @@ main.o:	./common.h \
 	$(NVCC) $(KERNEL_DIM) ./kernel/kernel_wrapper.cu \
 				-c \
 				-o ./kernel/kernel_wrapper.o \
-				$(NVCC_FLAGS)
+				$(HEC_NVCC_FLAGS)
 
 ./kernel/kernel2_wrapper.o:	./common.h \
 										./kernel/kernel2_wrapper.h \
@@ -70,7 +70,7 @@ main.o:	./common.h \
 	$(NVCC) $(KERNEL_DIM) ./kernel/kernel2_wrapper.cu \
 				-c \
 				-o ./kernel/kernel2_wrapper.o \
-				$(NVCC_FLAGS)
+				$(HEC_NVCC_FLAGS)
 
 # ======================================================================================================================================================150
 #	UTILITIES

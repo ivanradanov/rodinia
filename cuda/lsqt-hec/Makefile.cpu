@@ -1,5 +1,5 @@
 include ../../common/make.config
-NVCC_FLAGS = -O3 -std=c++11 -x c++ -DDEBUG -DCPU_ONLY
+HEC_NVCC_FLAGS = -O3 -std=c++11 -x c++ -DDEBUG -DCPU_ONLY
 
 
 SOURCES = main.cu lsqt.cu sigma.cu vector.cu hamiltonian.cu model.\
@@ -15,7 +15,7 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 all: lsqt_cpu
 
 $(ODIR)/%.o: %.cu $(HEADERS)
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 lsqt_cpu: $(OBJ)
 	$(NVCC) $^ -o $@

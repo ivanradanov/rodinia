@@ -22,21 +22,21 @@ obj = main.o read_data.o
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -I../extend2-sycl
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 -I../extend2-sycl
 
 # Linker Flags
 LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g
+  HEC_NVCC_FLAGS += -g
   LINKER_FLAGS  += -g
 endif
 
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 
 #===============================================================================
@@ -47,10 +47,10 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cu filelist.txt 
-	$(NVCC) $(NVCC_FLAGS) -o main.o -c main.cu
+	$(NVCC) $(HEC_NVCC_FLAGS) -o main.o -c main.cu
 
 read_data.o: ../extend2-sycl/read_data.cpp ../extend2-sycl/read_data.h
-	$(NVCC) $(NVCC_FLAGS) -o read_data.o -c ../extend2-sycl/read_data.cpp
+	$(NVCC) $(HEC_NVCC_FLAGS) -o read_data.o -c ../extend2-sycl/read_data.cpp
 
 clean:
 	rm -rf $(program) $(obj)
