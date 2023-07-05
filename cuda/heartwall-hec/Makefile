@@ -6,14 +6,14 @@ DUMP      = yes
 
 
 # Standard flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14
 
 # Linker flags
 LINKER_FLAGS = -lm
 
 # Enable checksum and output file
 ifeq ($(DEBUG),yes)
-	NVCC_FLAGS += -g  
+	HEC_NVCC_FLAGS += -g  
 	TEST_ON = -DTEST_CHECKSUM 
 endif
 
@@ -23,7 +23,7 @@ endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-	NVCC_FLAGS += -O3
+	HEC_NVCC_FLAGS += -O3
 endif
 
 
@@ -33,7 +33,7 @@ heartwall:	./main.o \
 	./util/avi/avimod.o \
 	./util/file/file.o \
 	./util/timer/timer.o 
-	$(NVCC)	$(NVCC_FLAGS) ./main.o \
+	$(NVCC)	$(HEC_NVCC_FLAGS) ./main.o \
 		./kernel/kernel.o \
 		./util/avi/avilib.o \
 		./util/avi/avimod.o \
@@ -58,7 +58,7 @@ heartwall:	./main.o \
 # ======================================================================================================================================================150
 
 ./kernel/kernel.o:./kernel/kernel.h ./kernel/kernel.cu
-	$(NVCC) $(NVCC_FLAGS) $(TEST_ON) $(KERNEL_DIM) ./kernel/kernel.cu \
+	$(NVCC) $(HEC_NVCC_FLAGS) $(TEST_ON) $(KERNEL_DIM) ./kernel/kernel.cu \
 		-c \
 		-o ./kernel/kernel.o 
 
@@ -68,21 +68,21 @@ heartwall:	./main.o \
 
 ./util/avi/avilib.o:./util/avi/avilib.h \
 	./util/avi/avilib.c
-	$(NVCC)	$(NVCC_FLAGS) ./util/avi/avilib.c \
+	$(NVCC)	$(HEC_NVCC_FLAGS) ./util/avi/avilib.c \
 		-I./util/avi \
 		-c \
 		-o ./util/avi/avilib.o 
 
 ./util/avi/avimod.o:./util/avi/avilib.h \
 	./util/avi/avimod.c
-	$(NVCC)	$(NVCC_FLAGS) ./util/avi/avimod.c \
+	$(NVCC)	$(HEC_NVCC_FLAGS) ./util/avi/avimod.c \
 		-I./util/avi \
 		-c \
 		-o ./util/avi/avimod.o 
 
 ./util/file/file.o:	./util/file/file.h \
 	./util/file/file.c
-	$(NVCC)	$(NVCC_FLAGS) ./util/file/file.c \
+	$(NVCC)	$(HEC_NVCC_FLAGS) ./util/file/file.c \
 		-I./util/file \
 		-I./util/timer \
 		-c \
@@ -90,7 +90,7 @@ heartwall:	./main.o \
 
 ./util/timer/timer.o:	./util/timer/timer.h \
 	./util/timer/timer.c
-	$(NVCC)	$(NVCC_FLAGS) ./util/timer/timer.c \
+	$(NVCC)	$(HEC_NVCC_FLAGS) ./util/timer/timer.c \
 		-I./util/timer \
 		-c \
 		-o ./util/timer/timer.o 

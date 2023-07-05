@@ -41,7 +41,7 @@ noinst_PROGRAMS = test_tpi test_tpi_cpp test_sum
 
 test_tpi_SOURCES      = test_main.c test_tpi_unit.c test_c_dnax.c test_c_tpi.c test_pthreads.c
 test_tpi_DEPENDENCIES = $(top_builddir)/src/libtpi.a
-test_tpi_NVCC_FLAGS     = $(THREADPOOL_INCLUDES)
+test_tpi_HEC_NVCC_FLAGS     = $(THREADPOOL_INCLUDES)
 test_tpi_LDADD        = $(THREADPOOL_LIBS)
 
 test_tpi_cpp_SOURCES      = test_tpi.cpp
@@ -51,6 +51,6 @@ test_tpi_cpp_LDADD        = $(THREADPOOL_LIBS)
 
 test_sum_SOURCES      = test_mpi_sum.c
 test_sum_DEPENDENCIES = $(top_builddir)/src/libtpi.a
-test_sum_NVCC_FLAGS     = $(THREADPOOL_INCLUDES)
+test_sum_HEC_NVCC_FLAGS     = $(THREADPOOL_INCLUDES)
 test_sum_LDADD        = $(THREADPOOL_LIBS)
 

@@ -108,8 +108,8 @@ DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__depfiles_maybe = depfiles
 COMPILE = $(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
-	$(CPPFLAGS) $(AM_NVCC_FLAGS) $(NVCC_FLAGS)
-LINK = $(CCLD) $(AM_NVCC_FLAGS) $(AM_LINKER_FLAGS) $(LINKER_FLAGS) -o $@
+	$(CPPFLAGS) $(AM_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS)
+LINK = $(CCLD) $(AM_HEC_NVCC_FLAGS) $(AM_LINKER_FLAGS) $(LINKER_FLAGS) -o $@
 SOURCES = $(libtpi_a_SOURCES)
 DIST_SOURCES = $(libtpi_a_SOURCES)
 includeHEADERS_INSTALL = $(INSTALL_HEADER)
@@ -125,7 +125,7 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
-NVCC_FLAGS = @NVCC_FLAGS@
+HEC_NVCC_FLAGS = @HEC_NVCC_FLAGS@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
 CXXCPP = @CXXCPP@
@@ -168,7 +168,7 @@ PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PERL_EXE = @PERL_EXE@
 PTHREAD_CC = @PTHREAD_CC@
-PTHREAD_NVCC_FLAGS = @PTHREAD_NVCC_FLAGS@
+PTHREAD_HEC_NVCC_FLAGS = @PTHREAD_HEC_NVCC_FLAGS@
 PTHREAD_LIBS = @PTHREAD_LIBS@
 RANLIB = @RANLIB@
 SET_MAKE = @SET_MAKE@
@@ -419,32 +419,32 @@ distclean-compile:
 @am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
 
 TPI.o: $(srcdir)/TPI.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_NVCC_FLAGS) $(NVCC_FLAGS) -MT TPI.o -MD -MP -MF $(DEPDIR)/TPI.Tpo -c -o TPI.o `test -f '$(srcdir)/TPI.c' || echo '$(srcdir)/'`$(srcdir)/TPI.c
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT TPI.o -MD -MP -MF $(DEPDIR)/TPI.Tpo -c -o TPI.o `test -f '$(srcdir)/TPI.c' || echo '$(srcdir)/'`$(srcdir)/TPI.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/TPI.Tpo $(DEPDIR)/TPI.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/TPI.c' object='TPI.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_NVCC_FLAGS) $(NVCC_FLAGS) -c -o TPI.o `test -f '$(srcdir)/TPI.c' || echo '$(srcdir)/'`$(srcdir)/TPI.c
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o TPI.o `test -f '$(srcdir)/TPI.c' || echo '$(srcdir)/'`$(srcdir)/TPI.c
 
 TPI.obj: $(srcdir)/TPI.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_NVCC_FLAGS) $(NVCC_FLAGS) -MT TPI.obj -MD -MP -MF $(DEPDIR)/TPI.Tpo -c -o TPI.obj `if test -f '$(srcdir)/TPI.c'; then $(CYGPATH_W) '$(srcdir)/TPI.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/TPI.c'; fi`
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT TPI.obj -MD -MP -MF $(DEPDIR)/TPI.Tpo -c -o TPI.obj `if test -f '$(srcdir)/TPI.c'; then $(CYGPATH_W) '$(srcdir)/TPI.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/TPI.c'; fi`
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/TPI.Tpo $(DEPDIR)/TPI.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/TPI.c' object='TPI.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_NVCC_FLAGS) $(NVCC_FLAGS) -c -o TPI.obj `if test -f '$(srcdir)/TPI.c'; then $(CYGPATH_W) '$(srcdir)/TPI.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/TPI.c'; fi`
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o TPI.obj `if test -f '$(srcdir)/TPI.c'; then $(CYGPATH_W) '$(srcdir)/TPI.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/TPI.c'; fi`
 
 TPI_Walltime.o: $(srcdir)/TPI_Walltime.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_NVCC_FLAGS) $(NVCC_FLAGS) -MT TPI_Walltime.o -MD -MP -MF $(DEPDIR)/TPI_Walltime.Tpo -c -o TPI_Walltime.o `test -f '$(srcdir)/TPI_Walltime.c' || echo '$(srcdir)/'`$(srcdir)/TPI_Walltime.c
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT TPI_Walltime.o -MD -MP -MF $(DEPDIR)/TPI_Walltime.Tpo -c -o TPI_Walltime.o `test -f '$(srcdir)/TPI_Walltime.c' || echo '$(srcdir)/'`$(srcdir)/TPI_Walltime.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/TPI_Walltime.Tpo $(DEPDIR)/TPI_Walltime.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/TPI_Walltime.c' object='TPI_Walltime.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_NVCC_FLAGS) $(NVCC_FLAGS) -c -o TPI_Walltime.o `test -f '$(srcdir)/TPI_Walltime.c' || echo '$(srcdir)/'`$(srcdir)/TPI_Walltime.c
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o TPI_Walltime.o `test -f '$(srcdir)/TPI_Walltime.c' || echo '$(srcdir)/'`$(srcdir)/TPI_Walltime.c
 
 TPI_Walltime.obj: $(srcdir)/TPI_Walltime.c
-@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_NVCC_FLAGS) $(NVCC_FLAGS) -MT TPI_Walltime.obj -MD -MP -MF $(DEPDIR)/TPI_Walltime.Tpo -c -o TPI_Walltime.obj `if test -f '$(srcdir)/TPI_Walltime.c'; then $(CYGPATH_W) '$(srcdir)/TPI_Walltime.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/TPI_Walltime.c'; fi`
+@am__fastdepCC_TRUE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -MT TPI_Walltime.obj -MD -MP -MF $(DEPDIR)/TPI_Walltime.Tpo -c -o TPI_Walltime.obj `if test -f '$(srcdir)/TPI_Walltime.c'; then $(CYGPATH_W) '$(srcdir)/TPI_Walltime.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/TPI_Walltime.c'; fi`
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/TPI_Walltime.Tpo $(DEPDIR)/TPI_Walltime.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/TPI_Walltime.c' object='TPI_Walltime.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_NVCC_FLAGS) $(NVCC_FLAGS) -c -o TPI_Walltime.obj `if test -f '$(srcdir)/TPI_Walltime.c'; then $(CYGPATH_W) '$(srcdir)/TPI_Walltime.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/TPI_Walltime.c'; fi`
+@am__fastdepCC_FALSE@	$(NVCC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_HEC_NVCC_FLAGS) $(HEC_NVCC_FLAGS) -c -o TPI_Walltime.obj `if test -f '$(srcdir)/TPI_Walltime.c'; then $(CYGPATH_W) '$(srcdir)/TPI_Walltime.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/TPI_Walltime.c'; fi`
 install-includeHEADERS: $(include_HEADERS)
 	@$(NORMAL_INSTALL)
 	test -z "$(includedir)" || $(MKDIR_P) "$(DESTDIR)$(includedir)"

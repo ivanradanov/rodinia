@@ -25,7 +25,7 @@ obj = $(source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := -DNX=400 \
+HEC_NVCC_FLAGS := -DNX=400 \
        	  -DNZ=200 \
 	  -DSIM_TIME=600 \
 	  -DDATA_SPEC=DATA_SPEC_THERMAL \
@@ -37,13 +37,13 @@ LINKER_FLAGS = -L$(MPI_LIB_DIR) -lmpi
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS  += -g -DDEBUG
+  HEC_NVCC_FLAGS  += -g -DDEBUG
   LINKER_FLAGS += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 
 #===============================================================================
@@ -54,7 +54,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu Makefile
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

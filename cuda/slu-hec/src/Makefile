@@ -28,24 +28,24 @@ SLU_INC = -I$(SLU_PATH)/../include \
           -I$(SLU_PATH)/nicslu/util
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 $(SLU_INC)
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 $(SLU_INC)
 
 # Linker Flags
 LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g -DDEBUG
+  HEC_NVCC_FLAGS += -g -DDEBUG
   LINKER_FLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 
 ifeq ($(VERIFY),yes)
-  NVCC_FLAGS += -DVERIFY
+  HEC_NVCC_FLAGS += -DVERIFY
 endif
 #===============================================================================
 # Targets to Build
@@ -55,19 +55,19 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 Timer.o: $(SLU_PATH)/Timer.cpp
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 numeric.o: numeric.cu
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 symbolic.o: $(SLU_PATH)/symbolic.cpp
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 main.o: $(SLU_PATH)/main.cpp
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 preprocess.o: $(SLU_PATH)/preprocess.cpp
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 $(SLU_PATH)/nicslu/lib/nicslu.a:
 	make -C $(SLU_PATH)/nicslu/

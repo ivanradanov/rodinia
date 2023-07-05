@@ -17,11 +17,11 @@ LIBS =  -lm
 RANLIB = ranlib
 
 
-NVCC_FLAGS = -O2 -ffast-math -fexpensive-optimizations
+HEC_NVCC_FLAGS = -O2 -ffast-math -fexpensive-optimizations
 
 
 .c.o:
-	$(NVCC) -c $(NVCC_FLAGS) $(DEFS) $<
+	$(NVCC) -c $(HEC_NVCC_FLAGS) $(DEFS) $<
 
 SHELL = /bin/sh
 MES_PAK = mesch12b
@@ -185,32 +185,32 @@ realclean:
 alltorture: torture sptort ztorture memtort itertort mfuntort iotort
 
 torture:torture.o libmeschach.a
-	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o torture torture.o \
+	$(NVCC) $(HEC_NVCC_FLAGS) $(DEFS) -o torture torture.o \
 	libmeschach.a $(LIBS)
 sptort:sptort.o libmeschach.a
-	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o sptort sptort.o \
+	$(NVCC) $(HEC_NVCC_FLAGS) $(DEFS) -o sptort sptort.o \
 	libmeschach.a $(LIBS)
 memtort: memtort.o libmeschach.a
-	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o memtort memtort.o \
+	$(NVCC) $(HEC_NVCC_FLAGS) $(DEFS) -o memtort memtort.o \
 	libmeschach.a $(LIBS)
 ztorture:ztorture.o libmeschach.a
-	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o ztorture ztorture.o \
+	$(NVCC) $(HEC_NVCC_FLAGS) $(DEFS) -o ztorture ztorture.o \
 	libmeschach.a $(LIBS)
 itertort: itertort.o libmeschach.a
-	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o itertort itertort.o \
+	$(NVCC) $(HEC_NVCC_FLAGS) $(DEFS) -o itertort itertort.o \
 	libmeschach.a $(LIBS)
 
 iotort: iotort.o libmeschach.a
-	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o iotort iotort.o \
+	$(NVCC) $(HEC_NVCC_FLAGS) $(DEFS) -o iotort iotort.o \
 	libmeschach.a $(LIBS)
 mfuntort: mfuntort.o libmeschach.a
-	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o mfuntort mfuntort.o \
+	$(NVCC) $(HEC_NVCC_FLAGS) $(DEFS) -o mfuntort mfuntort.o \
 	libmeschach.a $(LIBS)
 tstmove: tstmove.o libmeschach.a
-	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o tstmove tstmove.o \
+	$(NVCC) $(HEC_NVCC_FLAGS) $(DEFS) -o tstmove tstmove.o \
 	libmeschach.a $(LIBS)
 tstpxvec: tstpxvec.o libmeschach.a
-	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o tstpxvec tstpxvec.o \
+	$(NVCC) $(HEC_NVCC_FLAGS) $(DEFS) -o tstpxvec tstpxvec.o \
 	libmeschach.a $(LIBS)
 
 OBJ=$(LIST1) $(LIST2) $(LIST3) $(ZLIST1) $(ZLIST2)
@@ -224,13 +224,13 @@ DLL_EXP_LIB = libmeschach_dll.a
 
 DLL_LINKER_FLAGS   = -L .
 DLL_LDLIBS    =  -lm
-DLL_NVCC_FLAGS =  --verbose --export-all-symbols
+DLL_HEC_NVCC_FLAGS =  --verbose --export-all-symbols
 DLLWRAP_FLAGS =  --output-def $(DLL_EXP_DEF) \
                  --implib $(DLL_EXP_LIB)  \
                  --driver-name $(NVCC)   #--no-delete
 
 $(DLL_NAME) $(DLL_EXP_DEF) $(DLL_EXP_LIB): $(OBJ)
-	$(DLLWRAP) $(DLL_NVCC_FLAGS) $(DLLWRAP_FLAGS) -o $(DLL_NAME) \
+	$(DLLWRAP) $(DLL_HEC_NVCC_FLAGS) $(DLLWRAP_FLAGS) -o $(DLL_NAME) \
         $(OBJ) $(DLL_LINKER_FLAGS) $(DLL_LDLIBS)
 
 

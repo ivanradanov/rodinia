@@ -4,7 +4,7 @@ include ../Makefile.in
 BINDIR = ../Graphs
 
 INCLUDES = -I./ -I../ParMETISLib $(INCDIR) 
-NVCC_FLAGS = $(COPTIONS) $(OPTFLAGS) $(INCLUDES)
+HEC_NVCC_FLAGS = $(COPTIONS) $(OPTFLAGS) $(INCLUDES)
 
 
 LIBSDIR = -L.. $(LIBDIR) 
@@ -18,7 +18,7 @@ PARMETISOBJS = parmetis.o io.o adaptgraph.o
 
           
 .c.o:
-	$(NVCC) $(NVCC_FLAGS) -c $*.c
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $*.c
 
 
 default: $(BINDIR)/ptest$(VERNUM) $(BINDIR)/mtest$(VERNUM) 

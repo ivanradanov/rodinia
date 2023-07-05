@@ -2,7 +2,7 @@ include ../../common/make.config
 include ../Makefile.in
 
 
-NVCC_FLAGS = $(COPTIONS) $(OPTFLAGS) -I. $(INCDIR)
+HEC_NVCC_FLAGS = $(COPTIONS) $(OPTFLAGS) -I. $(INCDIR)
 
 
 OBJS = coarsen.o fm.o initpart.o match.o ccgraph.o \
@@ -18,7 +18,7 @@ OBJS = coarsen.o fm.o initpart.o match.o ccgraph.o \
        mfm.o memory.o mrefine.o checkgraph.o
 
 .c.o:
-	$(NVCC) $(NVCC_FLAGS) -c $*.c
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $*.c
 
 ../libmetis.a: $(OBJS)
 	$(AR) $@ $(OBJS)

@@ -25,20 +25,20 @@ obj=basis.o scf.o main.o crys.o cints.o cuda_rys_sp.o cuda_rys_dp.o
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 $(GSL_INC)
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 $(GSL_INC)
 
 # Linker Flags
 LINKER_FLAGS = $(GSL_LIB)
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g
+  HEC_NVCC_FLAGS += -g
   LINKER_FLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 
 #===============================================================================
@@ -49,19 +49,19 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu cuda_rys_dp.h cuda_rys_sp.h
-	$(NVCC) -dc -o $@ $< $(NVCC_FLAGS)
+	$(NVCC) -dc -o $@ $< $(HEC_NVCC_FLAGS)
 
 scf.o: scf.cc
-	$(NVCC) -c -o $@ $< $(NVCC_FLAGS)
+	$(NVCC) -c -o $@ $< $(HEC_NVCC_FLAGS)
 
 basis.o: basis.cc
-	$(NVCC) -c -o $@ $< $(NVCC_FLAGS)
+	$(NVCC) -c -o $@ $< $(HEC_NVCC_FLAGS)
 
 crys.o: ./int_lib/crys.cc
-	$(NVCC) -c -o $@ $< $(NVCC_FLAGS)
+	$(NVCC) -c -o $@ $< $(HEC_NVCC_FLAGS)
 
 cints.o: ./int_lib/cints.cc
-	$(NVCC) -c -o $@ $< $(NVCC_FLAGS)
+	$(NVCC) -c -o $@ $< $(HEC_NVCC_FLAGS)
 
 clean:
 	rm -rf $(program) $(obj)

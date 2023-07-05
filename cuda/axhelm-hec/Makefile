@@ -21,7 +21,7 @@ obj = main.o meshBasis.o
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 \
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 \
           -Ddfloat=float -Ddlong=int 
 
 # Linker Flags
@@ -29,13 +29,13 @@ LINKER_FLAGS = BlasLapack/libBlasLapack.a -lgfortran
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g
+  HEC_NVCC_FLAGS += -g
   LINKER_FLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 
 #===============================================================================
@@ -46,10 +46,10 @@ $(program): $(obj) BlasLapack/libBlasLapack.a
 	$(LINKER) $+ -o $@ $(LINKER_FLAGS)
 
 main.o : main.cu axhelmKernel.cpp axhelmReference.cpp
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 	
 meshBasis.o : meshBasis.cpp meshBasis.hpp
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 BlasLapack/libBlasLapack.a: 
 	cd BlasLapack && make -j8 && cd ..

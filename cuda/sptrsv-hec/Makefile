@@ -21,7 +21,7 @@ obj = main.o sptrsv_syncfree.o
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 \
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14 \
           -DWARP_SIZE=32 -DWARP_PER_BLOCK=8 \
           -DVALUE_TYPE=double -I../sptrsv-sycl
 
@@ -30,13 +30,13 @@ LINKER_FLAGS =
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g
+  HEC_NVCC_FLAGS += -g
   LINKER_FLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 
 #===============================================================================
@@ -51,10 +51,10 @@ main.o: ../sptrsv-sycl/main.cpp \
 	../sptrsv-sycl/read_mtx.h \
 	../sptrsv-sycl/sptrsv.h \
 	../sptrsv-sycl/tranpose.h
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 sptrsv_syncfree.o : sptrsv_syncfree.cu Makefile
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

@@ -21,24 +21,24 @@ obj = main.o kernels.o reference.o
 #===============================================================================
 
 # Standard Flags
-NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14
+HEC_NVCC_FLAGS := $(EXTRA_HEC_NVCC_FLAGS) -std=c++14
 
 # Linker Flags
 LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  NVCC_FLAGS += -g -DDEBUG
+  HEC_NVCC_FLAGS += -g -DDEBUG
   LINKER_FLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += -O3
 endif
 
 ifeq ($(VERIFY),yes)
-  NVCC_FLAGS += -DVERIFY
+  HEC_NVCC_FLAGS += -DVERIFY
 endif
 #===============================================================================
 # Targets to Build
@@ -48,13 +48,13 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 kernels.o: kernels.cu utils.h Makefile
-	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 main.o: main.cpp utils.h Makefile
-	$(NVCC) $(NVCC_FLAGS) -x cu -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -x cu -c $< -o $@
 
 reference.o: ../fluidSim-sycl/reference.cpp Makefile
-	$(NVCC) $(NVCC_FLAGS) -x cu -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) -x cu -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)
