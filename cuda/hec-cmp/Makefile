@@ -52,7 +52,7 @@ $(program): $(obj)
 	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
 
 %.o: %.cpp
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(CXX) $(CXX_FLAGS) -c $< -o $@
 
 log.o : log.cpp log.hpp
 parser.o: parser.cpp parser.hpp  
