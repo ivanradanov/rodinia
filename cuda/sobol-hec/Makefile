@@ -40,7 +40,7 @@ ifeq ($(OPTIMIZE),yes)
 endif
 
 $(program): $(obj) 
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 sobol.o:sobol.cu
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

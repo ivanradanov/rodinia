@@ -42,7 +42,7 @@ endif
 #===============================================================================
 
 $(program): divergence.o timer.o 
-	$(CC) $(NVCC_FLAGS) $^ -o $@ $(LINKER_FLAGS)
+	$(LINKER) $^ -o $@ $(LINKER_FLAGS)
 
 divergence.o: divergence.cu divergence.hpp Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

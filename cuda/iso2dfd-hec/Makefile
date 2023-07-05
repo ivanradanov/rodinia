@@ -45,7 +45,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) iso2dfd.h Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu iso2dfd.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

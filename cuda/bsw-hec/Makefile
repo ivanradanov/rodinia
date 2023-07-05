@@ -45,7 +45,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) 
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu kernel.cu kernel.hpp driver.hpp utils.hpp
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

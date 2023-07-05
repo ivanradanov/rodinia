@@ -44,7 +44,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu lattice.hpp  mat_nn_cuda.hpp su3.h su3.hpp  Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

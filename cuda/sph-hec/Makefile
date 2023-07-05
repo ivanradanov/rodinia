@@ -42,7 +42,7 @@ endif
 #===============================================================================
 
 $(program): fileio.o fluid.o geometry.o
-	$(CC) $(NVCC_FLAGS) $+ -o $@ $(LINKER_FLAGS)
+	$(LINKER) $+ -o $@ $(LINKER_FLAGS)
 
 fileio.o : fileio.cu
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

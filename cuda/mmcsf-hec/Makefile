@@ -46,7 +46,7 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu mttkrp_cpu.h mttkrp_gpu.h util.h   
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

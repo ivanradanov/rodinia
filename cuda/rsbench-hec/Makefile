@@ -50,7 +50,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) rsbench.h Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu rsbench.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

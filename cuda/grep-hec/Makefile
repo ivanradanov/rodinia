@@ -43,7 +43,7 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu pnfa.cu cycleTimer.h nfautil.h pnfa.h regex.h
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

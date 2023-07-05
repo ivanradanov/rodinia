@@ -39,11 +39,11 @@ all: $(program)
 source=compact.cu full_matrix.cu multimat.cu
 
 multimat: $(source)
-	$(CC) $(NVCC_FLAGS) $^ -o $@ $(LINKER_FLAGS)
+	$(LINKER) $^ -o $@ $(LINKER_FLAGS)
 multimat_F: $(source)
-	$(CC) $(NVCC_FLAGS) -DFUSED $^ -o $@ $(LINKER_FLAGS)
+	$(LINKER) -DFUSED $^ -o $@ $(LINKER_FLAGS)
 multimat_FL: $(source)
-	$(CC) $(NVCC_FLAGS) -DFUSED -DLINKED $^ -o $@ $(LINKER_FLAGS)
+	$(LINKER) -DFUSED -DLINKED $^ -o $@ $(LINKER_FLAGS)
 
 clean: 
 	rm -rf $(program)

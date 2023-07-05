@@ -42,7 +42,7 @@ endif
 #===============================================================================
 
 $(program): $(source) lud_kernels.cu ./common/common.h Makefile
-	$(CC) $(NVCC_FLAGS) $(source) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(source) -o $@ $(LINKER_FLAGS)
 
 clean:
 	rm -rf $(program) $(obj)

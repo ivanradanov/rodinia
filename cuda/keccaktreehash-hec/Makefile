@@ -45,7 +45,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) KeccakTypes.h KeccakF.h KeccakTree.h KeccakTreeCPU.h KeccakTreeGPU.h Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu KeccakTypes.h KeccakF.h KeccakTree.h KeccakTreeCPU.h KeccakTreeGPU.h Test.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

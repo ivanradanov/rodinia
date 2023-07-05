@@ -43,7 +43,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu ../debayer-sycl/util.h image.h kernel.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

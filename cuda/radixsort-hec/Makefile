@@ -44,7 +44,7 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu Scan_kernels.cu RadixSort_kernels.cu Scan.h RadixSort.h
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

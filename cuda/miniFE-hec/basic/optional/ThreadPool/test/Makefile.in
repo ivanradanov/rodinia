@@ -87,14 +87,14 @@ CONFIG_CLEAN_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
 am_test_sum_OBJECTS = test_sum-test_mpi_sum.$(OBJEXT)
 test_sum_OBJECTS = $(am_test_sum_OBJECTS)
-test_sum_LINK = $(CCLD) $(test_sum_NVCC_FLAGS) $(NVCC_FLAGS) $(AM_LINKER_FLAGS) \
+test_sum_LINK = $(CCLD) $(test_sum_NVCC_FLAGS) $(AM_LINKER_FLAGS) \
 	$(LINKER_FLAGS) -o $@
 am_test_tpi_OBJECTS = test_tpi-test_main.$(OBJEXT) \
 	test_tpi-test_tpi_unit.$(OBJEXT) \
 	test_tpi-test_c_dnax.$(OBJEXT) test_tpi-test_c_tpi.$(OBJEXT) \
 	test_tpi-test_pthreads.$(OBJEXT)
 test_tpi_OBJECTS = $(am_test_tpi_OBJECTS)
-test_tpi_LINK = $(CCLD) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) $(AM_LINKER_FLAGS) \
+test_tpi_LINK = $(CCLD) $(test_tpi_NVCC_FLAGS) $(AM_LINKER_FLAGS) \
 	$(LINKER_FLAGS) -o $@
 am_test_tpi_cpp_OBJECTS = test_tpi_cpp-test_tpi.$(OBJEXT)
 test_tpi_cpp_OBJECTS = $(am_test_tpi_cpp_OBJECTS)
@@ -106,7 +106,7 @@ am__depfiles_maybe = depfiles
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_NVCC_FLAGS) $(NVCC_FLAGS)
 CCLD = $(CC)
-LINK = $(CCLD) $(AM_NVCC_FLAGS) $(NVCC_FLAGS) $(AM_LINKER_FLAGS) $(LINKER_FLAGS) -o $@
+LINK = $(CCLD) $(AM_NVCC_FLAGS) $(AM_LINKER_FLAGS) $(LINKER_FLAGS) -o $@
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 CXXLD = $(CXX)

@@ -42,7 +42,7 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 heap.o: heap.cu heap.h
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

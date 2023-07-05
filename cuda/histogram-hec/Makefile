@@ -45,7 +45,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
+	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu histogram_gmem_atomics.h histogram_smem_atomics.h mersenne.h test_util.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@
