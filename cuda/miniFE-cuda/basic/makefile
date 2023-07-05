@@ -11,8 +11,8 @@ MINIFE_MATRIX_TYPE = -DMINIFE_CSR_MATRIX
 
 #-----------------------------------------------------------------------
 
-HEC_NVCC_FLAGS = -O3
-CXXFLAGS = -O3
+HEC_NVCC_FLAGS = 
+CXXFLAGS = 
 
 # For debugging, the macro MINIFE_DEBUG will cause miniFE to dump a log file
 # from each proc containing various information.

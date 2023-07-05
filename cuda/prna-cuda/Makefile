@@ -38,7 +38,7 @@ endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  HEC_NVCC_FLAGS += -O3 -use_fast_math
+  HEC_NVCC_FLAGS +=  -use_fast_math
 endif
 
 #===============================================================================

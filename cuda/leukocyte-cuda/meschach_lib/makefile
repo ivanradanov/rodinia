@@ -18,7 +18,7 @@ RANLIB = ranlib
 
 # HEC_NVCC_FLAGS = -O -g
 # HEC_NVCC_FLAGS = -pg -g
-HEC_NVCC_FLAGS = -O3 --x cu
+HEC_NVCC_FLAGS =  --x cu
 
 
 .c.o:

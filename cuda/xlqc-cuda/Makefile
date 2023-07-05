@@ -38,7 +38,7 @@ endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  HEC_NVCC_FLAGS += -O3
+  HEC_NVCC_FLAGS += 
 endif
 
 #===============================================================================
@@ -52,16 +52,16 @@ $(program): $(obj)
 	$(NVCC) -dc -o $@ $< $(HEC_NVCC_FLAGS)
 
 scf.o: scf.cc
-	$(NVCC) -c -o $@ $< $(HEC_NVCC_FLAGS)
+	$(CXX) -c -o $@ $< $(CXX_FLAGS)
 
 basis.o: basis.cc
-	$(NVCC) -c -o $@ $< $(HEC_NVCC_FLAGS)
+	$(CXX) -c -o $@ $< $(CXX_FLAGS)
 
 crys.o: ./int_lib/crys.cc
-	$(NVCC) -c -o $@ $< $(HEC_NVCC_FLAGS)
+	$(CXX) -c -o $@ $< $(CXX_FLAGS)
 
 cints.o: ./int_lib/cints.cc
-	$(NVCC) -c -o $@ $< $(HEC_NVCC_FLAGS)
+	$(CXX) -c -o $@ $< $(CXX_FLAGS)
 
 clean:
 	rm -rf $(program) $(obj)

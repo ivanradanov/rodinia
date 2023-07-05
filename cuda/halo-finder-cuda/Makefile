@@ -5,7 +5,7 @@ NVCC_BIN=/auto/software/nvidia/x86_64/cuda-11.0/bin
 #MPI_INCLUDE=/usr/lib/x86_64-linux-gnu/openmpi/include
 MPI_INCLUDE=/usr/include/openmpi-x86_64/
 
-OPT=-O3 -DRCB_UNTHREADED_BUILD -DUSE_SERIAL_COSMO
+OPT= -DRCB_UNTHREADED_BUILD -DUSE_SERIAL_COSMO
 
 #HEC_NVCC_FLAGS=-use_fast_math -DINLINE_FORCE -I${MPI_INCLUDE}
 HEC_NVCC_FLAGS=-I${MPI_INCLUDE}
