@@ -1,3 +1,4 @@
+include ../../common/make.config
 # #
 # Makefile for Meschach for SUN SPARC cc
 #

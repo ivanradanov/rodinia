@@ -1,3 +1,4 @@
+include ../../common/make.config
 NVCC_BIN=/auto/software/nvidia/x86_64/cuda-11.0/bin
 
 # the path may be adjusted for each platform

@@ -1,3 +1,4 @@
+include ../../common/make.config
 CXX = g++
 NVCC = nvcc
 ARCH = sm_60
