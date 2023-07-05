@@ -16,7 +16,6 @@ CPPFLAGS = -I. -I../utils -I../fem $(MINIFE_TYPES) -DHAVE_MPI -DMPICH_IGNORE_CXX
 # such as the one on my cygwin machine.
 
 CXX=CC
-CC=cc
 
 include make_targets
 include ./optional/make_targets

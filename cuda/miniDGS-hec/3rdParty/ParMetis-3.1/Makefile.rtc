@@ -1,7 +1,6 @@
 include ../../common/make.config
 
 # Which compiler to use
-CC = $(OPENMPI_BINDIR)mpicc
 
 
 # What optimization level to use

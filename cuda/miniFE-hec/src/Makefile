@@ -45,7 +45,6 @@ LIBS=
 #CC=icc
 
 CXX=nvcc
-CC=nvcc
 
 #CXX=xlC
 #CC=xlc

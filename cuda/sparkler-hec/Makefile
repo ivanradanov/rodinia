@@ -7,7 +7,6 @@ CUBLAS_ROOT=/opt/nvidia/hpc_sdk/Linux_x86_64/21.3/math_libs/11.2
 CUDART_ROOT=/opt/nvidia/hpc_sdk/Linux_x86_64/21.3/cuda/11.2
 
 # Compiler can be set below, or via environment variable
-CC        = nvcc
 LD        = mpiCC #$(MPI_ROOT)/bin/mpiCC
 OPTIMIZE  = yes
 DEBUG     = no

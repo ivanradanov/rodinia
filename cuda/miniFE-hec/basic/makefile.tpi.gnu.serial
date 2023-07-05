@@ -22,7 +22,6 @@ LINKER_FLAGS =
 LIBS =
 
 CXX=g++
-CC=gcc
 
 include make_targets
 include ./optional/make_targets

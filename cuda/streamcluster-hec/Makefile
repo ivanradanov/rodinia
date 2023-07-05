@@ -1,5 +1,4 @@
 include ../../common/make.config
-CC        = nvcc
 OPTIMIZE  = yes
 DEBUG     = no
 ARCH      = sm_60
