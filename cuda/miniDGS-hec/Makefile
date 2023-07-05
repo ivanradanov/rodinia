@@ -22,7 +22,7 @@ FAST    = -O3 --use_fast_math
 NVCC_FLAGS = -Dp_N=$(N) -DNDG3d -DCUDA -I$(HDRDIR) -O3 -I$(CUDADIR)/include
 
 # link flags to be used 
-LDFLAGS	= -I$(HDRDIR) -O3 
+LINKER_FLAGS	= -I$(HDRDIR) -O3 
 
 # libraries to be linked in
 LIBS	= -lm -L./3rdParty/ParMetis-3.1/ -lparmetis -lmetis -L$(CUDADIR)/lib64 -lcuda -lcudart
@@ -51,7 +51,7 @@ OBJS    = \
 	src/MaxwellsDriver3d.o
 
 MaxwellsGPU3d:$(OBJS)
-	$(LD) $(LDFLAGS) -o MaxwellsGPU3d $(OBJS) $(LIBS)
+	$(LD) $(LINKER_FLAGS) -o MaxwellsGPU3d $(OBJS) $(LIBS)
 
 # what to do if user types "make clean"
 clean :

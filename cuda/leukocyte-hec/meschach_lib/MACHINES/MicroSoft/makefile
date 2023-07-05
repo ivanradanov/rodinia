@@ -222,7 +222,7 @@ DLL_EXP_DEF = libmeschach_dll.def
 DLL_EXP_LIB = libmeschach_dll.a
 
 
-DLL_LDFLAGS   = -L .
+DLL_LINKER_FLAGS   = -L .
 DLL_LDLIBS    =  -lm
 DLL_NVCC_FLAGS =  --verbose --export-all-symbols
 DLLWRAP_FLAGS =  --output-def $(DLL_EXP_DEF) \
@@ -231,7 +231,7 @@ DLLWRAP_FLAGS =  --output-def $(DLL_EXP_DEF) \
 
 $(DLL_NAME) $(DLL_EXP_DEF) $(DLL_EXP_LIB): $(OBJ)
 	$(DLLWRAP) $(DLL_NVCC_FLAGS) $(DLLWRAP_FLAGS) -o $(DLL_NAME) \
-        $(OBJ) $(DLL_LDFLAGS) $(DLL_LDLIBS)
+        $(OBJ) $(DLL_LINKER_FLAGS) $(DLL_LDLIBS)
 
 
 

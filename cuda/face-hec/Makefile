@@ -22,12 +22,12 @@ program = vj-cpu vj-gpu
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker Flags
-LDFLAGS = 
+LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
   NVCC_FLAGS += -g -G
-  LDFLAGS  += -g
+  LINKER_FLAGS  += -g
 endif
 
 
@@ -61,10 +61,10 @@ rectangles.o: rectangles.cu $(HEADERS)
 	$(CC) $(NVCC_FLAGS) -o $@ -c $<
 
 vj-cpu: main.o haar-cpu.o image.o stdio-wrapper.o rectangles.o
-	$(CC) $(NVCC_FLAGS) -o $@ $+ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) -o $@ $+ $(LINKER_FLAGS)
 
 vj-gpu: main.o haar-gpu.o image.o stdio-wrapper.o rectangles.o
-	$(CC) $(NVCC_FLAGS) -o $@ $+ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) -o $@ $+ $(LINKER_FLAGS)
 
 clean:
 	rm -f $(program) *.o Output-cpu.pgm Output-gpu.pgm

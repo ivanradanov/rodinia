@@ -15,12 +15,12 @@ DEBUG     = no
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall 
 
 # Linker Flags
-LDFLAGS = 
+LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
   NVCC_FLAGS += -g
-  LDFLAGS  += -g
+  LINKER_FLAGS  += -g
 endif
 
 
@@ -39,11 +39,11 @@ all: $(program)
 source=compact.cu full_matrix.cu multimat.cu
 
 multimat: $(source)
-	$(CC) $(NVCC_FLAGS) $^ -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $^ -o $@ $(LINKER_FLAGS)
 multimat_F: $(source)
-	$(CC) $(NVCC_FLAGS) -DFUSED $^ -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) -DFUSED $^ -o $@ $(LINKER_FLAGS)
 multimat_FL: $(source)
-	$(CC) $(NVCC_FLAGS) -DFUSED -DLINKED $^ -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) -DFUSED -DLINKED $^ -o $@ $(LINKER_FLAGS)
 
 clean: 
 	rm -rf $(program)

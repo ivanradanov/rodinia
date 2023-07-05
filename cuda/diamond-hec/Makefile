@@ -94,12 +94,12 @@ obj = $(c_src:.c=.o) $(cpp_src:.cpp=.o) $(cuda_src:.cu=.o)
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker Flags
-LDFLAGS = -lz -lpthread
+LINKER_FLAGS = -lz -lpthread
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
   NVCC_FLAGS += -g
-  LDFLAGS  += -g
+  LINKER_FLAGS  += -g
 endif
 
 
@@ -114,7 +114,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) 
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.c
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

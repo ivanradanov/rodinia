@@ -24,12 +24,12 @@ build: $(program)
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker Flags
-LDFLAGS = 
+LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
   NVCC_FLAGS += -g
-  LDFLAGS  += -g
+  LINKER_FLAGS  += -g
 endif
 
 # Optimization Flags
@@ -42,7 +42,7 @@ endif
 #===============================================================================
 
 $(program): fileio.o fluid.o geometry.o
-	$(CC) $(NVCC_FLAGS) $+ -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $+ -o $@ $(LINKER_FLAGS)
 
 fileio.o : fileio.cu
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

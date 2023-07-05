@@ -20,7 +20,7 @@ endif
 all: kmeans
 
 kmeans: cluster.o getopt.o read_input.o rmse.o kmeans.cpp
-	$(CC) $(KERNEL_DIM) $(NVCC_FLAGS) $^ -o kmeans $(LDFLAGS)
+	$(CC) $(KERNEL_DIM) $(NVCC_FLAGS) $^ -o kmeans $(LINKER_FLAGS)
 
 %.o: %.cpp
 	$(CC) $(NVCC_FLAGS) $< -c

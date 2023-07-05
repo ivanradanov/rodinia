@@ -16,12 +16,12 @@ ARCH      = sm_60
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker Flags
-LDFLAGS = 
+LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
   NVCC_FLAGS += -g -DDEBUG
-  LDFLAGS  += -g
+  LINKER_FLAGS  += -g
 endif
 
 

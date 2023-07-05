@@ -28,12 +28,12 @@ NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 \
           -Isrc 
 
 # Linker Flags
-LDFLAGS = 
+LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
   NVCC_FLAGS += -g -DDEBUG
-  LDFLAGS  += -g
+  LINKER_FLAGS  += -g
 endif
 
 # Optimization Flags
@@ -46,7 +46,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
 
 src/main.o: src/main.cu src/logan.cuh Makefile
 	$(CC) $(NVCC_FLAGS) -c -dc $< -o $@

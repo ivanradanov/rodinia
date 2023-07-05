@@ -9,7 +9,7 @@ DUMP      = yes
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker flags
-LDFLAGS = -lm
+LINKER_FLAGS = -lm
 
 # Enable checksum and output file
 ifeq ($(DEBUG),yes)
@@ -39,7 +39,7 @@ heartwall:	./main.o \
 		./util/avi/avimod.o \
 		./util/file/file.o \
 		./util/timer/timer.o \
-		$(LDFLAGS) -o heartwall
+		$(LINKER_FLAGS) -o heartwall
 
 # ======================================================================================================================================================150
 #	MAIN FUNCTION

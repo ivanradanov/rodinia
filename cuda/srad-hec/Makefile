@@ -26,7 +26,7 @@ obj = $(source:.cu=.o)
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker flags
-LDFLAGS = -lm
+LINKER_FLAGS = -lm
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
@@ -44,7 +44,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu graphics.c resize.c timer.c \
 	extract_kernel.cu prepare_kernel.cu \

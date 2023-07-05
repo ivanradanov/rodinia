@@ -28,12 +28,12 @@ obj = $(source:.cu=.o)
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker Flags
-LDFLAGS = 
+LINKER_FLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
   NVCC_FLAGS += -g
-  LDFLAGS  += -g
+  LINKER_FLAGS  += -g
 endif
 
 
@@ -54,7 +54,7 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu verify.h Makefile
 	$(CC) $(NVCC_FLAGS) -c $< -o $@

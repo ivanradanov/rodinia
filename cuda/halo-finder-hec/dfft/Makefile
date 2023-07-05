@@ -32,7 +32,7 @@ fftw	:= $(FFTW_HOME)
 
 NVCC_FLAGS += ${HACC_MPI_NVCC_FLAGS}
 CXXFLAGS += ${HACC_MPI_CXXFLAGS}
-LDFLAGS += ${HACC_MPI_LDFLAGS}
+LINKER_FLAGS += ${HACC_MPI_LINKER_FLAGS}
 
 NVCC_FLAGS	+= $(WARN)
 NVCC_FLAGS	+= -DUSE_SLAB_WORKAROUND=1
@@ -41,7 +41,7 @@ NVCC_FLAGS	+= -I$(fftw)/include -I../halo_finder
 CXXFLAGS += $(WARN)
 CXXFLAGS += -I$(fftw)/include -I../halo_finder
 
-LDFLAGS	+= -L$(fftw)/lib
+LINKER_FLAGS	+= -L$(fftw)/lib
 
 ifeq "${FFTW_MAJOR_VERSION}" "2"
   NVCC_FLAGS   += -DFFTW2=1
@@ -111,27 +111,27 @@ $(OBJDIR)/libdfft.a: $(OBJDIR)/libdfft.a($(OBJECTS))
 	ranlib $@
 
 $(OBJDIR)/test-%: $(OBJDIR)/test-%.o $(OBJDIR)/bigchunk-local.o $(OBJDIR)/libdfft.a
-	${HACC_MPI_CC} $(NVCC_FLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+	${HACC_MPI_CC} $(NVCC_FLAGS) $(LINKER_FLAGS) $^ -o $@ $(LDLIBS)
 
 bigchunk-local.c: ../halo_finder/bigchunk.c
 	cp ../halo_finder/bigchunk.c bigchunk-local.c
 
 $(OBJDIR)/test-solver-class.o: solver.hpp
 $(OBJDIR)/test-solver-class: $(OBJDIR)/test-solver-class.o $(OBJDIR)/bigchunk-local.o $(OBJDIR)/libdfft.a
-	${HACC_MPI_CXX} $(CXXFLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+	${HACC_MPI_CXX} $(CXXFLAGS) $(LINKER_FLAGS) $^ -o $@ $(LDLIBS)
 
 $(OBJDIR)/test-solver-bench.o: solver.hpp
 $(OBJDIR)/test-solver-bench: $(OBJDIR)/test-solver-bench.o $(OBJDIR)/bigchunk-local.o $(OBJDIR)/libdfft.a
-	${HACC_MPI_CXX} $(CXXFLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+	${HACC_MPI_CXX} $(CXXFLAGS) $(LINKER_FLAGS) $^ -o $@ $(LDLIBS)
 
 $(OBJDIR)/test-qpm.o: solver.hpp
 $(OBJDIR)/test-qpm: $(OBJDIR)/test-qpm.o $(OBJDIR)/bigchunk-local.o $(OBJDIR)/libdfft.a
-	${HACC_MPI_CXX} $(CXXFLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+	${HACC_MPI_CXX} $(CXXFLAGS) $(LINKER_FLAGS) $^ -o $@ $(LDLIBS)
 
 $(OBJDIR)/test-zarija.o: solver.hpp
 $(OBJDIR)/test-zarija: $(OBJDIR)/test-zarija.o $(OBJDIR)/bigchunk-local.o $(OBJDIR)/libdfft.a
-	${HACC_MPI_CXX} $(CXXFLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+	${HACC_MPI_CXX} $(CXXFLAGS) $(LINKER_FLAGS) $^ -o $@ $(LDLIBS)
 
 $(OBJDIR)/test-dfft.o: dfft.hpp distribution.hpp distribution.h
 $(OBJDIR)/test-dfft: $(OBJDIR)/test-dfft.o $(OBJDIR)/bigchunk-local.o $(OBJDIR)/libdfft.a
-	${HACC_MPI_CXX} $(CXXFLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+	${HACC_MPI_CXX} $(CXXFLAGS) $(LINKER_FLAGS) $^ -o $@ $(LDLIBS)

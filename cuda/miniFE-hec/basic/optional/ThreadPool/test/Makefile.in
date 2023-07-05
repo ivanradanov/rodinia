@@ -87,30 +87,30 @@ CONFIG_CLEAN_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
 am_test_sum_OBJECTS = test_sum-test_mpi_sum.$(OBJEXT)
 test_sum_OBJECTS = $(am_test_sum_OBJECTS)
-test_sum_LINK = $(CCLD) $(test_sum_NVCC_FLAGS) $(NVCC_FLAGS) $(AM_LDFLAGS) \
-	$(LDFLAGS) -o $@
+test_sum_LINK = $(CCLD) $(test_sum_NVCC_FLAGS) $(NVCC_FLAGS) $(AM_LINKER_FLAGS) \
+	$(LINKER_FLAGS) -o $@
 am_test_tpi_OBJECTS = test_tpi-test_main.$(OBJEXT) \
 	test_tpi-test_tpi_unit.$(OBJEXT) \
 	test_tpi-test_c_dnax.$(OBJEXT) test_tpi-test_c_tpi.$(OBJEXT) \
 	test_tpi-test_pthreads.$(OBJEXT)
 test_tpi_OBJECTS = $(am_test_tpi_OBJECTS)
-test_tpi_LINK = $(CCLD) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) $(AM_LDFLAGS) \
-	$(LDFLAGS) -o $@
+test_tpi_LINK = $(CCLD) $(test_tpi_NVCC_FLAGS) $(NVCC_FLAGS) $(AM_LINKER_FLAGS) \
+	$(LINKER_FLAGS) -o $@
 am_test_tpi_cpp_OBJECTS = test_tpi_cpp-test_tpi.$(OBJEXT)
 test_tpi_cpp_OBJECTS = $(am_test_tpi_cpp_OBJECTS)
 test_tpi_cpp_LINK = $(CXXLD) $(test_tpi_cpp_CXXFLAGS) $(CXXFLAGS) \
-	$(AM_LDFLAGS) $(LDFLAGS) -o $@
+	$(AM_LINKER_FLAGS) $(LINKER_FLAGS) -o $@
 DEFAULT_INCLUDES = -I. -I$(top_builddir)/src@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__depfiles_maybe = depfiles
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_NVCC_FLAGS) $(NVCC_FLAGS)
 CCLD = $(CC)
-LINK = $(CCLD) $(AM_NVCC_FLAGS) $(NVCC_FLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+LINK = $(CCLD) $(AM_NVCC_FLAGS) $(NVCC_FLAGS) $(AM_LINKER_FLAGS) $(LINKER_FLAGS) -o $@
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 CXXLD = $(CXX)
-CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
+CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LINKER_FLAGS) $(LINKER_FLAGS) \
 	-o $@
 SOURCES = $(test_sum_SOURCES) $(test_tpi_SOURCES) \
 	$(test_tpi_cpp_SOURCES)
@@ -159,7 +159,7 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-LDFLAGS = @LDFLAGS@
+LINKER_FLAGS = @LINKER_FLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LTLIBOBJS = @LTLIBOBJS@

@@ -9,7 +9,7 @@ PROFILE   = yes
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker flags
-LDFLAGS = -lm
+LINKER_FLAGS = -lm
 
 ifeq ($(PROFILE),yes)
   NVCC_FLAGS += -DPROFILE_TMP
@@ -29,7 +29,7 @@ SRC = streamcluster.cu
 EXE = streamcluster
 
 $(EXE):$(SRC) kernel.h streamcluster.h  streamcluster_cl.h
-	$(CC) $(NVCC_FLAGS) $(SRC) -o $(EXE) $(LDFLAGS)	
+	$(CC) $(NVCC_FLAGS) $(SRC) -o $(EXE) $(LINKER_FLAGS)	
 
 run: $(EXE)
 	./$(EXE) 10 20 256 65536 65536 1000 none output.txt 1 

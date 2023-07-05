@@ -10,7 +10,7 @@ MATRIX_DIR = ./meschach_lib
 NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall -I$(MATRIX_DIR) --x cu
 
 # Linker flags
-LDFLAGS = -lm
+LINKER_FLAGS = -lm
 
 
 # Debug Flags
@@ -43,7 +43,7 @@ leukocyte: detect_main.o \
 		misc_math.o \
 		detect_main.o \
 		helper.o \
-		$(MATRIX_DIR)/meschach.a $(LDFLAGS)
+		$(MATRIX_DIR)/meschach.a $(LINKER_FLAGS)
 
 %.o: %.c
 	$(CC) $(OUTPUT) $(NVCC_FLAGS) $< -c
