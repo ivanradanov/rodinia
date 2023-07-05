@@ -50,7 +50,7 @@ main.o: main.cu filelist.txt
 	$(NVCC) $(HEC_NVCC_FLAGS) -o main.o -c main.cu
 
 read_data.o: ../extend2-sycl/read_data.cpp ../extend2-sycl/read_data.h
-	$(NVCC) $(HEC_NVCC_FLAGS) -o read_data.o -c ../extend2-sycl/read_data.cpp
+	$(CXX) $(CXX_FLAGS) -o read_data.o -c ../extend2-sycl/read_data.cpp
 
 clean:
 	rm -rf $(program) $(obj)
