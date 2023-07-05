@@ -15,10 +15,10 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 all: lsqt_cpu
 
 $(ODIR)/%.o: %.cu $(HEADERS)
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 lsqt_cpu: $(OBJ)
-	$(CC) $^ -o $@
+	$(NVCC) $^ -o $@
 
 clean:
 	rm $(ODIR)/*o lsqt_cpu

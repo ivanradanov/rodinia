@@ -44,13 +44,13 @@ endif
 #===============================================================================
 
 $(program): main.o shmem_kernels.o
-	$(CC) $(NVCC_FLAGS) $^ -o $@ ${LFLAGS}
+	$(NVCC) $(NVCC_FLAGS) $^ -o $@ ${LFLAGS}
 
 main.o: main.cu shmem_kernels.h
-	$(CC) -c $(NVCC_FLAGS) $<
+	$(NVCC) -c $(NVCC_FLAGS) $<
 
 shmem_kernels.o: shmem_kernels.cu
-	$(CC) -c $(NVCC_FLAGS) $<
+	$(NVCC) -c $(NVCC_FLAGS) $<
 
 clean:
 	rm -rf $(program) $(obj)

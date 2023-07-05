@@ -49,19 +49,19 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu cuda_rys_dp.h cuda_rys_sp.h
-	$(CC) -dc -o $@ $< $(NVCC_FLAGS)
+	$(NVCC) -dc -o $@ $< $(NVCC_FLAGS)
 
 scf.o: scf.cc
-	$(CC) -c -o $@ $< $(NVCC_FLAGS)
+	$(NVCC) -c -o $@ $< $(NVCC_FLAGS)
 
 basis.o: basis.cc
-	$(CC) -c -o $@ $< $(NVCC_FLAGS)
+	$(NVCC) -c -o $@ $< $(NVCC_FLAGS)
 
 crys.o: ./int_lib/crys.cc
-	$(CC) -c -o $@ $< $(NVCC_FLAGS)
+	$(NVCC) -c -o $@ $< $(NVCC_FLAGS)
 
 cints.o: ./int_lib/cints.cc
-	$(CC) -c -o $@ $< $(NVCC_FLAGS)
+	$(NVCC) -c -o $@ $< $(NVCC_FLAGS)
 
 clean:
 	rm -rf $(program) $(obj)

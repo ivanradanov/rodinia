@@ -44,10 +44,10 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cpp utils.h Makefile
-	$(CC) -x cu $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) -x cu $(NVCC_FLAGS) -c $< -o $@
 
 process.o: process.cu kernels.h utils.h Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

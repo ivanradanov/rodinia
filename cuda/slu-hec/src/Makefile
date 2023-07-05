@@ -55,19 +55,19 @@ $(program): $(obj)
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 Timer.o: $(SLU_PATH)/Timer.cpp
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 numeric.o: numeric.cu
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 symbolic.o: $(SLU_PATH)/symbolic.cpp
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 main.o: $(SLU_PATH)/main.cpp
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 preprocess.o: $(SLU_PATH)/preprocess.cpp
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 $(SLU_PATH)/nicslu/lib/nicslu.a:
 	make -C $(SLU_PATH)/nicslu/

@@ -52,10 +52,10 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.c args.h Makefile
-	$(CC) -x cu $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) -x cu $(NVCC_FLAGS) -c $< -o $@
 
 compute.o: compute.cu model_io.cu ACF_kernel.cu histogram_kernel.cu args.h Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj) $(OUTFILE)

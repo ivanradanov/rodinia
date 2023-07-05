@@ -57,7 +57,7 @@ $(program): $(obj) Makefile
 	kernel_fin.cu \
 	file.c \
 	Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj) output.txt

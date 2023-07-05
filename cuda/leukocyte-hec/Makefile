@@ -36,7 +36,7 @@ leukocyte: detect_main.o \
 	misc_math.o \
 	helper.o \
 	$(MATRIX_DIR)/meschach.a
-	$(CC)  -o leukocyte avilib.o \
+	$(NVCC)  -o leukocyte avilib.o \
 		track_ellipse.o \
 		track_ellipse_gpu.o \
 		find_ellipse.o \
@@ -46,7 +46,7 @@ leukocyte: detect_main.o \
 		$(MATRIX_DIR)/meschach.a $(LINKER_FLAGS)
 
 %.o: %.c
-	$(CC) $(OUTPUT) $(NVCC_FLAGS) $< -c
+	$(NVCC) $(OUTPUT) $(NVCC_FLAGS) $< -c
 
 detect_main.o: detect_main.c \
                kernel_GICOV.h kernel_dilated.h \
@@ -61,7 +61,7 @@ track_ellipse_gpu.o: track_ellipse_gpu.c track_ellipse.h kernel_IMGVF.h
 
 # Cleanup everything, then clean everything except the static library
 $(MATRIX_DIR)/meschach.a:
-	cd $(MATRIX_DIR); make cleanup; make all CC=$(CC); make clean
+	cd $(MATRIX_DIR); make cleanup; make all CC=$(NVCC); make clean
 
 run: leukocyte
 	./leukocyte ../data/leukocyte/testfile.avi 100

@@ -48,13 +48,13 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 kernels.o: kernels.cu utils.h Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 main.o: main.cpp utils.h Makefile
-	$(CC) $(NVCC_FLAGS) -x cu -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -x cu -c $< -o $@
 
 reference.o: ../fluidSim-sycl/reference.cpp Makefile
-	$(CC) $(NVCC_FLAGS) -x cu -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -x cu -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

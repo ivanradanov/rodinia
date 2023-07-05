@@ -51,10 +51,10 @@ main.o: ../sptrsv-sycl/main.cpp \
 	../sptrsv-sycl/read_mtx.h \
 	../sptrsv-sycl/sptrsv.h \
 	../sptrsv-sycl/tranpose.h
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 sptrsv_syncfree.o : sptrsv_syncfree.cu Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

@@ -47,7 +47,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 main.o: main.cpp Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 warpsort.o: warpsort.cu cuda/CudaUtils.cuh \
                         cuda/Comparators.cuh \
@@ -59,7 +59,7 @@ warpsort.o: warpsort.cu cuda/CudaUtils.cuh \
                         cuda/ShuffleTypes.cuh \
                         cuda/WarpBitonicSort.cuh \
                         Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

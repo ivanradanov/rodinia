@@ -45,10 +45,10 @@ $(program): divergence.o timer.o
 	$(LINKER) $^ -o $@ $(LINKER_FLAGS)
 
 divergence.o: divergence.cu divergence.hpp Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 timer.o: timer/timer.cpp timer/timer.hpp
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 
 clean:

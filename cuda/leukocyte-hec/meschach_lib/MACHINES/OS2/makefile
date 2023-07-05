@@ -22,7 +22,7 @@ NVCC_FLAGS = -O6
 
 
 .c.o:
-	$(CC) -c $(NVCC_FLAGS) $(DEFS) $<
+	$(NVCC) -c $(NVCC_FLAGS) $(DEFS) $<
 
 # we do not need the shell
 ##SHELL = sh
@@ -168,39 +168,39 @@ cleanup:
 alltorture: torture sptort ztorture memtort itertort mfuntort iotort
 
 torture:torture.o meschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o torture torture.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o torture torture.o \
 	meschach.a $(LIBS)
 	emxbind torture
 sptort:sptort.o meschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o sptort sptort.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o sptort sptort.o \
 	meschach.a $(LIBS)
 	emxbind sptort
 memtort: memtort.o meschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o memtort memtort.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o memtort memtort.o \
 	meschach.a $(LIBS)
 	emxbind memtort
 ztorture:ztorture.o meschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o ztorture ztorture.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o ztorture ztorture.o \
 	meschach.a $(LIBS)
 	emxbind ztorture
 itertort: itertort.o meschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o itertort itertort.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o itertort itertort.o \
 	meschach.a $(LIBS)
 	emxbind itertort
 iotort: iotort.o meschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o iotort iotort.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o iotort iotort.o \
 	meschach.a $(LIBS)
 	emxbind iotort
 mfuntort: mfuntort.o meschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o mfuntort mfuntort.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o mfuntort mfuntort.o \
 	meschach.a $(LIBS)
 	emxbind mfuntort
 tstmove: tstmove.o meschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o tstmove tstmove.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o tstmove tstmove.o \
 	meschach.a $(LIBS)
 	emxbind tstmove
 tstpxvec: tstpxvec.o meschach.a
-	$(CC) $(NVCC_FLAGS) $(DEFS) -o tstpxvec tstpxvec.o \
+	$(NVCC) $(NVCC_FLAGS) $(DEFS) -o tstpxvec tstpxvec.o \
 	meschach.a $(LIBS)
 	emxbind tstpxvec
 

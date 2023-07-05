@@ -54,7 +54,7 @@ $(program): $(obj) Makefile
           map/map.cuh\
           map/host.cu\
           Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

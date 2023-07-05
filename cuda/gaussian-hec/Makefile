@@ -52,7 +52,7 @@ gaussianElim.o: gaussianElim.cu gaussianElim.h
 utils.o: utils.cu utils.h
 
 %.o: %.cu Makefile
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

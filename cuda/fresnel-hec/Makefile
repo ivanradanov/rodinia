@@ -48,7 +48,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu Makefile
-	$(CC) $(NVCC_FLAGS) -dc $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -dc $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

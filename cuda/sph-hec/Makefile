@@ -45,13 +45,13 @@ $(program): fileio.o fluid.o geometry.o
 	$(LINKER) $+ -o $@ $(LINKER_FLAGS)
 
 fileio.o : fileio.cu
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 fluid.o : fluid.cu  
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 geometry.o : geometry.cu
-	$(CC) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) fileio.o fluid.o geometry.o *.csv
