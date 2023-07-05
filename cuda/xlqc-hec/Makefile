@@ -25,20 +25,20 @@ obj=basis.o scf.o main.o crys.o cints.o cuda_rys_sp.o cuda_rys_dp.o
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall $(GSL_INC)
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall $(GSL_INC)
 
 # Linker Flags
 LDFLAGS = $(GSL_LIB)
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g
+  NVCC_FLAGS += -g
   LDFLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3
+  NVCC_FLAGS += -O3
 endif
 
 #===============================================================================
@@ -46,22 +46,22 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
 
 %.o: %.cu cuda_rys_dp.h cuda_rys_sp.h
-	$(CC) -dc -o $@ $< $(CFLAGS)
+	$(CC) -dc -o $@ $< $(NVCC_FLAGS)
 
 scf.o: scf.cc
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) -c -o $@ $< $(NVCC_FLAGS)
 
 basis.o: basis.cc
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) -c -o $@ $< $(NVCC_FLAGS)
 
 crys.o: ./int_lib/crys.cc
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) -c -o $@ $< $(NVCC_FLAGS)
 
 cints.o: ./int_lib/cints.cc
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) -c -o $@ $< $(NVCC_FLAGS)
 
 clean:
 	rm -rf $(program) $(obj)

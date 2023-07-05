@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -O3 -std=c++11 -x c++ -DDEBUG -DCPU_ONLY
+NVCC_FLAGS = -O3 -std=c++11 -x c++ -DDEBUG -DCPU_ONLY
 
 
 SOURCES = main.cu lsqt.cu sigma.cu vector.cu hamiltonian.cu model.\
@@ -15,7 +15,7 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 all: lsqt_cpu
 
 $(ODIR)/%.o: %.cu $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 lsqt_cpu: $(OBJ)
 	$(CC) $^ -o $@

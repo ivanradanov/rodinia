@@ -2,7 +2,7 @@ CC   = nvcc
 ARCH = sm_60
 
 # -DDEBUG sets a constant seed for random number generation
-CFLAGS = -O3 -std=c++11 -use_fast_math -DDEBUG
+NVCC_FLAGS = -O3 -std=c++11 -use_fast_math -DDEBUG
 
 
 SOURCES = main.cu lsqt.cu sigma.cu vector.cu hamiltonian.cu model.\
@@ -20,7 +20,7 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 all: lsqt_gpu
 
 $(ODIR)/%.o: %.cu $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 lsqt_gpu: $(OBJ)
 	$(CC) $^ -o $@

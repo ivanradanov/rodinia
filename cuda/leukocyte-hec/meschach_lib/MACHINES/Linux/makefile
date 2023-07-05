@@ -17,11 +17,11 @@ LIBS =  -lm
 RANLIB = ranlib
 
 
-CFLAGS = -O
+NVCC_FLAGS = -O
 
 
 .c.o:
-	$(CC) -c $(CFLAGS) $(DEFS) $<
+	$(CC) -c $(NVCC_FLAGS) $(DEFS) $<
 
 SHELL = /bin/sh
 MES_PAK = mesch12a
@@ -170,31 +170,31 @@ cleanup:
 alltorture: torture sptort ztorture memtort itertort mfuntort iotort
 
 torture:torture.o meschach.a
-	$(CC) $(CFLAGS) $(DEFS) -o torture torture.o \
+	$(CC) $(NVCC_FLAGS) $(DEFS) -o torture torture.o \
 	meschach.a $(LIBS)
 sptort:sptort.o meschach.a
-	$(CC) $(CFLAGS) $(DEFS) -o sptort sptort.o \
+	$(CC) $(NVCC_FLAGS) $(DEFS) -o sptort sptort.o \
 	meschach.a $(LIBS)
 memtort: memtort.o meschach.a
-	$(CC) $(CFLAGS) $(DEFS) -o memtort memtort.o \
+	$(CC) $(NVCC_FLAGS) $(DEFS) -o memtort memtort.o \
 	meschach.a $(LIBS)
 ztorture:ztorture.o meschach.a
-	$(CC) $(CFLAGS) $(DEFS) -o ztorture ztorture.o \
+	$(CC) $(NVCC_FLAGS) $(DEFS) -o ztorture ztorture.o \
 	meschach.a $(LIBS)
 itertort: itertort.o meschach.a
-	$(CC) $(CFLAGS) $(DEFS) -o itertort itertort.o \
+	$(CC) $(NVCC_FLAGS) $(DEFS) -o itertort itertort.o \
 	meschach.a $(LIBS)
 
 iotort: iotort.o meschach.a
-	$(CC) $(CFLAGS) $(DEFS) -o iotort iotort.o \
+	$(CC) $(NVCC_FLAGS) $(DEFS) -o iotort iotort.o \
 	meschach.a $(LIBS)
 mfuntort: mfuntort.o meschach.a
-	$(CC) $(CFLAGS) $(DEFS) -o mfuntort mfuntort.o \
+	$(CC) $(NVCC_FLAGS) $(DEFS) -o mfuntort mfuntort.o \
 	meschach.a $(LIBS)
 tstmove: tstmove.o meschach.a
-	$(CC) $(CFLAGS) $(DEFS) -o tstmove tstmove.o \
+	$(CC) $(NVCC_FLAGS) $(DEFS) -o tstmove tstmove.o \
 	meschach.a $(LIBS)
 tstpxvec: tstpxvec.o meschach.a
-	$(CC) $(CFLAGS) $(DEFS) -o tstpxvec tstpxvec.o \
+	$(CC) $(NVCC_FLAGS) $(DEFS) -o tstpxvec tstpxvec.o \
 	meschach.a $(LIBS)
 

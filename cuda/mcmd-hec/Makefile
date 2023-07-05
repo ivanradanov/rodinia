@@ -21,7 +21,7 @@ obj = main.o force_kernel.o
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 \
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 \
           -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES -D__STRICT_ANSI__ \
           -DGPU
 
@@ -30,13 +30,13 @@ LDFLAGS =
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g -DDEBUG
+  NVCC_FLAGS += -g -DDEBUG
   LDFLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3
+  NVCC_FLAGS += -O3
 endif
 
 #===============================================================================
@@ -44,13 +44,13 @@ endif
 #===============================================================================
 
 $(program): $(obj)
-	$(CC) $(obj) $(CFLAGS) -o $@ $(LDFLAGS)
+	$(CC) $(obj) $(NVCC_FLAGS) -o $@ $(LDFLAGS)
 
 main.o: main.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 force_kernel.o: force_kernel.cu
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

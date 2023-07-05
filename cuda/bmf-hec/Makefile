@@ -37,27 +37,27 @@ headers = \
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14
 
 # Linker Flags
 LDFLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g -DDEBUG
+  NVCC_FLAGS += -g -DDEBUG
   LDFLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3 
+  NVCC_FLAGS += -O3 
 endif
 
 ifeq ($(GPU),yes)
-  CFLAGS +=-DUSE_GPU --default-stream per-thread \
+  NVCC_FLAGS +=-DUSE_GPU --default-stream per-thread \
            -Xcompiler -Wall -Xcompiler="-fopenmp"
 else
-  CFLAGS += -x c++ -Wall -fopenmp
+  NVCC_FLAGS += -x c++ -Wall -fopenmp
 endif
 
 #===============================================================================
@@ -65,10 +65,10 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
 
 main.o: src/main.cu $(headers) Makefile
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj) data/*.data data/*.txt

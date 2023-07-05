@@ -12,21 +12,21 @@ DEBUG     = no
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall 
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall 
 
 # Linker Flags
 LDFLAGS = 
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g
+  NVCC_FLAGS += -g
   LDFLAGS  += -g
 endif
 
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3
+  NVCC_FLAGS += -O3
 endif
 
 #===============================================================================
@@ -39,11 +39,11 @@ all: $(program)
 source=compact.cu full_matrix.cu multimat.cu
 
 multimat: $(source)
-	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $^ -o $@ $(LDFLAGS)
 multimat_F: $(source)
-	$(CC) $(CFLAGS) -DFUSED $^ -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) -DFUSED $^ -o $@ $(LDFLAGS)
 multimat_FL: $(source)
-	$(CC) $(CFLAGS) -DFUSED -DLINKED $^ -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) -DFUSED -DLINKED $^ -o $@ $(LDFLAGS)
 
 clean: 
 	rm -rf $(program)

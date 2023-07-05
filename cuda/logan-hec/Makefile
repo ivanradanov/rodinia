@@ -23,7 +23,7 @@ obj = $(source:.cu=.o)
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 \
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 \
           -Xcompiler -Wall -Xcompiler -fopenmp \
           -Isrc 
 
@@ -32,13 +32,13 @@ LDFLAGS =
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g -DDEBUG
+  NVCC_FLAGS += -g -DDEBUG
   LDFLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3 -maxrregcount=32 -DADAPTABLE
+  NVCC_FLAGS += -O3 -maxrregcount=32 -DADAPTABLE
 endif
 
 #===============================================================================
@@ -46,20 +46,20 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
 
 src/main.o: src/main.cu src/logan.cuh Makefile
-	$(CC) $(CFLAGS) -c -dc $< -o $@
+	$(CC) $(NVCC_FLAGS) -c -dc $< -o $@
 
 src/seed.o: src/seed.cu src/seed.cuh Makefile
-	$(CC) $(CFLAGS) -c -dc $< -o $@
+	$(CC) $(NVCC_FLAGS) -c -dc $< -o $@
 
 src/score.o: src/score.cu src/score.cuh Makefile
-	$(CC) $(CFLAGS) -c -dc $< -o $@
+	$(CC) $(NVCC_FLAGS) -c -dc $< -o $@
 
 src/logan_functions.o: src/logan_functions.cu \
                        src/logan_functions.cuh src/seed.cuh Makefile
-	$(CC) $(CFLAGS) -c -dc $< -o $@
+	$(CC) $(NVCC_FLAGS) -c -dc $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

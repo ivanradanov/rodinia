@@ -6,30 +6,30 @@ PROFILE   = yes
 
 
 # Standard flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker flags
 LDFLAGS = -lm
 
 ifeq ($(PROFILE),yes)
-  CFLAGS += -DPROFILE_TMP
+  NVCC_FLAGS += -DPROFILE_TMP
 endif
 
 # Enable checksum and output file
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g 
+  NVCC_FLAGS += -g 
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3
+  NVCC_FLAGS += -O3
 endif
 
 SRC = streamcluster.cu
 EXE = streamcluster
 
 $(EXE):$(SRC) kernel.h streamcluster.h  streamcluster_cl.h
-	$(CC) $(CFLAGS) $(SRC) -o $(EXE) $(LDFLAGS)	
+	$(CC) $(NVCC_FLAGS) $(SRC) -o $(EXE) $(LDFLAGS)	
 
 run: $(EXE)
 	./$(EXE) 10 20 256 65536 65536 1000 none output.txt 1 

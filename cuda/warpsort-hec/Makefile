@@ -23,7 +23,7 @@ obj = main.o warpsort.o
 #===============================================================================
 
 # Standard Flags
-CFLAGS := $(EXTRA_CFLAGS) -DWARP_SIZE=32 -DHALF_WARP_SIZE=16 \
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -DWARP_SIZE=32 -DHALF_WARP_SIZE=16 \
           -std=c++14 -I. -Xcompiler -Wall
 
 # Linker Flags
@@ -31,23 +31,23 @@ LDFLAGS =
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-  CFLAGS += -g -DDEBUG
+  NVCC_FLAGS += -g -DDEBUG
   LDFLAGS  += -g
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-  CFLAGS += -O3
+  NVCC_FLAGS += -O3
 endif
 #===============================================================================
 # Targets to Build
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
 
 main.o: main.cpp Makefile
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 warpsort.o: warpsort.cu cuda/CudaUtils.cuh \
                         cuda/Comparators.cuh \
@@ -59,7 +59,7 @@ warpsort.o: warpsort.cu cuda/CudaUtils.cuh \
                         cuda/ShuffleTypes.cuh \
                         cuda/WarpBitonicSort.cuh \
                         Makefile
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)

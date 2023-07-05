@@ -23,19 +23,19 @@ obj = $(source:.cu=.o)
 #===============================================================================
 
 # Standard flags
-CFLAGS := $(EXTRA_CFLAGS) -std=c++14 -Xcompiler -Wall
+NVCC_FLAGS := $(EXTRA_NVCC_FLAGS) -std=c++14 -Xcompiler -Wall
 
 # Linker flags
 LDFLAGS = -lm
 
 # Debug Flags
 ifeq ($(DEBUG),yes)
-	CFLAGS += -g  
+	NVCC_FLAGS += -g  
 endif
 
 # Optimization Flags
 ifeq ($(OPTIMIZE),yes)
-	CFLAGS += -O3
+	NVCC_FLAGS += -O3
 endif
 
 
@@ -44,12 +44,12 @@ endif
 #===============================================================================
 
 $(program): $(obj) Makefile
-	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
+	$(CC) $(NVCC_FLAGS) $(obj) -o $@ $(LDFLAGS)
 
 %.o: %.cu graphics.c resize.c timer.c \
 	extract_kernel.cu prepare_kernel.cu \
 	reduce_kernel.cu srad_kernel.cu srad2_kernel.cu compress_kernel.cu
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(NVCC_FLAGS) -c $< -o $@
 
 # delete all object files
 clean:

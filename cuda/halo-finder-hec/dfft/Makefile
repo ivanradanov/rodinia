@@ -30,13 +30,13 @@ tests-fftw3 += $(OBJDIR)/test-fftw-guru
 
 fftw	:= $(FFTW_HOME)
 
-CFLAGS += ${HACC_MPI_CFLAGS}
+NVCC_FLAGS += ${HACC_MPI_NVCC_FLAGS}
 CXXFLAGS += ${HACC_MPI_CXXFLAGS}
 LDFLAGS += ${HACC_MPI_LDFLAGS}
 
-CFLAGS	+= $(WARN)
-CFLAGS	+= -DUSE_SLAB_WORKAROUND=1
-CFLAGS	+= -I$(fftw)/include -I../halo_finder
+NVCC_FLAGS	+= $(WARN)
+NVCC_FLAGS	+= -DUSE_SLAB_WORKAROUND=1
+NVCC_FLAGS	+= -I$(fftw)/include -I../halo_finder
 
 CXXFLAGS += $(WARN)
 CXXFLAGS += -I$(fftw)/include -I../halo_finder
@@ -44,20 +44,20 @@ CXXFLAGS += -I$(fftw)/include -I../halo_finder
 LDFLAGS	+= -L$(fftw)/lib
 
 ifeq "${FFTW_MAJOR_VERSION}" "2"
-  CFLAGS   += -DFFTW2=1
+  NVCC_FLAGS   += -DFFTW2=1
   CXXFLAGS += -DFFTW2=1
   LDLIBS   += -lfftw_mpi -lfftw
 endif
 
 ifeq "${FFTW_MAJOR_VERSION}" "3"
-  CFLAGS	+= -DFFTW3=1
+  NVCC_FLAGS	+= -DFFTW3=1
   CXXFLAGS	+= -DFFTW3=1
 ifeq ("${FFTW_WRAPPER}", "essl")
-  CFLAGS += -DESSL_FFTW=1
+  NVCC_FLAGS += -DESSL_FFTW=1
   CXXFLAGS += -DESSL_FFTW=1
   LDLIBS += -lfftw3_esslbg -lesslsmpbg
 ifeq ("${FFTW_THREADING}", "omp")
-  CFLAGS	+= -DFFTW3_THREADS=1
+  NVCC_FLAGS	+= -DFFTW3_THREADS=1
   CXXFLAGS	+= -DFFTW3_THREADS=1
   LDLIBS	+= -lfftw3_mpi -lfftw3_omp -lfftw3
 else
@@ -65,7 +65,7 @@ else
 endif
 endif
 include pencil.mk
-  CFLAGS	+= ${DFFT_PEN_CFLAGS}
+  NVCC_FLAGS	+= ${DFFT_PEN_NVCC_FLAGS}
   CXXFLAGS	+= ${DFFT_PEN_CXXFLAGS}
 endif
 
@@ -75,7 +75,7 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
-	${HACC_MPI_CC} ${CFLAGS} -c -o $@ $<
+	${HACC_MPI_CC} ${NVCC_FLAGS} -c -o $@ $<
 
 $(OBJDIR)/%.o: %.cpp | $(OBJDIR)
 	${HACC_MPI_CXX} ${CXXFLAGS} -c -o $@ $<
@@ -111,7 +111,7 @@ $(OBJDIR)/libdfft.a: $(OBJDIR)/libdfft.a($(OBJECTS))
 	ranlib $@
 
 $(OBJDIR)/test-%: $(OBJDIR)/test-%.o $(OBJDIR)/bigchunk-local.o $(OBJDIR)/libdfft.a
-	${HACC_MPI_CC} $(CFLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+	${HACC_MPI_CC} $(NVCC_FLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
 bigchunk-local.c: ../halo_finder/bigchunk.c
 	cp ../halo_finder/bigchunk.c bigchunk-local.c

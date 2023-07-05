@@ -12,7 +12,7 @@ NVCC_FLAGS=-I${MPI_INCLUDE}
 HACC_PLATFORM=cuda
 HACC_OBJDIR=${HACC_PLATFORM}
 
-HACC_CFLAGS=${OPT} ${OMP} ${NVCC_FLAGS}
+HACC_NVCC_FLAGS=${OPT} ${OMP} ${NVCC_FLAGS}
 HACC_CC=${NVCC_BIN}/nvcc -x c
 
 HACC_CXXFLAGS=${OPT} ${OMP} ${NVCC_FLAGS}
@@ -21,7 +21,7 @@ HACC_CXX=${NVCC_BIN}/nvcc
 HACC_LDFLAGS=-lm -lrt
 
 HACC_NUM_CUDA_DEV="1"
-HACC_MPI_CFLAGS=${OPT} ${OMP} ${NVCC_FLAGS}
+HACC_MPI_NVCC_FLAGS=${OPT} ${OMP} ${NVCC_FLAGS}
 HACC_MPI_CC=${NVCC_BIN}/nvcc -x c
 
 HACC_MPI_CXXFLAGS=${OPT} ${OMP} ${NVCC_FLAGS}
@@ -73,7 +73,7 @@ include include.mk
 include dfft/include.mk
 CXXFLAGS += ${DFFT_CXXFLAGS}
 
-CFLAGS += ${HACC_MPI_CFLAGS}
+NVCC_FLAGS += ${HACC_MPI_NVCC_FLAGS}
 CXXFLAGS += ${HACC_MPI_CXXFLAGS}
 LDFLAGS += ${HACC_MPI_LDFLAGS}
 
@@ -86,7 +86,7 @@ CXXFLAGS += -I.
 CXXFLAGS += -x cu
 #LDFLAGS  = ${MPI_LD_FLAGS} -lmpi_cxx
 
-CFLAGS += -Idfft
+NVCC_FLAGS += -Idfft
 CXXFLAGS += -Idfft
 
 
@@ -94,13 +94,13 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
-	${HACC_MPI_CC} ${CFLAGS} -c -o $@ $<
+	${HACC_MPI_CC} ${NVCC_FLAGS} -c -o $@ $<
 
 $(OBJDIR)/%.o: %.cxx | $(OBJDIR)
 	${HACC_MPI_CXX} ${CXXFLAGS} -c -o $@ $<
 
 $(OBJDIR)/%.o: %.cu | $(OBJDIR)
-	${HACC_MPI_CXX} ${CFLAGS} -c -o $@ $<
+	${HACC_MPI_CXX} ${NVCC_FLAGS} -c -o $@ $<
 
 
 #$(SOBJDIR):
