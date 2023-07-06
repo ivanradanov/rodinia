@@ -1060,21 +1060,6 @@ __global__ void kernel(){
 
 		__syncthreads();
 
-		//====================================================================================================
-		//	NUMERATOR	SAVE RESULT IN CONVOLUTION
-		//====================================================================================================
-
-		// work
-		ei_new = tx;
-		while(ei_new < d_common.conv_elem){
-
-			d_unique[bx].d_conv[ei_new] = d_unique[bx].d_conv[ei_new] - d_unique[bx].d_in2_sub2[ei_new] * in_final_sum / d_common.in_elem;
-
-			// go for second round
-			ei_new = ei_new + NUMBER_THREADS;
-
-		}
-
 
 	}
 
