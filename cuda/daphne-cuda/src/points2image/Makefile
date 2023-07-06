@@ -64,7 +64,5 @@ clean:
 	rm -rf $(program) $(obj)
 
 # TODO: when p > 1, results mismatch
-run_no_bulid:
-	./$(program) -p 1
 run: $(program)
 	./$(program) -p 1

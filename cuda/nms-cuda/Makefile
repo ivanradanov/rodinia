@@ -52,7 +52,5 @@ $(program): $(obj) Makefile
 clean:
 	rm -rf $(program) $(obj) output.txt
 
-run_no_bulid:
-	./$(program) detections.txt output.txt 1000
 run: $(program)
 	./$(program) detections.txt output.txt 1000

@@ -64,7 +64,5 @@ kernels.o: kernels.cu kernels.h timer.h
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) data/dirty_4096.img data/psf_4096.img 1000
 run: $(program)
 	./$(program) data/dirty_4096.img data/psf_4096.img 1000

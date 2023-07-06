@@ -52,7 +52,5 @@ $(program): $(obj) Makefile
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) 1024 1024 100
 run: $(program)
 	./$(program) 1024 1024 100

@@ -54,7 +54,5 @@ clean:
 compress:
 	bzip2 -9 -z -k alphas.csv
 
-run_no_bulid:
-	./$(program) alphas.csv 10
 run: $(program)
 	./$(program) alphas.csv 10

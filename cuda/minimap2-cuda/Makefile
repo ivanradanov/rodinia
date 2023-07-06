@@ -86,7 +86,5 @@ $(BUILD_CUDA_PATH)/%.o: $(CUDA_PATH)/%.$(CUDA_EXT)
 	@echo "Compiling: $< -> $@"
 	$(NVCC) $(NVCHEC_NVCC_FLAGS) $(INCLUDES) -c $< -o $@
 
-run_no_bulid:
-	$(BIN_PATH)/$(BIN_NAME) ../minimap2-sycl/in-1k.txt kernel-out.txt
 run: dirs $(BIN_PATH)/$(BIN_NAME)
 	$(BIN_PATH)/$(BIN_NAME) ../minimap2-sycl/in-1k.txt kernel-out.txt

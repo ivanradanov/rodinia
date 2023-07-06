@@ -52,7 +52,5 @@ $(program): $(obj)
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) 100 100000
 run: $(program)
 	./$(program) 100 100000

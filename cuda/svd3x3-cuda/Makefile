@@ -54,8 +54,6 @@ clean:
 	rm -rf $(program) $(obj)
 
 # dataset is available at https://github.com/kuiwuchn/3x3_SVD_CUDA/blob/master/svd3x3/svd3x3/Dataset_1M.txt
-run_no_bulid:
-	./$(program) Dataset_1M.txt 100
 run: $(program)
 	./$(program) Dataset_1M.txt 100
 	./$(program) Dataset_1M.txt 300

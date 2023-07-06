@@ -56,8 +56,6 @@ utils.o: utils.cu utils.h
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) i ../deredundancy-sycl/testData.fasta
 run: $(program)
 	./$(program) i ../deredundancy-sycl/testData.fasta
 

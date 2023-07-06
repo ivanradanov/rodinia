@@ -52,7 +52,5 @@ $(program): $(obj)
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) ../mis-cuda/internet.egr 100
 run: $(program)
 	./$(program) ../mis-cuda/internet.egr 100

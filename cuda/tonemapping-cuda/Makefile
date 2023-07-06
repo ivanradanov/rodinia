@@ -52,7 +52,5 @@ $(program): $(obj) Makefile
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) ../tonemapping-sycl/input.hdr 10000
 run: $(program)
 	./$(program) ../tonemapping-sycl/input.hdr 10000

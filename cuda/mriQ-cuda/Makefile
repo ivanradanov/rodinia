@@ -54,7 +54,5 @@ file.o: file.cc file.h Makefile
 clean:
 	rm -rf $(program) $(obj) output*
 
-run_no_bulid:
-	./$(program) datasets/128x128x128/input/128x128x128.bin output_128
 run: $(program)
 	./$(program) datasets/128x128x128/input/128x128x128.bin output_128

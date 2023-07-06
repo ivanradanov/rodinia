@@ -66,7 +66,5 @@ clean:
 test: $(program)
 	./$(program) ./test.seq
 
-run_no_bulid:
-	./$(program) ./HIV1-NL43.seq
 run: $(program)
 	./$(program) ./HIV1-NL43.seq

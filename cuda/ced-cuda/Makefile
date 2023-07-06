@@ -58,8 +58,6 @@ $(program): $(obj) Makefile
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) -a 0
 run: $(program)
 	./$(program) -a 0
 

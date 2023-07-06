@@ -54,7 +54,5 @@ distance.o: distance.cu distance.h Makefile
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) ../geodesic-cuda/locations.txt 100
 run: $(program)
 	./$(program) ../geodesic-cuda/locations.txt 100

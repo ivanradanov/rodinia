@@ -52,7 +52,5 @@ $(program): $(obj) Makefile
 clean:
 	rm -rf $(program) $(obj) *.dat
 
-run_no_bulid:
-	./$(program)
 run: $(program)
 	./$(program)

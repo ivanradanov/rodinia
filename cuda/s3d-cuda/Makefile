@@ -64,7 +64,5 @@ S3D.o: S3D.cu S3D.h OptionParser.h gr_base.h ratt.h \
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) -q -n 100 -s 1
 run: $(program)
 	./$(program) -q -n 100 -s 1

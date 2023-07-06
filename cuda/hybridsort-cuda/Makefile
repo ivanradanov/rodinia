@@ -46,8 +46,6 @@ bucketsort.o: bucketsort.cu \
 mergesort.o: mergesort.cu mergesort.h kernel_mergeSortPass.h
 	$(NVCC) $(HEC_NVCC_FLAGS) -o mergesort.o -c mergesort.cu
 
-run_no_bulid:
-	./hybridsort r
 run: hybridsort
 	./hybridsort r
 

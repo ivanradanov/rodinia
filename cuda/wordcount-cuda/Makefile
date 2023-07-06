@@ -54,7 +54,5 @@ main.o: ../wordcount-sycl/main.cpp Makefile
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) 10
 run: $(program)
 	./$(program) 10

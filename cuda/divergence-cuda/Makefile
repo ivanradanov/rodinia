@@ -54,7 +54,5 @@ timer.o: timer/timer.cpp timer/timer.hpp
 clean:
 	rm -rf $(program) *.o
 
-run_no_bulid:
-	./$(program) input.txt 10000
 run: $(program)
 	./$(program) input.txt 10000

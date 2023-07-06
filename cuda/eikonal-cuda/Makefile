@@ -60,7 +60,5 @@ main.o : main.cpp StructuredEikonal.h
 clean:
 	rm -rf $(program) $(obj) output.nrrd
 
-run_no_bulid:
-	./$(program) -s 512
 run: $(program)
 	./$(program) -s 512

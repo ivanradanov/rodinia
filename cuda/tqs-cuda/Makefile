@@ -54,7 +54,5 @@ $(program): $(obj) Makefile
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) -f input/patternsNP100NB512FB25.txt
 run: $(program)
 	./$(program) -f input/patternsNP100NB512FB25.txt

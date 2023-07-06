@@ -82,7 +82,5 @@ clean:
 test: $(program)
 	./$(program) -i $(SLU_PATH)/nicslu/test/add32.mtx
 
-run_no_bulid:
-	./$(program) -i $(SLU_PATH)/nicslu/demo/ASIC_100k.mtx
 run: $(program)
 	./$(program) -i $(SLU_PATH)/nicslu/demo/ASIC_100k.mtx

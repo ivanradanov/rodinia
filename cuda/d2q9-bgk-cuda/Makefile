@@ -60,8 +60,6 @@ $(program): $(obj)
 clean:
 	rm -rf $(program) $(obj) *.dat
 
-run_no_bulid:
-	./$(program) Inputs/input_256x256.params Obstacles/obstacles_256x256.dat
 run: $(program)
 	./$(program) Inputs/input_256x256.params Obstacles/obstacles_256x256.dat
 

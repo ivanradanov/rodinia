@@ -56,7 +56,5 @@ geometry.o : geometry.cu
 clean:
 	rm -rf $(program) fileio.o fluid.o geometry.o *.csv
 
-run_no_bulid:
-	./$(program)
 run: $(program)
 	./$(program)

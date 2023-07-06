@@ -66,7 +66,5 @@ clean:
 test: $(program)
 	./$(program) ./RD0260.seq rd0260.out
 
-run_no_bulid:
-	./$(program) ../prna-cuda/HIV1-NL43.seq  hiv1-nl43.out
 run: $(program)
 	./$(program) ../prna-cuda/HIV1-NL43.seq  hiv1-nl43.out

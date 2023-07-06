@@ -52,7 +52,5 @@ $(program): $(obj)
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) ../ss-sycl/StringSearch_Input.txt clEnqueueNDRangeKernel 20000
 run: $(program)
 	./$(program) ../ss-sycl/StringSearch_Input.txt clEnqueueNDRangeKernel 20000

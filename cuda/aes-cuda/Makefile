@@ -54,8 +54,6 @@ clean:
 	rm -rf $(program) $(obj)
 
 # reuse the image
-run_no_bulid:
-	./$(program) 100 0 ../urng-sycl/URNG_Input.bmp
 run: $(program)
 	./$(program) 100 0 ../urng-sycl/URNG_Input.bmp
 	./$(program) 100 1 ../urng-sycl/URNG_Input.bmp

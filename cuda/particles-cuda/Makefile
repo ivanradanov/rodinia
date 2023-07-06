@@ -58,7 +58,5 @@ particles.o : particles.cu particles_kernels.cu particles.h
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) 10000
 run: $(program)
 	./$(program) 10000

@@ -58,7 +58,5 @@ $(program): $(obj) rsbench.h Makefile
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) -s large -m event
 run: $(program)
 	./$(program) -s large -m event

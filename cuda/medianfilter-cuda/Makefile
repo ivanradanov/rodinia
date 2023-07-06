@@ -58,7 +58,5 @@ shrUtils.o : shrUtils.cu shrUtils.h
 clean:
 	rm -rf $(program) $(obj)
 
-run_no_bulid:
-	./$(program) ../medianfilter-sycl/data/SierrasRGB.ppm 1000
 run: $(program)
 	./$(program) ../medianfilter-sycl/data/SierrasRGB.ppm 1000
