@@ -90,6 +90,8 @@ main.o:	./common.h \
 			-c \
 			-o ./util/num/num.o 
 
+run_no_bulid:
+	        ./b+tree.out file ../data/b+tree/mil.txt command ../data/b+tree/command.txt
 run: b+tree.out
 	        ./b+tree.out file ../data/b+tree/mil.txt command ../data/b+tree/command.txt
 

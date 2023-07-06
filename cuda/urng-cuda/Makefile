@@ -52,5 +52,7 @@ $(program): $(obj)
 clean:
 	rm -rf $(program) $(obj)
 
+run_no_bulid:
+	./$(program) ../urng-sycl/URNG_Input.bmp 16 16 1000
 run: $(program)
 	./$(program) ../urng-sycl/URNG_Input.bmp 16 16 1000

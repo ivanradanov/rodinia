@@ -66,6 +66,8 @@ cints.o: ./int_lib/cints.cc
 clean:
 	rm -rf $(program) $(obj)
 
+run_no_bulid:
+	./$(program) sp
 run: $(program)
 	./$(program) sp
 	./$(program) dp

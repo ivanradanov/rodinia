@@ -60,5 +60,7 @@ compute.o: compute.cu model_io.cu ACF_kernel.cu histogram_kernel.cu args.h Makef
 clean:
 	rm -rf $(program) $(obj) $(OUTFILE)
 
+run_no_bulid:
+	./$(program) $(DATAPARS) $(RANDPARS) $(ANALPARS) -o $(OUTFILE)
 run: $(program)
 	./$(program) $(DATAPARS) $(RANDPARS) $(ANALPARS) -o $(OUTFILE)

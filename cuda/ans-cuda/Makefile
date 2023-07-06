@@ -26,5 +26,7 @@ clean:
 	rm -f $(RM_FLAGS) $(OBJ_DIR)/*.obj
 	rm -f $(RM_FLAGS) $(OBJ_DIR)/$(EXEC_NAME)
 
+run_no_bulid:
+	./$(OBJ_DIR)/$(EXEC_NAME) 10
 run: $(OBJ_DIR)/$(EXEC_NAME)
 	./$(OBJ_DIR)/$(EXEC_NAME) 10

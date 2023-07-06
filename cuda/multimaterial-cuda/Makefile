@@ -48,6 +48,8 @@ multimat_FL: $(source)
 clean: 
 	rm -rf $(program)
 
+run_no_bulid:
+	./multimat_FL 2000 2000
 run: $(program)
 	./multimat_FL 2000 2000
 	./multimat_F 2000 2000

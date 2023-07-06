@@ -56,5 +56,7 @@ $(program): $(obj) Makefile
 clean:
 	rm -rf $(program) $(obj) output
 
+run_no_bulid:
+	./$(program) graph.csv 10000 output
 run: $(program)
 	./$(program) graph.csv 10000 output

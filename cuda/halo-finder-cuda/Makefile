@@ -164,5 +164,7 @@ $(OBJDIR)/libbigchunk.a: $(OBJDIR)/libbigchunk.a($(OBJDIR)/bigchunk.o)
 clean:
 	rm -rf cuda
 
+run_no_bulid:
+	./cuda/ForceTreeTest 0.5 0.1 10000 0.1 10 N 12 rcb
 run: progs
 	./cuda/ForceTreeTest 0.5 0.1 10000 0.1 10 N 12 rcb

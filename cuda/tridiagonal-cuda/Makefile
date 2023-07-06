@@ -70,6 +70,8 @@ cmd_arg_reader.o: cmd_arg_reader.cu cmd_arg_reader.h exception.h
 clean:
 	rm -rf $(program) $(obj) *.dat *.timing *.txt *.csv
 
+run_no_bulid:
+	./$(program) -num_systems=524288
 run: $(program)
 	./$(program) -num_systems=524288
 	./$(program) --lmem -num_systems=524288

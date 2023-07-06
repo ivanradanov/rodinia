@@ -54,6 +54,8 @@ clean:
 test: $(program)
 	./$(program)
 
+run_no_bulid:
+	./$(program) -runs 100
 run: $(program)
 	./$(program) -runs 100
 

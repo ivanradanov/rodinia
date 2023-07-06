@@ -28,5 +28,7 @@ lsqt_gpu: $(OBJ)
 clean:
 	rm -f $(ODIR)/*.o lsqt_gpu
 
+run_no_bulid:
+	./lsqt_gpu examples/input.txt
 run: lsqt_gpu
 	./lsqt_gpu examples/input.txt

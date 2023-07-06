@@ -52,5 +52,7 @@ $(obj): main.cu kernels.h
 clean:
 	rm -rf $(program) $(obj)
 
+run_no_bulid:
+	./$(program) 5000
 run: $(program)
 	./$(program) 5000

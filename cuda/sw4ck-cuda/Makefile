@@ -62,5 +62,7 @@ curvilinear4sg.o : curvilinear4sg.cu \
 clean:
 	rm -rf $(program) $(obj)
 
+run_no_bulid:
+	./$(program) sw4ck.in 100
 run: $(program)
 	./$(program) sw4ck.in 100

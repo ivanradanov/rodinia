@@ -56,5 +56,7 @@ clean:
 test: $(program)
 	./$(program) 1000 8192 1
 
+run_no_bulid:
+	./$(program) 100000 2097152 0
 run: $(program)
 	./$(program) 100000 2097152 0

@@ -52,5 +52,7 @@ $(program): $(obj) Makefile
 clean:
 	rm -rf $(program) $(obj)
 
+run_no_bulid:
+	./$(program) 8192 2000 9 100
 run: $(program)
 	./$(program) 8192 2000 9 100

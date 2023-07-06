@@ -52,5 +52,7 @@ $(program): $(obj) Makefile
 clean:
 	rm -rf $(program) $(obj) output.txt
 
+run_no_bulid:
+	./main -x 128 -y 128 -z 10 -np 400000
 run: $(program)
 	./main -x 128 -y 128 -z 10 -np 400000

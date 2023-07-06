@@ -52,5 +52,7 @@ $(program): $(obj)
 clean:
 	rm -rf $(program) $(obj)
 
+run_no_bulid:
+	./$(program) StoneRGB.ppm 1000
 run: $(program)
 	./$(program) StoneRGB.ppm 1000

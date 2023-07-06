@@ -52,5 +52,7 @@ $(program): $(obj) Makefile
 clean:
 	rm -rf $(program) $(obj)
 
+run_no_bulid:
+	./$(program) coins.bmp coin.bmp 100
 run: $(program)
 	./$(program) coins.bmp coin.bmp 100

@@ -52,5 +52,7 @@ $(program): $(obj) Makefile
 clean:
 	rm -rf $(program) $(obj)
 
+run_no_bulid:
+	./$(program) d493.tsp 24 100
 run: $(program)
 	./$(program) d493.tsp 24 100

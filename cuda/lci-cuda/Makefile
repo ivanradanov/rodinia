@@ -56,5 +56,7 @@ $(program): $(obj) Makefile
 clean:
 	rm -rf $(program) $(obj) *.csv
 
+run_no_bulid:
+	./$(program)
 run: $(program)
 	./$(program)
