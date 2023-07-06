@@ -42,7 +42,6 @@ convolutionSeparable-cuda
 cooling-cuda
 copy-cuda
 crossEntropy-cuda
-crs-cuda
 d2q9-bgk-cuda
 d3q19-bgk-cuda
 damage-cuda
@@ -67,7 +66,6 @@ eigenvalue-cuda
 eikonal-cuda
 entropy-cuda
 epistasis-cuda
-ert-cuda
 expdist-cuda
 extend2-cuda
 extrema-cuda
@@ -85,7 +83,6 @@ floydwarshall-cuda
 floydwarshall2-cuda
 fluidSim-cuda
 fpc-cuda
-frechet-cuda
 fsm-cuda
 fwt-cuda
 ga-cuda
@@ -97,7 +94,6 @@ geam-cuda
 gelu-cuda
 gemmEx-cuda
 geodesic-cuda
-gibbs-cuda
 glu-cuda
 gmm-cuda
 goulash-cuda
@@ -117,7 +113,6 @@ hwt1d-cuda
 idivide-cuda
 interleave-cuda
 inversek2j-cuda
-is-cuda
 ising-cuda
 iso2dfd-cuda
 jaccard-cuda
@@ -135,7 +130,6 @@ layout-cuda
 ldpc-cuda
 lfib4-cuda
 libor-cuda
-lid-driven-cavity-cuda
 lif-cuda
 linearprobing-cuda
 log2-cuda
@@ -154,7 +148,6 @@ maxFlops-cuda
 maxpool3d-cuda
 mcpr-cuda
 md-cuda
-md5hash-cuda
 mdh-cuda
 medianfilter-cuda
 memcpy-cuda
@@ -169,13 +162,11 @@ mis-cuda
 mixbench-cuda
 mkl-sgemm-cuda
 mnist-cuda
-morphology-cuda
 mpc-cuda
 mrc-cuda
 mt-cuda
 multinomial-cuda
 murmurhash3-cuda
-nbnxm-cuda
 nbody-cuda
 ne-cuda
 nlll-cuda
@@ -202,14 +193,10 @@ prefetch-cuda
 present-cuda
 projectile-cuda
 qrg-cuda
-qtclustering-cuda
-quicksort-cuda
 radixsort-cuda
 randomAccess-cuda
-reaction-cuda
 relu-cuda
 resize-cuda
-resnet-kernels-cuda
 reverse-cuda
 rfs-cuda
 ring-cuda
@@ -224,10 +211,8 @@ s3d-cuda
 s8n-cuda
 sampling-cuda
 scan-cuda
-scan2-cuda
 scel-cuda
 score-cuda
-secp256k1-cuda
 sheath-cuda
 shuffle-cuda
 simplemoc-cuda
@@ -235,7 +220,6 @@ simpleMultiDevice-cuda
 snake-cuda
 softmax-cuda
 sort-cuda
-sosfil-cuda
 sph-cuda
 split-cuda
 spm-cuda
@@ -255,11 +239,8 @@ thomas-cuda
 threadfence-cuda
 tissue-cuda
 tonemapping-cuda
-tridiagonal-cuda
 tsa-cuda
 tsp-cuda
-vanGenuchten-cuda
-vmc-cuda
 vote-cuda
 warpsort-cuda
 wedford-cuda
@@ -269,7 +250,6 @@ wyllie-cuda
 zerocopy-cuda
 zeropoint-cuda
 zmddft-cuda
-zoom-cuda
 "
 exit
 
@@ -309,8 +289,30 @@ cross-cuda
 
 
 
-# Takes too long
+# Take too long
 contract-cuda
+crs-cuda
+ddbp-cuda
+tridiagonal-cuda
+sosfil-cuda
+vmc-cuda
+zoom-cuda
+vanGenuchten-cuda
+is-cuda
+morphology-cuda
+lid-driven-cavity-cuda
+md5hash-cuda
+ert-cuda
+secp256k1-cuda
+qtclustering-cuda
+nbnxm-cuda
+resnet-kernels-cuda
+gibbs-cuda
+reaction-cuda
+scan2-cuda
+quicksort-cuda
+frechet-cuda
+
 
 ##### CLANG FAILS TO COMPILE BENCHMARKS BELOW #####
 
@@ -345,28 +347,6 @@ cmp-cuda
 
 # --default-stream unsupported
 bmf-cuda
-
-# rodinia dupes
-b+tree-cuda
-hybridsort-cuda
-srad-cuda
-streamcluster-cuda
-cfd-cuda
-gaussian-cuda
-particlefilter-cuda
-lud-cuda
-backprop-cuda
-bfs-cuda
-hotspot-cuda
-hotspot3D-cuda
-myocyte-cuda
-nn-cuda
-nw-cuda
-pathfinder-cuda
-heartwall-cuda
-hybridsort-cuda
-kmeans-cuda
-leukocyte-cuda
 
 # mpi
 halo-finder-cuda
@@ -448,6 +428,30 @@ urng-cuda
 vol2col-cuda
 voxelizer-cuda
 xsbench-cuda
+
+##### COMPILATION FAILURES END #####
+
+# rodinia dupes
+b+tree-cuda
+hybridsort-cuda
+srad-cuda
+streamcluster-cuda
+cfd-cuda
+gaussian-cuda
+particlefilter-cuda
+lud-cuda
+backprop-cuda
+bfs-cuda
+hotspot-cuda
+hotspot3D-cuda
+myocyte-cuda
+nn-cuda
+nw-cuda
+pathfinder-cuda
+heartwall-cuda
+hybridsort-cuda
+kmeans-cuda
+leukocyte-cuda
 
 # not timing TODO
 heat-cuda
