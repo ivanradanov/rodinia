@@ -211,7 +211,7 @@ template<class TData> int runTest(
   //Run test
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::high_resolution_clock::now();
+  auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda aligned-types-cuda main.cu,0);
   dim3 grid ((numElements + 255)/256);
   dim3 block (256);
   for (int i = 0; i < NUM_ITERATIONS; i++)

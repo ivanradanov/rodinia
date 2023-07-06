@@ -206,7 +206,7 @@ int main() {
   for (int sample=0; sample<Nsample; sample++) {
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda vmc-cuda vmc2.cu,0);
 
     zero_stats<<<NBLOCK,NTHR_PER_BLK>>>(Npoint, stats);
     propagate<<<NBLOCK,NTHR_PER_BLK>>>(Npoint, Ngen_per_block, x1, y1, z1, x2, y2, z2, psi, stats, ranstates);

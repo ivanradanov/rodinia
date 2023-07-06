@@ -116,7 +116,7 @@ int main(int argc, char* argv[])
       d_inp1, d_inp2, d_outp, batch_size * beam_size * nhead, head_dim, sl1, sl2);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda concat-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++) {
       concat <<<nblock, 256>>>(

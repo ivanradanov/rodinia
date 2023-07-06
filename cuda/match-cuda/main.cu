@@ -731,7 +731,7 @@ int main(int argc, char *argv[])
     }
   }
 
-  auto start = std::chrono::high_resolution_clock::now();
+  auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda match-cuda main.cu,0);
   MatchC1(h_pts1, h_pts2, h_score.data(), h_index.data());
   auto end = std::chrono::high_resolution_clock::now();
   auto elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
@@ -745,7 +745,7 @@ int main(int argc, char *argv[])
   dim3 blocks, threads;
   blocks = dim3(NPTS/M1W);
   threads = dim3(M1W);
-  start = std::chrono::high_resolution_clock::now();
+  start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda match-cuda main.cu,1);
   for (int i = 0; i < repeat; i++) 
     Match1<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
@@ -759,7 +759,7 @@ int main(int argc, char *argv[])
 
   blocks = dim3(NPTS/M2W);
   threads = dim3(M2W, M2H);
-  start = std::chrono::high_resolution_clock::now();
+  start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda match-cuda main.cu,2);
   for (int i = 0; i < repeat; i++) 
     Match2<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
@@ -773,7 +773,7 @@ int main(int argc, char *argv[])
 
   blocks = dim3(NPTS/M2W);
   threads = dim3(M2W, M2H);
-  start = std::chrono::high_resolution_clock::now();
+  start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda match-cuda main.cu,3);
   for (int i = 0; i < repeat; i++) 
     Match3<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
@@ -787,7 +787,7 @@ int main(int argc, char *argv[])
   
   blocks = dim3(NPTS/M2W);
   threads = dim3(M2W, M2H);
-  start = std::chrono::high_resolution_clock::now();
+  start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda match-cuda main.cu,4);
   for (int i = 0; i < repeat; i++) 
     Match4<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
@@ -801,7 +801,7 @@ int main(int argc, char *argv[])
   
   blocks = dim3(NPTS/M5W);
   threads = dim3(M5W, M5H);
-  start = std::chrono::high_resolution_clock::now();
+  start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda match-cuda main.cu,5);
   for (int i = 0; i < repeat; i++) 
     Match5<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
@@ -815,7 +815,7 @@ int main(int argc, char *argv[])
   
   blocks = dim3(NPTS/M5W);
   threads = dim3(M5W, M5H);
-  start = std::chrono::high_resolution_clock::now();
+  start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda match-cuda main.cu,6);
   for (int i = 0; i < repeat; i++) 
     Match6<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
@@ -829,7 +829,7 @@ int main(int argc, char *argv[])
 
   blocks = dim3(NPTS/M7W);
   threads = dim3(M7W, M7H/M7R);
-  start = std::chrono::high_resolution_clock::now();
+  start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda match-cuda main.cu,7);
   for (int i = 0; i < repeat; i++) 
     Match7<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
@@ -843,7 +843,7 @@ int main(int argc, char *argv[])
 
   blocks = dim3(NPTS/M7W);
   threads = dim3(M7W, M7H/M7R);
-  start = std::chrono::high_resolution_clock::now();
+  start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda match-cuda main.cu,8);
   for (int i = 0; i < repeat; i++) 
     Match8<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
@@ -857,7 +857,7 @@ int main(int argc, char *argv[])
 
   blocks = dim3(NPTS/M7W);
   threads = dim3(M7W, M7H/M7R/2);
-  start = std::chrono::high_resolution_clock::now();
+  start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda match-cuda main.cu,9);
   for (int i = 0; i < repeat; i++) 
     Match9<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
@@ -872,7 +872,7 @@ int main(int argc, char *argv[])
 
   blocks = dim3(NPTS/M7W);
   threads = dim3(M7W, M7H/M7R);
-  start = std::chrono::high_resolution_clock::now();
+  start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda match-cuda main.cu,10);
   for (int i = 0; i < repeat; i++) 
     Match10<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();

@@ -88,7 +88,7 @@ int main(int argc, char **argv){
   cudaDeviceSynchronize();
 
   // Execute GPU kernel
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda laplace3d-cuda main.cu,0);
 
   for (i = 1; i <= REPEAT; ++i) {
     laplace3d<<<dimGrid, dimBlock>>>(NX, NY, NZ, pitch, d_u1, d_u2);

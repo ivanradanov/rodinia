@@ -199,7 +199,7 @@ double morphology(
   size_t sMemSize_v = 4 * vsize * sizeof(unsigned char);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda morphology-cuda morphology.cu,0);
 
   vhgw_horiz<opType><<<gridSize_h, blockSize_h, sMemSize_h>>>(tmp_d, img_d, width, height, hsize);
 

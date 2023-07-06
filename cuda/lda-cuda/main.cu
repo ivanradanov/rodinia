@@ -103,7 +103,7 @@ int main(int argc, char* argv[]) {
   bool init_gamma = false;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lda-cuda main.cu,0);
 
   for (i = 0; i < repeat; i++) {
     init_gamma = (i == 0) ? true : false;
@@ -132,7 +132,7 @@ int main(int argc, char* argv[]) {
   cudaMemset(d_vali, 0xFFFFFFFF, sizeof(bool) * num_cols); 
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lda-cuda main.cu,1);
 
   for (i = 0; i < repeat; i++) {
     EstepKernel<<<block_cnt, block_dim, 4 * num_topics * sizeof(float)>>>(

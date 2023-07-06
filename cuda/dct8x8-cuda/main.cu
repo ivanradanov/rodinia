@@ -89,7 +89,7 @@ int main(int argc, char **argv)
   int dir = DCT_FORWARD;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda dct8x8-cuda main.cu,0);
 
   for(int iter = 0; iter < numIterations; iter++)
     DCT8x8(
@@ -113,7 +113,7 @@ int main(int argc, char **argv)
 
   dir = DCT_INVERSE;
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda dct8x8-cuda main.cu,1);
 
   for(int iter = 0; iter < numIterations; iter++)
     DCT8x8(

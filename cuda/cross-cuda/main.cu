@@ -141,7 +141,7 @@ void eval(const int nrows, const int repeat) {
   dim3 block (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda cross-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) 
     cross_kernel<<<grid, block>>>(nrows, d_o, d_a, d_b, 1, 1, 1);
@@ -153,7 +153,7 @@ void eval(const int nrows, const int repeat) {
 
   cudaMemcpy(o, d_o, size_bytes, cudaMemcpyDeviceToHost);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda cross-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) 
     cross2_kernel<<<grid, block>>>(nrows, d_o, d_a, d_b, 1, 1, 1);
@@ -165,7 +165,7 @@ void eval(const int nrows, const int repeat) {
 
   cudaMemcpy(o2, d_o, size_bytes, cudaMemcpyDeviceToHost);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda cross-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++) 
     cross3_kernel<<<grid, block>>>(nrows, d_o, d_a, d_b);

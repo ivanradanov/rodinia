@@ -121,7 +121,7 @@ int main(int argc, char** argv) {
   u64Int *d_ran;
   cudaMalloc((void**)&d_ran, 128 * sizeof(u64Int));
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda randomAccess-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     /* initialize the table */

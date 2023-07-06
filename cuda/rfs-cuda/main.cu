@@ -142,7 +142,7 @@ int main(int argc, char* argv[]) {
   cudaMemcpy(d_arrays, arrays, array_size, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda rfs-cuda main.cu,0);
 
   for (int n = 0; n < nArrays; n++) {
     // sum over each array
@@ -159,7 +159,7 @@ int main(int argc, char* argv[]) {
   bool ok = !memcmp(result_ref, result, narray_size);
   printf("%s\n", ok ? "PASS" : "FAIL");
   
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda rfs-cuda main.cu,1);
 
   // sum over arrays
   sumArrays <<<grids, blocks>>> (nArrays, nElems, d_arrays, d_result, d_maxVal);

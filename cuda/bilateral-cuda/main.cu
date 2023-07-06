@@ -114,7 +114,7 @@ int main(int argc, char *argv[]) {
   dim3 blocks ((w+15)/16, (h+15)/16);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bilateral-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     bilateralFilter<3><<<blocks, threads>>>(
@@ -138,7 +138,7 @@ int main(int argc, char *argv[]) {
   }
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bilateral-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     bilateralFilter<6><<<blocks, threads>>>(
@@ -160,7 +160,7 @@ int main(int argc, char *argv[]) {
   }
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bilateral-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++)
     bilateralFilter<9><<<blocks, threads>>>(

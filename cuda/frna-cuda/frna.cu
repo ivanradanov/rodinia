@@ -896,7 +896,7 @@ frna_t frna_new(const char *str, fparam_t par)
   CU(cudaMemcpy(wm, p->wm, n*n*sizeof(int_t), cudaMemcpyHostToDevice));
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda frna-cuda frna.cu,0);
 
   init_w5_and_w3<<<n,1>>>(n+1,w5-1,w3);
 

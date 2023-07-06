@@ -215,7 +215,7 @@ int main(int argc, char* argv[]) {
   dim3 grids (num_history / 256 + 1);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda rainflow-cuda main.cu,0);
 
   for (n = 0; n < repeat; n++) {
     rainflow_count <<<grids, blocks>>> (

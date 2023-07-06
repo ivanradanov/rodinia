@@ -314,7 +314,7 @@ void QTC(const string& name, OptionParser& op, int matrix_type){
       break;
     cwrank = comm_get_rank();
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda qtclustering-cuda QTC.cu,0);
 
     // Main kernel
     QTC_device<<<thread_block_count, tpb>>>((float*)distance_matrix, (char *)Ai_mask, (char *)clustered_pnts_mask,
@@ -355,7 +355,7 @@ void QTC(const string& name, OptionParser& op, int matrix_type){
       cout << "[" << cwrank << "] Cluster Cardinality: " << max_card << " (Node: " << cwrank << ", index: " << winner_index << ")" << endl;
     }
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda qtclustering-cuda QTC.cu,1);
 
     trim_ungrouped_pnts_indr_array<<<1, tpb>>>(winner_index, (int*)ungrpd_pnts_indr, (float*)distance_matrix,
         (int *)result, (char *)Ai_mask, (char *)clustered_pnts_mask,
@@ -384,7 +384,7 @@ void QTC(const string& name, OptionParser& op, int matrix_type){
       }
     }
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda qtclustering-cuda QTC.cu,2);
 
     update_clustered_pnts_mask<<<1, tpb>>>((char *)clustered_pnts_mask, (char *)Ai_mask, max_point_count);
     cudaDeviceSynchronize();

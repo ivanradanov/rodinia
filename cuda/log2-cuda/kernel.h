@@ -84,7 +84,7 @@ void log2_approx (
 
   for(int i = 0; i < precision_count; ++i) {
     cudaDeviceSynchronize();
-    auto start = std::chrono::high_resolution_clock::now(); 
+    auto start=std::chrono::high_resolution_clock::now(); MY_START_CLOCK(cuda log2-cuda kernel.h,0);
 
     for (int k = 0; k < repeat; ++k) {
       compute_log<<<grid, block>>>(d_outputs, d_inputs, i, num_inputs, precision[i]);

@@ -219,7 +219,7 @@ int main(int argc, char** argv){
              size_passed_verification_device, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda is-cuda main.cu,0);
 
   for(iteration=1; iteration<=MAX_ITERATIONS; iteration++){
     rank_gpu_kernel_1<<<blocks_per_grid_on_rank_1, 

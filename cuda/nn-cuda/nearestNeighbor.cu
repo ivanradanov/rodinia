@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 
   if (resultsCount > numRecords) resultsCount = numRecords;
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda nn-cuda nearestNeighbor.cu,0);
 
   recordDistances = (float *)malloc(sizeof(float) * numRecords);
   FindNearestNeighbors(numRecords,locations,lat,lng,recordDistances,repeat,timing);
@@ -81,7 +81,7 @@ void FindNearestNeighbors(
   dim3 blockDim(64);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda nn-cuda nearestNeighbor.cu,1);
 
   for (int i = 0; i < repeat; i++)
     nn<<<gridDim, blockDim>>> (numRecords, lat, lng, d_locations, d_distances);

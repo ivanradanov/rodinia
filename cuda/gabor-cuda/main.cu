@@ -62,7 +62,7 @@ double* generateGaborKernelDevice(
   dim3 blocks (16, 16);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda gabor-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     gabor<<<grids, blocks>>>(d_gabor_spatial,

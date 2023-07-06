@@ -57,11 +57,11 @@ void eval_remap(const int N, const int repeat) {
        alloc_time = 0,
        dealloc_time = 0;
 
-  auto offload_start = std::chrono::steady_clock::now();
+  auto offload_start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda remap-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda remap-cuda main.cu,1);
 
     T *d_input;
     cudaMalloc((void**)&d_input, input_size_bytes);
@@ -75,14 +75,14 @@ void eval_remap(const int N, const int repeat) {
     auto end = std::chrono::steady_clock::now();
     alloc_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda remap-cuda main.cu,2);
 
     cudaMemcpy(d_input, h_input, input_size_bytes, cudaMemcpyHostToDevice);
 
     end = std::chrono::steady_clock::now();
     copy_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda remap-cuda main.cu,3);
 
     thrust::sequence(order1.begin(), order1.end());
     thrust::sequence(order2.begin(), order2.end());
@@ -97,7 +97,7 @@ void eval_remap(const int N, const int repeat) {
     // Now we have:
     //    output = 1,1,3,5,5,7,9
     //    order1 = 0,3,1,2,4,5,6
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda remap-cuda main.cu,4);
 
     auto buffer = thrust::device_pointer_cast(d_input);
     thrust::sort_by_key(buffer, buffer + N, order1.begin());
@@ -111,7 +111,7 @@ void eval_remap(const int N, const int repeat) {
     // Now we have:
     //    output = 1,3,5,7,9
     //    order2 = 0,2,3,5,6
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda remap-cuda main.cu,5);
 
     auto result = thrust::unique_by_key(buffer, buffer + N, order2.begin());
 
@@ -129,7 +129,7 @@ void eval_remap(const int N, const int repeat) {
     dim3 block (NUM_THREADS);
 
     cudaDeviceSynchronize();
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda remap-cuda main.cu,6);
 
     remap_kernel<<<grid, block>>>(order2.data(), order1.data(), d_output, N, K);
 
@@ -137,14 +137,14 @@ void eval_remap(const int N, const int repeat) {
     end = std::chrono::steady_clock::now();
     kernel_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda remap-cuda main.cu,7);
 
     cudaMemcpy(h_output, d_output, output_size_bytes, cudaMemcpyDeviceToHost);
 
     end = std::chrono::steady_clock::now();
     copy_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda remap-cuda main.cu,8);
 
     cudaFree(d_output);
     cudaFree(d_input);

@@ -361,7 +361,7 @@ int main(int argc, char **argv) {
 
   // Launch the device computation threads
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda libor-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     Pathcalc_Portfolio_KernelGPU2
@@ -394,7 +394,7 @@ int main(int argc, char **argv) {
 
   // Launch the device computation threads
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda libor-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     Pathcalc_Portfolio_KernelGPU

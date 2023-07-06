@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
     cudaMemcpy(d_Data, h_Data, DATA_SIZE, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda fwt-cuda main.cu,0);
 
     fwtBatchGPU(d_Data, 1, log2Data);
     fwtBatchGPU(d_Kernel, 1, log2Data);

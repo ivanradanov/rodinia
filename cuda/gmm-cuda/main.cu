@@ -57,7 +57,7 @@ int main( int argc, char** argv) {
     return 1;
   }
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda gmm-cuda main.cu,0);
 
   clusters_t* clusters = cluster(original_num_clusters, desired_num_clusters, &ideal_num_clusters, 
       num_dimensions, num_events, fcs_data_by_event);

@@ -181,7 +181,7 @@ double sobolGPU(int repeat, int n_vectors, int n_dimensions,
     dimBlock.x = threadsperblock;
   
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda sobol-cuda sobol_gpu.cu,0);
   
     // Execute GPU kernel
     for (int i = 0; i < repeat; i++)

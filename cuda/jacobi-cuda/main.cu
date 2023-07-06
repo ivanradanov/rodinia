@@ -175,7 +175,7 @@ int main () {
   dim3 block (16, 16);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda jacobi-cuda main.cu,0);
 
   while (error > tolerance && num_iters < max_iters) {
     // Initialize error to zero (we'll add to it the following step)

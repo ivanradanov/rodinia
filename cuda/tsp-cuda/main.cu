@@ -348,7 +348,7 @@ int main(int argc, char *argv[])
     cudaMemcpy(climbs_d, &climbs, sizeof(int), cudaMemcpyHostToDevice);
     cudaMemcpy(best_d, &best, sizeof(int), cudaMemcpyHostToDevice);
 
-    auto kstart = std::chrono::steady_clock::now();
+    auto kstart=std::chrono::steady_clock::now();MY_START_CLOCK(cuda tsp-cuda main.cu,0);
 
     TwoOpt<<<restarts, threads, sizeof(int) * threads>>>(cities, posx_d, posy_d, glob_d, climbs_d, best_d);
 

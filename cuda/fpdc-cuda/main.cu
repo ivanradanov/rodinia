@@ -162,7 +162,7 @@ static void Compress(int blocks, int warpsperblock, int repeat, int dimensionali
     fprintf(stderr, "copying of cut to device failed\n");
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda fpdc-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     CompressionKernel<<<blocks, WARPSIZE*warpsperblock>>>(

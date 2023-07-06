@@ -203,7 +203,7 @@ int main(int argc, char** argv)
   dim3 blockDim(BLOCK_SIZE);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda murmurhash3-cuda murmurhash3.cu,0);
 
   for (uint32_t n = 0; n < repeat; n++)  
     MurmurHash3_x64_128_kernel<<<gridDim, blockDim>>>(

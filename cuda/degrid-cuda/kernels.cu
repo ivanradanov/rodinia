@@ -84,7 +84,7 @@ void degridGPU(CmplxType* out, CmplxType* in, CmplxType *img, CmplxType *gcf) {
   dim3 block(32, 8);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda degrid-cuda kernels.cu,0);
 
   for (int n = 0; n < REPEAT; n++) {
     // GCF_DIM is at least 32

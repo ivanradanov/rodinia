@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
 float processWithStreams(int streams_used) {
   int current_stream = 0;
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda overlap-cuda main.cu,0);
 
   // Do processing in a loop
   //

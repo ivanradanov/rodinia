@@ -103,7 +103,7 @@ int main(int argc, char* argv[]) {
   cudaMalloc(&devStates, THREADS*sizeof(unsigned int));
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda columnarSolver-cuda main.cu,0);
 
   setupKernel<<<B,T>>>(devStates);
 

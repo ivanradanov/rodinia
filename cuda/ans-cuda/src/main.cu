@@ -38,7 +38,7 @@ void run(long int input_size) {
   std::cout << "\u03BB | compressed size (bytes) | ";
   std::cout << std::endl << std::endl;
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda ans-cuda src main.cu,0);
 
   for(float lambda = 0.1f; lambda < 2.5f; lambda += 0.16) {
 

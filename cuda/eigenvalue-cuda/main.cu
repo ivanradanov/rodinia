@@ -202,7 +202,7 @@ int main(int argc, char * argv[])
   std::cout << "-------------------------------------------" << std::endl;
   
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda eigenvalue-cuda main.cu,0);
   
   for(int i = 0; i < iterations; i++)
   {

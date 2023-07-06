@@ -82,7 +82,7 @@ void run_gemm_example(int repeat) {
   cublasCreate(&h);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mkl-sgemm-cuda gemm.cu,0);
 
   for (int i = 0; i < repeat; i++) 
     cublasSgemm(h, CUBLAS_OP_N, CUBLAS_OP_N, n, m, k, &alpha,

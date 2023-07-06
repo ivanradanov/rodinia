@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
   dim3 rng_wallace_threads(WALLACE_NUM_THREADS, 1, 1);
   const unsigned seed = 1;
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda rng-wallace-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     rng_wallace <<< rng_wallace_grid, rng_wallace_threads >>> (

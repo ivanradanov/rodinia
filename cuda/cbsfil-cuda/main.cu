@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
   long total_time = 0;
   for (int i = 0; i < repeat; i++) {
     cudaMemcpy(d_image, image, image_size, cudaMemcpyHostToDevice);
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda cbsfil-cuda main.cu,0);
 
     toCoef2DX<<<dimGridX, dimBlockX>>>(d_image, image_pitch, width, height);
     toCoef2DY<<<dimGridY, dimBlockY>>>(d_image, image_pitch, width, height);

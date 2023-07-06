@@ -88,7 +88,7 @@ void surfelRenderTest(int n, int w, int h, int repeat)
   for (int f = 0; f < 3; f++) {
     printf("\nf = %d\n", f);
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda surfel-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++)
       surfel_render<T><<<blocks, threads>>>(d_src, n, inverseFocalLength[f], w, h, d_dst);

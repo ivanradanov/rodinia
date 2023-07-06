@@ -77,7 +77,7 @@ int main(int argc, const char **argv)
   cudaMalloc((void**)&d_buffer, sizeof(unsigned int) * 
              (arrayLength / MAX_WORKGROUP_INCLUSIVE_SCAN_SIZE));
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda radixsort-cuda main.cu,0);
 
   for (int i = 0; i < numIterations; i++)
   {

@@ -101,7 +101,7 @@ void perplexity_search(const value_t* __restrict__ distances,
   dim3 block (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda perplexity-cuda main.cu,0);
 
   sigmas_kernel<<<grid, block>>>(distances, P, perplexity, desired_entropy, epochs, tol, n, dim);
 

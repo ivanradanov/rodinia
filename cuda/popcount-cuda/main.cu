@@ -151,7 +151,7 @@ int main(int argc, char* argv[])
   dim3 grids ((length+BLOCK_SIZE-1)/BLOCK_SIZE);
   dim3 threads (BLOCK_SIZE);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda popcount-cuda main.cu,0);
   for (int n = 0; n < repeat; n++) {
     pc1<<<grids, threads>>>(d_data, d_result, length);
   }
@@ -164,7 +164,7 @@ int main(int argc, char* argv[])
   checkResults(data, result, length);
   //========================================================================================
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda popcount-cuda main.cu,1);
   for (int n = 0; n < repeat; n++) {
     pc2<<<grids, threads>>>(d_data, d_result, length);
   }
@@ -177,7 +177,7 @@ int main(int argc, char* argv[])
   checkResults(data, result, length);
   //========================================================================================
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda popcount-cuda main.cu,2);
   for (int n = 0; n < repeat; n++) {
     pc3<<<grids, threads>>>(d_data, d_result, length);
   }
@@ -190,7 +190,7 @@ int main(int argc, char* argv[])
   checkResults(data, result, length);
   //========================================================================================
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda popcount-cuda main.cu,3);
   for (int n = 0; n < repeat; n++) {
     pc4<<<grids, threads>>>(d_data, d_result, length);
   }
@@ -203,7 +203,7 @@ int main(int argc, char* argv[])
   checkResults(data, result, length);
   //========================================================================================
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda popcount-cuda main.cu,4);
   for (int n = 0; n < repeat; n++) {
     pc5<<<grids, threads>>>(d_data, d_result, length);
   }
@@ -216,7 +216,7 @@ int main(int argc, char* argv[])
   checkResults(data, result, length);
   //========================================================================================
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda popcount-cuda main.cu,5);
   for (int n = 0; n < repeat; n++) {
     pc6<<<grids, threads>>>(d_data, d_result, length);
   }

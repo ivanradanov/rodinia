@@ -67,7 +67,7 @@ void mixbenchGPU(long size, int repeat) {
   }
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mixbench-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     benchmark_func<<<grid_dim, block_dim>>>(d_cd, block_dim, i);

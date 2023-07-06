@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
     cudaMemcpy(d_list, list.data(), sizeof(long) * elems, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda wyllie-cuda main.cu,0);
 
     wyllie<<<grid, block>>>(d_list, elems);
 

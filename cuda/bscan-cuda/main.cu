@@ -134,7 +134,7 @@ void bscan (const int repeat)
     cudaMemcpy(d_in, h_in, N*sizeof(int), cudaMemcpyHostToDevice); 
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bscan-cuda main.cu,0);
 
     binary_scan<<<grids, blocks>>>(d_out, d_in);
 

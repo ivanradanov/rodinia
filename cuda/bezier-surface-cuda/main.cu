@@ -250,7 +250,7 @@ void run(XYZ *in, int in_size_i, int in_size_j, int out_size_i, int out_size_j, 
   XYZ *gpu_out = (XYZ *)malloc(out_size_i * out_size_j * sizeof(XYZ));
 
   // CPU run
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bezier-surface-cuda main.cu,0);
   BezierCPU(in, cpu_out, in_size_i, in_size_j, out_size_i, out_size_j);
   auto end = std::chrono::steady_clock::now();
   auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
@@ -272,7 +272,7 @@ void run(XYZ *in, int in_size_i, int in_size_j, int out_size_i, int out_size_j, 
   dim3 grid((out_size_i + p.work_group_size - 1) / p.work_group_size);
 
   cudaDeviceSynchronize();
-  auto kstart = std::chrono::steady_clock::now();
+  auto kstart=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bezier-surface-cuda main.cu,1);
 
   BezierGPU <<< grid, block >>> (d_in, d_out, in_size_i, in_size_j, out_size_i, out_size_j);
 

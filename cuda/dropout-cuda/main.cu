@@ -106,7 +106,7 @@ int main(int argc, char* argv[]) {
     float pa = (float)p / repeat;
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda dropout-cuda main.cu,0);
 
     fused_dropout_kernel<float, float, unsigned int>
       <<<grid, dim_block>>>(d_self_info, d_ret_info, d_mask_info, 

@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
   dim3 grid(batch_size, seq_len);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda gelu-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     gelu_bias_loop <<<grid, block>>> (d_output, d_bias, hidden_dim, seq_len);

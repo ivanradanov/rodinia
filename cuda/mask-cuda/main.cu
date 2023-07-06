@@ -220,7 +220,7 @@ void eval_mask (const int M, const int N, const int B, const int repeat) {
   dim3 block (GPU_THREADS);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mask-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     sequenceMaskKernel<<<grid, block>>>(
@@ -234,7 +234,7 @@ void eval_mask (const int M, const int N, const int B, const int repeat) {
          (time * 1e-3f) / repeat);
   print_mask_ratio(h_out, d_out, fill_val, data_size);
  
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mask-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) {
     windowMaskKernel<<<grid, block>>>(
@@ -248,7 +248,7 @@ void eval_mask (const int M, const int N, const int B, const int repeat) {
          (time * 1e-3f) / repeat);
   print_mask_ratio(h_out, d_out, fill_val, data_size);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mask-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++) {
     upperMaskKernel<<<grid, block>>>(
@@ -262,7 +262,7 @@ void eval_mask (const int M, const int N, const int B, const int repeat) {
          (time * 1e-3f) / repeat);
   print_mask_ratio(h_out, d_out, fill_val, data_size);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mask-cuda main.cu,3);
 
   for (int i = 0; i < repeat; i++) {
     lowerMaskKernel<<<grid, block>>>(
@@ -276,7 +276,7 @@ void eval_mask (const int M, const int N, const int B, const int repeat) {
          (time * 1e-3f) / repeat);
   print_mask_ratio(h_out, d_out, fill_val, data_size);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mask-cuda main.cu,4);
 
   for (int i = 0; i < repeat; i++) {
     upperDiagMaskKernel<<<grid, block>>>(
@@ -290,7 +290,7 @@ void eval_mask (const int M, const int N, const int B, const int repeat) {
          (time * 1e-3f) / repeat);
   print_mask_ratio(h_out, d_out, fill_val, data_size);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mask-cuda main.cu,5);
 
   for (int i = 0; i < repeat; i++) {
     lowerDiagMaskKernel<<<grid, block>>>(

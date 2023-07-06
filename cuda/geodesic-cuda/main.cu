@@ -154,7 +154,7 @@ void distance_device(const float4* VA, float* VC, const size_t N, const int iter
   cudaMalloc((void**)&d_VC, sizeof(float)*N);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda geodesic-cuda main.cu,0);
 
   for (int n = 0; n < iteration; n++) {
     kernel_distance<<<grids, threads>>>(d_VA, d_VC, N);

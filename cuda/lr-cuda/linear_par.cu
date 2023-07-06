@@ -111,7 +111,7 @@ void r_squared(linear_param_t *params, data_t *dataset, sum_t *linreg, result_t 
     dim3 blocks (wg_size);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lr-cuda linear_par.cu,0);
 
     for (int i = 0; i < params->repeat; i++)
       rsquared<<<grids, blocks, wg_size * sizeof(rsquared_t)>>>(d_dataset, mean, equation, d_result);
@@ -180,7 +180,7 @@ void parallelized_regression(linear_param_t *params, data_t *dataset, result_t *
     dim3 blocks (wg_size);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lr-cuda linear_par.cu,1);
 
     for (int i = 0; i < params->repeat; i++)
       linear_regression<<<grids, blocks, wg_size * sizeof(sum_t)>>>(d_dataset, d_result);

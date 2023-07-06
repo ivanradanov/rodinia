@@ -92,7 +92,7 @@ int main(int argc, char** argv) {
   cudaMemcpy(D_LG, LG, (DATA_N + 2) * sizeof(float), cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bn-cuda main.cu,0);
 
   for (i = 0; i < repeat; i++)
     genScoreKernel<<<grid, threads>>>(sizepernode, D_localscore, D_data, D_LG);
@@ -121,7 +121,7 @@ int main(int argc, char** argv) {
     for (j = 0; j < tmp; j++)
       genOrders();
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bn-cuda main.cu,1);
 
     score = findBestGraph(D_localscore, D_resP, D_Score, D_parent);
 

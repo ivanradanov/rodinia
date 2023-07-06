@@ -212,7 +212,7 @@ int main(int argc, char **argv) {
     cudaMemcpy(d_model_param_local, h_model_param_local, 4 * p.max_iter * sizeof(float), cudaMemcpyHostToDevice);
     cudaMemcpy(d_g_out_id, h_g_out_id, sizeof(int), cudaMemcpyHostToDevice);
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda rsc-cuda main.cu,0);
 
     for(int rep = 0; rep < p.n_warmup + p.n_reps; rep++) {
 

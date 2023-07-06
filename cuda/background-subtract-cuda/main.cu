@@ -135,14 +135,14 @@ int main(int argc, char* argv[]) {
 
     if (i >= 2) {
       if (merged) {
-        auto start = std::chrono::steady_clock::now();
+        auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda background-subtract-cuda main.cu,0);
         merge <<< grids, blocks >>> ( imgSize, d_Img, d_Img1, d_Img2, d_Tn, d_Bn );
         cudaDeviceSynchronize();
         auto end = std::chrono::steady_clock::now();
         time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
       }
       else {
-        auto start = std::chrono::steady_clock::now();
+        auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda background-subtract-cuda main.cu,1);
         findMovingPixels <<< grids, blocks >>> ( imgSize, d_Img, d_Img1, d_Img2, d_Tn, d_Mp );
         updateBackground <<< grids, blocks >>> ( imgSize, d_Img, d_Mp, d_Bn );
         updateThreshold <<< grids, blocks >>> ( imgSize, d_Img, d_Mp, d_Bn, d_Tn );

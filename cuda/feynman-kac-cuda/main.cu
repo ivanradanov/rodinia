@@ -168,7 +168,7 @@ int main ( int argc, char **argv )
     cudaMemcpy(d_n_inside, &n_inside, sizeof(int), cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda feynman-kac-cuda main.cu,0);
 
     fk <<< grids, blocks >>> (ni, nj, seed, N, a, b, h, rth, d_n_inside, d_err);
 

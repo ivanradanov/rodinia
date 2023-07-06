@@ -159,7 +159,7 @@ int main(int argc, char* argv[])
     }
     cudaDeviceSynchronize();
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda matern-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++) {
       matern_kernel<<<grids, blocks>>>(ntargets, l, d_sources, d_targets, d_weights, d_result);

@@ -396,7 +396,7 @@ sort(const std::vector<float>& data, double &time) {
   int outSizes[] = { (int) data.size() };
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda warpsort-cuda warpsort.cu,0);
 
   sortDevice<<<grid, block>>>(
     DeviceTensor<float, 1>(devFloat, dataSizes),
@@ -438,7 +438,7 @@ sortWithIndices(const std::vector<float>& data, double &time) {
   int outSizes[] = { (int) data.size() };
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda warpsort-cuda warpsort.cu,1);
 
   sortDevice<<<grid, block>>>(
     DeviceTensor<float, 1>(devFloat, dataSizes),

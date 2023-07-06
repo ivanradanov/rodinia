@@ -477,7 +477,7 @@ int main(int argc, char* argv[]) {
       0);
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda nbnxm-cuda main.cu,0);
 
   for (int i = 0; i < repeat; ++i) {
     nbnxmKernelTest<<<grids, blocks>>>(
@@ -548,7 +548,7 @@ int main(int argc, char* argv[]) {
     nbfp[i] = make_float2(0.5f, 0.25f);
   }
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda nbnxm-cuda main.cu,1);
 
   for (int i = 0; i < repeat; ++i) {
     nbnxmKernelTest<<<grids, blocks>>>(

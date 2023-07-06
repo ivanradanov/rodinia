@@ -94,7 +94,7 @@ int compute_tran_temp(
   dim3 grids (blockCols, blockRows);  
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda hotspot-cuda hotspot.cu,0);
 
   for (t = 0; t < total_iterations; t += num_iterations) {
 

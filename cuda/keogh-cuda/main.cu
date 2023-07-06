@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
   int smem_size = (M+blocks)*sizeof(float);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda keogh-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     lb_keogh<<<grids, blocks, smem_size>>>

@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
   cudaMalloc((void**)&d_result, result_len); 
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda chacha20-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     cudaMemset(d_result, 0, result_len);

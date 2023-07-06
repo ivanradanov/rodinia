@@ -214,7 +214,7 @@ int main(int argc, char *argv[])
   dim3 pkgrid(pkgrid_x, pkgrid_y, 1);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda nms-cuda main.cu,0);
 
   /* We build up the non-maximum supression bitmap matrix by removing overlapping windows */
   for (int n = 0; n < repeat; n++)
@@ -230,7 +230,7 @@ int main(int argc, char *argv[])
   pkgrid.x = ndetections;
   pkgrid.y = 1;
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda nms-cuda main.cu,1);
 
   /* Then we perform a reduction for generating a point bitmap vector */
   for (int n = 0; n < repeat; n++)

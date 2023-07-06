@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
     TODEV2(snowncv) ;
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda wsm5-cuda main.cu,0);
 
     wsm <<< dimGrid, dimBlock >>> (
       th_d, pii_d, q_d, qc_d, qi_d, qr_d, qs_d, den_d, p_d, delz_d,

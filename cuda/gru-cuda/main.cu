@@ -161,7 +161,7 @@ int main(int argc, char* argv[])
   dim3 block (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda gru-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     gru_cell_forward<half, float, int> <<<grid, block>>>(

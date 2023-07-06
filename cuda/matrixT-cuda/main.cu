@@ -474,7 +474,7 @@ int main(int argc, char **argv)
     }
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda matrixT-cuda main.cu,0);
 
     for (int i=0; i < repeat; i++)
     {

@@ -159,7 +159,7 @@ int main(int argc, char* argv[])
   }
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda cooling-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     cool_kernel <<< grids, blocks >>> (num, n, d_T, d_r, 1);

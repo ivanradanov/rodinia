@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
   std::cout << "Searching for roots in [" << i.lower() << ", " << i.upper()
             << "]...\n";
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda interval-cuda main.cu,0);
 
   for (int it = 0; it < repeat; ++it) {
     test_interval_newton<T><<<GRID_SIZE, BLOCK_SIZE>>>(

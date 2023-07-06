@@ -171,7 +171,7 @@ void neurongroup_stateupdater (
   dim3 threads (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda cobahh-cuda neuron_update.h,0);
     
   for (int n = 0; n < iteration; n++) {
 

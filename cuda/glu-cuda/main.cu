@@ -94,7 +94,7 @@ int main(int argc, char* argv[])
     dim3 blocks (block_size);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda glu-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++) {
       glu_kernel<<<grids, blocks>>>(m, split_dim_size, n, d_X, d_Y);

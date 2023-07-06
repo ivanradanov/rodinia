@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
       d_a, d_b, d_r, size);
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda f16max-cuda main.cu,0);
   
   // run hmax2
   for (int i = 0; i < repeat; i++)
@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
       (half*)d_a, (half*)d_b, (half*)d_r, size*2);
   cudaDeviceSynchronize();
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda f16max-cuda main.cu,1);
   
   // run hmax (the size is doubled)
   for (int i = 0; i < repeat; i++)

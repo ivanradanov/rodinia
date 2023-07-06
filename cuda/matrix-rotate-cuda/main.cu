@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
   cudaMemcpy(d_parallel_res, parallel_res, n*n*sizeof(float), cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda matrix-rotate-cuda main.cu,0);
   
   for (int i = 0; i < repeat; i++) {
     rotate_matrix_parallel<<<(n/2+255)/256, 256>>>(d_parallel_res, n);

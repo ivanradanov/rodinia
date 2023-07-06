@@ -94,7 +94,7 @@ int main(int argc, char* argv[])
 
     cudaMemset(d_minValue, 0, sizeof(float));
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda michalewicz-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++)
       eval<<<grids, blocks>>>(d_values, d_minValue, n, dim);

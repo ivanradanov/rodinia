@@ -15,7 +15,7 @@ void transpose_f64(int nrow, int ncol, int repeat) {
 
   T *matrixT = (T *) malloc (size_byte);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda geam-cuda main.cu,0);
 
   for (int i = 0; i < nrow; i++)
     for (int j = 0; j < ncol; j++)
@@ -46,7 +46,7 @@ void transpose_f64(int nrow, int ncol, int repeat) {
 
   for (int i = 0; i < repeat + warmup; i++) {
     if (i >= warmup) {
-      start = std::chrono::steady_clock::now();
+      start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda geam-cuda main.cu,1);
     }
     stat = cublasDgeam(handle, CUBLAS_OP_T, CUBLAS_OP_N,
                        nrow, ncol,
@@ -96,7 +96,7 @@ void transpose_f32(int nrow, int ncol, int repeat) {
 
   T *matrixT = (T *) malloc (size_byte);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda geam-cuda main.cu,2);
 
   for (int i = 0; i < nrow; i++)
     for (int j = 0; j < ncol; j++)
@@ -126,7 +126,7 @@ void transpose_f32(int nrow, int ncol, int repeat) {
 
   for (int i = 0; i < repeat + warmup; i++) {
     if (i >= warmup) {
-      start = std::chrono::steady_clock::now();
+      start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda geam-cuda main.cu,3);
     }
     stat = cublasSgeam(handle, CUBLAS_OP_T, CUBLAS_OP_N,
                        nrow, ncol,

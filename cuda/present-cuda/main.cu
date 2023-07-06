@@ -555,7 +555,7 @@ int main(int argc, char** argv) {
 
   for (int n = 0; n <= repeat; n++) {
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda present-cuda main.cu,0);
 
     present<<<grid, block>>>(num, rounds, d_plain, d_key, d_cipher, d_sbox, 
         d_sbox_pmt_0, d_sbox_pmt_1, d_sbox_pmt_2, d_sbox_pmt_3);

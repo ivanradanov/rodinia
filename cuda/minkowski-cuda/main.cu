@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
     const float p = (float)k;
     const float one_over_p = 1.f / p;
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda minkowski-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++)
       minkowski<<<dimGrid, dimBlock>>>(a_device, b_device, c_device, p, one_over_p, M, N, P);

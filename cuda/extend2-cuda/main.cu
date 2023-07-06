@@ -194,7 +194,7 @@ float extend2(struct extend2_dat *d)
   const int zdrop = d->zdrop;
   const int h0 = d->h0;
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda extend2-cuda main.cu,0);
 
   unsigned char *d_query;
   cudaMalloc((void**)&d_query, qlen);

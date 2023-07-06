@@ -115,7 +115,7 @@ int main(int argc, char** argv) {
     cudaMemcpy(d_array, h_array, N * sizeof(float), cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda threadfence-cuda main.cu,0);
 
     sum <<< grids, blocks >>> (d_array, N, d_count, d_result);
 

@@ -91,7 +91,7 @@ __global__ void bincount (
 }
 
 #define HANDLE_CASE(MEMORY_TYPE, SHARED_MEM)                 \
-  auto start = std::chrono::steady_clock::now();             \
+  auto start=std::chrono::steady_clock::now();             \MY_START_CLOCK(cuda bincount-cuda main.cu,0);
   for (int i = 0; i < repeat; i++)                           \
   bincount<                                                  \
       output_t,                                              \

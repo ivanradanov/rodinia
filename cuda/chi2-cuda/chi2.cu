@@ -137,7 +137,7 @@ int main(int argc, char* argv[]) {
   int nblocks = (jobs + nthreads - 1)/nthreads;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::high_resolution_clock::now();
+  auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda chi2-cuda chi2.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     kernel <<< dim3(nblocks), dim3(nthreads) >>> (rows,cols,ncases,ncontrols,d_data,d_results);
@@ -153,7 +153,7 @@ int main(int argc, char* argv[]) {
   cudaFree(d_data);
   cudaFree(d_results);
 
-  start = std::chrono::high_resolution_clock::now();
+  start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda chi2-cuda chi2.cu,1);
 
   cpu_kernel(rows,cols,ncases,ncontrols,dataT,cpu_results);
 

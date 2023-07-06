@@ -157,7 +157,7 @@ void conv1D(const int input_width, const int mask_width, const int repeat)
   cudaDeviceSynchronize();
 
   // conv1D basic
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda convolution1D-cuda main.cu,0);
   for (int i = 0; i < repeat; i++) {
     conv1d <<< grids, blocks >>> (d_a, d_b, input_width, mask_width);
   }
@@ -170,7 +170,7 @@ void conv1D(const int input_width, const int mask_width, const int repeat)
   reference(a, b, h_mask, input_width, mask_width);
 
   // conv1D tiling
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda convolution1D-cuda main.cu,1);
   for (int i = 0; i < repeat; i++) {
     conv1d_tiled <<< grids, blocks >>> (d_a, d_b, input_width, mask_width);
   }
@@ -183,7 +183,7 @@ void conv1D(const int input_width, const int mask_width, const int repeat)
   reference(a, b, h_mask, input_width, mask_width);
 
   // conv1D tiling and caching
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda convolution1D-cuda main.cu,2);
   for (int i = 0; i < repeat; i++) {
     conv1d_tiled_caching <<< grids, blocks >>> (d_a, d_b, input_width, mask_width);
   }

@@ -238,7 +238,7 @@ int main(int argc, char *argv[])
     printf("%s\n", ok ? "PASS" : "FAIL");
   }
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda aidw-cuda main.cu,0);
 
   for (int i = 0; i < iterations; i++)
     AIDW_Kernel_Tiled<<<blocksPerGrid, threadsPerBlock>>>(

@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
                       (DATAZSIZE+BLKZSIZE-1)/BLKZSIZE);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda che-cuda main.cu,0);
 
   for (int t = 0; t < t_f; t++) {
 

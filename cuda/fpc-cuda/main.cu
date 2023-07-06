@@ -301,7 +301,7 @@ int main(int argc, char** argv) {
   // warmup
   fpc(values, &cmp_size_hw, values_size, wgs);
 
-  auto start = std::chrono::high_resolution_clock::now();
+  auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda fpc-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     fpc(values, &cmp_size_hw, values_size, wgs);
@@ -319,7 +319,7 @@ int main(int argc, char** argv) {
   // warmup
   fpc2(values, &cmp_size_hw, values_size, wgs);
 
-  start = std::chrono::high_resolution_clock::now();
+  start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda fpc-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) {
     fpc2(values, &cmp_size_hw, values_size, wgs);

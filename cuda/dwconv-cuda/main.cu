@@ -187,7 +187,7 @@ void dwconv2d_forward (const int m,
   PackedTensorAccessor32<scalar_t, 1, RestrictPtrTraits> bias_a (d_bias, &bias_size, bias_stride_sizes);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda dwconv-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     if (kW == 3 && kH == 3) {

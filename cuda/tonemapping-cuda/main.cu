@@ -41,7 +41,7 @@ double runKernels(
   dim3 block (16, 16);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda tonemapping-cuda main.cu,0);
 
   toneMapping<<<grid, block>>>(inputImageBuffer, outputImageBuffer,
               averageLuminance, gamma, c, delta, width, numChannels, height);

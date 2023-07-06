@@ -215,7 +215,7 @@ int main(int argc, char* argv[])
   cudaMalloc((void**)&data_threshold_d,vol_size*sizeof(bool));
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda spm-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     spm<<<NUM_BLOCKS,NUM_THREADS>>>(M_d, vol_size, g_d, f_d, g_vol, f_vol,

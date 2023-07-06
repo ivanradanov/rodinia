@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
   dim3 grids (m);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda damage-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) 
     damage_of_node <<< grids, blocks, BS*sizeof(int) >>> (

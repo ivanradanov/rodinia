@@ -50,7 +50,7 @@ void device_chain_kernel_wrapper(
   cudaMemcpy(d_arg, h_arg, arg.size() * sizeof(anchor_dt), cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto k_start = std::chrono::steady_clock::now();
+  auto k_start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda minimap2-cuda device device_kernel_wrapper.cu,0);
   
   for (auto batch = 0; batch < batch_count; batch++) {
     device_chain_tiled<<<BLOCK_NUM, BACK_SEARCH_COUNT_GPU>>> (

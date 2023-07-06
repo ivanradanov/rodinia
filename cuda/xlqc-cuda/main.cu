@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
     // initialize timer
     double time_in_usec, time_total, time_mat_J, time_mat_K;
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda xlqc-cuda main.cu,0);
     std::string time_txt ("");
     time_total = 0.0;
     time_mat_J = 0.0;
@@ -146,7 +146,7 @@ int main(int argc, char* argv[])
 
     //====== one-electron integrals ========
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda xlqc-cuda main.cu,1);
 
     // overlap, kinetic energy and nuclear attraction integral
     gsl_matrix *S = gsl_matrix_alloc(p_basis->num, p_basis->num);
@@ -187,7 +187,7 @@ int main(int argc, char* argv[])
 
     //====== allocate memory for arrays on host ========
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda xlqc-cuda main.cu,2);
 
     // number of primitive basis functions (pbf)
     int n_pbf = 0;
@@ -268,7 +268,7 @@ int main(int argc, char* argv[])
 
     //====== start SCF calculation ========
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda xlqc-cuda main.cu,3);
 
     // NOTE: assume zero charge and closed-shell electronics structure
     int n_elec = 0;
@@ -390,7 +390,7 @@ int main(int argc, char* argv[])
 
     // start SCF iterations
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda xlqc-cuda main.cu,4);
 
     int iter = 0;
     while (1)
@@ -428,7 +428,7 @@ int main(int argc, char* argv[])
 
 
         // timer for J and K matrices
-        auto kstart = std::chrono::steady_clock::now();
+        auto kstart=std::chrono::steady_clock::now();MY_START_CLOCK(cuda xlqc-cuda main.cu,5);
 
         // use 1T1PI for J and K matrices
         if (use_dp) {
@@ -447,7 +447,7 @@ int main(int argc, char* argv[])
 
         my_cuda_safe(cudaMemcpy(h_mat_J_PI, dev_mat_J_PI, n_PI_bytes, cudaMemcpyDeviceToHost),"mem_mat_J_PI");
 
-        kstart = std::chrono::steady_clock::now();
+        kstart=std::chrono::steady_clock::now();MY_START_CLOCK(cuda xlqc-cuda main.cu,6);
 
         if (use_dp) {
             cuda_mat_K_PI_dp<<<grid_size, block_size>>>
@@ -581,7 +581,7 @@ int main(int argc, char* argv[])
 
 
     // print MO information
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda xlqc-cuda main.cu,7);
 
     fprintf(stdout, "%5s %10s %15s %12s\n", "MO", "State", "E(Eh)", "E(eV)");
     for (ibasis = 0; ibasis < p_basis->num; ++ ibasis)

@@ -60,7 +60,7 @@ double master(fp timeinst,
   blocks.y = 1;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda myocyte-cuda master.cu,0);
 
   kernel<<<blocks, threads>>>(
       timeinst,

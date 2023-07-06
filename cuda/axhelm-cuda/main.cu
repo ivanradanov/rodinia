@@ -83,7 +83,7 @@ int main(int argc, char **argv){
     axhelmReference(Nq, Nelements, lambda1, ggeo, DrV, x, Ax);
   }
 
-  auto start = std::chrono::high_resolution_clock::now();
+  auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda axhelm-cuda main.cu,0);
 
   dfloat *o_ggeo, *o_q, *o_Aq, *o_DrV, *o_lambda;
   cudaMalloc((void**) &o_ggeo, Np*Nelements*p_Nggeo*sizeof(dfloat));

@@ -82,7 +82,7 @@ void mergeType(const uint64_t size, const uint32_t runs) {
     cudaMemcpy(dB, hB.data(), (size + PADDING) * sizeof(vec_t), cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda merge-cuda main.cu,0);
 
     // Perform the global diagonal intersection search to divide work among SMs
     workloadDiagonals<vec_t><<<blocks, 32>>> (dA, size, dB, size, dpi);

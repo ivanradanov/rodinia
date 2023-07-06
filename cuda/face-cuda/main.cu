@@ -82,7 +82,7 @@ int main (int argc, char *argv[])
   printf("-- detecting faces --\r\n");
   std::vector<MyRect> result;
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda face-cuda main.cu,0);
 
   result = detectObjects(image, minSize, maxSize, cascade, scaleFactor, minNeighbours, total_nodes);
 

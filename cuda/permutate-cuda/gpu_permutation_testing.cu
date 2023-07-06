@@ -73,7 +73,7 @@ bool gpu_permutation_testing(double *gpu_runtime, uint32_t *counts, double *resu
   cudaMemcpy(dev_cnt, counts, 54 * sizeof(uint32_t), cudaMemcpyHostToDevice);
 
   /* start the timer. */
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda permutate-cuda gpu_permutation_testing.cu,0);
 
   /* generate {$N} shuffled data by permuting the original data {$N} times in parallel.
    * perform 18 statistical tests on each of {$N} shuffled data and compares the shuffled and original test statistics in parallel.

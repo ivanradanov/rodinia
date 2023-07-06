@@ -110,7 +110,7 @@ int main() {
     int numBitsAct;
 
     printf("Size = %10zu\n", n);
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bitpacking-cuda main.cu,0);
 
     runBitPackingOnGPU(
         inputHost, outputHost, numBits, n, &numBitsAct, &minValue);

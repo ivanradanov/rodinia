@@ -376,7 +376,7 @@ int main(int argc, char *argv[])
   // initialize the gene data
   readgene(infile,gene,Hd,n,D);  
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda ccs-cuda main.cu,0);
 
   float *d_gene;
   cudaMalloc((void**)&d_gene, sizeof(float) * n * (D+1));
@@ -410,7 +410,7 @@ int main(int argc, char *argv[])
   dim3 grids (maxbcn);
 
   cudaDeviceSynchronize();
-  auto kstart = std::chrono::steady_clock::now();
+  auto kstart=std::chrono::steady_clock::now();MY_START_CLOCK(cuda ccs-cuda main.cu,1);
 
   for (i = 0; i < repeat; i++) {
     compute_bicluster <<< grids, blocks >>> (

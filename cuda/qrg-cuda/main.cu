@@ -177,7 +177,7 @@ int main(int argc, const char **argv)
   const unsigned int seed = 0;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda qrg-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
   {
@@ -224,7 +224,7 @@ int main(int argc, const char **argv)
   const unsigned int distance = ((unsigned int)-1) / (pathN  + 1);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda qrg-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
   {

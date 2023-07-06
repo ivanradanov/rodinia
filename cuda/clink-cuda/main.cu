@@ -109,7 +109,7 @@ long lstm_n5(const float* x,
   cudaMemcpy(d_outB, outB, 1 * sizeof(float), cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda clink-cuda main.cu,0);
 
   lstm_inference<<<dim3(N/WGS), dim3(WGS)>>>(
       d_x, d_inW, d_intW, d_intB, d_outW, d_outB, d_y);
@@ -156,7 +156,7 @@ int main(int argc, char* argv[])
   long kernel_time = 0;
   for (int n = 0; n < repeat; n++) {
     init(work_path, input_filename, weight1_filename, sample_input, inW, intW, intB, outW, &outB) ;
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda clink-cuda main.cu,1);
     kernel_time += lstm_n5(sample_input, inW, intW, intB, outW, &outB, infer1_out);
     auto end = std::chrono::steady_clock::now();
     auto elapsedTime =
@@ -168,7 +168,7 @@ int main(int argc, char* argv[])
 #endif
 
     init(work_path, input_filename, weight2_filename, sample_input, inW, intW, intB, outW, &outB) ;
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda clink-cuda main.cu,2);
     kernel_time += lstm_n5(sample_input, inW, intW, intB, outW, &outB, infer2_out);
     end = std::chrono::steady_clock::now();
     elapsedTime =

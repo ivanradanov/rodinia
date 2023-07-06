@@ -455,7 +455,7 @@ std::vector<float> bc_gpu(
   }
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda hbc-cuda kernels.cu,0);
   
   bc_kernel<<<dimGrid,dimBlock>>>(
       bc_d,

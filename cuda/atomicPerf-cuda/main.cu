@@ -94,7 +94,7 @@ void atomicPerf (int n, int t, int repeat)
 
   CHECK_ERROR( cudaMemcpy(d_data, data, data_size, cudaMemcpyHostToDevice) );
   CHECK_ERROR( cudaDeviceSynchronize() );
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atomicPerf-cuda main.cu,0);
   for(int i=0; i<repeat; i++)
   {
     BlockRangeAtomicOnGlobalMem<T><<<grid, block>>>(d_data, n);
@@ -107,7 +107,7 @@ void atomicPerf (int n, int t, int repeat)
 
   CHECK_ERROR( cudaMemcpy(d_data, data, data_size, cudaMemcpyHostToDevice) );
   CHECK_ERROR( cudaDeviceSynchronize() );
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atomicPerf-cuda main.cu,1);
   for(int i=0; i<repeat; i++)
   {
     WarpRangeAtomicOnGlobalMem<T><<<grid, block>>>(d_data, n);
@@ -120,7 +120,7 @@ void atomicPerf (int n, int t, int repeat)
 
   CHECK_ERROR( cudaMemcpy(d_data, data, data_size, cudaMemcpyHostToDevice) );
   CHECK_ERROR( cudaDeviceSynchronize() );
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atomicPerf-cuda main.cu,2);
   for(int i=0; i<repeat; i++)
   {
     SingleRangeAtomicOnGlobalMem<T><<<grid, block>>>(d_data, i % BLOCK_SIZE, n);
@@ -133,7 +133,7 @@ void atomicPerf (int n, int t, int repeat)
 
   CHECK_ERROR( cudaMemcpy(d_data, data, data_size, cudaMemcpyHostToDevice) );
   CHECK_ERROR( cudaDeviceSynchronize() );
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atomicPerf-cuda main.cu,3);
   for(int i=0; i<repeat; i++)
   {
     BlockRangeAtomicOnSharedMem<T><<<grid, block>>>(d_data, n);
@@ -146,7 +146,7 @@ void atomicPerf (int n, int t, int repeat)
 
   CHECK_ERROR( cudaMemcpy(d_data, data, data_size, cudaMemcpyHostToDevice) );
   CHECK_ERROR( cudaDeviceSynchronize() );
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atomicPerf-cuda main.cu,4);
   for(int i=0; i<repeat; i++)
   {
     WarpRangeAtomicOnSharedMem<T><<<grid, block>>>(d_data, n);
@@ -159,7 +159,7 @@ void atomicPerf (int n, int t, int repeat)
 
   CHECK_ERROR( cudaMemcpy(d_data, data, data_size, cudaMemcpyHostToDevice) );
   CHECK_ERROR( cudaDeviceSynchronize() );
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atomicPerf-cuda main.cu,5);
   for(int i=0; i<repeat; i++)
   {
     SingleRangeAtomicOnSharedMem<T><<<grid, block>>>(d_data, i % BLOCK_SIZE, n);

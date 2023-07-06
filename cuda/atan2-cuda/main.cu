@@ -445,7 +445,7 @@ int main(int argc, char* argv[])
   dim3 blocks (256);
 
   printf("\n======== output type is f32 ========\n");
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atan2-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     compute_f <<<grids, blocks>>> (n, dy, dx, df);
@@ -468,7 +468,7 @@ int main(int argc, char* argv[])
 
   printf("\n======== output type is i32 ========\n");
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atan2-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     compute_i <<<grids, blocks>>> (n, dy, dx, di);
@@ -491,7 +491,7 @@ int main(int argc, char* argv[])
 
   printf("\n======== output type is i16 ========\n");
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atan2-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++)
     compute_s <<<grids, blocks>>> (n, dy, dx, ds);

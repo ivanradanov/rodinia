@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
       h_img[i].z = dis(gen);
     }
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda depixel-cuda main.cu,0);
 
     cudaMemcpy(d_img, h_img, size_image_bytes, cudaMemcpyHostToDevice);
     check_connect<<<grids, blocks>>>(d_img, d_tmp, width, height);

@@ -291,7 +291,7 @@ int main(int argc, char * argv[])
   std::cout << "-------------------------------------------\n";
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda scan2-cuda main.cu,0);
 
   for(int n = 0; n < iterations; n++)
   {

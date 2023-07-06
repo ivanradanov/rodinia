@@ -203,7 +203,7 @@ int main(int argc, char* argv[])
     std::cout << "\nExecuting String search naive for " <<
       iterations << " iterations" << std::endl;
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda ss-cuda main.cu,0);
 
     for(int i = 0; i < iterations; i++)
       StringSearchNaive<<<grid, block, subStrLength>>>(
@@ -231,7 +231,7 @@ int main(int argc, char* argv[])
     std::cout << "\nExecuting String search with load balance for " <<
       iterations << " iterations" << std::endl;
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda ss-cuda main.cu,1);
 
     for(int i = 0; i < iterations; i++)
       StringSearchLoadBalance<<<grid, block, subStrLength>>>(

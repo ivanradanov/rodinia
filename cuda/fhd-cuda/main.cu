@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
   int nchunks = (voxels + c - 1) / c;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda fhd-cuda main.cu,0);
 
   for (int i = 0; i < nchunks; i++) {
     if (i == nchunks - 1) {

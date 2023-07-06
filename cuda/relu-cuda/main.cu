@@ -213,7 +213,7 @@ int main(int argc, char* argv[])
   kBlock = divup(half_count, kThreadInBlock);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda relu-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     ReluGrad_impl1 <<< kBlock, kThreadInBlock >>> (
@@ -241,7 +241,7 @@ int main(int argc, char* argv[])
   kBlock = divup(half_count, kThreadInBlock);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda relu-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     ReluGrad_impl2 <<< kBlock, kThreadInBlock >>> (
@@ -293,7 +293,7 @@ int main(int argc, char* argv[])
   kBlock = divup(count, kThreadInBlock);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda relu-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++)
     Relu_impl1 <<< kBlock, kThreadInBlock >>> (count, d_in, d_out);
@@ -309,7 +309,7 @@ int main(int argc, char* argv[])
   fail = memcmp(h_out, r_out, size);
   printf("%s\n", fail ? "FAIL" : "PASS");
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda relu-cuda main.cu,3);
 
   for (int i = 0; i < repeat; i++)
     Relu_impl2 <<< kBlock, kThreadInBlock >>> (count, d_in, d_out);

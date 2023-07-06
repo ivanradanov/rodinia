@@ -403,7 +403,7 @@ void backprojectionDDb(
   cudaMalloc((void **)&d_pRdetY, nDetYMap * sizeof(double));
   cudaMalloc((void **)&d_pRdetZ, nDetYMap * sizeof(double));
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda ddbp-cuda main.cu,0);
 
   // Will reuse grid configurations
   dim3 threadsPerBlock (1,1,1);

@@ -189,7 +189,7 @@ int sptrsv_syncfree (
     cudaMemcpy(d_x, x, sizeof(VALUE_TYPE)*n, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda sptrsv-cuda sptrsv_syncfree.cu,0);
 
     sptrsv_mix<<<num_blocks, num_threads>>>(
         d_csrRowPtr, d_csrColIdx, d_csrVal, d_get_value,

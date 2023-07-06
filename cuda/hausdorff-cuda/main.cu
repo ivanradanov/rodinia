@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
     cudaMemcpy(d_distance, h_distance, 2 * sizeof(float), cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda hausdorff-cuda main.cu,0);
 
     computeDistance <<<gridsA, blocks>>> (
       d_Apoints, d_Bpoints, d_distance, num_Apoints, num_Bpoints);

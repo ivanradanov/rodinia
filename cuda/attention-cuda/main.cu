@@ -92,7 +92,7 @@ float* attention_device(const float* key, const float* value, const float* query
   dim3 d_block(256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda attention-cuda main.cu,0);
 
   for (int k = 0; k < repeat; k++) {
     cudaMemset(d_exp_sum, 0, 4);

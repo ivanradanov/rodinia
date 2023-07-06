@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
     dim3 grid (ngrid);
     printf("Grid size is %d\n", ngrid);
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda accuracy-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++) {
       cudaMemset(d_count, 0, sizeof(int));

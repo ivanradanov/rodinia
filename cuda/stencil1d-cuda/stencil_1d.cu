@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
   dim3 blocks (BLOCK_SIZE);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda stencil1d-cuda stencil_1d.cu,0);
 
   // Launch kernel on GPU
   for (int i = 0; i < repeat; i++)

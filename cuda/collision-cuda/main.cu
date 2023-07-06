@@ -323,7 +323,7 @@ int main(int argc, char* argv[]) {
   const int num_dup = 32;
   const int repeat = atoi(argv[1]);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda collision-cuda main.cu,0);
   for (int i = 0; i < repeat; i++) 
     test_collision(num_dup);
   auto end = std::chrono::steady_clock::now();
@@ -331,7 +331,7 @@ int main(int argc, char* argv[]) {
   printf("Average execution time of the function test_collision: %f (us)\n",
          time * 1e-3f / repeat);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda collision-cuda main.cu,1);
   for (int i = 0; i < repeat; i++) 
     test_collisionMask(num_dup);
   end = std::chrono::steady_clock::now();

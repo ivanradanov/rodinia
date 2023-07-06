@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
     cudaMemcpy(d_test, gold_even, elem_size, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda reverse-cuda main.cu,0);
 
     for (int j = 0; j < count; j++)
       reverse<<<1, len>>> (d_test, len);

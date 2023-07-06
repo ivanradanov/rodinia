@@ -33,7 +33,7 @@ void test01 ( int nfun  )
   {
     x = chebyshev1 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lebesgue-cuda main.cpp,0);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
@@ -82,7 +82,7 @@ void test02 ( int nfun  )
   {
     x = chebyshev2 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lebesgue-cuda main.cpp,1);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
@@ -131,7 +131,7 @@ void test03 ( int nfun  )
   {
     x = chebyshev3 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lebesgue-cuda main.cpp,2);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
@@ -180,7 +180,7 @@ void test04 ( int nfun  )
   {
     x = chebyshev4 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lebesgue-cuda main.cpp,3);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
@@ -229,7 +229,7 @@ void test05 ( int nfun  )
   {
     x = equidistant1 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lebesgue-cuda main.cpp,4);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
@@ -278,7 +278,7 @@ void test06 ( int nfun  )
   {
     x = equidistant2 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lebesgue-cuda main.cpp,5);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
@@ -327,7 +327,7 @@ void test07 ( int nfun  )
   {
     x = equidistant3 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lebesgue-cuda main.cpp,6);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
@@ -376,7 +376,7 @@ void test08 ( int nfun  )
   {
     x = fejer1 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lebesgue-cuda main.cpp,7);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 
@@ -425,7 +425,7 @@ void test09 ( int nfun  )
   {
     x = fejer2 ( n );
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lebesgue-cuda main.cpp,8);
 
     l[n-1] = lebesgue_constant ( n, x, nfun, xfun );
 

@@ -90,7 +90,7 @@ void GPU_force(System &system) {
   if (theval == POTENTIAL_LJESPOLAR)
     pform=2;
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mcmd-cuda kernels.cpp,0);
 
   // compute forces on a device
   force_kernel (

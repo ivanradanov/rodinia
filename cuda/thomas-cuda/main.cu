@@ -87,7 +87,7 @@ int main(int argc, char const *argv[])
     }
   }
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda thomas-cuda main.cu,0);
 
   // Sequantial CPU Execution for correct error check
   for (int n = 0; n < repeat; n++) {
@@ -153,7 +153,7 @@ int main(int argc, char const *argv[])
   cudaMemcpy(rhs_device, rhs_Thomas_host, matrix_size_bytes, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda thomas-cuda main.cu,1);
 
   for (int n = 0; n < repeat; n++) {
     cuThomasBatch<<<(N/BlockSize)+1, BlockSize>>>(l_device, d_device, u_device, rhs_device, M, N);

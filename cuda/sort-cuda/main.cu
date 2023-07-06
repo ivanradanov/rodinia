@@ -99,7 +99,7 @@ int main(int argc, char** argv)
   for (int k = 0; k < passes; k++)
   {
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda sort-cuda main.cu,0);
 
     // Assuming an 8 bit byte.
     // shift is uint because Computecpp compiler has no operator>>(unsigned int, int);

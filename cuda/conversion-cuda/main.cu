@@ -36,7 +36,7 @@ void convert(int nelems, int niters)
   cvt<Td, Ts><<<grid, block>>> (dst, src, nelems);
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::high_resolution_clock::now();
+  auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda conversion-cuda main.cu,0);
   for (int i = 0; i < niters; i++) {
     cvt<Td, Ts> <<<grid, block>>> (dst, src, nelems);
   }

@@ -70,7 +70,7 @@ int main (int argc, char* argv[]) {
     cudaMemcpy(d_c, c, size, cudaMemcpyHostToDevice); 
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lci-cuda main.cu,0);
 
     RHS_f <<<1, 96>>> (t_next, d_c, d_n);  // work-group size >= L_max
 

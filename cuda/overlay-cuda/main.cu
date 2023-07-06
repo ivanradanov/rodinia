@@ -66,7 +66,7 @@ int DetectionOverlay(
     return 1;
   		
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda overlay-cuda main.cu,0);
   
   for( int n=0; n < numDetections; n++ )
   {

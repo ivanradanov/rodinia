@@ -91,7 +91,7 @@ int main(int argc, char* argv[])
   dim3 block4 (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda burger-cuda main.cu,0);
 
   for(int itr = 0; itr < num_itrs; itr++){
 

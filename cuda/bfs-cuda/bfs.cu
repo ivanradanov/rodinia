@@ -145,7 +145,7 @@ void run_bfs_gpu(int no_of_nodes, Node *h_graph_nodes, int edge_list_size,
     cudaMemcpy(d_over, &h_over, sizeof(char), cudaMemcpyHostToDevice) ;
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bfs-cuda bfs.cu,0);
 
     Kernel<<< grid, threads >>>(d_graph_nodes, d_graph_edges, d_graph_mask, d_updating_graph_mask, 
                                 d_graph_visited, d_cost, no_of_nodes);

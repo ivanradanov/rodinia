@@ -235,7 +235,7 @@ int main(int argc, char* argv[])
   cudaMemcpy(d_scores, scores, scores_size_bytes, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda score-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     findTopK<float, 2048, block_size> <<<grids, blocks>>> (

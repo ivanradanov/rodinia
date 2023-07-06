@@ -222,7 +222,7 @@ int main(int argc, char *argv[]) {
   double KH = 0.0;  // will be Henry coefficient
   for (int cycle = 0; cycle < ncycles; cycle++) {
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda henry-cuda main.cu,0);
 
     //  Perform Monte Carlo insertions in parallel on the GPU
     insertions<<<nBlocks, NUMTHREADS>>>(d_boltzmannFactors, d_structureAtoms, natoms, L);

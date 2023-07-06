@@ -166,7 +166,7 @@ int main(int argc, char *argv[])
     scalarProductKernel_intrinsics<<<NUM_OF_BLOCKS, NUM_OF_THREADS>>>(d_a, d_b, d_r, size);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda f16sp-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     scalarProductKernel_intrinsics<<<NUM_OF_BLOCKS, NUM_OF_THREADS>>>(d_a, d_b, d_r, size);
@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
     scalarProductKernel_native<<<NUM_OF_BLOCKS, NUM_OF_THREADS>>>(d_a, d_b, d_r, size);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda f16sp-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     scalarProductKernel_native<<<NUM_OF_BLOCKS, NUM_OF_THREADS>>>(d_a, d_b, d_r, size);

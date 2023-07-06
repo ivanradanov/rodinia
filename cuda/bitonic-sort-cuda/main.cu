@@ -90,7 +90,7 @@ void ParallelBitonicSort(int input[], int n) {
   cudaMalloc((void**)&d_input, size_bytes);
   cudaMemcpy(d_input, input, size_bytes, cudaMemcpyHostToDevice);
   
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bitonic-sort-cuda main.cu,0);
 
   // step from 0, 1, 2, ...., n-1
   for (int step = 0; step < n; step++) {
@@ -208,7 +208,7 @@ int main(int argc, char *argv[]) {
   }
 
   std::cout << "Bitonic sort (parallel)..\n";
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bitonic-sort-cuda main.cu,1);
 
   ParallelBitonicSort(data_gpu, n);
 

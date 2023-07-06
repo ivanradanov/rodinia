@@ -219,7 +219,7 @@ void jaccard_weight (const int iteration, const int n, const int e,
   cudaMemcpy(d_csrVal, csr_val, sizeof(T) * e, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda jaccard-cuda main.cu,0);
 
   for (int i = 0; i < iteration; i++) {
     dim3 nthreads, nblocks; // reuse for multiple kernels

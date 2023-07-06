@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
     cudaMemcpy(device_ptr[0], host_ptr.data(), data_size_bytes, cudaMemcpyDefault);
     std::memset(host_ptr.data(), 0, data_size_bytes);
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda ring-cuda main.cu,0);
 
     // The circular exchange
     for (int n = 0; n < repeat; n++) {

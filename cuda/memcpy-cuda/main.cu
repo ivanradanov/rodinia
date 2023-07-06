@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
     }
     cudaDeviceSynchronize();
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda memcpy-cuda main.cu,0);
 
     for (int j = 0; j < repeat; j++) {
       cudaMemcpyAsync(d_A, A, size[i], cudaMemcpyHostToDevice, 0);
@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
     }
     cudaDeviceSynchronize();
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda memcpy-cuda main.cu,1);
 
     for (int j = 0; j < repeat; j++) {
       cudaMemcpyAsync(A, d_A, size[i], cudaMemcpyDeviceToHost, 0);

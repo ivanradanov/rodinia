@@ -280,7 +280,7 @@ int main(int argc, char** argv) {
   dim3 threads (block_size);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda jenkins-hash-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++) {
     kernel<<<grids,threads>>>(d_lens, d_initvals, d_keys, d_out, N);

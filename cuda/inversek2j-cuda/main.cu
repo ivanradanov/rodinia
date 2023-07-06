@@ -266,7 +266,7 @@ int main(int argc, char* argv[])
   dim3 dimGrid  ( (data_size +  BLOCK_SIZE - 1) / BLOCK_SIZE );
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda inversek2j-cuda main.cu,0);
 
   for (int n = 0; n < iteration; n++)
     invkin_kernel <<< dimGrid, dimBlock >>> (xTarget_in_d, yTarget_in_d, angle_out_d, data_size);

@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
     dim3 block (256);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda dense-embedding-cuda main.cu,0);
 
     for (int i = 0; i < repeat; i++) 
       dense_esuhm<<<grid, block>>>(d_input, d_dense, d_output, ncols, d_input_offset);
@@ -149,7 +149,7 @@ int main(int argc, char* argv[])
     printf("Average execution time of dense embedding kernel (k1): %f (us)\n", (time * 1e-3f) / repeat);
 
     cudaDeviceSynchronize();
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda dense-embedding-cuda main.cu,1);
 
     for (int i = 0; i < repeat; i++) 
       dense_esuhm2<<<grid, block>>>(d_input, d_dense, d_output, ncols, d_input_offset);

@@ -126,7 +126,7 @@ int main(int argc, char * argv[])
   cudaMemcpy(inputBuffer, data, inputSize, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda layout-cuda main.cu,0);
 
   for (int i = 0; i < iterations; i++)
     AoSKernel<<<grid, block>>>((AppleTree*)inputBuffer, outputBuffer, treeSize);
@@ -161,7 +161,7 @@ int main(int argc, char * argv[])
   cudaMemcpy(inputBuffer, data, inputSize, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda layout-cuda main.cu,1);
 
   for (int i = 0; i < iterations; i++)
     SoAKernel<<<grid, block>>>((ApplesOnTrees*)inputBuffer, outputBuffer, treeSize);

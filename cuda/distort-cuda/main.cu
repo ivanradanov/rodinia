@@ -62,7 +62,7 @@ int main(int argc, char **argv)
   const dim3 grids (width / blocks.x + 1, height / blocks.y + 1);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda distort-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     barrel_distort<<<grids, blocks>>>(d_src, d_dst, d_prop);

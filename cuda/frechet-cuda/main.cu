@@ -78,7 +78,7 @@ void discrete_frechet_distance(const int s, const int n_1, const int n_2, const 
   dim3 blocks (16, 16);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda frechet-cuda main.cu,0);
   
   if (s == 0)
     for (k = 0; k < repeat; k++)

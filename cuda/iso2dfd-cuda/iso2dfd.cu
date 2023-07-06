@@ -249,7 +249,7 @@ int main(int argc, char* argv[]) {
   dim3 dimBlock(BLOCK_SIZE, BLOCK_SIZE);
 
   cudaDeviceSynchronize();
-  auto kstart = std::chrono::steady_clock::now();
+  auto kstart=std::chrono::steady_clock::now();MY_START_CLOCK(cuda iso2dfd-cuda iso2dfd.cu,0);
 
   // Iterate over time steps
   for (unsigned int k = 0; k < nIterations; k += 1) {
@@ -281,7 +281,7 @@ int main(int argc, char* argv[]) {
 
   // Compute wavefield on CPU
   // Start timer for CPU
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda iso2dfd-cuda iso2dfd.cu,1);
   iso_2dfd_iteration_cpu(next_cpu, prev_base, vel_base, dtDIVdxy, nRows, nCols,
                          nIterations);
 

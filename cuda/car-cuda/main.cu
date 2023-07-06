@@ -130,7 +130,7 @@ int main(int argc, char* argv[]) {
   dim3 block (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda car-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     car <<<grid, block>>> (

@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
   cudaMemset(d_probs, 0.0, alphas_size_byte);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mcpr-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     compute_probs<<<blocks, threads>>>(d_alphas, d_rands, d_probs, n, K, M);
@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
   cudaMemset(d_probs, 0.0, alphas_size_byte);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mcpr-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     compute_probs_unitStrides<<<blocks, threads>>>(
@@ -123,7 +123,7 @@ int main(int argc, char* argv[]) {
   cudaMemset(d_probs, 0.0, alphas_size_byte);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mcpr-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++)
     compute_probs_unitStrides_sharedMem<<<blocks2, threads2, sm_size, 0>>>(

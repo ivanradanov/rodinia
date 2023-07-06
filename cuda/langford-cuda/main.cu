@@ -362,7 +362,7 @@ void run_gpu_d(int64_t* count, Results<n>& final_results) {
   dim3 blocks(blocks_x);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda langford-cuda main.cu,0);
 
   dfs_gpu<n><<<blocks, kThreadsPerBlock>>>(results_device);
 

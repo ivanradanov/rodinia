@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
   range<2> lws (tile_rows, tile_cols);
 
   q.wait();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda debayer-sycl main.cpp,0);
 
   //this version takes a tile (z=1) and each tile job does 4 line median sorts
   for (int i = 0; i < repeat; i++) {

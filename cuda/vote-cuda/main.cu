@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
   VoteAnyKernel1<<<gridBlock, threadBlock>>>(d_input, d_result, repeat);
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda vote-cuda main.cu,0);
 
   VoteAnyKernel1<<<gridBlock, threadBlock>>>(d_input, d_result, repeat);
 
@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
   VoteAllKernel2<<<gridBlock, threadBlock>>>(d_input, d_result, repeat);
   cudaDeviceSynchronize();
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda vote-cuda main.cu,1);
 
   VoteAllKernel2<<<gridBlock, threadBlock>>>(d_input, d_result, repeat);
 
@@ -93,7 +93,7 @@ int main(int argc, char **argv) {
 
   printf("\tRunning <<Vote.Any>> kernel3 ...\n");
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda vote-cuda main.cu,2);
 
   VoteAnyKernel3<<<1, warp_size * 3>>>(dinfo, warp_size, repeat);
 

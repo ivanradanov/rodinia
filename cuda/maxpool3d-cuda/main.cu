@@ -101,7 +101,7 @@ int main(int argc, char** argv)
   const int pool_height = Vstride;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda maxpool3d-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++) {
     maxpool3d<<<grid_dim, block_dim>>>(d_image, d_result, Hstride, Vstride, 

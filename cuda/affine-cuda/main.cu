@@ -85,7 +85,7 @@ int main(int argc, char** argv)
   dim3 threads (16,16);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda affine-cuda main.cu,0);
 
   for (int i = 0; i < iterations; i++) {
     affine<<<grids, threads>>>(d_input_image, d_output_image);

@@ -88,7 +88,7 @@ int main(int argc, char **argv)
   dim3 block (szLocalWorkSize);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda dp-cuda main.cu,0);
 
   for (int i = 0; i < iNumIterations; i++) 
     dot_product<<<grid, block>>>(d_srcA, d_srcB, d_dst, iNumElements);

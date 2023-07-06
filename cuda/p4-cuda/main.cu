@@ -196,7 +196,7 @@ int main(int argc, char* argv[])
     cudaMemset(d_object_counter, 0, sizeof(int));
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda p4-cuda main.cu,0);
 
     postprocess<<<blocks, threads>>> (
       d_cls_input,

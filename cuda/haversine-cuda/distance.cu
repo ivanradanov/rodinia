@@ -34,7 +34,7 @@ void distance_device(const double4* loc, double* dist, const int n, const int it
   cudaMalloc((void**)&d_dist, sizeof(double)*n);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda haversine-cuda distance.cu,0);
 
   for (int i = 0; i < iteration; i++) {
     compute_haversine_distance<<<grids, threads>>>(d_loc, d_dist, n);

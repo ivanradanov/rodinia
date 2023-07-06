@@ -226,7 +226,7 @@ int main()
 
         // kernel launch
         cudaDeviceSynchronize();
-        auto start = std::chrono::steady_clock::now();
+        auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda ldpc-cuda main.cu,0);
 
         for(int ii = 0; ii < MAX_ITERATION; ii++)
         {

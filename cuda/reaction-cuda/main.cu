@@ -85,7 +85,7 @@ int main(int argc, char* argv[]) {
 
   // keep track of time
   cudaDeviceSynchronize();
-  auto start = std::chrono::system_clock::now();
+  auto start=std::chrono::system_clock::now();MY_START_CLOCK(cuda reaction-cuda main.cu,0);
 
   for(unsigned int t=0; t<timesteps; t++) {
 

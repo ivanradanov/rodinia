@@ -281,7 +281,7 @@ int main(int argc, char *argv[])
   double total_time = 0.0;
 
   for(int i = 0; i < trials; i++) {
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda gibbs-cuda main.cu,0);
 
     sample_theta<<<nBlocks, THREADS_PER_BLOCK>>>(
       devStates, dev_theta, dev_y, dev_n, a, b, N);

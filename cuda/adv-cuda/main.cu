@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
   cudaMemcpy(d_adv, adv, 3*Np*Nelements*sizeof(dfloat), cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::high_resolution_clock::now();
+  auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda adv-cuda main.cu,0);
 
   // run kernel
   for(int test=0;test<Ntests;++test) 

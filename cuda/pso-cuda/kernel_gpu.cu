@@ -96,7 +96,7 @@ extern "C" void gpu_pso(int p, int r,
   cudaMemcpy(devGBest,gBest,res_size_byte,cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda pso-cuda kernel_gpu.cu,0);
 
   for(int iter=0;iter<r;iter++)
   {

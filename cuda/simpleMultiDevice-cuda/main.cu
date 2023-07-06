@@ -121,7 +121,7 @@ int main(int argc, char **argv)
   //Start timing and compute on GPU(s)
   printf("Computing with %d GPUs...\n", GPU_N);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda simpleMultiDevice-cuda main.cu,0);
 
   for (k = 0; k < repeat; k++)
   {

@@ -57,7 +57,7 @@ void atomicCost (int t, int repeat)
     dim3 grid_wi (t / BLOCK_SIZE);
 
     CHECK_ERROR( cudaDeviceSynchronize() );
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atomicCost-cuda main.cu,0);
     for(int i=0; i<repeat; i++)
     {
       CHECK_ERROR( cudaMemset(d_result, 0, result_size) );
@@ -70,7 +70,7 @@ void atomicCost (int t, int repeat)
             time * 1e-3f / repeat);
     CHECK_ERROR( cudaMemcpy(result_wi, d_result, result_size, cudaMemcpyDeviceToHost) );
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atomicCost-cuda main.cu,1);
     for(int i=0; i<repeat; i++)
     {
       CHECK_ERROR( cudaMemset(d_result, 0, result_size) );

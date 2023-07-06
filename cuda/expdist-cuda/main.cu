@@ -72,7 +72,7 @@ void test(const int size, const int repeat) {
   dim3 blocks (block_size_x, block_size_y);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda expdist-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     distance<FP><<<grids, blocks>>>(d_A, d_B, size, size, d_scaleA, d_scaleB, d_cost);  

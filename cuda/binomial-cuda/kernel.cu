@@ -142,7 +142,7 @@ extern "C" void binomialOptionsGPU(
   cudaMalloc ((void**)&d_CallValue, sizeof(real) * MAX_OPTIONS);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda binomial-cuda kernel.cu,0);
 
   for (int i = 0; i < numIterations; i++)
     binomialOptionsKernel<<<optN, THREADBLOCK_SIZE>>>(d_OptionData, d_CallValue);

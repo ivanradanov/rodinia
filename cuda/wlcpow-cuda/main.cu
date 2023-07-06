@@ -255,7 +255,7 @@ int main(int argc, char* argv[]) {
   const int sm_size = (n_type+1) * 8 * sizeof(r32);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda wlcpow-cuda main.cu,0);
 
   // note the outputs are not reset for each run
   for (i = 0; i < repeat; i++) {

@@ -74,7 +74,7 @@ void tsa(int width, int height, int repeat) {
   cudaMemcpy(d_imag[0], p_imag, width * height * sizeof(T), cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda tsa-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     kernel<T, STEPS, BLOCK_X, BLOCK_Y, MARGIN_X, MARGIN_Y, STRIDE_Y>

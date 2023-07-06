@@ -186,7 +186,7 @@ void kernel_dataset(float* X,
   nblks = nrows_X - len_samples;
   //printf("nblks = %d len_samples = %d\n", nblks, len_samples );
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda sampling-cuda kernels.cu,0);
 
   if (nblks > 0) {
     exact_rows_kernel<<<nblks, nthreads>>>(

@@ -133,7 +133,7 @@ int main(int argc, char* argv[])
   dim3 num_threads(block_size);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda zeropoint-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     zero_point<<<num_blocks, num_threads>>>(

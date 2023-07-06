@@ -102,7 +102,7 @@ bool runPerf(int argc, char **argv)
   printf("\nLaunch kernel to evaluate the impact of assertion on performance \n");
 
   printf("Each thread in the kernel executes threadID + 1 assertions\n");
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda assert-cuda main.cu,0);
   perfKernel<<<dimGrid, dimBlock>>>();
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
@@ -110,7 +110,7 @@ bool runPerf(int argc, char **argv)
   printf("Kernel time : %f\n", time.count());
 
   printf("Each thread in the kernel executes threadID assertions\n");
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda assert-cuda main.cu,1);
   perfKernel2<<<dimGrid, dimBlock>>>();
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();

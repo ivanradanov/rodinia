@@ -71,7 +71,7 @@ void malloc2D (int repeat, int width, int height) {
   parallelPitched2DAccess<<<grid, block>>>(devPtr, pitch, width, height);
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda pitch-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     parallelPitched2DAccess<<<grid, block>>>(devPtr, pitch, width, height);
@@ -87,7 +87,7 @@ void malloc2D (int repeat, int width, int height) {
   parallelSimple2DAccess<<<grid, block>>>(devPtr, width, height);
   cudaDeviceSynchronize();
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda pitch-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     parallelSimple2DAccess<<<grid, block>>>(devPtr, width, height);
@@ -115,7 +115,7 @@ void malloc3D (int repeat, int width, int height, int depth) {
   parallelPitched3DAccess<<<grid, block>>>(devPitchedPtr, width, height, depth);
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda pitch-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++)
     parallelPitched3DAccess<<<grid, block>>>(devPitchedPtr, width, height, depth);
@@ -132,7 +132,7 @@ void malloc3D (int repeat, int width, int height, int depth) {
   parallelSimple3DAccess<<<grid, block>>>(devPtr, width, height, depth);
   cudaDeviceSynchronize();
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda pitch-cuda main.cu,3);
 
   for (int i = 0; i < repeat; i++)
     parallelSimple3DAccess<<<grid, block>>>(devPtr, width, height, depth);

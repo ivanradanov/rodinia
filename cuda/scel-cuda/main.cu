@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
     for (int logD_trick = 0; logD_trick <= logD; logD_trick++) {
 
       cudaDeviceSynchronize();
-      auto start = std::chrono::steady_clock::now();
+      auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda scel-cuda main.cu,0);
 
       for (int i = 0; i < repeat; i++) {
         SigmoidCrossEntropyWithLogitsKernel<<< outer_size, GPU_NUM_THREADS >>>(

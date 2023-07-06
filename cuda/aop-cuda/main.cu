@@ -1169,7 +1169,7 @@ int main(int argc, char **argv)
     for (int i = 0; i < num_timesteps*num_paths; ++i)
       h_samples[i] = norm_dist(rng);
       
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda aop-cuda main.cu,0);
     if( price_put )
       do_run(h_samples,
              num_timesteps, 

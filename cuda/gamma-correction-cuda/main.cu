@@ -81,7 +81,7 @@ int main(int argc, char* argv[]) {
     cudaMemcpy(pixel, image2.data(), sizeof(ImgPixel) * image2.width() * image2.height(), cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda gamma-correction-cuda main.cu,0);
 
     gamma_correction <<<grids, blocks>>> (pixel); 
 

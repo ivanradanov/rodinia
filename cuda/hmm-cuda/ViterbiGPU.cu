@@ -80,7 +80,7 @@ int ViterbiGPU(float &viterbiProb,
   cudaMemcpy(d_maxProbOld, initProb, sizeof(float)*nState, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda hmm-cuda ViterbiGPU.cu,0);
 
   // main iteration of Viterbi algorithm
   for (int t = 1; t < nObs; t++) // for every input observation

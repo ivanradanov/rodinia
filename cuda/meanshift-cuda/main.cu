@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
   cudaMemcpy(d_data, data.data(), data_bytes, cudaMemcpyHostToDevice);
 
   // Run mean shift clustering and time the execution
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda meanshift-cuda main.cu,0);
 
   for (size_t i = 0; i < mean_shift::gpu::NUM_ITER; ++i) {
     mean_shift::gpu::mean_shift<<<BLOCKS, THREADS>>>(d_data, d_data_next);
@@ -144,7 +144,7 @@ int main(int argc, char* argv[]) {
   // Reset device data
   cudaMemcpy(d_data, data.data(), data_bytes, cudaMemcpyHostToDevice);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda meanshift-cuda main.cu,1);
   for (size_t i = 0; i < mean_shift::gpu::NUM_ITER; ++i) {
     mean_shift::gpu::mean_shift_tiling<<<BLOCKS, THREADS>>>(d_data, d_data_next);
     cudaDeviceSynchronize();

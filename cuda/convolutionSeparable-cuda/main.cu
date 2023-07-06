@@ -70,7 +70,7 @@ int main(int argc, char **argv)
       imageW);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda convolutionSeparable-cuda main.cu,0);
 
   for(int iter = 0; iter < numIterations; iter++) {
     convolutionRows(

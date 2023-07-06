@@ -92,7 +92,7 @@ void IMGVF_GPU(MAT **IE, MAT **IMGVF,
   cudaMemcpyAsync(d_IMGVF_all, host_I_all, sizeof(float)*total_size, cudaMemcpyHostToDevice, 0); 
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda leukocyte-cuda track_ellipse_gpu.c,0);
 
   kernel_IMGVF<<<num_cells, LOCAL_WORK_SIZE>>>( 
       d_IMGVF_all, 

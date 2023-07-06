@@ -339,7 +339,7 @@ int main(int argc, char **argv)
   atom_arr[7] = atom_arr[9] = 0xff;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atomicSystemWide-cuda main.cu,0);
 
   atomicKernel<<<numBlocks, numThreads>>>(atom_arr, loop_num);
 

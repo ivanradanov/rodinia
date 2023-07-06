@@ -322,7 +322,7 @@ void zoom (int repeat, int input_sizes[4], float zoom_factor[2])
   long total_time = 0;
   for (int i = 0; i < repeat; i++) {
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda zoom-cuda main.cu,0);
     cudaMemset(d_output_img, 0, img_size_bytes);
     cudaDeviceSynchronize();
 

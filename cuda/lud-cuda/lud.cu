@@ -115,7 +115,7 @@ int main ( int argc, char *argv[] )
   int i=0;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lud-cuda lud.cu,0);
   
   for (i=0; i < matrix_dim-BLOCK_SIZE; i += BLOCK_SIZE) {
     offset = i;  // add the offset 

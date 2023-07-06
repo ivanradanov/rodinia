@@ -54,7 +54,7 @@ void eval_direct_copy (bool warmup, const int repeat) {
 
     bool ok = true;
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda copy-cuda main.cu,0);
 
     for (int r = 0; r < repeat; r++) {
 
@@ -122,7 +122,7 @@ void eval_zero_copy (bool warmup, const int repeat) {
 
     bool ok = true;
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda copy-cuda main.cu,1);
 
     for (int r = 0; r < repeat; r++) {
 
@@ -182,7 +182,7 @@ void eval_managed_copy (bool warmup, const int repeat) {
 
     bool ok = true;
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda copy-cuda main.cu,2);
 
     for (int r = 0; r < repeat; r++) {
 

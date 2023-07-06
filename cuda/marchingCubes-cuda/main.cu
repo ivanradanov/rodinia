@@ -525,7 +525,7 @@ int main(int argc, char* argv[])
 
     cudaMemcpy(&countedBlockNumLv2, countedBlockNumLv2Device, sizeof(unsigned int), cudaMemcpyDeviceToHost);
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda marchingCubes-cuda main.cu,0);
 
     generatingTriangles <<< countedBlockNumLv2, BlockSizeGenerating >>> (
         isoValue, blockIndicesLv2Device,

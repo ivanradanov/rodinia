@@ -219,7 +219,7 @@ int bb_segsort(
     cudaEvent_t event;
     cudaEventCreate(&event);
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda segsort-cuda src bb_segsort.cuh,0);
 
     bb_segsort_run(
         keys_d, vals_d, keysB_d, valsB_d,

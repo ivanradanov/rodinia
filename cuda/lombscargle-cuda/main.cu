@@ -176,7 +176,7 @@ int main(int argc, char* argv[]) {
   dim3 threads (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lombscargle-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++)
     lombscargle<<<grids, threads>>>(x_shape, freqs_shape, d_x, d_y, d_f, d_p, y_dot);

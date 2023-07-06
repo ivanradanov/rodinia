@@ -226,7 +226,7 @@ long test_1D (const int length, const int order, const bool clip,
   dim3 threads (256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda extrema-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++)
     relextrema_1D<T><<<grids, threads>>>(length, order, clip, d_x, d_result);
@@ -279,7 +279,7 @@ long test_2D (const int length_x, const int length_y, const int order,
   dim3 threads (16, 16);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda extrema-cuda main.cu,1);
 
   for (int n = 0; n < repeat; n++)
     relextrema_2D<<<grids, threads>>>(length_x, length_y, order, clip, axis, d_x, d_result);

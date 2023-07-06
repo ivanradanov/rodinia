@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
   dim3 blocks (tile_cols, tile_rows);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda debayer-cuda main.cu,0);
 
   //this version takes a tile (z=1) and each tile job does 4 line median sorts
   for (int i = 0; i < repeat; i++) {

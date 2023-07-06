@@ -71,7 +71,7 @@ int main (int argc, char* argv[]){
     //   incx |        | input | stride between consecutive elements of x.
     // result | host or device | output | the resulting norm, which is 0.0 if n,incx<=0.
     //-------------------------------------------------------------------
-    auto kstart = std::chrono::steady_clock::now();
+    auto kstart=std::chrono::steady_clock::now();MY_START_CLOCK(cuda norm2-cuda main.cu,0);
     
     for (j = 0; j < repeat; j++) {
       cublasStat = cublasSnrm2(handle, n, d_a, 1, result+j);

@@ -124,7 +124,7 @@ void flip (const int64_t num_dims, const int64_t num_flip_dims,
   dim3 block (threadsPerBlock);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda flip-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     flip_kernel<scalar_t><<<grid, block>>> (

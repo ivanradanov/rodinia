@@ -28,7 +28,7 @@ void coordinates_transform(const int num_coords, const int repeat)
   thrust::device_vector<cartesian_2d<T>> d_output (num_coords);
  
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda coordinates-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     thrust::transform(d_input.cbegin(), d_input.cend(),
@@ -42,7 +42,7 @@ void coordinates_transform(const int num_coords, const int repeat)
 
   h_output = d_output;  // copy results from device to host
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda coordinates-cuda main.cu,1);
   for (int i = 0; i < 10; i++) {
     std::transform(h_input.cbegin(), h_input.cend(),
                    h_ref_output.begin(), to_cartesian_functor<T>(h_origin));

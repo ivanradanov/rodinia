@@ -194,7 +194,7 @@ void filtering (const int repeat,
   const int shared_mem = (out_size + z_size + sos_size) * sizeof(T); 
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda sosfil-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++)
     sosfilt<T><<<blocksPerGrid, threadsPerBlock, shared_mem, 0>>>(n_signals, 

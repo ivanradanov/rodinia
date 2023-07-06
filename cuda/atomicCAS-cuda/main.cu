@@ -21,7 +21,7 @@ template <typename T>
 void testMin (T *h_ptr, T *d_ptr, const int repeat, const char* name) {
   cudaMemcpy(d_ptr, h_ptr, sizeof(T), cudaMemcpyHostToDevice);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atomicCAS-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++) {
     atomicMinDerived<T><<<NUM_BLOCKS, BLOCK_SIZE>>> (d_ptr);
@@ -40,7 +40,7 @@ template <typename T>
 void testMax (T *h_ptr, T *d_ptr, const int repeat, const char* name) {
   cudaMemcpy(d_ptr, h_ptr, sizeof(T), cudaMemcpyHostToDevice);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atomicCAS-cuda main.cu,1);
 
   for (int n = 0; n < repeat; n++) {
     atomicMaxDerived<T><<<NUM_BLOCKS, BLOCK_SIZE>>> (d_ptr);
@@ -59,7 +59,7 @@ template <typename T>
 void testAdd (T *h_ptr, T *d_ptr, const int repeat, const char* name) {
   cudaMemcpy(d_ptr, h_ptr, sizeof(T), cudaMemcpyHostToDevice);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atomicCAS-cuda main.cu,2);
 
   for (int n = 0; n < repeat; n++) {
     atomicAddDerived<T><<<NUM_BLOCKS, BLOCK_SIZE>>> (d_ptr);

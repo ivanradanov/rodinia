@@ -144,7 +144,7 @@ int main(int argc, char* argv[])
   cudaMalloc((void**)&d_var, fs_bytes);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda wedford-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     welford_kernel<float, float, float><<<grid, block>>>(

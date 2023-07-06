@@ -244,7 +244,7 @@ void fluidSim (
   dim3 blocks (dims[0]/groupSize, dims[1]);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda fluidSim-cuda kernels.cu,0);
 
   for(int i = 0; i < iterations; ++i) {
     lbm<<<grids, blocks>>>(

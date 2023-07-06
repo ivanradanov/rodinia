@@ -106,7 +106,7 @@ void haccmk (
     cudaMemcpy(d_vz2, vz2, sizeof(float) * n1, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda haccmk-cuda haccmk.cu,0);
 
     haccmk_kernel <<< grids, blocks >>> (
       n1, n2, d_xx, d_yy, d_zz, d_mass,

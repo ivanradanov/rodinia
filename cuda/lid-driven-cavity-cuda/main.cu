@@ -891,7 +891,7 @@ int main (int argc, char *argv[])
   Real dt_Re = 0.5 * Re_num / ((1.0 / (dx * dx)) + (1.0 / (dy * dy)));
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lid-driven-cavity-cuda main.cu,0);
 
   // time iteration loop
   while (time < time_end) {

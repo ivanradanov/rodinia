@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
     dim3 grid_size((length + block_size.x - 1) / block_size.x);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda ga-cuda main.cu,0);
 
     ga<<<grid_size, block_size>>>(
         d_target, d_query, d_batch_result, length, qseq_size,

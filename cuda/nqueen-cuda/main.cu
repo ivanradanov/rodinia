@@ -178,7 +178,7 @@ void nqueens(short size, int initial_depth, unsigned int n_explorers, QueenRoot 
 
   printf("\n### Regular BP-DFS search. ###\n");
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda nqueen-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     BP_queens_root_dfs<<< num_blocks,_QUEENS_BLOCK_SIZE_>>> (

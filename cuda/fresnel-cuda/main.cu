@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
   cudaMemcpy(d_x, x, points_size, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda fresnel-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     kernel<<<grids, blocks>>>(d_x, d_output, points);

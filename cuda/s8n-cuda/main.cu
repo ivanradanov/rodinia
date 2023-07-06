@@ -174,7 +174,7 @@ int main(int argc, char* argv[])
   dim3 blocks (512);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda s8n-cuda main.cu,0);
   for (int i = 0; i < repeat; i++) {
    k_cube_select<<<grids, blocks>>>(b, n, radius, d_xyz, d_out); 
   }
@@ -187,7 +187,7 @@ int main(int argc, char* argv[])
   cube_select(b, n, radius, h_xyz, r_out);
   int error = memcmp(h_out, r_out, output_size_bytes);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda s8n-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) {
     k_cube_select_two<<<grids, blocks>>>(b, n, radius, d_xyz, d_out2); 
@@ -201,7 +201,7 @@ int main(int argc, char* argv[])
   cube_select_two(b, n, radius, h_xyz, r_out2);
   error += memcmp(h_out2, r_out2, 2 * output_size_bytes);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda s8n-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++) {
     k_cube_select_four<<<grids, blocks>>>(b, n, radius, d_xyz, d_out4); 

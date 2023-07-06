@@ -222,7 +222,7 @@ int main(int argc, char** argv)
   cudaDeviceSynchronize();
 
   // start measuring the total time
-  auto start = std::chrono::high_resolution_clock::now();
+  auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda bm3d-cuda main.cu,0);
 
   // repeat the execution of kernels
   for (int n = 0; n < REPEAT; n++) {

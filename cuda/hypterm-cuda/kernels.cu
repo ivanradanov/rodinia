@@ -190,7 +190,7 @@ extern "C" void offload (double *h_flux_0, double *h_flux_1, double *h_flux_2, d
     cudaMemcpy (flux_4, h_flux_4, vol_size, cudaMemcpyHostToDevice);
     cudaDeviceSynchronize();
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda hypterm-cuda kernels.cu,0);
     hypterm_1 <<<gridconfig, blockconfig>>> (flux_0, flux_1, flux_2, flux_3, flux_4,
                                              cons_1, cons_2, cons_3, cons_4,
                                              q_1, q_2, q_3, q_4,
@@ -200,7 +200,7 @@ extern "C" void offload (double *h_flux_0, double *h_flux_1, double *h_flux_2, d
     auto end = std::chrono::steady_clock::now();
     t1 += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda hypterm-cuda kernels.cu,1);
     hypterm_2 <<<gridconfig, blockconfig>>> (flux_0, flux_1, flux_2, flux_3, flux_4,
                                              cons_1, cons_2, cons_3, cons_4,
                                              q_1, q_2, q_3, q_4,
@@ -209,7 +209,7 @@ extern "C" void offload (double *h_flux_0, double *h_flux_1, double *h_flux_2, d
     end = std::chrono::steady_clock::now();
     t2 += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
 
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda hypterm-cuda kernels.cu,2);
     hypterm_3 <<<gridconfig, blockconfig>>> (flux_0, flux_1, flux_2, flux_3, flux_4,
                                              cons_1, cons_2, cons_3, cons_4,
                                              q_1, q_2, q_3, q_4,

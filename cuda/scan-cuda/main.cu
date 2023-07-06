@@ -156,7 +156,7 @@ void runTest (const size_t n, const int repeat, bool timing = false)
   dim3 blocks (N/2);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda scan-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     scan<T, N><<<grids, blocks>>>(d_out, d_in);
@@ -173,7 +173,7 @@ void runTest (const size_t n, const int repeat, bool timing = false)
   if (!timing) verify(cpu_out, gpu_out, nelems);
 
   // bcao
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda scan-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) {
     scan_bcao<T, N><<<grids, blocks>>>(d_out, d_in);

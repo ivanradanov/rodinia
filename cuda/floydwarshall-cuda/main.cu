@@ -241,7 +241,7 @@ int main(int argc, char** argv) {
         matrixSizeBytes, cudaMemcpyHostToDevice, 0);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda floydwarshall-cuda main.cu,0);
 
     for(unsigned int i = 0; i < numPasses; i++)
     {

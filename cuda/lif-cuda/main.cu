@@ -173,7 +173,7 @@ int main(int argc, char* argv[]) {
   dim3 grids ((num_neurons + 255) / 256);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lif-cuda main.cu,0);
 
   for(int step = 0; step < num_steps; step++) {
     lif<<<grids, blocks>>>(

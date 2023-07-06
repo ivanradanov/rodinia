@@ -53,7 +53,7 @@ void GpuParallel(std::vector<Projectile>& in_vect,
   dim3 blocks (BLOCK_SIZE);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda projectile-cuda Projectile.cu,0);
 
   for (int i = 0; i < repeat; i++)
     CalculateRange <<< grids, blocks >>> (bufin_vect, bufout_vect);

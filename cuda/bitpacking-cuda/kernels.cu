@@ -428,7 +428,7 @@ void compress(
   }
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bitpacking-cuda kernels.cu,0);
 
   for (int n = 0; n < 1000; n++)
     NVCOMP_TYPE_SWITCH(

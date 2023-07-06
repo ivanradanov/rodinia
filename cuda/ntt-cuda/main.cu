@@ -71,7 +71,7 @@ int main(int argc, char* argv[]) {
   cudaMemcpy(d_ntt, ntt, nttLen*sizeof(uint64), cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda ntt-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     intt_3_64k_modcrt<<<nttLen/512, 64>>>(d_res, d_ntt);

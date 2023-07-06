@@ -120,7 +120,7 @@ int main(int argc, char** argv)
 
   checkResults<FPTYPE, FORCEVECTYPE, POSVECTYPE>(h_force, position, neighborList, nAtom);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda md-cuda main.cu,0);
 
   for (int j = 0; j < iteration; j++)
   {

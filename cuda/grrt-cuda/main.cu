@@ -70,7 +70,7 @@ int main()
   cudaMemcpy(d_VariablesIn, VariablesIn, sizeof(double) * VarINNUM, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda grrt-cuda main.cu,0);
 
   for(int GridIdxY = 0; GridIdxY < ImaDimY; GridIdxY++){
     for(int GridIdxX = 0; GridIdxX < ImaDimX; GridIdxX++){                      
@@ -110,7 +110,7 @@ int main()
   cudaMemcpy(d_VariablesIn, VariablesIn, sizeof(double) * VarINNUM, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda grrt-cuda main.cu,1);
 
   //compute number of grides, to cover the whole image plane
   for(int GridIdxY = 0; GridIdxY < ImaDimY; GridIdxY++){

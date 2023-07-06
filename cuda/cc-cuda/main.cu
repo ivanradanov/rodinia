@@ -309,7 +309,7 @@ static void computeCC(const int repeat,
     fprintf(stderr, "ERROR: copying nlist to device failed\n\n");
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::high_resolution_clock::now();
+  auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda cc-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++) {
     init<<<blocks, ThreadsPerBlock>>>(nodes, nidx_d, nlist_d, nstat_d);

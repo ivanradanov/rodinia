@@ -62,7 +62,7 @@ void prefetch (const int gpuDeviceId, const int numElements, const int repeat)
   dim3 dimGrid(numBlocks, 1, 1);
   dim3 dimBlock(blockSize, 1, 1);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda prefetch-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
 
@@ -113,7 +113,7 @@ void naive (const int numElements, const int repeat)
   dim3 dimGrid(numBlocks, 1, 1);
   dim3 dimBlock(blockSize, 1, 1);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda prefetch-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) {
     add <<< dimGrid, dimBlock >>> (numElements, A, B);

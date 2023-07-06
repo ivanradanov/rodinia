@@ -102,7 +102,7 @@ int main(int argc, char* argv[])
   cudaMemcpy(d2, h2, sizeof(float4) * n, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda rodrigues-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     rotate <<<grids, blocks>>> (n, angle, w, d);
@@ -114,7 +114,7 @@ int main(int argc, char* argv[])
   printf("Average kernel execution time (float3): %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda rodrigues-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) {
     rotate2 <<<grids, blocks>>> (n, angle, w, d2);

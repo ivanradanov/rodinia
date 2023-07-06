@@ -87,7 +87,7 @@ int main (int argc, char *argv[]) {
   CUDA_ERRCK;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mriQ-cuda main.cu,0);
 
   computePhiMag_GPU(numK, phiR_d, phiI_d, phiMag_d);
 
@@ -123,7 +123,7 @@ int main (int argc, char *argv[]) {
   cudaMemset((void *)Qi_d, 0, numX * sizeof(float));
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mriQ-cuda main.cu,1);
 
   computeQ_GPU(numK, numX, x_d, y_d, z_d, kVals, Qr_d, Qi_d);
 

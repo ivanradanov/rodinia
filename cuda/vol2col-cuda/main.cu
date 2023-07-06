@@ -196,7 +196,7 @@ void eval (
   int blocksPerGrid = get_blocks(n);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda vol2col-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     vol2col_kernel<T><<<blocksPerGrid, threadsPerBlock>>>(
@@ -225,7 +225,7 @@ void eval (
   printf("Checksum = %f\n", checksum / col_size);
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda vol2col-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) {
     col2vol_kernel<T, T><<<blocksPerGrid, threadsPerBlock>>>(

@@ -202,7 +202,7 @@ void test(int hiddenSize, int miniBatch, int seqLength, int numLayers,
     rEnd = rStart + recurBatchSize;
     if (rEnd > seqLength) rEnd = seqLength;
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda pointwise-cuda main.cu,0);
 
     for (int layer = lStart; layer < lEnd; layer++) {
       for (int i = rStart; i < rEnd; i++)

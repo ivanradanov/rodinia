@@ -179,7 +179,7 @@ int main(int argc, char ** argv) {
     dim3 local_size(256);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bspline-vgh-cuda main.cu,0);
 
     bspline<<<global_size, local_size>>>(
         d_spline_coefs,

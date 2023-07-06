@@ -183,7 +183,7 @@ void motion_device(float* particleX, float* particleY,
     cudaMemcpy(d_map, map, sizeof(size_t) * MAP_SIZE, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda particle-diffusion-cuda motionsim.cu,0);
 
     Simulation<<< dim3((n_particles + 255) / 256), dim3(256) >>> (
       d_particleX, 
@@ -280,7 +280,7 @@ int main(int argc, char* argv[]) {
   }
 
   // Start timers
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda particle-diffusion-cuda motionsim.cu,1);
 
   // Call simulation function
   motion_device(particleX, particleY, randomX, randomY, grid, grid_size,

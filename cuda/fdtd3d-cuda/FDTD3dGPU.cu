@@ -180,7 +180,7 @@ bool fdtdGPU(float *output, const float *input, const float *coeff,
   shrLog(" GPU FDTD loop\n");
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda fdtd3d-cuda FDTD3dGPU.cu,0);
 
   for (int it = 0 ; it < timesteps ; it++)
   {

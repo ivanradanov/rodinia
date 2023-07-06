@@ -23,7 +23,7 @@ void runDevice(float* input, float* output, int n, int repeat)
   int pblks = int(n / threads) + 1;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda svd3x3-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     svd3_SOA <<< pblks, threads >>> (d_input, d_answer, n);

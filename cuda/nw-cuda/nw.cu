@@ -316,7 +316,7 @@ int main(int argc, char **argv){
   }
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda nw-cuda nw.cu,0);
 
 #ifdef DEBUG
   printf("Processing upper-left matrix\n");

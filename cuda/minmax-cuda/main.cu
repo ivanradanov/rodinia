@@ -44,7 +44,7 @@ void eval (const T bounding_box_size, const int repeat) {
 
   vec_2d<T> min_point[2] = {{}, {}}, max_point[2] = {{}, {}};
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda minmax-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     auto const min_point_itr = thrust::min_element(
@@ -61,7 +61,7 @@ void eval (const T bounding_box_size, const int repeat) {
   printf("Average execution time of thrust:min() and thrust:max(): %f (us)\n",
          (time * 1e-3f) / repeat);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda minmax-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++) {
     auto const point_itr = thrust::minmax_element(

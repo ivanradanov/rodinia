@@ -197,7 +197,7 @@ int main(int argc, char** argv) {
       checkCudaError(cudaMemset((void*)C_dev, 0, A_nrows*B_ncols*sizeof(C_dev[0])));
 
       cudaDeviceSynchronize();
-      auto start = std::chrono::steady_clock::now();
+      auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda ge-spmm-cuda main.cu,0);
 
       for (int i=0; i<repeat; i++)
         spmmWrapper(method, tile_row,  A_nrows, B_ncols, A_indptr_dev,

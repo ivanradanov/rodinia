@@ -156,7 +156,7 @@ int main(int argc, char** argv)
       blocks, NUM_THREADS, blocks * NUM_THREADS);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda dxtc1-cuda main.cu,0);
 
   for (int i = 0; i < numIterations; ++i) {
     for( int j=0; j<blocks; j+= blocksPerLaunch ) {

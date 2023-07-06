@@ -157,7 +157,7 @@ int main(int argc, char** argv)
   dim3 blockDim(WG_SIZE_X, WG_SIZE_Y);
 
   cudaDeviceSynchronize();
-  auto kstart = std::chrono::steady_clock::now();
+  auto kstart=std::chrono::steady_clock::now();MY_START_CLOCK(cuda hotspot3D-cuda 3D.cu,0);
 
   for(int j = 0; j < iterations; j++)
   {

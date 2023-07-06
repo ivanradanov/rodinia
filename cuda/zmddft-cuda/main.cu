@@ -1611,7 +1611,7 @@ int main(int argc, char* argv[])
   dim3 g1(16384), g2(16384), g3(16384);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda zmddft-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     ker_zmddft_fwd_256x256x256_cu0<<<g1, b1>>>(X, P1);

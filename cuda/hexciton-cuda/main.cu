@@ -88,7 +88,7 @@ long benchmark(
                cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda hexciton-cuda main.cu,0);
 
     // empty kernel
     switch(kernel_id) {

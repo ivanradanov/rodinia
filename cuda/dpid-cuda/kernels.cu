@@ -266,7 +266,7 @@ void run(const Params& p, const void* hInput, void* hOutput) {
   const dim3 blocks((uint32_t)std::ceil(p.oWidth / (float)TSIZE), p.oHeight, 1);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda dpid-cuda kernels.cu,0);
 
   for (uint32_t i = 0; i < p.repeat; i++) {
     kernelGuidance <<<blocks, threads>>> (dInput, dGuidance, p);

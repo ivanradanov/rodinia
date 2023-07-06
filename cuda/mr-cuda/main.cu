@@ -59,7 +59,7 @@ void run_benchmark()
     }
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mr-cuda main.cu,0);
 
     // the efficient version is faster than the simple version on a device
     mr32_sf <<< grids, blocks >>> (d_bases32, d_n32, d_val, BENCHMARK_ITERATIONS);
@@ -79,7 +79,7 @@ void run_benchmark()
     cudaMemset(d_val, 0, sizeof(int));
 
     cudaDeviceSynchronize();
-    start = std::chrono::steady_clock::now();
+    start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mr-cuda main.cu,1);
 
     mr32_eff <<< grids, blocks >>> (d_bases32, d_n32, d_val, BENCHMARK_ITERATIONS);
 

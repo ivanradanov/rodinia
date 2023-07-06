@@ -99,7 +99,7 @@ int main(int argc, char* argv[])
   adamMode_t mode = ADAM_MODE_0;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda adam-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     adam<float, float><<<grids, blocks>>> (

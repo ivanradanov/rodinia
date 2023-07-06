@@ -114,7 +114,7 @@ void bs ( const size_t aSize,
     const size_t n,
     const int repeat )
 {
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bsearch-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     kernel_BS<<<zSize/256, 256>>>(d_a, d_z, d_r, n);
@@ -134,7 +134,7 @@ void bs2 ( const size_t aSize,
     const size_t n,
     const int repeat )
 {
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bsearch-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     kernel_BS2<<<zSize/256, 256>>>(d_a, d_z, d_r, n);
@@ -154,7 +154,7 @@ void bs3 ( const size_t aSize,
     const size_t n,
     const int repeat )
 {
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bsearch-cuda main.cu,2);
 
   for (int i = 0; i < repeat; i++)
     kernel_BS3<<<zSize/256, 256>>>(d_a, d_z, d_r, n);
@@ -174,7 +174,7 @@ void bs4 ( const size_t aSize,
     const size_t n,
     const int repeat )
 {
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bsearch-cuda main.cu,3);
 
   for (int i = 0; i < repeat; i++)
     kernel_BS4<<<zSize/256, 256>>>(d_a, d_z, d_r, n);

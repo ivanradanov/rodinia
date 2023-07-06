@@ -46,7 +46,7 @@ void testcase(const int repeat)
 
   computeGold<T>(dOData, numThreads * numBlocks);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda atomicIntrinsics-cuda main-um.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     // ignore result verification

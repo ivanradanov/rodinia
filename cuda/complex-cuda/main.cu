@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
   complex_double<<<grids, blocks>>>(d_cs, n);
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda complex-cuda main.cu,0);
 
   // complex numbers in single precision
   for (int i = 0; i < repeat; i++) {
@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
   cudaMemcpy(cs, d_cs, n, cudaMemcpyDeviceToHost);
   bool complex_float_check = check(cs, n);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda complex-cuda main.cu,1);
 
   // complex numbers in double precision
   for (int i = 0; i < repeat; i++) {

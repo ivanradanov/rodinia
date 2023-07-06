@@ -104,7 +104,7 @@ int main(int argc, char** argv)
   dim3 dimBlock(BLOCK_SIZE, BLOCK_SIZE);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda hellinger-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     hellinger<<<dimGrid, dimBlock>>>(a_device, b_device, c_device, M, N, P);

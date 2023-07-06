@@ -187,7 +187,7 @@ int main(int argc, char* argv[]) {
     cudaMemcpy(d_norm, norm, size_bytes, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda asmooth-cuda main.cu,0);
 
     // launch three kernels
     smoothingFilter<<<grids, blocks>>>(Lx, Ly, Threshold, MaxRad, d_img, d_box, d_norm);

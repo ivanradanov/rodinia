@@ -194,7 +194,7 @@ int main(int argc, char **argv) {
     int * d_consumed;
     cudaMalloc((void**)&d_consumed, sizeof(int));
 
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda tqs-cuda main.cu,0);
 
     for(int rep = 0; rep < p.n_reps + p.n_warmup; rep++) {
 

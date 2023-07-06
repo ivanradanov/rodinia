@@ -99,7 +99,7 @@ int main( int argc, char** argv)
   dim3 grids (nwg);
   dim3 blocks (wgs);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda romberg-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     romberg <<< grids, blocks, ROW_SIZE*wgs*sizeof(double) >>> (A,B,d_result);

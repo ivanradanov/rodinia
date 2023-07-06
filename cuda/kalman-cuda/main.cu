@@ -370,7 +370,7 @@ int main(int argc, char* argv[]) {
   for (int n_diff = 0; n_diff < rd; n_diff++) {
 
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda kalman-cuda main.cu,0);
   
     for (i = 0; i < repeat; i++)
       kalman<rd> <<< grids, blocks >>> (

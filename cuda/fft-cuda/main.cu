@@ -156,7 +156,7 @@ int main(int argc, char** argv)
   cudaMemcpy(d_source, source, (long)N * sizeof(T2), cudaMemcpyHostToDevice);
  
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda fft-cuda main.cu,0);
 
   for (int k=0; k<passes; k++) {
     fft1D_512<<<n_ffts, 64>>>(d_source);

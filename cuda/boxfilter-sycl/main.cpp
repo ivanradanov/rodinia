@@ -75,7 +75,7 @@ void BoxFilterGPU ( sycl::queue &q,
     sycl::range<1> col_lws(64);
 
     q.wait();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda boxfilter-sycl main.cpp,0);
 
     for (int i = 0; i < iCycles; i++) {
       // Launch row kernel

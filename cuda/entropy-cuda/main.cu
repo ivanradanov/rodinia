@@ -114,7 +114,7 @@ int main(int argc, char* argv[]) {
 
   // baseline kernel
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda entropy-cuda main.cu,0);
   
   for (int i = 0; i < repeat; i++)
     entropy <<< grids, blocks >>> (d_output, d_input, height, width);
@@ -133,7 +133,7 @@ int main(int argc, char* argv[]) {
   cudaMemcpy(d_logTable, logTable, sizeof(logTable), cudaMemcpyHostToDevice);
  
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda entropy-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     entropy_opt<16, 16> <<< grids, blocks >>> (d_output, d_input, d_logTable, height, width);

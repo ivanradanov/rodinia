@@ -104,7 +104,7 @@ void eval(const int64_t nframe,
   dim3 block (GPU_THREADS);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda nlll-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     nll_loss_forward_reduce2d_kernel

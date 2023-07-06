@@ -149,7 +149,7 @@ int main(int argc, char ** argv) {
   cudaMalloc((void**)&d_gicov, sizeof(float)*grad_m*grad_n);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda leukocyte-cuda detect_main.c,0);
 
   kernel_GICOV<<<global_work_size/work_group_size, work_group_size>>>(
     d_grad_x,
@@ -215,7 +215,7 @@ int main(int argc, char ** argv) {
 #endif
 
   cudaDeviceSynchronize();
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda leukocyte-cuda detect_main.c,1);
 
   kernel_dilated<<<global_work_size/local_work_size, local_work_size>>>(
 	  d_strel, d_gicov, d_img_dilated, strel_m, strel_n, max_gicov_m, max_gicov_n);

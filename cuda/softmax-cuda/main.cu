@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
   dim3 local_work_size (BLOCK_SIZE);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda softmax-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++) {
     softMax<<<global_work_size, local_work_size>>>(numSlice, sliceSize, d_input, d_output);

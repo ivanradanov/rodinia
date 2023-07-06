@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda mtf-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) mtf(word);
 

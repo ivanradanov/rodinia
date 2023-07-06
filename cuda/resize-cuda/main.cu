@@ -179,7 +179,7 @@ void resize_image (
   const float fy = in_height / out_height;
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda resize-cuda main.cu,0);
 
   // default grid size is 256 * 114
   if (bilinear) {

@@ -157,7 +157,7 @@ void computeMIS(const int nodes,
 
   cudaDeviceSynchronize();
 
-  auto start = std::chrono::high_resolution_clock::now();
+  auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda mis-cuda main.cu,0);
 
   for (int n = 0; n < 100; n++) {
     init<<<blocks, ThreadsPerBlock>>>(nodes, edges, nidx_d, nstat_d);

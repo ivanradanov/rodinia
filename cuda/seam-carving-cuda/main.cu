@@ -128,7 +128,7 @@ int main(int argc, char **argv) {
 
   int num_iterations = 0;
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda seam-carving-cuda main.cu,0);
 
   while(num_iterations < (int)seams_to_remove){
 

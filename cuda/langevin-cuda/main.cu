@@ -95,7 +95,7 @@ int main(int argc, char* argv[]) {
   cudaMemcpy(d_a, a, size, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda langevin-cuda main.cu,0);
   for (int i = 0; i < repeat; i++) {
     k0<<<n/256, 256>>>(d_a, d_o0);
   }
@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
   auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
   printf("Average execution time of k0: %f (s)\n", (time * 1e-9f) / repeat);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda langevin-cuda main.cu,1);
   for (int i = 0; i < repeat; i++) {
     k1<<<n/256, 256>>>(d_a, d_o1);
   }
@@ -113,7 +113,7 @@ int main(int argc, char* argv[]) {
   time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
   printf("Average execution time of k1: %f (s)\n", (time * 1e-9f) / repeat);
 
-  start = std::chrono::steady_clock::now();
+  start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda langevin-cuda main.cu,2);
   for (int i = 0; i < repeat; i++) {
     k2<<<n/256, 256>>>(d_a, d_o2);
   }

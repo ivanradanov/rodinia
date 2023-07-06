@@ -121,7 +121,7 @@ int main(int argc, char **argv) {
   dim3 dimGrid ((num_elems + block_size - 1) / block_size);
 
   cudaDeviceSynchronize();
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda filter-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     cudaMemset(d_nres, 0, sizeof(int));

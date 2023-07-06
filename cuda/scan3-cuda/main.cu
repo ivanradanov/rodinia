@@ -69,7 +69,7 @@ int main(int argc, char * argv[])
   // warmup
   thrust::exclusive_scan(ibuf, ibuf + length, obuf, 0.f);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda scan3-cuda main.cu,0);
 
   for(int n = 0; n < iterations; n++)
   {

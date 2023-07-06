@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
 
   cudaMalloc((void**)&d_grad_out, output_size_bytes);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda unfold-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++) {
     unfold_backward_internal_kernel(d_grad_out,

@@ -693,7 +693,7 @@ int main(int argc, char* argv[])
 
     // Invoke kernels
     cudaDeviceSynchronize();
-    auto start = std::chrono::steady_clock::now();
+    auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda hungarian-cuda main.cu,0);
 
     Hungarian_Algorithm();
     check(cudaDeviceSynchronize());

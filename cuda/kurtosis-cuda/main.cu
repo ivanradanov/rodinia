@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
   cudaMalloc((void**)&d_elem, sizeof(storeElement) * elemCount);
   cudaMemcpy(d_elem, elem, sizeof(storeElement) * elemCount, cudaMemcpyHostToDevice);
 
-  auto start = std::chrono::steady_clock::now();
+  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda kurtosis-cuda main.cu,0);
 
   kurtosisResult* result;
   const size_t s = kurtosis(d_elem, elemCount, repeat, (void**)&result);
