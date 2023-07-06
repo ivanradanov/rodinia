@@ -55,4 +55,6 @@ clean:
 
 run: $(program)
 	./$(program) internet.egr
+run_no_build:
+	./$(program) internet.egr
 

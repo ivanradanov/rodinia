@@ -55,3 +55,5 @@ clean:
 
 run: $(program)
 	./$(program) --deck ../minibude-sycl/data/bm1  --wgsize 256 --iterations 100
+run_no_build:
+	./$(program) --deck ../minibude-sycl/data/bm1  --wgsize 256 --iterations 100

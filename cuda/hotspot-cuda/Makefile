@@ -53,3 +53,5 @@ clean:
 
 run: $(program)
 	./$(program) 512 2 200 ../data/hotspot/temp_512 ../data/hotspot/power_512 output_512.out
+run_no_build:
+	./$(program) 512 2 200 ../data/hotspot/temp_512 ../data/hotspot/power_512 output_512.out

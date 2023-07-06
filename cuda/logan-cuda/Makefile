@@ -69,3 +69,5 @@ demo: $(program)
 
 run: $(program)
 	./$(program) inputs/100k.txt 17 100 1
+run_no_build:
+	./$(program) inputs/100k.txt 17 100 1

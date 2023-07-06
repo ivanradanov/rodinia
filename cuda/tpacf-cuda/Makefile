@@ -62,3 +62,5 @@ clean:
 
 run: $(program)
 	./$(program) $(DATAPARS) $(RANDPARS) $(ANALPARS) -o $(OUTFILE)
+run_no_build:
+	./$(program) $(DATAPARS) $(RANDPARS) $(ANALPARS) -o $(OUTFILE)

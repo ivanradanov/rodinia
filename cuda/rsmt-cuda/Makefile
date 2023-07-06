@@ -53,3 +53,5 @@ clean:
 
 run: $(program)
 	./$(program) newblue7.kraftwerk70.3d.80.20.82.m8.gr
+run_no_build:
+	./$(program) newblue7.kraftwerk70.3d.80.20.82.m8.gr

@@ -30,3 +30,5 @@ clean:
 
 run: lsqt_gpu
 	./lsqt_gpu examples/input.txt
+run_no_build:
+	./lsqt_gpu examples/input.txt

@@ -57,5 +57,7 @@ process: fpc.c
 
 run: process $(program)
 	./$(program) msg_sp.trace.out 1
+run_no_build:
+	./$(program) msg_sp.trace.out 1
 	./$(program) msg_sp.trace.out.mpc 
 	diff msg_sp.trace.out msg_sp.trace.out.mpc.org

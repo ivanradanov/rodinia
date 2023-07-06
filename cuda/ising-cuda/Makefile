@@ -55,3 +55,5 @@ clean:
 
 run: $(program)
 	./$(program) -x 5120 -y 5120 -w 10 -n 1000
+run_no_build:
+	./$(program) -x 5120 -y 5120 -w 10 -n 1000

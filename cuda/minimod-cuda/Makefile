@@ -55,3 +55,5 @@ clean:
 
 run: $(program)
 	./$(program) --warm-up --niters 1 --grid 100 --nsteps 1000
+run_no_build:
+	./$(program) --warm-up --niters 1 --grid 100 --nsteps 1000

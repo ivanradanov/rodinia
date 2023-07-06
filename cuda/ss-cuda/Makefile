@@ -54,3 +54,5 @@ clean:
 
 run: $(program)
 	./$(program) ../ss-sycl/StringSearch_Input.txt clEnqueueNDRangeKernel 20000
+run_no_build:
+	./$(program) ../ss-sycl/StringSearch_Input.txt clEnqueueNDRangeKernel 20000

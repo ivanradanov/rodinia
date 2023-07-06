@@ -65,3 +65,5 @@ clean:
 
 run: $(program)
 	./$(program) ../boxfilter-sycl/data/lenaRGB.ppm 10000
+run_no_build:
+	./$(program) ../boxfilter-sycl/data/lenaRGB.ppm 10000

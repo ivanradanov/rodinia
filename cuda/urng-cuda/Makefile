@@ -54,3 +54,5 @@ clean:
 
 run: $(program)
 	./$(program) ../urng-sycl/URNG_Input.bmp 16 16 1000
+run_no_build:
+	./$(program) ../urng-sycl/URNG_Input.bmp 16 16 1000

@@ -59,3 +59,8 @@ run: $(program)
 	./$(program) Dataset_1M.txt 300
 	./$(program) Dataset_1M.txt 600
 	./$(program) Dataset_1M.txt 900
+run_no_build:
+	./$(program) Dataset_1M.txt 100
+	./$(program) Dataset_1M.txt 300
+	./$(program) Dataset_1M.txt 600
+	./$(program) Dataset_1M.txt 900

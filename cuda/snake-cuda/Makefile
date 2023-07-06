@@ -54,3 +54,5 @@ clean:
 
 run: $(program)
 	./$(program) 100 ./Datasets/ERR240727_1_E2_30000Pairs.txt 30000 1000
+run_no_build:
+	./$(program) 100 ./Datasets/ERR240727_1_E2_30000Pairs.txt 30000 1000

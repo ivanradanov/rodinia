@@ -53,3 +53,5 @@ clean:
 
 run: $(program)
 	./$(program) data.csv 5000
+run_no_build:
+	./$(program) data.csv 5000

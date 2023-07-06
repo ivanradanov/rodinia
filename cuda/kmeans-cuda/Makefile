@@ -39,5 +39,7 @@ clean:
 
 run: kmeans
 	./kmeans -r -n 5 -m 15 -l 10 -o -i ../data/kmeans/kdd_cup
+run_no_build:
+	./kmeans -r -n 5 -m 15 -l 10 -o -i ../data/kmeans/kdd_cup
 
 

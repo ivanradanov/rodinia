@@ -54,3 +54,6 @@ clean:
 run: $(program)
 	./$(program) 128 128 128 100 1
 	./$(program) 512 512 512 100 0
+run_no_build:
+	./$(program) 128 128 128 100 1
+	./$(program) 512 512 512 100 0

@@ -61,4 +61,6 @@ clean:
 
 run: $(program)
 	./$(program) ../dxtc1-sycl/data/lena_std.ppm \
+run_no_build:
+	./$(program) ../dxtc1-sycl/data/lena_std.ppm \
                      ../dxtc1-sycl/data/lena_ref.dds 100

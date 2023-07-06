@@ -73,4 +73,6 @@ clean:
 
 run: $(program)
 	./$(program) --Verbose
+run_no_build:
+	./$(program) --Verbose
 	#./$(program) --SaveOutput

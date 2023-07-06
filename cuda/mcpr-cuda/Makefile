@@ -56,3 +56,5 @@ compress:
 
 run: $(program)
 	./$(program) alphas.csv 10
+run_no_build:
+	./$(program) alphas.csv 10

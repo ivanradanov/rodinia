@@ -54,3 +54,5 @@ clean:
 
 run: $(program)
 	./$(program) ../mis-cuda/internet.egr 100
+run_no_build:
+	./$(program) ../mis-cuda/internet.egr 100

@@ -53,3 +53,5 @@ clean:
 
 run: $(program)
 	./$(program) dataset/data.csv dataset/centroids.csv
+run_no_build:
+	./$(program) dataset/data.csv dataset/centroids.csv

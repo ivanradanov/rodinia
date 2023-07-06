@@ -61,3 +61,5 @@ clean:
 
 run: $(program)
 	./$(program) ../sptrsv-sycl/lp1.mtx 2000
+run_no_build:
+	./$(program) ../sptrsv-sycl/lp1.mtx 2000

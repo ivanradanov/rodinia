@@ -55,4 +55,6 @@ clean:
 
 run: $(program)
 	./$(program) ../data/bfs/graph1MW_6.txt
+run_no_build:
+	./$(program) ../data/bfs/graph1MW_6.txt
 

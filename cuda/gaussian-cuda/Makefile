@@ -59,3 +59,5 @@ clean:
 
 run: $(program)
 	./$(program) -q -t -s 4096
+run_no_build:
+	./$(program) -q -t -s 4096

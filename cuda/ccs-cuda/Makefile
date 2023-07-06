@@ -54,3 +54,6 @@ clean:
 run: $(program)
 	./$(program) -t 0.9 -i Data_Constant_100_1_bicluster.txt -o ./Output.txt -m 50 -p 1 -g 100.0 -r 100
 	diff -Bb Output.txt ccs_constant_100_1.out
+run_no_build:
+	./$(program) -t 0.9 -i Data_Constant_100_1_bicluster.txt -o ./Output.txt -m 50 -p 1 -g 100.0 -r 100
+	diff -Bb Output.txt ccs_constant_100_1.out

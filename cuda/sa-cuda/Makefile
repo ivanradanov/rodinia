@@ -53,3 +53,5 @@ clean:
 
 run: $(program)
 	./$(program) genome.txt 1000000 100 
+run_no_build:
+	./$(program) genome.txt 1000000 100 

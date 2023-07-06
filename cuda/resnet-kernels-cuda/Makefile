@@ -67,6 +67,8 @@ data_gen: data_generator.py
 
 run: $(program)
 	./$(program) 0 100
+run_no_build:
+	./$(program) 0 100
 	./$(program) 1 100
 	./$(program) 2 100
 	./$(program) 3 100

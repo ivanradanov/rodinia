@@ -53,4 +53,6 @@ clean:
 
 run: $(program)
 	./$(program) output.txt
+run_no_build:
+	./$(program) output.txt
 

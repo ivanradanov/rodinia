@@ -55,4 +55,6 @@ clean:
 
 run: $(program)
 	./$(program) IRMOF-1.cssr 1000
+run_no_build:
+	./$(program) IRMOF-1.cssr 1000
 

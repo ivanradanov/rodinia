@@ -56,3 +56,5 @@ clean:
 
 run: $(program)
 	./$(program) datasets/128x128x128/input/128x128x128.bin output_128
+run_no_build:
+	./$(program) datasets/128x128x128/input/128x128x128.bin output_128

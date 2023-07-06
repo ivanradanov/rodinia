@@ -57,3 +57,5 @@ clean:
 
 run: $(program)
 	./$(program) ../sobel-sycl/SobelFilter_Input.bmp 100000
+run_no_build:
+	./$(program) ../sobel-sycl/SobelFilter_Input.bmp 100000

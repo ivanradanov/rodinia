@@ -55,4 +55,6 @@ clean:
 
 run: $(program)
 	./$(program) --dimx=192 --dimy=184 --timesteps=90
+run_no_build:
+	./$(program) --dimx=192 --dimy=184 --timesteps=90
 

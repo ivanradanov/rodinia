@@ -53,3 +53,5 @@ clean:
 
 run: $(program)
 	./$(program) log2_parameters.config
+run_no_build:
+	./$(program) log2_parameters.config

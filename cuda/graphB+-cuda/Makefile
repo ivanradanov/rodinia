@@ -58,3 +58,5 @@ clean:
 
 run: $(program)
 	./$(program) graph.csv 10000 output
+run_no_build:
+	./$(program) graph.csv 10000 output

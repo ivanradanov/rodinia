@@ -54,5 +54,8 @@ clean:
 	rm -rf $(program) $(obj)
 
 run: $(program)
+	ulimit -s unlimited
+	./$(program) delaunay_n24.egr 100
+run_no_build:
 	ulimit -s unlimited	
 	./$(program) delaunay_n24.egr 100

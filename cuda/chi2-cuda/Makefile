@@ -55,3 +55,5 @@ clean:
 
 run: $(program)
 	./$(program) traindata 4000 400000 2000 2000 256 1000
+run_no_build:
+	./$(program) traindata 4000 400000 2000 2000 256 1000

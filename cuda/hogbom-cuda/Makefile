@@ -66,3 +66,5 @@ clean:
 
 run: $(program)
 	./$(program) data/dirty_4096.img data/psf_4096.img 1000
+run_no_build:
+	./$(program) data/dirty_4096.img data/psf_4096.img 1000

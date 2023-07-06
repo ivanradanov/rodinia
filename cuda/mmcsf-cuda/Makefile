@@ -63,3 +63,5 @@ test: toy.tns $(program)
   
 run: output.tns $(program)
 	./$(program) -i output.tns -m 0 -R 32 -f 128 -w 4
+run_no_build:
+	./$(program) -i output.tns -m 0 -R 32 -f 128 -w 4

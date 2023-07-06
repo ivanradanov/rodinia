@@ -54,3 +54,5 @@ clean:
 
 run: $(program)
 	./$(program) StoneRGB.ppm 1000
+run_no_build:
+	./$(program) StoneRGB.ppm 1000

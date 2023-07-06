@@ -57,3 +57,5 @@ data.txt: mkinit.py
 
 run: $(program) data.txt
 	./$(program) 4096 8192 1000 data.txt
+run_no_build:
+	./$(program) 4096 8192 1000 data.txt

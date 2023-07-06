@@ -61,3 +61,5 @@ clean:
 
 run: $(program)
 	cd dataset && ../$(program) mcmd.inp && cd ..
+run_no_build:
+	cd dataset && ../$(program) mcmd.inp && cd ..

@@ -55,3 +55,5 @@ clean:
 
 run: $(program)
 	./$(program) -itmax 100
+run_no_build:
+	./$(program) -itmax 100

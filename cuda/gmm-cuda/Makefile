@@ -55,3 +55,5 @@ clean:
 
 run: $(program)
 	./$(program) 500 data result
+run_no_build:
+	./$(program) 500 data result

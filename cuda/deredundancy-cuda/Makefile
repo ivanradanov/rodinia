@@ -58,4 +58,6 @@ clean:
 
 run: $(program)
 	./$(program) i ../deredundancy-sycl/testData.fasta
+run_no_build:
+	./$(program) i ../deredundancy-sycl/testData.fasta
 

@@ -28,3 +28,5 @@ clean:
 
 run: $(OBJ_DIR)/$(EXEC_NAME)
 	./$(OBJ_DIR)/$(EXEC_NAME) 10
+run_no_build:
+	./$(OBJ_DIR)/$(EXEC_NAME) 10

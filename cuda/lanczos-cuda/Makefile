@@ -56,4 +56,6 @@ clean:
 
 run: $(program)
 	./$(program) -g data/social-large-800k.txt -n 800000 -k 3 -d float
+run_no_build:
+	./$(program) -g data/social-large-800k.txt -n 800000 -k 3 -d float
 

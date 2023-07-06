@@ -68,3 +68,5 @@ test: $(program)
 
 run: $(program)
 	./$(program) ../prna-cuda/HIV1-NL43.seq  hiv1-nl43.out
+run_no_build:
+	./$(program) ../prna-cuda/HIV1-NL43.seq  hiv1-nl43.out

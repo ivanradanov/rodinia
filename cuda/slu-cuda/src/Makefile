@@ -84,3 +84,5 @@ test: $(program)
 
 run: $(program)
 	./$(program) -i $(SLU_PATH)/nicslu/demo/ASIC_100k.mtx
+run_no_build:
+	./$(program) -i $(SLU_PATH)/nicslu/demo/ASIC_100k.mtx

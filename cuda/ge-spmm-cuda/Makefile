@@ -53,4 +53,6 @@ clean:
 
 run: $(program)
 	./$(program) ~/oneAPI-DirectProgramming/ge-spmm-cuda/amazon0302/amazon0302.mtx 8 1000
+run_no_build:
+	./$(program) ~/oneAPI-DirectProgramming/ge-spmm-cuda/amazon0302/amazon0302.mtx 8 1000
 	#./$(program) data/snap/amazon0302/amazon0302.mtx 8 1000

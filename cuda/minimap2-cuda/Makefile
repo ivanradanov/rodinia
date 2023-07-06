@@ -88,3 +88,5 @@ $(BUILD_CUDA_PATH)/%.o: $(CUDA_PATH)/%.$(CUDA_EXT)
 
 run: dirs $(BIN_PATH)/$(BIN_NAME)
 	$(BIN_PATH)/$(BIN_NAME) ../minimap2-sycl/in-1k.txt kernel-out.txt
+run_no_build:
+	$(BIN_PATH)/$(BIN_NAME) ../minimap2-sycl/in-1k.txt kernel-out.txt

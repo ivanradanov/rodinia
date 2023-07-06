@@ -54,3 +54,5 @@ clean:
 
 run: $(program)
 	./$(program) detections.txt output.txt 1000
+run_no_build:
+	./$(program) detections.txt output.txt 1000

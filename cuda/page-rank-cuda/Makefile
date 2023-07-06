@@ -55,3 +55,5 @@ clean:
 
 run: $(program)
 	./$(program) -n 20000 -i 100
+run_no_build:
+	./$(program) -n 20000 -i 100

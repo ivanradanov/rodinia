@@ -59,3 +59,5 @@ clean:
 
 run: $(program)
 	./$(program) -s large -m event -r 10
+run_no_build:
+	./$(program) -s large -m event -r 10

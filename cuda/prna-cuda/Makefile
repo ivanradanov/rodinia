@@ -68,3 +68,5 @@ test: $(program)
 
 run: $(program)
 	./$(program) ./HIV1-NL43.seq
+run_no_build:
+	./$(program) ./HIV1-NL43.seq

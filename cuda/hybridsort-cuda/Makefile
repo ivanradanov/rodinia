@@ -48,6 +48,8 @@ mergesort.o: mergesort.cu mergesort.h kernel_mergeSortPass.h
 
 run: hybridsort
 	./hybridsort r
+run_no_build:
+	./hybridsort r
 
 clean:
 	rm -f *.o hybridsort

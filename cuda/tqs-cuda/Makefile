@@ -56,3 +56,5 @@ clean:
 
 run: $(program)
 	./$(program) -f input/patternsNP100NB512FB25.txt
+run_no_build:
+	./$(program) -f input/patternsNP100NB512FB25.txt

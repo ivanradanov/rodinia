@@ -61,4 +61,6 @@ clean:
 # run one- and three-dimensional kernels
 run: $(program)
 	./$(program) 1 8000 100
+run_no_build:
+	./$(program) 1 8000 100
 	./$(program) 3 8000 100

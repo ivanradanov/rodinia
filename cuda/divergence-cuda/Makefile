@@ -56,3 +56,5 @@ clean:
 
 run: $(program)
 	./$(program) input.txt 10000
+run_no_build:
+	./$(program) input.txt 10000

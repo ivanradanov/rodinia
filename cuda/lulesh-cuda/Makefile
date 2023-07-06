@@ -67,4 +67,6 @@ test: $(program)
 
 run: $(program)
 	./$(program) -i 100 -s 128 -r 11 -b 1 -c 1
+run_no_build:
+	./$(program) -i 100 -s 128 -r 11 -b 1 -c 1
 

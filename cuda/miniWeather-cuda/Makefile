@@ -61,3 +61,5 @@ clean:
 
 run: $(program)
 	mpiexec -n 1 ./$(program)
+run_no_build:
+	mpiexec -n 1 ./$(program)

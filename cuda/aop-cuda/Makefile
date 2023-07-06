@@ -56,4 +56,6 @@ test: $(program)
 
 run: $(program)
 	./$(program) -runs 100
+run_no_build:
+	./$(program) -runs 100
 

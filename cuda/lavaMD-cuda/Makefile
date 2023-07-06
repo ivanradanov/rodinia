@@ -65,3 +65,5 @@ clean:
 
 run: $(program)
 	./$(program) -boxes1d 30
+run_no_build:
+	./$(program) -boxes1d 30

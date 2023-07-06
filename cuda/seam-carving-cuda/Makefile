@@ -53,4 +53,6 @@ clean:
 
 run: $(program)
 	./$(program) Broadway_tower.jpg 100 -u 
+run_no_build:
+	./$(program) Broadway_tower.jpg 100 -u 
 	#./$(program) Broadway_tower.jpg 100 -a

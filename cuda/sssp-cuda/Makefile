@@ -54,3 +54,5 @@ clean:
 
 run: $(program)
 	./$(program) -g 120 -t 1 -w 10 -r 100
+run_no_build:
+	./$(program) -g 120 -t 1 -w 10 -r 100

@@ -53,3 +53,5 @@ clean:
 
 run: $(program)
 	./runtests.sh
+run_no_build:
+	./runtests.sh

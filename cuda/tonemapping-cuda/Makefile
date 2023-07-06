@@ -54,3 +54,5 @@ clean:
 
 run: $(program)
 	./$(program) ../tonemapping-sycl/input.hdr 10000
+run_no_build:
+	./$(program) ../tonemapping-sycl/input.hdr 10000

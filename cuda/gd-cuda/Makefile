@@ -55,3 +55,5 @@ clean:
 
 run: $(program)
 	./$(program) gisette_scale 0.0001 10 100  
+run_no_build:
+	./$(program) gisette_scale 0.0001 10 100  

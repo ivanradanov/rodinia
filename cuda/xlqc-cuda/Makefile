@@ -68,4 +68,6 @@ clean:
 
 run: $(program)
 	./$(program) sp
+run_no_build:
+	./$(program) sp
 	./$(program) dp

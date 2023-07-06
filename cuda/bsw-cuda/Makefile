@@ -55,6 +55,8 @@ clean:
 
 run: $(program)
 	./$(program) \
+run_no_build:
+	./$(program) \
                 ./test-data/protein-reference.fasta \
                 ./test-data/protein-query.fasta test_regression_protein_out 
 	diff test_regression_protein_out ./test-data/result_aa

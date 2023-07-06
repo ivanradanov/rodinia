@@ -76,3 +76,5 @@ clean:
 # The dataset are available at https://github.com/Funatiq/cuBool 
 run: $(program)
 	./$(program) data/MNIST.in -r 8 -l 112 -i 10000 --seed 123 --stuck 10000
+run_no_build:
+	./$(program) data/MNIST.in -r 8 -l 112 -i 10000 --seed 123 --stuck 10000

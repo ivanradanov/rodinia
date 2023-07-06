@@ -57,3 +57,5 @@ clean:
 
 run: $(program)
 	./$(program) filelist.txt -r 5 -lat 30 -lng 90 -i 10000 -t
+run_no_build:
+	./$(program) filelist.txt -r 5 -lat 30 -lng 90 -i 10000 -t

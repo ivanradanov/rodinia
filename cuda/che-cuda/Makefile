@@ -55,5 +55,7 @@ clean:
 
 run: $(program)
 	rm -rf out;
+run_no_build:
+	rm -rf out;
 	mkdir out
 	./$(program) 1000

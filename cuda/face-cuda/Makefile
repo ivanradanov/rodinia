@@ -71,4 +71,6 @@ clean:
 
 run: build
 	./vj-cpu Face.pgm info.txt class.txt Output-cpu.pgm
+run_no_build:
+	./vj-cpu Face.pgm info.txt class.txt Output-cpu.pgm
 	./vj-gpu Face.pgm info.txt class.txt Output-gpu.pgm

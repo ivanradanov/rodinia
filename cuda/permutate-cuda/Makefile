@@ -65,3 +65,5 @@ clean:
 
 run: $(program)
 	./$(program) test_data/truerand_1bit.bin
+run_no_build:
+	./$(program) test_data/truerand_1bit.bin

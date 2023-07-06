@@ -65,6 +65,8 @@ $(MATRIX_DIR)/meschach.a:
 
 run: leukocyte
 	./leukocyte ../data/leukocyte/testfile.avi 100
+run_no_build:
+	./leukocyte ../data/leukocyte/testfile.avi 100
 
 clean:
 	rm -f *.o *~ leukocyte 

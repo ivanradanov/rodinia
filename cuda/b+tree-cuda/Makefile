@@ -92,6 +92,8 @@ main.o:	./common.h \
 
 run: b+tree.out
 	        ./b+tree.out file ../data/b+tree/mil.txt command ../data/b+tree/command.txt
+run_no_build:
+	        ./b+tree.out file ../data/b+tree/mil.txt command ../data/b+tree/command.txt
 
 clean:
 	rm	-rf *.o *.out \

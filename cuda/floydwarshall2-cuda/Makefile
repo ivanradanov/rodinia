@@ -55,4 +55,6 @@ clean:
 
 run: $(program)
 	./$(program) CollegeMsg.egr 1000
+run_no_build:
+	./$(program) CollegeMsg.egr 1000
 	#./$(program) soc-sign-bitcoin-alpha.egr 1000

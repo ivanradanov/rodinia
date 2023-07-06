@@ -55,3 +55,5 @@ clean:
 
 run: $(program)
 	./$(program) --nsteps 100
+run_no_build:
+	./$(program) --nsteps 100

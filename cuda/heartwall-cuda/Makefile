@@ -97,6 +97,8 @@ heartwall:	./main.o \
 
 run: heartwall
 	./heartwall 104
+run_no_build:
+	./heartwall 104
 
 clean:
 	rm	-rf *.o heartwall \

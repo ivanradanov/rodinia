@@ -59,4 +59,6 @@ clean:
 
 run: $(program)
 	./$(program) ../data/cfd/fvcorr.domn.097K
+run_no_build:
+	./$(program) ../data/cfd/fvcorr.domn.097K
 

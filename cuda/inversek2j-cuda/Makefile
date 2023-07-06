@@ -55,3 +55,5 @@ clean:
 
 run: $(program)
 	./$(program) ../inversek2j-sycl/coord_in.txt 100000
+run_no_build:
+	./$(program) ../inversek2j-sycl/coord_in.txt 100000

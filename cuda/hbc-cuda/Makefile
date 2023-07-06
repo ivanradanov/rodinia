@@ -65,3 +65,5 @@ clean:
 
 run: $(program)
 	./$(program) -i ./graphs/breast_coexpress.txt -v --printscores=output.txt
+run_no_build:
+	./$(program) -i ./graphs/breast_coexpress.txt -v --printscores=output.txt

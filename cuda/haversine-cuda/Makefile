@@ -56,3 +56,5 @@ clean:
 
 run: $(program)
 	./$(program) ../geodesic-cuda/locations.txt 100
+run_no_build:
+	./$(program) ../geodesic-cuda/locations.txt 100

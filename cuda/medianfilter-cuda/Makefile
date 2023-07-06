@@ -60,3 +60,5 @@ clean:
 
 run: $(program)
 	./$(program) ../medianfilter-sycl/data/SierrasRGB.ppm 1000
+run_no_build:
+	./$(program) ../medianfilter-sycl/data/SierrasRGB.ppm 1000

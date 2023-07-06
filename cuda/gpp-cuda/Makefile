@@ -53,3 +53,5 @@ clean:
 
 run: $(program)
 	./$(program) benchmark
+run_no_build:
+	./$(program) benchmark

@@ -54,3 +54,5 @@ clean:
 
 run: $(program)
 	./$(program) d493.tsp 24 100
+run_no_build:
+	./$(program) d493.tsp 24 100

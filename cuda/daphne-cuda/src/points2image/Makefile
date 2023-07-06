@@ -66,3 +66,5 @@ clean:
 # TODO: when p > 1, results mismatch
 run: $(program)
 	./$(program) -p 1
+run_no_build:
+	./$(program) -p 1

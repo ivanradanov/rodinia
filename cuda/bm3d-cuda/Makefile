@@ -55,3 +55,5 @@ clean:
 
 run: $(program)
 	./$(program) noised-bufferfly-20.png denoised.png 20 color bufferfly.png
+run_no_build:
+	./$(program) noised-bufferfly-20.png denoised.png 20 color bufferfly.png

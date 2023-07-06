@@ -58,3 +58,5 @@ test: $(program)
 
 run: $(program)
 	./$(program) 1000000 2
+run_no_build:
+	./$(program) 1000000 2

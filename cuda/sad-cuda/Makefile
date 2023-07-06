@@ -54,3 +54,5 @@ clean:
 
 run: $(program)
 	./$(program) coins.bmp coin.bmp 100
+run_no_build:
+	./$(program) coins.bmp coin.bmp 100

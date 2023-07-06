@@ -73,4 +73,8 @@ clean:
 run: $(program)
 	./$(program) -num_systems=524288
 	./$(program) --lmem -num_systems=524288
+	./$(program) --vec4 -num_systems=524288
+run_no_build:
+	./$(program) -num_systems=524288
+	./$(program) --lmem -num_systems=524288
 	./$(program) --vec4 -num_systems=524288 

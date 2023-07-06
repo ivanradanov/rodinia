@@ -33,6 +33,8 @@ $(EXE):$(SRC) kernel.h streamcluster.h  streamcluster_cl.h
 
 run: $(EXE)
 	./$(EXE) 10 20 256 65536 65536 1000 none output.txt 1 
+run_no_build:
+	./$(EXE) 10 20 256 65536 65536 1000 none output.txt 1 
 
 clean: 
 	rm -f $(EXE) output.txt result*

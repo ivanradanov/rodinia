@@ -55,4 +55,6 @@ clean:
 
 run: $(program)
 	./$(program) 25 2
+run_no_build:
+	./$(program) 25 2
 

@@ -69,3 +69,5 @@ clean:
 
 run: $(program)
 	./$(program) --passes 100 -v
+run_no_build:
+	./$(program) --passes 100 -v

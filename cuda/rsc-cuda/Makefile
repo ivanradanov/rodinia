@@ -63,3 +63,5 @@ clean:
 
 run: $(program)
 	./$(program) -f input/vectors.csv -g 512
+run_no_build:
+	./$(program) -f input/vectors.csv -g 512

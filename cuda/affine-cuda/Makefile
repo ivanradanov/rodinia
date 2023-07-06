@@ -55,3 +55,5 @@ clean:
 
 run: $(program)
 	./$(program) data/CT-MONO2-16-brain.raw result.raw 1000000
+run_no_build:
+	./$(program) data/CT-MONO2-16-brain.raw result.raw 1000000
