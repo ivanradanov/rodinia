@@ -29,7 +29,6 @@ cbsfil-cuda
 ccsd-trpdrv-cuda
 channelShuffle-cuda
 channelSum-cuda
-chi2-cuda
 clenergy-cuda
 clink-cuda
 cmembench-cuda
@@ -287,6 +286,8 @@ convolution1D-cuda
 crc64-cuda
 cross-cuda
 
+# Affine map error
+chi2-cuda
 
 
 # Take too long
