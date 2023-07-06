@@ -992,6 +992,89 @@ __global__ void kernel(){
 
 		__syncthreads();
 
+		//====================================================================================================
+		//	FINAL SUMMATION
+		//====================================================================================================
+
+		if(tx == 0){
+
+			in_final_sum = 0;
+			for(i = 0; i<d_common.in_cols; i++){
+				in_final_sum = in_final_sum + in_partial_sum[i];
+			}
+
+		}else if(tx == 1){
+
+			in_sqr_final_sum = 0;
+			for(i = 0; i<d_common.in_sqr_cols; i++){
+				in_sqr_final_sum = in_sqr_final_sum + in_sqr_partial_sum[i];
+			}
+
+		}
+
+		//====================================================================================================
+		//	SYNCHRONIZE THREADS
+		//====================================================================================================
+
+		__syncthreads();
+
+		//====================================================================================================
+		//	DENOMINATOR T
+		//====================================================================================================
+
+		if(tx == 0){
+
+			mean = in_final_sum / d_common.in_elem;													// gets mean (average) value of element in ROI
+			mean_sqr = mean * mean;
+			variance  = (in_sqr_final_sum / d_common.in_elem) - mean_sqr;							// gets variance of ROI
+			deviation = sqrt(variance);																// gets standard deviation of ROI
+
+			denomT = sqrt(float(d_common.in_elem-1))*deviation;
+
+		}
+
+		//====================================================================================================
+		//	SYNCHRONIZE THREADS
+		//====================================================================================================
+
+		__syncthreads();
+
+		//====================================================================================================
+		//	DENOMINATOR		SAVE RESULT IN CUMULATIVE SUM A2
+		//====================================================================================================
+
+		// work
+		ei_new = tx;
+		while(ei_new < d_common.in2_sub2_elem){
+
+			d_unique[bx].d_in2_sqr_sub2[ei_new] = d_unique[bx].d_in2_sqr_sub2[ei_new] * denomT;
+
+			// go for second round
+			ei_new = ei_new + NUMBER_THREADS;
+
+		}
+
+		//====================================================================================================
+		//	SYNCHRONIZE THREADS
+		//====================================================================================================
+
+		__syncthreads();
+
+		//====================================================================================================
+		//	NUMERATOR	SAVE RESULT IN CONVOLUTION
+		//====================================================================================================
+
+		// work
+		ei_new = tx;
+		while(ei_new < d_common.conv_elem){
+
+			d_unique[bx].d_conv[ei_new] = d_unique[bx].d_conv[ei_new] - d_unique[bx].d_in2_sub2[ei_new] * in_final_sum / d_common.in_elem;
+
+			// go for second round
+			ei_new = ei_new + NUMBER_THREADS;
+
+		}
+
 
 	}
 
