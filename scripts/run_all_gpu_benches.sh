@@ -131,7 +131,7 @@ for target in $TARGETS; do
 
   if [ "$PGO_PROF" == "1" ]; then
     for i in $PGO_PROF_CONFIGS; do
-      PGO_DIR="$PGO_RESULT_DIR/$TARGET/$i/"
+      PGO_DIR="$PGO_RESULT_DIR/$target/$i/"
       mkdir -p "$PGO_DIR"
       echo Compiling polygeist configuration $i for profiling...
       make cuda_clean &> /dev/null
@@ -149,7 +149,7 @@ for target in $TARGETS; do
 
   if [ "$PGO_OPT" == "1" ]; then
     for i in $PGO_OPT_CONFIGS; do
-      PGO_DIR="$PGO_RESULT_DIR/$TARGET/$i/"
+      PGO_DIR="$PGO_RESULT_DIR/$target/$i/"
       echo Compiling polygeist configuration $i pgo...
       make cuda_clean &> /dev/null
       POLYGEIST_PGO_DATA_DIR="$PGO_DIR" \
