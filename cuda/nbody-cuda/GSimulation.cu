@@ -113,6 +113,7 @@ void GSimulation::Start() {
   dim3 threads(256);
 
   TimeInterval t0;
+  MY_START_CLOCK(cuda nbody-cuda GSimulation.hpp,1);
   int nsteps = get_nsteps();
   // Looping across integration steps
   for (int s = 1; s <= nsteps; ++s) {
@@ -146,6 +147,7 @@ void GSimulation::Start() {
       }
     }
   }  // end of the time step loop
+  MY_STOP_CLOCK(cuda nbody-cuda GSimulation.hpp,1);
   total_time_ = t0.Elapsed();
   total_flops_ = gflops * get_nsteps();
   av /= (double)(nf - 2);

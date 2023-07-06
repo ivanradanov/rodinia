@@ -224,9 +224,9 @@ int main(int argc, char *argv[]) {
   size_t num_blocks = (n+block_size-1) / block_size;
 
   double ktime = 0.0;
- 
+  MY_START_CLOCK(cuda page-rank-cuda main.cu,0);
   for (t=1; t<=iter && max_diff>=thresh; ++t) {
-    auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda page-rank-cuda main.cu,0);
+    auto start=std::chrono::high_resolution_clock::now();
 
     map <<< dim3(num_blocks), dim3(block_size) >>> (
       d_pages, d_page_ranks, d_maps, d_noutlinks, n);
@@ -236,12 +236,13 @@ int main(int argc, char *argv[]) {
     
     cudaDeviceSynchronize();
     auto end = std::chrono::high_resolution_clock::now();
-    ktime += std::chrono::duration_cast<std::chrono::duration<double>>(end - start).count();
+    ktime += std::chrono:: duration_cast<std::chrono:: duration<double>>(end - start).count();
 
     cudaMemcpy(diffs, d_diffs, sizeof(float)*n, cudaMemcpyDeviceToHost);
     cudaMemset(d_diffs, 0, sizeof(float)*n);
     max_diff = maximum_dif(diffs, n);
   }
+  MY_STOP_CLOCK(cuda page-rank-cuda main.cu,0);
   //cudaMemcpy(maps, d_maps, sizeof(float)*n*n, cudaMemcpyDeviceToHost);
   //cudaMemcpy(page_ranks, d_page_ranks, sizeof(float)*n, cudaMemcpyDeviceToHost);
 

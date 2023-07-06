@@ -699,7 +699,7 @@ int main(int argc, char* argv[])
     check(cudaDeviceSynchronize());
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda hungarian-cuda main.cu,0);
     total_time += time;
     printf("Total kernel execution time of the Hungarian algorithm %f (s)\n", time * 1e-9f);
            

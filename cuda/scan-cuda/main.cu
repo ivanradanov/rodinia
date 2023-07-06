@@ -164,7 +164,7 @@ void runTest (const size_t n, const int repeat, bool timing = false)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda scan-cuda main.cu,0);
   if (timing) {
     printf("Element size in bytes is %zu. Average execution time of scan (w/  bank conflicts): %f (us)\n",
            sizeof(T), (time * 1e-3f) / repeat);
@@ -181,7 +181,7 @@ void runTest (const size_t n, const int repeat, bool timing = false)
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  auto bcao_time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto bcao_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda scan-cuda main.cu,1);
   if (timing) {
     printf("Element size in bytes is %zu. Average execution time of scan (w/o bank conflicts): %f (us). ",
            sizeof(T), (bcao_time * 1e-3f) / repeat);

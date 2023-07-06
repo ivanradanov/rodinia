@@ -110,7 +110,7 @@ void GPU_force(System &system) {
                 H); 
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda mcmd-cuda kernels.cpp,0);
   printf("Device offload time: %f (s)\n", time * 1e-9f);
 
   index=0;

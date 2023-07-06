@@ -79,7 +79,7 @@ int main(int argc, char* argv[])
 
     cudaDeviceSynchronize() ;
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda wsm5-cuda main.cu,0);
 
     FROMDEV2(rain) ;
     FROMDEV2(snow) ;

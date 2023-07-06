@@ -69,6 +69,7 @@ int main(int argc, char *argv[])
 #endif
 
 
+  MY_START_CLOCK(cuda amgmk-cuda main.c,0);
 #ifdef _OPENMP
   t0 = omp_get_wtime();
 #else
@@ -124,7 +125,7 @@ int main(int argc, char *argv[])
   del_wtime = t1 - t0;
 #else
   auto t1 = std::chrono::steady_clock::now();
-  std::chrono::duration<double> diff = t1 - t0;
+  std::chrono:: duration<double> diff = t1 - t0;MY_STOP_CLOCK(cuda amgmk-cuda main.c,0);
   del_wtime = diff.count();
 #endif
 
@@ -167,6 +168,7 @@ void test_Matvec()
   t0 = omp_get_wtime();
 #else
   auto t0 = std::chrono::steady_clock::now();
+  MY_START_CLOCK(cuda amgmk-cuda main.c,1);
 #endif
 
   for (i=0; i<testIter; ++i)
@@ -177,7 +179,7 @@ void test_Matvec()
   totalWallTime += t1 - t0;
 #else
   auto t1 = std::chrono::steady_clock::now();
-  std::chrono::duration<double> tdiff = t1 - t0;
+  std::chrono:: duration<double> tdiff = t1 - t0;MY_STOP_CLOCK(cuda amgmk-cuda main.c,1);
   totalWallTime += tdiff.count();
 #endif
 
@@ -255,7 +257,7 @@ void test_Relax()
 #ifdef _OPENMP
   t0 = omp_get_wtime();
 #else
-  auto t0 = std::chrono::steady_clock::now();
+  auto t0 = std::chrono::steady_clock::now();MY_START_CLOCK(cuda amgmk-cuda main.c,2);
 #endif
 
   double         *A_diag_data  = hypre_CSRMatrixData(A);
@@ -310,7 +312,7 @@ void test_Relax()
   totalWallTime += t1 - t0;
 #else
   auto t1 = std::chrono::steady_clock::now();
-  std::chrono::duration<double> tdiff = t1 - t0;
+  std::chrono:: duration<double> tdiff = t1 - t0;MY_STOP_CLOCK(cuda amgmk-cuda main.c,2);
   totalWallTime += tdiff.count();
 #endif
 
@@ -361,6 +363,7 @@ void test_Axpy()
   t0 = omp_get_wtime();
 #else
   auto t0 = std::chrono::steady_clock::now();
+  MY_START_CLOCK(cuda amgmk-cuda main.c,3);
 #endif
 
   for (i=0; i<testIter; ++i)
@@ -385,7 +388,7 @@ void test_Axpy()
 #ifdef _OPENMP
   totalWallTime += t1 - t0; 
 #else
-  std::chrono::duration<double> tdiff = t1 - t0;
+  std::chrono:: duration<double> tdiff = t1 - t0;MY_STOP_CLOCK(cuda amgmk-cuda main.c,3);
   totalWallTime += tdiff.count();
 #endif
 

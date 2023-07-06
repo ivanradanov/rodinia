@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
   const size_t s = kurtosis(d_elem, elemCount, repeat, (void**)&result);
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda kurtosis-cuda main.cu,0);
   std::cout << "Total device compute time: " << time * 1e-9 << " (s)\n";
   
   cudaFree(d_elem);

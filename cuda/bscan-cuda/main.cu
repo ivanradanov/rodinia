@@ -140,7 +140,7 @@ void bscan (const int repeat)
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda bscan-cuda main.cu,0);
 
     // verify exclusive sum
     cudaMemcpy(h_out, d_out, N*sizeof(int), cudaMemcpyDeviceToHost);

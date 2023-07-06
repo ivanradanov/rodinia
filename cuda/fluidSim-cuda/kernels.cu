@@ -269,7 +269,7 @@ void fluidSim (
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda fluidSim-cuda kernels.cu,0);
   printf("Average kernel execution time %f (s)\n", (time * 1e-9f) / iterations);
 
   cudaMemcpy(h_of0, d_if0, dbl_size, cudaMemcpyDeviceToHost);

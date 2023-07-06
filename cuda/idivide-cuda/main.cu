@@ -73,24 +73,26 @@ int main(int argc, char* argv[])
 
   std::cout << "Benchmarking plain division by constant... ";
   auto start = NOW;
+  MY_START_CLOCK(cuda idivide-cuda main.cu,0);
 
   for (int i = 0; i < repeat; i++)
     throughput_test<int><<<grids, blocks>>>(3, 5, 7, 0, 0);
   cudaDeviceSynchronize();
 
   auto end = NOW;
-  std::chrono::duration<double> elapsed_time_slow = end-start;
+  std::chrono:: duration<double> elapsed_time_slow = end-start;MY_STOP_CLOCK(cuda idivide-cuda main.cu,0);
   std::cout << elapsed_time_slow.count() << " seconds" << std::endl;
 
   std::cout << "Benchmarking fast division by constant... ";
   start = NOW;
+  MY_START_CLOCK(cuda idivide-cuda main.cu,1);
 
   for (int i = 0; i < repeat; i++)
     throughput_test<int_fastdiv><<<grids, blocks>>>(3, 5, 7, 0, 0);
   cudaDeviceSynchronize();
 
   end = NOW;
-  std::chrono::duration<double> elapsed_time_fast = end-start;
+  std::chrono:: duration<double> elapsed_time_fast = end-start;MY_STOP_CLOCK(cuda idivide-cuda main.cu,1);
   std::cout << elapsed_time_fast.count() << " seconds" << std::endl;
 
   std::cout << "Speedup = " << elapsed_time_slow.count() / elapsed_time_fast.count() << std::endl;

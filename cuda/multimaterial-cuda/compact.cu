@@ -385,7 +385,7 @@ __global__ void ccc_loop3(
         ccc_loop1_2 <<< dim3((mmc_cells-1)/(thx*thy)+1), dim3((thx*thy)) >>> (d_rho_compact_list, d_Vf_compact_list, d_V, d_rho_ave_compact, d_mmc_index, mmc_cells, d_mmc_i, d_mmc_j, sizex, sizey);
 #endif
         cudaDeviceSynchronize();
-        std::chrono::duration<double> t1 = std::chrono::system_clock::now() - t0;
+        std::chrono:: duration<double> t1 = std::chrono::system_clock::now() - t0;MY_STOP_CLOCK(cuda multimaterial-cuda compact.cu,0);
         printf("Compact matrix, cell centric, alg 1: %g msec\n", t1.count() * 1000);
 
         // Computational loop 2 - Pressure for each cell and each material
@@ -395,14 +395,14 @@ __global__ void ccc_loop3(
         ccc_loop2_2 <<< dim3((mm_len-1)/(thx*thy)+1), dim3((thx*thy)) >>> (d_matids, d_rho_compact_list, d_t_compact_list, d_Vf_compact_list, d_n, d_p_compact_list, d_mmc_index, mm_len);
 #endif
         cudaDeviceSynchronize();
-        std::chrono::duration<double> t2 = std::chrono::system_clock::now() - t0;
+        std::chrono:: duration<double> t2 = std::chrono::system_clock::now() - t0;MY_STOP_CLOCK(cuda multimaterial-cuda compact.cu,1);
         printf("Compact matrix, cell centric, alg 2: %g msec\n", t2.count() * 1000);
 
         // Computational loop 3 - Average density of each material over neighborhood of each cell
         t0 = std::chrono::system_clock::now();
         ccc_loop3 <<< dim3(blocks), dim3(threads) >>> (d_imaterial,d_nextfrac, d_matids, d_rho_compact, d_rho_compact_list, d_rho_mat_ave_compact, d_rho_mat_ave_compact_list, d_x, d_y, sizex, sizey, d_mmc_index);  
         cudaDeviceSynchronize();
-        std::chrono::duration<double> t3 = std::chrono::system_clock::now() - t0;
+        std::chrono:: duration<double> t3 = std::chrono::system_clock::now() - t0;MY_STOP_CLOCK(cuda multimaterial-cuda compact.cu,2);
         printf("Compact matrix, cell centric, alg 3: %g msec\n", t3.count() * 1000);
 
         cp_to_host((char*)ccc.x, (char*)d_x, sizex*sizey*sizeof(double));

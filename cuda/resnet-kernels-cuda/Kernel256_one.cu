@@ -93,7 +93,7 @@ void kernel_256_1_in(double &time, double &ktime) {
   int nInput = 14*14*1024, nOutput = 14*14*256, nWeights = 256*1024;
   float result[nOutput];
 
-  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda resnet-kernels-cuda Kernel256_one.cu,0);
+  auto start=std::chrono::steady_clock::now();
 
   cudaMalloc((void **) &input_, nInput<<2);
   cudaMalloc((void **) &output_, nOutput<<2);
@@ -114,12 +114,12 @@ void kernel_256_1_in(double &time, double &ktime) {
 
   cudaDeviceSynchronize();
   auto kend = std::chrono::steady_clock::now();
-  ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+  ktime = std::chrono:: duration_cast<std::chrono::nanoseconds>(kend - kstart).count();MY_STOP_CLOCK(cuda resnet-kernels-cuda Kernel256_one.cu,1);
 
   cudaMemcpy(result, output_, nOutput<<2, cudaMemcpyDeviceToHost);
 
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
 
   cudaFree(input_);
   cudaFree(output_);
@@ -152,7 +152,7 @@ void kernel_256_1_out(double &time, double &ktime) {
   int nInput = 14*14*256, nOutput = 14*14*1024, nWeights = 256*1024;
   float result[nOutput];
 
-  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda resnet-kernels-cuda Kernel256_one.cu,2);
+  auto start=std::chrono::steady_clock::now();
 
   cudaMalloc((void **) &input_, nInput<<2);
   cudaMalloc((void **) &output_, nOutput<<2);
@@ -173,7 +173,7 @@ void kernel_256_1_out(double &time, double &ktime) {
 
   cudaDeviceSynchronize();
   auto kend = std::chrono::steady_clock::now();
-  ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+  ktime = std::chrono:: duration_cast<std::chrono::nanoseconds>(kend - kstart).count();MY_STOP_CLOCK(cuda resnet-kernels-cuda Kernel256_one.cu,3);
 
   cudaMemcpy(result, output_, nOutput<<2, cudaMemcpyDeviceToHost);
 
@@ -184,7 +184,7 @@ void kernel_256_1_out(double &time, double &ktime) {
   cudaFree(bnBias_);
 
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
 
   #ifdef DEBUG
   double s = 0;

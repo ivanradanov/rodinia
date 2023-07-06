@@ -206,5 +206,5 @@ void kernel_dataset(float* X,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda sampling-cuda kernels.cu,0);
 }

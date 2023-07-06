@@ -70,7 +70,7 @@ bool ChannelShuffleNCHW (T *X, int N, int C, int G, int numel, T *Y,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda channelShuffle-cuda main.cu,0);
 
   return true;
 }
@@ -103,7 +103,7 @@ bool ChannelShuffleNHWC (T *X, int N, int C, int G, int numel, T *Y,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda channelShuffle-cuda main.cu,1);
 
   return true;
 }

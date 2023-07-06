@@ -198,7 +198,7 @@ void motion_device(float* particleX, float* particleY,
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda particle-diffusion-cuda motionsim.cu,0);
     time_total += time;
   }
 
@@ -287,7 +287,7 @@ int main(int argc, char* argv[]) {
                 n_particles, nIterations, radius, map, nRepeat);
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda particle-diffusion-cuda motionsim.cu,1);
   std::cout << std::endl;
   std::cout << "Simulation time: " << time * 1e-9 << " (s) ";
   std::cout << std::endl;

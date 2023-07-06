@@ -84,7 +84,7 @@ double su3_mat_nn(thrust::host_vector<site> &a, thrust::host_vector<su3_matrix> 
     k_mat_nn<<<blocksPerGrid, threadsPerBlock>>>(d_a, d_b, d_c, total_sites);
   }
   cudaDeviceSynchronize();
-  double ttotal = std::chrono::duration_cast<std::chrono::microseconds>(Clock::now()-tstart).count();
+  double ttotal = std::chrono:: duration_cast<std::chrono::microseconds>(Clock::now()-tstart).count();MY_STOP_CLOCK(cuda su3-cuda mat_nn_cuda.hpp,0);
   CUCHECK(cudaGetLastError(), "k_mat_nn kernel Failed");
 
   // copy data back from device

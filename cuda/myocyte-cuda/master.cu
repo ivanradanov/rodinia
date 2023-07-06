@@ -71,7 +71,7 @@ double master(fp timeinst,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda myocyte-cuda master.cu,0);
 
   cudaMemcpy(finavalu, d_finavalu, d_finavalu_mem, cudaMemcpyDeviceToHost);
   cudaMemcpy(com, d_com, d_com_mem, cudaMemcpyDeviceToHost);

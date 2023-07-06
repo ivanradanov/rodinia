@@ -31,7 +31,7 @@ struct HostTimer {
         double sum = 0.0;
         for(auto& interval : intervals) {
             if (interval->name == name) {
-                sum += (std::chrono::duration_cast<std::chrono::microseconds>
+                sum += (std::chrono:: duration_cast<std::chrono::microseconds>MY_STOP_CLOCK(cuda si-cuda include host_timer.hpp,0);
                                (interval->end - interval->begin).count() / 1000.0);
             }
         }
@@ -40,7 +40,7 @@ struct HostTimer {
     double total() const {
         double total = 0.0;
         for(auto& interval : intervals) {
-            total += (std::chrono::duration_cast<std::chrono::microseconds>
+            total += (std::chrono:: duration_cast<std::chrono::microseconds>MY_STOP_CLOCK(cuda si-cuda include host_timer.hpp,1);
                              (interval->end - interval->begin).count() / 1000.0);
         }
         return total;

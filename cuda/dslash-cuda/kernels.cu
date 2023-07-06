@@ -132,7 +132,7 @@ double dslash_fn(
 
   // allocate offsets for device gathers and copy to shared buffers
 
-  double copy_time = std::chrono::duration_cast<std::chrono::microseconds>(Clock::now()-copy_start).count();
+  double copy_time = std::chrono:: duration_cast<std::chrono::microseconds>(Clock::now()-copy_start).count();
   if (verbose > 1) {
     std::cout << "Time to offload input data = " << copy_time/1.0e6 << " secs\n";
     std::cout << std::flush;
@@ -146,11 +146,12 @@ double dslash_fn(
     std::cout << "Setting workgroup size to " << 1 << std::endl;
   }
   auto back_start = Clock::now();
+  MY_START_CLOCK(cuda dslash-cuda kernels.cu,1);
 
   make_back<<<total_wi, 1>>>(d_fat, d_lng, d_bck, d_bck3, d_fatbck, d_lngbck, total_even_sites);
 
   cudaDeviceSynchronize();
-  double back_time = std::chrono::duration_cast<std::chrono::microseconds>(Clock::now()-back_start).count();
+  double back_time = std::chrono:: duration_cast<std::chrono::microseconds>(Clock::now()-back_start).count();MY_STOP_CLOCK(cuda dslash-cuda kernels.cu,1);
   if (verbose > 1) {
     std::cout << "Time to create back links = " << back_time/1.0e6 << " secs\n";
     std::cout << std::flush;
@@ -164,6 +165,7 @@ double dslash_fn(
     std::cout << "Setting workgroup size to " << wgsize << std::endl;
   }
   auto tstart = Clock::now();
+  MY_START_CLOCK(cuda dslash-cuda kernels.cu,2);
   for (size_t iters=0; iters<iterations+warmups; ++iters) {
     if (iters == warmups) {
       cudaDeviceSynchronize();
@@ -177,7 +179,7 @@ double dslash_fn(
 
     cudaDeviceSynchronize();
   } // end of iteration loop
-  double ttotal = std::chrono::duration_cast<std::chrono::microseconds>(
+  double ttotal = std::chrono:: duration_cast<std::chrono::microseconds>(MY_STOP_CLOCK(cuda dslash-cuda kernels.cu,2);
       Clock::now()-tstart).count();
 
   // Move the result back to the host
@@ -187,7 +189,7 @@ double dslash_fn(
   cudaMemcpy(fatbck.data(), d_fatbck, total_sites * 4 * sizeof(su3_matrix), cudaMemcpyDeviceToHost);
   cudaMemcpy(lngbck.data(), d_lngbck, total_sites * 4 * sizeof(su3_matrix), cudaMemcpyDeviceToHost);
 
-  copy_time = std::chrono::duration_cast<std::chrono::microseconds>(Clock::now()-copy_start).count();
+  copy_time = std::chrono:: duration_cast<std::chrono::microseconds>(Clock::now()-copy_start).count();
   if (verbose > 1) {
     std::cout << "Time to offload backward links = " << copy_time/1.0e6 << " secs\n";
     std::cout << std::flush;

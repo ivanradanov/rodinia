@@ -99,7 +99,7 @@ int main(int argc, char** argv) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda bn-cuda main.cu,0);
   printf("Average execution time of genScoreKernel: %f (s)\n", time * 1e-9f / repeat);
 
   cudaMemcpy(localscore, D_localscore, NODE_N * sizepernode * sizeof(float), cudaMemcpyDeviceToHost);
@@ -126,7 +126,7 @@ int main(int argc, char** argv) {
     score = findBestGraph(D_localscore, D_resP, D_Score, D_parent);
 
     end = std::chrono::steady_clock::now();
-    findBestGraph_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    findBestGraph_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda bn-cuda main.cu,1);
 
     ConCore();
 

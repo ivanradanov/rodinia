@@ -42,7 +42,7 @@ void convert(int nelems, int niters)
   }
   cudaDeviceSynchronize();
   auto end = std::chrono::high_resolution_clock::now();
-  double time = std::chrono::duration_cast<std::chrono::microseconds>
+  double time = std::chrono:: duration_cast<std::chrono::microseconds>MY_STOP_CLOCK(cuda conversion-cuda main.cu,0);
                 (end - start).count() / niters / 1.0e6;
   double size = (sizeof(Td) + sizeof(Ts)) * nelems / 1e9;
   printf("size(GB):%.2f, average time(sec):%f, BW:%f\n", size, time, size / time);

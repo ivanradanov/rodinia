@@ -180,7 +180,7 @@ int main(int argc, char* argv[])
   }
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda s8n-cuda main.cu,0);
   printf("Average execution time of select kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(h_out, d_out, output_size_bytes, cudaMemcpyDeviceToHost);
@@ -194,7 +194,7 @@ int main(int argc, char* argv[])
   }
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda s8n-cuda main.cu,1);
   printf("Average execution time of select2 kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(h_out2, d_out2, 2 * output_size_bytes, cudaMemcpyDeviceToHost);
@@ -208,7 +208,7 @@ int main(int argc, char* argv[])
   }
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda s8n-cuda main.cu,2);
   printf("Average execution time of select4 kernel: %f (us)\n", (time * 1e-3f) / repeat);
 
   cudaMemcpy(h_out4, d_out4, 4 * output_size_bytes, cudaMemcpyDeviceToHost);

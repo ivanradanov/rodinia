@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
   cudaDeviceSynchronize();
 
   auto end = std::chrono::steady_clock::now();
-  std::chrono::duration<float> time = end - start;
+  std::chrono:: duration<float> time = end - start;MY_STOP_CLOCK(cuda atomicAggregate-cuda main.cu,0);
   printf("Total kernel time: %f (s)\n", time.count());
 
   cudaMemcpy(h_d, d_d, ds*sizeof(d_d[0]), cudaMemcpyDeviceToHost);

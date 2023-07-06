@@ -327,7 +327,7 @@ int main(int argc, char* argv[]) {
   for (int i = 0; i < repeat; i++) 
     test_collision(num_dup);
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda collision-cuda main.cu,0);
   printf("Average execution time of the function test_collision: %f (us)\n",
          time * 1e-3f / repeat);
 
@@ -335,7 +335,7 @@ int main(int argc, char* argv[]) {
   for (int i = 0; i < repeat; i++) 
     test_collisionMask(num_dup);
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda collision-cuda main.cu,1);
   printf("Average execution time of the function test_collisionMask: %f (us)\n",
          time * 1e-3f / repeat);
 

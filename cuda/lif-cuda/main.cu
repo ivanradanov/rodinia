@@ -192,7 +192,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto elapsed_time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto elapsed_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda lif-cuda main.cu,0);
   printf("Average kernel execution time: %f (us)\n", (elapsed_time * 1e-3) / num_steps);
 
   cudaMemcpy(spikes, d_spikes, neurons_size, cudaMemcpyDeviceToHost); 

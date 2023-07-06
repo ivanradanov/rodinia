@@ -41,7 +41,7 @@ void sort_key_value (int n, int repeat, bool verify) {
     vals = d_vals;
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda sortKV-cuda main.cu,0);
     total_time += time;
   }
 

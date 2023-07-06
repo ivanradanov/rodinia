@@ -81,7 +81,7 @@ void test(const int size, const int repeat) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda expdist-cuda main.cu,0);
   printf("Average kernel execution time %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(&output, d_output, sizeof(FP), cudaMemcpyDeviceToHost);

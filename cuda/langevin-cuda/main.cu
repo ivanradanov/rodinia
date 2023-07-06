@@ -101,7 +101,7 @@ int main(int argc, char* argv[]) {
   }
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda langevin-cuda main.cu,0);
   printf("Average execution time of k0: %f (s)\n", (time * 1e-9f) / repeat);
 
   start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda langevin-cuda main.cu,1);
@@ -110,7 +110,7 @@ int main(int argc, char* argv[]) {
   }
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda langevin-cuda main.cu,1);
   printf("Average execution time of k1: %f (s)\n", (time * 1e-9f) / repeat);
 
   start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda langevin-cuda main.cu,2);
@@ -119,7 +119,7 @@ int main(int argc, char* argv[]) {
   }
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda langevin-cuda main.cu,2);
   printf("Average execution time of k2: %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(o0, d_o0, size, cudaMemcpyDeviceToHost);

@@ -404,7 +404,7 @@ sort(const std::vector<float>& data, double &time) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda warpsort-cuda warpsort.cu,0);
 
   std::vector<float> vals(data.size());
   cudaMemcpy(vals.data(), devResult, sizeBytes, cudaMemcpyDeviceToHost);
@@ -447,7 +447,7 @@ sortWithIndices(const std::vector<float>& data, double &time) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda warpsort-cuda warpsort.cu,1);
 
   std::vector<float> vals(data.size());
   cudaMemcpy(vals.data(),

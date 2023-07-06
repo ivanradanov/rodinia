@@ -13,7 +13,7 @@
 
 namespace common {
 
-using Duration = std::chrono::duration<double>;
+using Duration = std::chrono:: duration<double>;
 
 class MyTimer {
  public:
@@ -21,7 +21,7 @@ class MyTimer {
 
   Duration elapsed() {
     auto now = std::chrono::steady_clock::now();
-    return std::chrono::duration_cast<Duration>(now - start);
+    return std::chrono:: duration_cast<Duration>(now - start);
   }
 
  private:

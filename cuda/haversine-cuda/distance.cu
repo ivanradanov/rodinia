@@ -42,7 +42,7 @@ void distance_device(const double4* loc, double* dist, const int n, const int it
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda haversine-cuda distance.cu,0);
   printf("Average kernel execution time %f (s)\n", (time * 1e-9f) / iteration);
 
   cudaMemcpy(dist, d_dist, sizeof(double)*n, cudaMemcpyDeviceToHost);

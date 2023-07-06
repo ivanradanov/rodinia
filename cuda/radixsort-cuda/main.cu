@@ -87,7 +87,7 @@ int main(int argc, const char **argv)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda radixsort-cuda main.cu,0);
   printf("Average execution time of radixsort: %f (s)\n", (time * 1e-9f) / numIterations);
 
   // copy sorted keys to CPU 

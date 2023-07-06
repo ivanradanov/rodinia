@@ -189,7 +189,7 @@ void BoxFilterGPU (uchar4* cmBufIn,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda boxfilter-cuda main.cu,0);
   printf("Average device execution time %f (us)\n", (time * 1e-3f) / iCycles);
 }
 

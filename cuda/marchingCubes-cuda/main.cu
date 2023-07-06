@@ -535,7 +535,7 @@ int main(int argc, char* argv[])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto ktime = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda marchingCubes-cuda main.cu,0);
     time += ktime;
 
     cudaMemcpy(&countedVerticesNum, countedVerticesNumDevice, sizeof(unsigned int), cudaMemcpyDeviceToHost);

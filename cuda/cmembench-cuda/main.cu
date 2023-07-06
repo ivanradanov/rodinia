@@ -123,7 +123,7 @@ int test_case (int *a, long gridsize, int repeat) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda cmembench-cuda main.cu,0);
 
   // verify
   cudaMemcpy(&c, cd, sizeof(int), cudaMemcpyDeviceToHost);

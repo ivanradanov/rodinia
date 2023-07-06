@@ -734,7 +734,7 @@ int main(int argc, char *argv[])
   auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda match-cuda main.cu,0);
   MatchC1(h_pts1, h_pts2, h_score.data(), h_index.data());
   auto end = std::chrono::high_resolution_clock::now();
-  auto elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+  auto elapsed_seconds = std::chrono:: duration_cast<std::chrono:: duration<double>>(end - start);MY_STOP_CLOCK(cuda match-cuda main.cu,0);
   auto delay = elapsed_seconds.count() * 1000;
   std::cout << "MatchCPU1:   " << elapsed_seconds.count() * 1000 << " ms  "
             << 2.0*NPTS*NPTS*NDIM/delay/1024/1024 << " Gflops" << std::endl;
@@ -750,7 +750,7 @@ int main(int argc, char *argv[])
     Match1<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
   end = std::chrono::high_resolution_clock::now();
-  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+  elapsed_seconds = std::chrono:: duration_cast<std::chrono:: duration<double>>(end - start);MY_STOP_CLOCK(cuda match-cuda main.cu,1);
   delay = elapsed_seconds.count() * 1000 / repeat;
   std::cout << "MatchGPU1:   " << delay << " ms  " << 2.0*NPTS*NPTS*NDIM/delay/1024/1024 << " Gflops" << std::endl;
   cudaMemcpy(h_index2.data(), d_index, psize, cudaMemcpyDeviceToHost);
@@ -764,7 +764,7 @@ int main(int argc, char *argv[])
     Match2<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
   end = std::chrono::high_resolution_clock::now();
-  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+  elapsed_seconds = std::chrono:: duration_cast<std::chrono:: duration<double>>(end - start);MY_STOP_CLOCK(cuda match-cuda main.cu,2);
   delay = elapsed_seconds.count() * 1000 / repeat;
   std::cout << "MatchGPU2:   " << delay << " ms  " << 2.0*NPTS*NPTS*NDIM/delay/1024/1024 << " Gflops" << std::endl;
   cudaMemcpy(h_index2.data(), d_index, psize, cudaMemcpyDeviceToHost);
@@ -778,7 +778,7 @@ int main(int argc, char *argv[])
     Match3<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
   end = std::chrono::high_resolution_clock::now();
-  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+  elapsed_seconds = std::chrono:: duration_cast<std::chrono:: duration<double>>(end - start);MY_STOP_CLOCK(cuda match-cuda main.cu,3);
   delay = elapsed_seconds.count() * 1000 / repeat;
   std::cout << "MatchGPU3:   " << delay << " ms  " << 2.0*NPTS*NPTS*NDIM/delay/1024/1024 << " Gflops" << std::endl;
   cudaMemcpy(h_index2.data(), d_index, psize, cudaMemcpyDeviceToHost);
@@ -792,7 +792,7 @@ int main(int argc, char *argv[])
     Match4<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
   end = std::chrono::high_resolution_clock::now();
-  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+  elapsed_seconds = std::chrono:: duration_cast<std::chrono:: duration<double>>(end - start);MY_STOP_CLOCK(cuda match-cuda main.cu,4);
   delay = elapsed_seconds.count() * 1000 / repeat;
   std::cout << "MatchGPU4:   " << delay << " ms  " << 2.0*NPTS*NPTS*NDIM/delay/1024/1024 << " Gflops" << std::endl;
   cudaMemcpy(h_index2.data(), d_index, psize, cudaMemcpyDeviceToHost);
@@ -806,7 +806,7 @@ int main(int argc, char *argv[])
     Match5<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
   end = std::chrono::high_resolution_clock::now();
-  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+  elapsed_seconds = std::chrono::duration_cast<std::chrono:: duration<double>>(end - start);MY_STOP_CLOCK(cuda match-cuda main.cu,5);
   delay = elapsed_seconds.count() * 1000 / repeat;
   std::cout << "MatchGPU5:   " << delay << " ms  " << 2.0*NPTS*NPTS*NDIM/delay/1024/1024 << " Gflops" << std::endl;
   cudaMemcpy(h_index2.data(), d_index, psize, cudaMemcpyDeviceToHost);
@@ -820,7 +820,7 @@ int main(int argc, char *argv[])
     Match6<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
   end = std::chrono::high_resolution_clock::now();
-  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);MY_STOP_CLOCK(cuda match-cuda main.cu,6);
   delay = elapsed_seconds.count() * 1000 / repeat;
   std::cout << "MatchGPU6:   " << delay << " ms  " << 2.0*NPTS*NPTS*NDIM/delay/1024/1024 << " Gflops" << std::endl;
   cudaMemcpy(h_index2.data(), d_index, psize, cudaMemcpyDeviceToHost);
@@ -834,7 +834,7 @@ int main(int argc, char *argv[])
     Match7<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
   end = std::chrono::high_resolution_clock::now();
-  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);MY_STOP_CLOCK(cuda match-cuda main.cu,7);
   delay = elapsed_seconds.count() * 1000 / repeat;
   std::cout << "MatchGPU7:   " << delay << " ms  " << 2.0*NPTS*NPTS*NDIM/delay/1024/1024 << " Gflops" << std::endl;
   cudaMemcpy(h_index2.data(), d_index, psize, cudaMemcpyDeviceToHost);
@@ -848,7 +848,7 @@ int main(int argc, char *argv[])
     Match8<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
   end = std::chrono::high_resolution_clock::now();
-  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);MY_STOP_CLOCK(cuda match-cuda main.cu,8);
   delay = elapsed_seconds.count() * 1000 / repeat;
   std::cout << "MatchGPU8:   " << delay << " ms  " << 2.0*NPTS*NPTS*NDIM/delay/1024/1024 << " Gflops" << std::endl;
   cudaMemcpy(h_index2.data(), d_index, psize, cudaMemcpyDeviceToHost);
@@ -862,7 +862,7 @@ int main(int argc, char *argv[])
     Match9<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
   end = std::chrono::high_resolution_clock::now();
-  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);MY_STOP_CLOCK(cuda match-cuda main.cu,9);
   delay = elapsed_seconds.count() * 1000 / repeat;
   std::cout << "MatchGPU9:   " << delay << " ms  " << 2.0*NPTS*NPTS*NDIM/delay/1024/1024 << " Gflops" << std::endl;
   cudaMemcpy(h_index2.data(), d_index, psize, cudaMemcpyDeviceToHost);
@@ -877,7 +877,7 @@ int main(int argc, char *argv[])
     Match10<<<blocks,threads>>>(d_pts1, d_pts2, d_score, d_index);
   cudaDeviceSynchronize();
   end = std::chrono::high_resolution_clock::now();
-  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+  elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);MY_STOP_CLOCK(cuda match-cuda main.cu,10);
   delay = elapsed_seconds.count() * 1000 / repeat;
   std::cout << "MatchGPU10:   " << delay << " ms  " << 2.0*NPTS*NPTS*NDIM/delay/1024/1024 << " Gflops" << std::endl;
   cudaMemcpy(h_index2.data(), d_index, psize, cudaMemcpyDeviceToHost);

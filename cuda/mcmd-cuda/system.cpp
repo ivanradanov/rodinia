@@ -34,7 +34,7 @@ class System {
       if (constants.checkpoints_option) {
         std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
         std::time_t thetime = std::chrono::system_clock::to_time_t(now);
-        double time_elapsed = (std::chrono::duration_cast<std::chrono::microseconds>(now - previous_checkpoint).count()) /1000.0; // in ms
+        double time_elapsed = (std::chrono:: duration_cast<std::chrono::microseconds>(now - previous_checkpoint).count()) /1000.0; // in msMY_STOP_CLOCK(cuda mcmd-cuda system.cpp,0);
 
         printf("  ---> %.4f ms from last:  %s \n", time_elapsed, thetext.c_str());
         previous_checkpoint = std::chrono::system_clock::now();

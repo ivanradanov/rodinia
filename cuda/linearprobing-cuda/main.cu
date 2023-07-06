@@ -51,8 +51,8 @@ double get_elapsed_time(Time start)
 {
   Time end = std::chrono::high_resolution_clock::now();
 
-  std::chrono::duration<double> d = end - start;
-  std::chrono::microseconds us = std::chrono::duration_cast<std::chrono::microseconds>(d);
+  std::chrono:: duration<double> d = end - start;
+  std::chrono::microseconds us = std::chrono:: duration_cast<std::chrono::microseconds>(d);
   return us.count() / 1000.0f;
 }
 
@@ -128,7 +128,7 @@ int main(int argc, char* argv[])
   // Create insert key values
   KeyValue* pInsertKvs;
   cudaMalloc ((void**) &pInsertKvs, sizeof(KeyValue) * num_inserts_per_batch);
-
+  MY_START_CLOCK(cuda linearprobing-cuda main.cu,0);
   for (uint32_t i = 0; i < num_insert_batches; i++)
   {
     cudaMemcpy(pInsertKvs, insert_kvs.data() + i * num_inserts_per_batch,
@@ -136,6 +136,7 @@ int main(int argc, char* argv[])
 
     total_ktime += insert_hashtable(pHashTable, pInsertKvs, num_inserts_per_batch);
   }
+  MY_STOP_CLOCK(cuda linearprobing-cuda main.cu,0);
   printf("Average kernel execution time (insert): %f (s)\n", (total_ktime * 1e-9) / num_insert_batches);
 
   // Delete items from the hash table
@@ -146,6 +147,7 @@ int main(int argc, char* argv[])
   KeyValue* pDeleteKvs;
   cudaMalloc ((void**) &pDeleteKvs, sizeof(KeyValue) * num_deletes_per_batch);
 
+  MY_START_CLOCK(cuda linearprobing-cuda main.cu,1);
   for (uint32_t i = 0; i < num_delete_batches; i++)
   {
     cudaMemcpy(pDeleteKvs, delete_kvs.data() + i * num_deletes_per_batch,
@@ -153,6 +155,7 @@ int main(int argc, char* argv[])
 
     total_ktime += delete_hashtable(pHashTable, pDeleteKvs, num_deletes_per_batch);
   }
+  MY_STOP_CLOCK(cuda linearprobing-cuda main.cu,1);
   printf("Average kernel execution time (delete): %f (s)\n", (total_ktime * 1e-9) / num_delete_batches);
 
   // Get all the key-values from the hash table

@@ -199,7 +199,7 @@ int main(int argc, char** argv)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda particles-cuda main.cu,0);
   printf("Total execution time of %d loop iterations: %f (s)\n", iterations, time * 1e-9f);
   printf("Average execution time of a loop iteration: %f (us)\n", (time * 1e-3f) / iterations);
 

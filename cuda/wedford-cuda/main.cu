@@ -153,7 +153,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda wedford-cuda main.cu,0);
   printf("Average kernel execution time %f (ms)\n", time * 1e-6f / repeat);
 
   cudaMemcpy(var, d_var, fs_bytes, cudaMemcpyDeviceToHost);

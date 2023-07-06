@@ -325,7 +325,7 @@ void QTC(const string& name, OptionParser& op, int matrix_type){
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    qtc_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    qtc_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda qtclustering-cuda QTC.cu,0);
 
     CHECK_CUDA_ERROR();
 
@@ -365,7 +365,7 @@ void QTC(const string& name, OptionParser& op, int matrix_type){
     CHECK_CUDA_ERROR();
 
     end = std::chrono::steady_clock::now();
-    trim_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    trim_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda qtclustering-cuda QTC.cu,1);
 
     if( cwrank == winner_node){ // for non-parallel cases, these should both be zero.
       if( save_clusters ){
@@ -391,7 +391,7 @@ void QTC(const string& name, OptionParser& op, int matrix_type){
     CHECK_CUDA_ERROR();
 
     end = std::chrono::steady_clock::now();
-    update_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    update_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda qtclustering-cuda QTC.cu,2);
 
     point_count -= max_card;
 

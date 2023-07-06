@@ -229,7 +229,7 @@ int bb_segsort(
 
     cudaStreamSynchronize(stream);
     auto end = std::chrono::steady_clock::now();
-    float time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    float time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda segsort-cuda src bb_segsort.cuh,0);
     printf("Kernel execution time: %f (s)\n", time * 1e-9f);
 
     std::swap(keys_d, keysB_d);

@@ -348,7 +348,7 @@ int main(int argc, char** argv)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> elapsed_seconds = end - start;
+  std::chrono:: duration<double> elapsed_seconds = end - start;MY_STOP_CLOCK(cuda bm3d-cuda main.cu,0);
   double gpuTime = (double)elapsed_seconds.count();
   std::cout << "Average device execution time (s): " << gpuTime / REPEAT << std::endl;
 

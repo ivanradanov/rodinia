@@ -116,7 +116,7 @@ long lstm_n5(const float* x,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda clink-cuda main.cu,0);
 
   cudaMemcpy(y, d_y, N * SAMPLE_TEST_LEN * sizeof(float), cudaMemcpyDeviceToHost);
   cudaFree(d_x);
@@ -160,7 +160,7 @@ int main(int argc, char* argv[])
     kernel_time += lstm_n5(sample_input, inW, intW, intB, outW, &outB, infer1_out);
     auto end = std::chrono::steady_clock::now();
     auto elapsedTime =
-      std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count();
+      std::chrono:: duration_cast<std::chrono::milliseconds>(end-start).count();MY_STOP_CLOCK(cuda clink-cuda main.cu,1);
     std::cout << "Device offload time: " <<  elapsedTime << " ms\n";
 
 #ifdef DEBUG
@@ -172,7 +172,7 @@ int main(int argc, char* argv[])
     kernel_time += lstm_n5(sample_input, inW, intW, intB, outW, &outB, infer2_out);
     end = std::chrono::steady_clock::now();
     elapsedTime =
-      std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count();
+      std::chrono:: duration_cast<std::chrono::milliseconds>(end-start).count();MY_STOP_CLOCK(cuda clink-cuda main.cu,2);
     std::cout << "Device offload time: " <<  elapsedTime << " ms\n";
 
 #ifdef DEBUG

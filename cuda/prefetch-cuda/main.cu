@@ -80,7 +80,7 @@ void prefetch (const int gpuDeviceId, const int numElements, const int repeat)
     maxError = fmaxf(maxError, fabsf(B[i]-(repeat+2)));
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda prefetch-cuda main.cu,0);
   printf("Average execution time: %f (ms)\n", time * 1e-6f / repeat);
 
   CUDACHECK(cudaFree(A));
@@ -125,7 +125,7 @@ void naive (const int numElements, const int repeat)
     maxError = fmaxf(maxError, fabsf(B[i]-(repeat+2)));
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda prefetch-cuda main.cu,1);
   printf("Average execution time: %f (ms)\n", time * 1e-6f / repeat);
 
   CUDACHECK(cudaFree(A));

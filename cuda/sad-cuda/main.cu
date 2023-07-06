@@ -226,14 +226,14 @@ int main(int argc, char* argv[]) {
 
     cudaDeviceSynchronize();
     auto kend = std::chrono::steady_clock::now();
-    kernel_time += std::chrono::duration_cast<std::chrono::milliseconds> (kend - kbegin).count();
+    kernel_time += std::chrono:: duration_cast<std::chrono::milliseconds> (kend - kbegin).count();MY_STOP_CLOCK(cuda sad-cuda main.cu,0);
 
     check(cudaMemcpy(&h_min_mse, d_min_mse, sizeof(int), cudaMemcpyDeviceToHost));
     check(cudaMemcpy(&h_num_occurances, d_num_occurances, sizeof(int), cudaMemcpyDeviceToHost));
   }
 
   auto end = std::chrono::steady_clock::now();
-  float elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds> (end - begin).count();
+  float elapsed_time = std::chrono:: duration_cast<std::chrono::milliseconds> (end - begin).count();MY_STOP_CLOCK(cuda sad-cuda main.cu,1);
 
   std::cout << "Parallel Computation Results: " << std::endl;
   std::cout << "Kernel time in msec: " << kernel_time << std::endl; 

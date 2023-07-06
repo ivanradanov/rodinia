@@ -206,7 +206,7 @@ int main () {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda jacobi-cuda main.cu,0);
   std::cout << "Average execution time per iteration: " << (time * 1e-9f) / num_iters << " (s)\n";
 
   // If we took fewer than max_iters steps and the error is below the tolerance,

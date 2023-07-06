@@ -152,9 +152,11 @@ int main(int argc, char **argv)
 
   /* Compute pairwise alignments */
   auto start = NOW;
-  LOGAN(alignments, ksize, xdrop, AlignmentsToBePerformed, ngpus, maxt);  
+  MY_START_CLOCK(cuda logan-cuda src main.cu,0);
+  LOGAN(alignments, ksize, xdrop, AlignmentsToBePerformed, ngpus, maxt);
+  MY_STOP_CLOCK(cuda logan-cuda src main.cu,0);
   auto end = NOW;  
-  std::chrono::duration<double> tot_time = end - start;
+  std::chrono:: duration<double> tot_time = end - start;
   std::cout << "Total execution time [seconds]:\t" << tot_time.count() << std::endl;
 
   return 0;

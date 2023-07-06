@@ -207,7 +207,7 @@ void filtering (const int repeat,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda sosfil-cuda main.cu,0);
   printf("Average kernel execution time %lf (s)\n", time * 1e-9 / repeat);
 
   cudaMemcpy(x, d_x, sizeof(T) * x_size, cudaMemcpyDeviceToHost);

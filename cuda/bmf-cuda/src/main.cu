@@ -87,9 +87,12 @@ int main(int argc, char **argv) {
   size_t numSlots = std::min(size_t(2), numRuns);
   auto cuBool = my_cuBool(C0_vec, height, width, density, numSlots);
 
+
+  MY_START_CLOCK(cuda bmf-cuda src helper cuda_helpers.cuh,0);
   TIMERSTART(GPUKERNELLOOP)
   cuBool.runMultiple(numRuns, config);
   TIMERSTOP(GPUKERNELLOOP)
+  MY_STOP_CLOCK(cuda bmf-cuda src helper cuda_helpers.cuh,0);
 
   cuBool.getBestFactors(A_vec, B_vec);
 

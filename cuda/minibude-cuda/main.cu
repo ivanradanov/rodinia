@@ -60,7 +60,7 @@ __global__ void fasten_main(
 
 double elapsedMillis( const TimePoint &start, const TimePoint &end){
   auto elapsedNs = static_cast<double>(
-      std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count());
+      std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count());MY_STOP_CLOCK(cuda minibude-cuda main.cu,0);
   return elapsedNs * 1e-6;
 }
 
@@ -271,6 +271,7 @@ std::vector<float> runKernel(Params params) {
 
   auto kernelStart = std::chrono::high_resolution_clock::now();
 
+  MY_START_CLOCK(cuda minibude-cuda main.cu,0);
   for (size_t i = 0; i < params.iterations; ++i) {
     fasten_main<<< grid, block, params.ntypes * sizeof(FFParams) >>>(
         params.ntypes,
@@ -290,7 +291,7 @@ std::vector<float> runKernel(Params params) {
   }
 
   cudaDeviceSynchronize();
-
+  MY_STOP_CLOCK(cuda minibude-cuda main.cu,0);
   auto kernelEnd = std::chrono::high_resolution_clock::now();
 
   cudaMemcpy(energies.data(), results, params.nposes*sizeof(float), cudaMemcpyDeviceToHost);

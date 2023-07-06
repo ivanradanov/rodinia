@@ -253,7 +253,7 @@ void run(XYZ *in, int in_size_i, int in_size_j, int out_size_i, int out_size_j, 
   auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda bezier-surface-cuda main.cu,0);
   BezierCPU(in, cpu_out, in_size_i, in_size_j, out_size_i, out_size_j);
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::milliseconds>(end - start).count();MY_STOP_CLOCK(cuda bezier-surface-cuda main.cu,0);
   std::cout << "host execution time: " << time << " ms" << std::endl;
 
   // Device run
@@ -278,7 +278,7 @@ void run(XYZ *in, int in_size_i, int in_size_j, int out_size_i, int out_size_j, 
 
   cudaDeviceSynchronize();
   auto kend = std::chrono::steady_clock::now();
-  auto ktime = std::chrono::duration_cast<std::chrono::milliseconds>(kend - kstart).count();
+  auto ktime = std::chrono:: duration_cast<std::chrono::milliseconds>(kend - kstart).count();MY_STOP_CLOCK(cuda bezier-surface-cuda main.cu,1);
   std::cout << "kernel execution time: " << ktime << " ms" << std::endl;
 
   cudaMemcpy(gpu_out, d_out, out_size, cudaMemcpyDeviceToHost);

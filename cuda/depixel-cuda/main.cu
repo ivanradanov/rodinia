@@ -60,7 +60,7 @@ int main(int argc, char** argv) {
     cudaMemcpy(h_out, d_out, size_output_bytes, cudaMemcpyDeviceToHost);
 
     auto end = std::chrono::steady_clock::now();
-    std::chrono::duration<float> time = end - start;
+    std::chrono:: duration<float> time = end - start;MY_STOP_CLOCK(cuda depixel-cuda main.cu,0);
     total_time += time.count();
 
     float lsum = 0;

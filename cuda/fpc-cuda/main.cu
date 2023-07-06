@@ -313,7 +313,7 @@ int main(int argc, char** argv) {
   }
 
   auto end = std::chrono::high_resolution_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda fpc-cuda main.cu,0);
   printf("fpc: average device offload time %f (s)\n", (time * 1e-9f) / repeat);
 
   // warmup
@@ -331,7 +331,7 @@ int main(int argc, char** argv) {
   }
 
   end = std::chrono::high_resolution_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda fpc-cuda main.cu,1);
   printf("fpc2: average device offload time %f (s)\n", (time * 1e-9f) / repeat);
 
   printf("%s\n", ok ? "PASS" : "FAIL");

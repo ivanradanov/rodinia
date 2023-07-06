@@ -55,10 +55,11 @@ int main(int argc, const  char **argv)
   srand(123);
   loaddata();
   auto t1 = std::chrono::high_resolution_clock::now();
+  MY_START_CLOCK(cuda mnist-cuda main.cu,0);
   learn(iter);
   test();
   auto t2 = std::chrono::high_resolution_clock::now();
-  double total_time = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+  double total_time = std::chrono:: duration_cast<std::chrono::microseconds>(t2 - t1).count();MY_STOP_CLOCK(cuda mnist-cuda main.cu,0);
   printf("Total time (learn + test) %lf secs \n", total_time / 1.0e6);
   return 0;
 }

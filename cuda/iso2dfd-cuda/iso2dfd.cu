@@ -261,7 +261,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto kend = std::chrono::steady_clock::now();
-  auto ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+  auto ktime = std::chrono:: duration_cast<std::chrono::nanoseconds>(kend - kstart).count();MY_STOP_CLOCK(cuda iso2dfd-cuda iso2dfd.cu,0);
   std::cout << "Total kernel execution time " << ktime * 1e-6f  << " (ms)\n";
   std::cout << "Average kernel execution time " << (ktime * 1e-3f) / nIterations << " (us)\n";
 
@@ -287,7 +287,7 @@ int main(int argc, char* argv[]) {
 
   // Compute and display time used by CPU
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start)
+  auto time = std::chrono:: duration_cast<std::chrono::milliseconds>(end - start)MY_STOP_CLOCK(cuda iso2dfd-cuda iso2dfd.cu,1);
                   .count();
   std::cout << "Host time: " << time << " ms" << std::endl;
   std::cout << std::endl;

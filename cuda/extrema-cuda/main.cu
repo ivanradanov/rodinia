@@ -233,7 +233,7 @@ long test_1D (const int length, const int order, const bool clip,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda extrema-cuda main.cu,0);
   printf("Average 1D kernel (type = %s, order = %d, clip = %d) execution time %f (s)\n", 
          type, order, clip, (time * 1e-9f) / repeat);
 
@@ -286,7 +286,7 @@ long test_2D (const int length_x, const int length_y, const int order,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda extrema-cuda main.cu,1);
 
   printf("Average 2D kernel (type = %s, order = %d, clip = %d, axis = %d) execution time %f (s)\n", 
          type, order, clip, axis, (time * 1e-9f) / repeat);

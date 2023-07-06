@@ -220,7 +220,7 @@ int main(int argc, char* argv[])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda p4-cuda main.cu,0);
   }
 
   printf("Average execution time of postprocess kernel: %f (us)\n", (time * 1e-3f) / repeat);

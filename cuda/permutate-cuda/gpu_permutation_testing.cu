@@ -113,7 +113,7 @@ bool gpu_permutation_testing(double *gpu_runtime, uint32_t *counts, double *resu
 
   /* stop the timer. */
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda permutate-cuda gpu_permutation_testing.cu,0);
 
   /* calculate the run-time of the permutation testing */
   *gpu_runtime = (double)time * 1e-9;

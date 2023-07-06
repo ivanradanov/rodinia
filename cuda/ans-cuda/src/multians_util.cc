@@ -19,6 +19,7 @@ std::pair<std::string, size_t> cuhd::CUHDUtil::time(std::string s,
 	std::chrono::nanoseconds duration;
 
 	std::chrono::time_point<std::chrono::high_resolution_clock> start;
+    MY_START_CLOCK(cuda ans-cuda src multians_util.cc,0);
 	std::chrono::time_point<std::chrono::high_resolution_clock> end;
     
 
@@ -31,8 +32,8 @@ std::pair<std::string, size_t> cuhd::CUHDUtil::time(std::string s,
     duration = end - start;
 
     std::pair<std::string, size_t> p(s,
-        std::chrono::duration_cast<std::chrono::microseconds>
-            (duration).count());
+        std::chrono:: duration_cast<std::chrono::microseconds>
+            (duration).count());MY_STOP_CLOCK(cuda ans-cuda src multians_util.cc,0);
         
     return p;
 }

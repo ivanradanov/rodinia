@@ -371,7 +371,7 @@ void allParamTestGPURun(Param param)
   cudaMalloc((void**)&dTriangle, vertexCount * sizeof(T));
 
   auto memAllocEnd = std::chrono::system_clock::now();
-  std::chrono::duration<float, std::milli> memAllocDuration = memAllocEnd - memAllocStart;
+  std::chrono:: duration<float, std::milli> memAllocDuration = memAllocEnd - memAllocStart;MY_STOP_CLOCK(cuda tc-cuda tc.cu,0);
 
   // output file name 
   std::string separator = std::string(".o.");
@@ -406,12 +406,12 @@ void allParamTestGPURun(Param param)
           dIndex, dTriangle, threadsPerIntsctn, intsctnPerBlock, threadShift);
       cudaDeviceSynchronize();
       auto krnlEnd = std::chrono::system_clock::now();
-      std::chrono::duration<float, std::milli> krnlDuration = krnlEnd - krnlStart;
+      std::chrono:: duration<float, std::milli> krnlDuration = krnlEnd - krnlStart;MY_STOP_CLOCK(cuda tc-cuda tc.cu,1);
 
       cudaMemcpy(triangle, dTriangle, vertexCount * sizeof(T), cudaMemcpyDeviceToHost);
 
       auto execEnd = std::chrono::system_clock::now();
-      std::chrono::duration<float, std::milli> execDuration = execEnd - execStart;
+      std::chrono:: duration<float, std::milli> execDuration = execEnd - execStart;MY_STOP_CLOCK(cuda tc-cuda tc.cu,2);
       
       T sumTriangles = 0;
       for (int i = 0; i < vertexCount; i++)

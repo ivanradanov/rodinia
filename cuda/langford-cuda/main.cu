@@ -368,7 +368,7 @@ void run_gpu_d(int64_t* count, Results<n>& final_results) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda langford-cuda main.cu,0);
   cout << "Kernel execution time:  " << time * 1e-9f << " (s)\n";
 
   cudaMemcpy(count, results_device, sizeof(int64_t), cudaMemcpyDeviceToHost);

@@ -37,7 +37,7 @@ void coordinates_transform(const int num_coords, const int repeat)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda coordinates-cuda main.cu,0);
   printf("Average execution time of device transform: %f (us)\n", (time * 1e-3f) / repeat);
 
   h_output = d_output;  // copy results from device to host
@@ -48,7 +48,7 @@ void coordinates_transform(const int num_coords, const int repeat)
                    h_ref_output.begin(), to_cartesian_functor<T>(h_origin));
   }
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda coordinates-cuda main.cu,1);
   printf("Average execution time of host transform: %f (us)\n", (time * 1e-3f) / 10);
 
   bool ok = true;

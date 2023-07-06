@@ -164,7 +164,7 @@ void Perlin::calculate(uint8_t *hPixels, NoiseParams params, cudaStream_t *strea
   CHECK(cudaDeviceSynchronize());
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda perlin-cuda noise.cu,0);
   std::cout << "Total kernel execution time " <<  time * 1e-6  << " (ms)" << std::endl;
 
   CHECK(cudaMemcpy(hPixels, dPixels, sizeof(uint8_t) * 4 * WIN_WIDTH * WIN_HEIGHT,

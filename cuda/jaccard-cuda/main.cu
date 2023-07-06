@@ -286,7 +286,7 @@ void jaccard_weight (const int iteration, const int n, const int e,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda jaccard-cuda main.cu,0);
   cout << "Average execution time of kernels: " << (time * 1e-9f) / iteration << " (s)\n";
 
   cudaMemcpy(weight_j, d_weight_j, sizeof(T) * e, cudaMemcpyDeviceToHost);

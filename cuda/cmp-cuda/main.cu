@@ -251,6 +251,7 @@ int main(int argc, const char** argv) {
   //
   cudaDeviceSynchronize();
   auto beg = std::chrono::high_resolution_clock::now();
+  MY_START_CLOCK(cuda cmp-cuda main.cu,0);
 
   // Evaluate Cs - linspace
   init_c<<<nc, 1>>>(d_c, inc, c0);
@@ -282,6 +283,7 @@ int main(int argc, const char** argv) {
   // Gets time at end of computation
   cudaDeviceSynchronize();
   auto end = std::chrono::high_resolution_clock::now();
+  MY_STOP_CLOCK(cuda cmp-cuda main.cu,0);
 
   // Copy results back to host
   cudaMemcpy(h_ctr, d_ctr, sizeof(int ) * ncdps * ns, cudaMemcpyDeviceToHost);
@@ -335,7 +337,7 @@ int main(int argc, const char** argv) {
          err_ctr_rate, err_str_rate, err_stk_rate);
 
   // Logs stats (semblance-traces per second)
-  double time = std::chrono::duration_cast<std::chrono::duration<double>>(end - beg).count();
+  double time = std::chrono:: duration_cast<std::chrono:: duration<double>>(end - beg).count();
   double stps = (number_of_semblances / 1e9 ) * (ns * nc / time);
   std::string stats = "Giga semblances traces per second: " + std::to_string(stps);
   LOG(INFO, stats);

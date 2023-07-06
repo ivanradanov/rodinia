@@ -101,7 +101,7 @@ void atomicPerf (int n, int t, int repeat)
   }
   CHECK_ERROR( cudaDeviceSynchronize() );
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda atomicPerf-cuda main.cu,0);
   printf("Average execution time of BlockRangeAtomicOnGlobalMem: %f (us)\n",
           time * 1e-3f / repeat);
 
@@ -114,7 +114,7 @@ void atomicPerf (int n, int t, int repeat)
   }
   CHECK_ERROR( cudaDeviceSynchronize() );
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda atomicPerf-cuda main.cu,1);
   printf("Average execution time of WarpRangeAtomicOnGlobalMem: %f (us)\n",
           time * 1e-3f / repeat);
 
@@ -127,7 +127,7 @@ void atomicPerf (int n, int t, int repeat)
   }
   CHECK_ERROR( cudaDeviceSynchronize() );
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda atomicPerf-cuda main.cu,2);
   printf("Average execution time of SingleRangeAtomicOnGlobalMem: %f (us)\n",
           time * 1e-3f / repeat);
 
@@ -140,7 +140,7 @@ void atomicPerf (int n, int t, int repeat)
   }
   CHECK_ERROR( cudaDeviceSynchronize() );
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda atomicPerf-cuda main.cu,3);
   printf("Average execution time of BlockRangeAtomicOnSharedMem: %f (us)\n",
           time * 1e-3f / repeat);
 
@@ -153,7 +153,7 @@ void atomicPerf (int n, int t, int repeat)
   }
   CHECK_ERROR( cudaDeviceSynchronize() );
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda atomicPerf-cuda main.cu,4);
   printf("Average execution time of WarpRangeAtomicOnSharedMem: %f (us)\n",
           time * 1e-3f / repeat);
 
@@ -166,7 +166,7 @@ void atomicPerf (int n, int t, int repeat)
   }
   CHECK_ERROR( cudaDeviceSynchronize() );
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda atomicPerf-cuda main.cu,5);
   printf("Average execution time of SingleRangeAtomicOnSharedMem: %f (us)\n",
           time * 1e-3f / repeat);
 

@@ -355,7 +355,7 @@ int main(int argc, char *argv[])
     cudaDeviceSynchronize();
     auto kend = std::chrono::steady_clock::now();
     if (i > 0)
-      ktime += std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+      ktime += std::chrono:: duration_cast<std::chrono::nanoseconds>(kend - kstart).count();MY_STOP_CLOCK(cuda tsp-cuda main.cu,0);
   }
 
   cudaMemcpy(&best, best_d, sizeof(int), cudaMemcpyDeviceToHost);

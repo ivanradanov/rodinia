@@ -234,7 +234,7 @@ void kernel_256(double &time, double &ktime) {
   bnBias = get_parameter(bnBias_winograd_Name256, 256);
   bnScale = get_parameter(bnScale_winograd_Name256, 256);
 
-  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda resnet-kernels-cuda Kernel256_winograd.cu,0);
+  auto start=std::chrono::steady_clock::now();
 
   cudaMalloc((void **) &input, nInput<<2);
   cudaMalloc((void **) &output, nOutput<<2);
@@ -254,15 +254,14 @@ void kernel_256(double &time, double &ktime) {
   cudaMemcpy(l_bnScale, bnScale, nBias<<2, cudaMemcpyHostToDevice);
 
   cudaDeviceSynchronize();
-  auto kstart=std::chrono::steady_clock::now();MY_START_CLOCK(cuda resnet-kernels-cuda Kernel256_winograd.cu,1);
-
+  auto kstart=std::chrono::steady_clock::now();MY_START_CLOCK(cuda resnet-kernels-cuda Kernel256_winograd.cu,0);
   kernel_256_winograd_BtdB <<<dim3(4, 4, 2), dim3(128, 6), (6*6*128)<<2 >>> (input, t_input);
   kernel_256_OuterProduct_256<<<dim3(36, 2), dim3(256, 4), (8*256 + 32*256 + 8*256)<<2 >>> (t_input, l_weights, ip);
   kernel_256_winograd_AtIA <<<dim3(4, 4, 256), dim3(6, 6), ((6*6)<<2)>>> (ip, l_bnBias, l_bnScale, output);
 
   cudaDeviceSynchronize();
   auto kend = std::chrono::steady_clock::now();
-  ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+  ktime = std::chrono:: duration_cast<std::chrono::nanoseconds>(kend - kstart).count();MY_STOP_CLOCK(cuda resnet-kernels-cuda Kernel256_winograd.cu,0);
 
   cudaMemcpy(result, output, nOutput<<2, cudaMemcpyDeviceToHost);
 
@@ -275,7 +274,7 @@ void kernel_256(double &time, double &ktime) {
   cudaFree(l_bnBias);
 
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
 
   #ifdef DEBUG
   double s = 0;

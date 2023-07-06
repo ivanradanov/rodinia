@@ -111,7 +111,7 @@ extern "C" void gpu_pso(int p, int r,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda pso-cuda kernel_gpu.cu,0);
   printf("Average kernel execution time %f (us)\n", time * 1e-3f / r);
   
   cudaMemcpy(gBest,devGBest,res_size_byte,cudaMemcpyDeviceToHost);

@@ -172,7 +172,7 @@ int main(int argc, char** argv)
 
   cudaDeviceSynchronize();
   auto kend = std::chrono::steady_clock::now();
-  auto ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+  auto ktime = std::chrono:: duration_cast<std::chrono::nanoseconds>(kend - kstart).count();MY_STOP_CLOCK(cuda hotspot3D-cuda 3D.cu,0);
   printf("Average kernel execution time %f (us)\n", (ktime * 1e-3f) / iterations);
 
   float* d_sel = (iterations & 01) ? d_tIn : d_tOut;

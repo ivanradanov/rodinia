@@ -66,7 +66,7 @@ void run_benchmark()
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda mr-cuda main.cu,0);
     mr32_sf_time += time;
 
     cudaMemcpy(&val_dev, d_val, sizeof(int), cudaMemcpyDeviceToHost);
@@ -85,7 +85,7 @@ void run_benchmark()
 
     cudaDeviceSynchronize();
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda mr-cuda main.cu,1);
     mr32_eff_time += time;
 
     cudaMemcpy(&val_dev, d_val, sizeof(int), cudaMemcpyDeviceToHost);

@@ -563,7 +563,7 @@ int main(int argc, char** argv) {
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
     if (n > 0)
-      time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+      time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda present-cuda main.cu,0);
 
     cudaMemcpy(h_cipher, d_cipher, num * 8, cudaMemcpyDeviceToHost);
     for (int i = 0; i < num*8; i++) d_checksum += h_cipher[i];

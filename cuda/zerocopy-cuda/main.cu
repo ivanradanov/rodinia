@@ -100,7 +100,7 @@ void eval (bool warmup, bool bPinGenericMemory, const int repeat) {
       cudaHostRegister(c, bytes, cudaHostRegisterMapped);
 
       auto end = std::chrono::steady_clock::now();
-      auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+      auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda zerocopy-cuda main.cu,0);
       if (!warmup)
         printf("Memory allocation (cudaHostRegister): %lf ms\n", time * 1e-6);
     } else {
@@ -110,7 +110,7 @@ void eval (bool warmup, bool bPinGenericMemory, const int repeat) {
       cudaHostAlloc((void **)&b, bytes, flags);
       cudaHostAlloc((void **)&c, bytes, flags);
       auto end = std::chrono::steady_clock::now();
-      auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+      auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda zerocopy-cuda main.cu,1);
       if (!warmup)
         printf("Memory allocation (cudaHostAlloc): %lf ms\n", time * 1e-6);
     }
@@ -128,7 +128,7 @@ void eval (bool warmup, bool bPinGenericMemory, const int repeat) {
     cudaHostGetDevicePointer((void **)&d_b, (void *)b, 0);
     cudaHostGetDevicePointer((void **)&d_c, (void *)c, 0);
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda zerocopy-cuda main.cu,2);
     if (!warmup)
       printf("cudaHostGetDevicePointer: %lf ms\n", time * 1e-6);
 
@@ -142,7 +142,7 @@ void eval (bool warmup, bool bPinGenericMemory, const int repeat) {
     }
     cudaDeviceSynchronize();
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda zerocopy-cuda main.cu,3);
 
     if (!warmup)
       printf("Average kernel execution time: %lf ms\n", time * 1e-6 / repeat);
@@ -176,7 +176,7 @@ void eval (bool warmup, bool bPinGenericMemory, const int repeat) {
       free(b_UA);
       free(c_UA);
       auto end = std::chrono::steady_clock::now();
-      auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+      auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda zerocopy-cuda main.cu,4);
       if (!warmup)
         printf("Memory deallocation (cudaHostUnregister): %lf ms\n", time * 1e-6);
     } else {
@@ -185,7 +185,7 @@ void eval (bool warmup, bool bPinGenericMemory, const int repeat) {
       cudaFreeHost(b);
       cudaFreeHost(c);
       auto end = std::chrono::steady_clock::now();
-      auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+      auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda zerocopy-cuda main.cu,5);
       if (!warmup)
         printf("Memory deallocation (cudaFreeHost): %lf ms\n", time * 1e-6);
     }

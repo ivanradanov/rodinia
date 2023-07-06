@@ -234,7 +234,7 @@ int main(int argc, char**argv) {
     auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lfib4-cuda main.cu,0);
     LFIB4(n, x);
     auto end = std::chrono::steady_clock::now();
-    std::chrono::duration<float> host_time = end - start;
+    std::chrono:: duration<float> host_time = end - start;MY_STOP_CLOCK(cuda lfib4-cuda main.cu,0);
 
     // compute on the device
     uint32_t *x_d;
@@ -243,7 +243,7 @@ int main(int argc, char**argv) {
     start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda lfib4-cuda main.cu,1);
     gLFIB4(n, x_d, s, r, z);
     end = std::chrono::steady_clock::now();
-    std::chrono::duration<float> device_time = end - start;
+    std::chrono:: duration<float> device_time = end - start;MY_STOP_CLOCK(cuda lfib4-cuda main.cu,1);
     printf("r = %d | host time = %lf | device time = %lf | speedup = %.1f ",
         r, host_time.count(), device_time.count(), host_time.count() / device_time.count());
 

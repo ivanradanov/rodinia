@@ -63,7 +63,7 @@ int main( int argc, char** argv) {
       num_dimensions, num_events, fcs_data_by_event);
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda gmm-cuda main.cu,0);
 
   clusters_t saved_clusters;
   memcpy(&saved_clusters,clusters,sizeof(clusters_t));

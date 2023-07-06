@@ -198,7 +198,7 @@ extern "C" void offload (double *h_flux_0, double *h_flux_1, double *h_flux_2, d
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    t1 += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    t1 += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda hypterm-cuda kernels.cu,0);
 
     start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda hypterm-cuda kernels.cu,1);
     hypterm_2 <<<gridconfig, blockconfig>>> (flux_0, flux_1, flux_2, flux_3, flux_4,
@@ -207,7 +207,7 @@ extern "C" void offload (double *h_flux_0, double *h_flux_1, double *h_flux_2, d
                                              dxinv0, dxinv1, dxinv2, L, M, N);
     cudaDeviceSynchronize();
     end = std::chrono::steady_clock::now();
-    t2 += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    t2 += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda hypterm-cuda kernels.cu,1);
 
     start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda hypterm-cuda kernels.cu,2);
     hypterm_3 <<<gridconfig, blockconfig>>> (flux_0, flux_1, flux_2, flux_3, flux_4,
@@ -216,7 +216,7 @@ extern "C" void offload (double *h_flux_0, double *h_flux_1, double *h_flux_2, d
                                              dxinv0, dxinv1, dxinv2, L, M, N);
     cudaDeviceSynchronize();
     end = std::chrono::steady_clock::now();
-    t3 += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    t3 += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda hypterm-cuda kernels.cu,2);
   }
 
   printf("Average kernel execution time (k1): %f (ms)\n", t1 * 1e-6 / repeat);

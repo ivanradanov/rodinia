@@ -156,7 +156,7 @@ int main(int argc, char **argv)
   }
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda simpleMultiDevice-cuda main.cu,0);
 
   printf("  Average GPU Processing time: %f (us)\n\n", time * 1e-3f / repeat); 
 

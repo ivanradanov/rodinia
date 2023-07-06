@@ -91,6 +91,7 @@ void kernel_driver_aa(std::string filename,
 
   cudaDeviceSynchronize();
   auto start = NOW;
+  MY_START_CLOCK(cuda bsw-cuda driver.cu,0);
 
   for (int perGPUIts = 0; perGPUIts < its; perGPUIts++)
   {
@@ -257,7 +258,7 @@ void kernel_driver_aa(std::string filename,
   cudaFree(d_encoding_matrix);
   cudaFree(d_scoring_matrix);
 
-  std::chrono::duration<double> diff = end - start;
+  std::chrono:: duration<double> diff = end - start;MY_STOP_CLOCK(cuda bsw-cuda driver.cu,0);
   std::cout << "Total Alignments:" << totalAlignments << "\n" 
             << "Max Reference Size:" << maxContigSize << "\n"
             << "Max Query Size:"<< maxReadSize << "\n" 

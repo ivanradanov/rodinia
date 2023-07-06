@@ -58,10 +58,12 @@ benchmark_merklize_approach_1(const size_t leaf_count,
 
   // this itself does host synchronization
   auto start_time = std::chrono::high_resolution_clock::now();
+  MY_START_CLOCK(cuda merkle-cuda bench_merkle_tree.cu,0);
   merklize_approach_1(
     leaves_d, intermediates_d, leaf_count, wg_size, mds_d, ark1_d, ark2_d);
+  MY_STOP_CLOCK(cuda merkle-cuda bench_merkle_tree.cu,0);
   auto end_time = std::chrono::high_resolution_clock::now();
-  uint64_t ts = std::chrono::duration_cast<std::chrono::nanoseconds>(
+  uint64_t ts = std::chrono:: duration_cast<std::chrono::nanoseconds>(
                 end_time - start_time).count();
 
 #ifdef DEBUG

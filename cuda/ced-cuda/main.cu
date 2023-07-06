@@ -532,7 +532,7 @@ int main(int argc, char **argv) {
   std::vector<std::thread> proxy_threads;
 
   auto t1 = std::chrono::high_resolution_clock::now();
-
+  MY_START_CLOCK(cuda ced-cuda main.cu,0);
   proxy_threads.push_back(std::thread([&]() {
 
       for(int task_id = gpu_first(&partitioner); gpu_more(&partitioner); task_id = gpu_next(&partitioner)) {
@@ -578,7 +578,7 @@ int main(int argc, char **argv) {
   std::for_each(proxy_threads.begin(), proxy_threads.end(), [](std::thread &t) { t.join(); });
 
   auto t2 = std::chrono::high_resolution_clock::now();
-  double total_time = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+  double total_time = std::chrono:: duration_cast<std::chrono::microseconds>(t2 - t1).count();MY_STOP_CLOCK(cuda ced-cuda main.cu,0);
   printf("Total time %lf secs \n", total_time / 1.0e6);
 
 

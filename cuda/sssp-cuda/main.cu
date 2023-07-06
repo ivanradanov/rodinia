@@ -372,6 +372,7 @@ int main(int argc, char **argv) {
   //CUDA_ERR();
   timer.stop("Copy To Device");
 
+  MY_START_CLOCK(cuda sssp-cuda main.cu,0);
   for(int rep = 0; rep < p.n_reps + p.n_warmup; rep++) {
 
     // Reset
@@ -585,6 +586,7 @@ int main(int argc, char **argv) {
       }
     }
   } // end of iteration
+  MY_STOP_CLOCK(cuda sssp-cuda main.cu,0);
   timer.print("Host/Device Allocation", 1);
   timer.print("Copy To Device", p.n_reps);
   timer.print("Kernel on Host", p.n_reps);

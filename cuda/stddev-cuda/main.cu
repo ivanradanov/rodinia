@@ -136,7 +136,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda stddev-cuda main.cu,0);
   printf("Average execution time of stddev kernels: %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(std, d_std, outputSizeByte, cudaMemcpyDeviceToHost);

@@ -94,6 +94,7 @@ int main(int argc, char* argv[]) {
   cudaDeviceSynchronize();
 
   auto t1 = std::chrono::high_resolution_clock::now();
+  MY_START_CLOCK(cuda phmm-cuda main.cu,0);
 
   for(int count = 0; count < repeat; count++) {
     for (int i = 1; i < x_dim + 1; i++) {
@@ -108,7 +109,7 @@ int main(int argc, char* argv[]) {
   cudaDeviceSynchronize();
 
   auto t2 = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double, std::milli> milli = (t2 - t1);
+  std::chrono:: duration<double, std::milli> milli = (t2 - t1);MY_STOP_CLOCK(cuda phmm-cuda main.cu,0);
   std::cout << "Total execution time " <<  milli.count() << " milliseconds\n" ;
 
   cudaMemcpy(h_cur_forward, d_cur_forward, forward_matrix_size, cudaMemcpyDeviceToHost);

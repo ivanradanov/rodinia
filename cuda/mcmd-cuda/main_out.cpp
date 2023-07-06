@@ -12,7 +12,7 @@ void md_main_output(System &system) {
     double thing = floor(system.constants.md_ft / system.constants.md_dt);
     long int total_steps = (long int)thing;
     system.constants.end= std::chrono::steady_clock::now();
-    system.constants.time_elapsed = (std::chrono::duration_cast<std::chrono::microseconds>(system.constants.end - system.constants.begin_steps).count()) /1000000.0;
+    system.constants.time_elapsed = (std::chrono:: duration_cast<std::chrono::microseconds>(system.constants.end - system.constants.begin_steps).count()) /1000000.0;MY_STOP_CLOCK(cuda mcmd-cuda main_out.cpp,0);
     system.constants.sec_per_step = system.constants.time_elapsed/(double)count_md_steps;
     double progress = (((float)count_md_steps)/(float)total_steps*100);
     double ETA = ((system.constants.time_elapsed*(float)total_steps/(float)count_md_steps) - system.constants.time_elapsed)/60.0;
@@ -159,7 +159,7 @@ void md_main_output(System &system) {
 void mc_main_output(System &system) {
     // TIMING
     system.constants.end= std::chrono::steady_clock::now();
-    system.constants.time_elapsed = (std::chrono::duration_cast<std::chrono::microseconds>(system.constants.end - system.constants.begin_steps).count()) /1000000.0;
+    system.constants.time_elapsed = (std::chrono:: duration_cast<std::chrono::microseconds>(system.constants.end - system.constants.begin_steps).count()) /1000000.0;MY_STOP_CLOCK(cuda mcmd-cuda main_out.cpp,1);
     int t = system.stats.MCstep;
     system.constants.sec_per_step = system.constants.time_elapsed/t;
     double progress = (((float)t)/system.constants.finalstep*100);

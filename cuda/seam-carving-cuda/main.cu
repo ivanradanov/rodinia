@@ -165,7 +165,7 @@ int main(int argc, char **argv) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  float time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  float time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda seam-carving-cuda main.cu,0);
   printf("Execution time of seam carver kernels: %f (ms)\n", time * 1e-6f);
 
   cudaMemcpy(h_pixels, d_pixels, img_bytes, cudaMemcpyDeviceToHost);

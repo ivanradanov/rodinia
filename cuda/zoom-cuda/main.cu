@@ -359,7 +359,7 @@ void zoom (int repeat, int input_sizes[4], float zoom_factor[2])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda zoom-cuda main.cu,0);
     total_time += time;
   }
 

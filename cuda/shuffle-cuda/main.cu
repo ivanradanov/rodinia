@@ -165,42 +165,42 @@ int main(int argc, char* argv[]) {
   cudaDeviceSynchronize();
 
   std::cout << "Broadcast using the shuffle xor function (subgroup sizes 8, 16, and 32) \n";
-  auto begin = std::chrono::steady_clock::now();
+  auto begin = std::chrono::steady_clock::now();MY_START_CLOCK(cuda shuffle-cuda main.cu,0);
 
   for (int n = 0; n < repeat; n++)
     bcast_shfl_xor_sg8 <<< dim3(1), dim3(BUF_SIZE) >>> (d_out);
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - begin).count();MY_STOP_CLOCK(cuda shuffle-cuda main.cu,0);
   std::cout << "Average kernel time (subgroup size = 8): "
             << time * 1e-3f / repeat << " (us)\n";
 
   cudaMemcpy(out, d_out, sizeof(int) * BUF_SIZE, cudaMemcpyDeviceToHost);
   verifyBroadcast(out, 8);
 
-  begin = std::chrono::steady_clock::now();
+  begin = std::chrono::steady_clock::now();MY_START_CLOCK(cuda shuffle-cuda main.cu,1);
 
   for (int n = 0; n < repeat; n++)
     bcast_shfl_xor_sg16 <<< dim3(1), dim3(BUF_SIZE) >>> (d_out);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - begin).count();MY_STOP_CLOCK(cuda shuffle-cuda main.cu,1);
   std::cout << "Average kernel time (subgroup size = 16): "
             << time * 1e-3f / repeat << " (us)\n";
 
   cudaMemcpy(out, d_out, sizeof(int) * BUF_SIZE, cudaMemcpyDeviceToHost);
   verifyBroadcast(out, 16);
 
-  begin = std::chrono::steady_clock::now();
+  begin = std::chrono::steady_clock::now();MY_START_CLOCK(cuda shuffle-cuda main.cu,2);
 
   for (int n = 0; n < repeat; n++)
     bcast_shfl_xor_sg32 <<< dim3(1), dim3(BUF_SIZE) >>> (d_out);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - begin).count();MY_STOP_CLOCK(cuda shuffle-cuda main.cu,2);
   std::cout << "Average kernel time (subgroup size = 32): "
             << time * 1e-3f / repeat << " (us)\n";
 
@@ -208,28 +208,28 @@ int main(int argc, char* argv[]) {
   verifyBroadcast(out, 32);
 
   std::cout << "Broadcast using the shuffle function (subgroup sizes 8, 16, and 32) \n";
-  begin = std::chrono::steady_clock::now();
+  begin = std::chrono::steady_clock::now();MY_START_CLOCK(cuda shuffle-cuda main.cu,3);
 
   for (int n = 0; n < repeat; n++)
     bcast_shfl_sg8 <<< dim3(1), dim3(BUF_SIZE) >>> (PATTERN, d_out);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - begin).count();MY_STOP_CLOCK(cuda shuffle-cuda main.cu,3);
   std::cout << "Average kernel time (subgroup size = 8): "
             << time * 1e-3f / repeat << " (us)\n";
 
   cudaMemcpy(out, d_out, sizeof(int) * BUF_SIZE, cudaMemcpyDeviceToHost);
   verifyBroadcast(out, 8, PATTERN);
 
-  begin = std::chrono::steady_clock::now();
+  begin = std::chrono::steady_clock::now();MY_START_CLOCK(cuda shuffle-cuda main.cu,4);
 
   for (int n = 0; n < repeat; n++)
     bcast_shfl_sg16 <<< dim3(1), dim3(BUF_SIZE) >>> (PATTERN, d_out);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - begin).count();MY_STOP_CLOCK(cuda shuffle-cuda main.cu,4);
   std::cout << "Average kernel time (subgroup size = 16): "
             << time * 1e-3f / repeat << " (us)\n";
 
@@ -237,14 +237,14 @@ int main(int argc, char* argv[]) {
 
   verifyBroadcast(out, 16, PATTERN);
 
-  begin = std::chrono::steady_clock::now();
+  begin = std::chrono::steady_clock::now();MY_START_CLOCK(cuda shuffle-cuda main.cu,5);
 
   for (int n = 0; n < repeat; n++)
     bcast_shfl_sg32 <<< dim3(1), dim3(BUF_SIZE) >>> (PATTERN, d_out);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - begin).count();MY_STOP_CLOCK(cuda shuffle-cuda main.cu,5);
   std::cout << "Average kernel time (subgroup size = 32): "
             << time * 1e-3f / repeat << " (us)\n";
 
@@ -275,14 +275,14 @@ int main(int argc, char* argv[]) {
 
   cudaMemcpy(gpuMatrix, Matrix, total * sizeof(float), cudaMemcpyHostToDevice);
 
-  begin = std::chrono::steady_clock::now();
+  begin = std::chrono::steady_clock::now();MY_START_CLOCK(cuda shuffle-cuda main.cu,6);
 
   for (int n = 0; n < repeat2; n++)
     transpose_shfl <<< dim3(total/8), dim3(8) >>> (gpuTransposeMatrix, gpuMatrix);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - begin).count();MY_STOP_CLOCK(cuda shuffle-cuda main.cu,6);
   std::cout << "Average kernel time (subgroup size = 8): "
             << time * 1e-3f / repeat2 << " (us)\n";
 
@@ -291,14 +291,14 @@ int main(int argc, char* argv[]) {
   matrixTransposeCPUReference(cpuTransposeMatrix, Matrix, total/8, 8);
   verifyTransposeMatrix(TransposeMatrix, cpuTransposeMatrix, total, 8);
 
-  begin = std::chrono::steady_clock::now();
+  begin = std::chrono::steady_clock::now();MY_START_CLOCK(cuda shuffle-cuda main.cu,7);
 
   for (int n = 0; n < repeat2; n++)
     transpose_shfl <<< dim3(total/16), dim3(16) >>> (gpuTransposeMatrix, gpuMatrix);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - begin).count();MY_STOP_CLOCK(cuda shuffle-cuda main.cu,7);
   std::cout << "Average kernel time (subgroup size = 16): "
             << time * 1e-3f / repeat2 << " (us)\n";
 
@@ -307,14 +307,14 @@ int main(int argc, char* argv[]) {
   matrixTransposeCPUReference(cpuTransposeMatrix, Matrix, total/16, 16);
   verifyTransposeMatrix(TransposeMatrix, cpuTransposeMatrix, total, 16);
 
-  begin = std::chrono::steady_clock::now();
+  begin = std::chrono::steady_clock::now();MY_START_CLOCK(cuda shuffle-cuda main.cu,8);
 
   for (int n = 0; n < repeat2; n++)
     transpose_shfl <<< dim3(total/32), dim3(32) >>> (gpuTransposeMatrix, gpuMatrix);
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - begin).count();MY_STOP_CLOCK(cuda shuffle-cuda main.cu,8);
   std::cout << "Average kernel time (subgroup size = 32): "
             << time * 1e-3f / repeat2 << " (us)\n";
 

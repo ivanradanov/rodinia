@@ -250,7 +250,7 @@ int main(int argc, char **argv) {
     }
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda sc-cuda main.cu,0);
     printf("Total stream compaction time for %d iterations: %f (ms)\n", p.n_reps + p.n_warmup, time * 1e-6f);
 
 #ifndef DYNAMIC_PARTITION

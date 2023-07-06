@@ -130,7 +130,7 @@ int main(int argc, char **argv) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda filter-cuda main.cu,0);
   printf("Average execution time of filter (shared memory) %lf (ms)\n",
          (time * 1e-6) / repeat);
 

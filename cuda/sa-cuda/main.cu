@@ -91,7 +91,7 @@ int main(int argc, char* argv[])
   }
 
   auto end = std::chrono::steady_clock::now();
-  std::chrono::duration<float> time = end - start;
+  std::chrono:: duration<float> time = end - start;MY_STOP_CLOCK(cuda sa-cuda main.cu,0);
   printf("Average suffix array construct time (input size = %d): %f (s)\n", 
          n, time.count() / repeat);
 

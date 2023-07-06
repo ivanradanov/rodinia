@@ -196,7 +196,7 @@ int main(int argc, char* argv[]) {
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda asmooth-cuda main.cu,0);
   }
 
   printf("Average filtering time %lf (s)\n", (time * 1e-9) / repeat);

@@ -65,7 +65,7 @@ void atomicCost (int t, int repeat)
     }
     CHECK_ERROR( cudaDeviceSynchronize() );
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda atomicCost-cuda main.cu,0);
     printf("Average execution time of WithAtomicOnGlobalMem: %f (us)\n",
             time * 1e-3f / repeat);
     CHECK_ERROR( cudaMemcpy(result_wi, d_result, result_size, cudaMemcpyDeviceToHost) );
@@ -78,7 +78,7 @@ void atomicCost (int t, int repeat)
     }
     CHECK_ERROR( cudaDeviceSynchronize() );
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda atomicCost-cuda main.cu,1);
     printf("Average execution time of WithoutAtomicOnGlobalMem: %f (us)\n",
             time * 1e-3f / repeat);
     CHECK_ERROR( cudaMemcpy(result_wo, d_result, result_size, cudaMemcpyDeviceToHost) );

@@ -141,7 +141,7 @@ float loss_bwd_kernel(
   cudaDeviceSynchronize();
 
   auto end = std::chrono::high_resolution_clock::now();
-  float time = std::chrono::duration<float, std::milli>(end - start).count(); // ms
+  float time = std::chrono:: duration<float, std::milli>(end - start).count(); // msMY_STOP_CLOCK(cuda crossEntropy-cuda main.cu,0);
   return time;
 }
 
@@ -228,7 +228,7 @@ void LossNLL_BWD(int iterations) {
   cudaMemcpy(log_softmax_device, log_softmax, log_softmax_size, cudaMemcpyHostToDevice);
 
   auto end = std::chrono::high_resolution_clock::now();
-  float time = std::chrono::duration<float, std::milli>(end - start).count(); // ms
+  float time = std::chrono:: duration<float, std::milli>(end - start).count(); // msMY_STOP_CLOCK(cuda crossEntropy-cuda main.cu,1);
   durations[0] += time;
 
   int warmup = 10;
@@ -246,7 +246,7 @@ void LossNLL_BWD(int iterations) {
   start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda crossEntropy-cuda main.cu,2);
   cudaMemcpy(grad_predict_device_host, grad_predict_device, grad_predict_size, cudaMemcpyDeviceToHost);
   end = std::chrono::high_resolution_clock::now();
-  time = std::chrono::duration<float, std::milli>(end - start).count(); // ms
+  time = std::chrono:: duration<float, std::milli>(end - start).count(); // msMY_STOP_CLOCK(cuda crossEntropy-cuda main.cu,2);
   durations[0] += time;
 
   start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda crossEntropy-cuda main.cu,3);
@@ -254,7 +254,7 @@ void LossNLL_BWD(int iterations) {
   loss_bwd_cpu<scalar_t, gscalar_t>(log_softmax, target, weight, mask, grad_output, grad_output_neg, grad_predict);
 
   end = std::chrono::high_resolution_clock::now();
-  time = std::chrono::duration<float, std::milli>(end - start).count(); // ms
+  time = std::chrono:: duration<float, std::milli>(end - start).count(); // msMY_STOP_CLOCK(cuda crossEntropy-cuda main.cu,3);
   durations[2] = time;
 
   verify<gscalar_t>(grad_predict, grad_predict_device_host, bs * W * H);

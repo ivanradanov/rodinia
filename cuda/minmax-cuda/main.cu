@@ -57,7 +57,7 @@ void eval (const T bounding_box_size, const int repeat) {
   }
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda minmax-cuda main.cu,0);
   printf("Average execution time of thrust:min() and thrust:max(): %f (us)\n",
          (time * 1e-3f) / repeat);
 
@@ -72,7 +72,7 @@ void eval (const T bounding_box_size, const int repeat) {
   }
 
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda minmax-cuda main.cu,1);
   printf("Average execution time of thrust:min_max(): %f (us)\n",
          (time * 1e-3f) / repeat);
 

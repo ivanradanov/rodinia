@@ -55,7 +55,7 @@ int main() {
     auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda dispatch-cuda main.cu,0);
     EmptyKernel<<<dim3(NUM_GROUPS), dim3(GROUP_SIZE)>>>();
     auto stop = std::chrono::high_resolution_clock::now();
-    results[i] = std::chrono::duration<float, std::milli>(stop - start).count();
+    results[i] = std::chrono:: duration<float, std::milli>(stop - start).count();MY_STOP_CLOCK(cuda dispatch-cuda main.cu,0);
   }
   print_timing("Enqueue rate", results);
 
@@ -67,7 +67,7 @@ int main() {
     EmptyKernel<<<dim3(NUM_GROUPS), dim3(GROUP_SIZE)>>>();
     cudaDeviceSynchronize();
     auto stop = std::chrono::high_resolution_clock::now();
-    results[i] = std::chrono::duration<float, std::milli>(stop - start).count();
+    results[i] = std::chrono:: duration<float, std::milli>(stop - start).count();MY_STOP_CLOCK(cuda dispatch-cuda main.cu,1);
   }
   print_timing("Single dispatch latency", results);
 
@@ -81,7 +81,7 @@ int main() {
     }
     cudaDeviceSynchronize();
     auto stop = std::chrono::high_resolution_clock::now();
-    results[i] = std::chrono::duration<float, std::milli>(stop - start).count();
+    results[i] = std::chrono:: duration<float, std::milli>(stop - start).count();MY_STOP_CLOCK(cuda dispatch-cuda main.cu,2);
   }
   print_timing("Batch dispatch latency", results, BATCH_SIZE);
 

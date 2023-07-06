@@ -146,7 +146,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::system_clock::now();
-  std::chrono::duration<double> elapsed_seconds = end-start;
+  std::chrono:: duration<double> elapsed_seconds = end-start;MY_STOP_CLOCK(cuda reaction-cuda main.cu,0);
   printf("timesteps: %d\n", timesteps);
   printf("Total kernel execution time:     %12.3f s\n\n", elapsed_seconds.count());
 

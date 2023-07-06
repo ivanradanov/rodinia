@@ -221,7 +221,7 @@ void test(int hiddenSize, int miniBatch, int seqLength, int numLayers,
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    ktime += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    ktime += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda pointwise-cuda main.cu,0);
   }
 
   time += ktime;

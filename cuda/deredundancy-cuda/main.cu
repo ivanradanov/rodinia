@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
   }
 
   auto t1 = std::chrono::high_resolution_clock::now();
-
+  MY_START_CLOCK(cuda deredundancy-cuda main.cu,0);
   int *d_lengths; 
   cudaMalloc((void**)&d_lengths, readsCount * sizeof(int));
   cudaMemcpy(d_lengths, h_lengths, readsCount * sizeof(int), cudaMemcpyHostToDevice);
@@ -255,7 +255,7 @@ int main(int argc, char **argv) {
   cudaMemcpy(h_cluster, d_cluster, sizeof(int) * readsCount, cudaMemcpyDeviceToHost);
 
   auto t2 = std::chrono::high_resolution_clock::now();
-  double total_time = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+  double total_time = std::chrono:: duration_cast<std::chrono::microseconds>(t2 - t1).count();MY_STOP_CLOCK(cuda deredundancy-cuda main.cu,0);
   printf("Device offload time %lf secs \n", total_time / 1.0e6);
 
   std::ofstream file(option.outputFile.c_str());

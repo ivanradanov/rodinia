@@ -42,7 +42,7 @@ void test (const int repeat, const int numFloats)
   Add1<T><<< blocks, threads >>>(deviceMem, repeat, 10.0);
   cudaDeviceSynchronize();
   auto k_end = std::chrono::high_resolution_clock::now(); 
-  auto k_time = std::chrono::duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();
+  auto k_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();MY_STOP_CLOCK(cuda maxFlops-cuda main.cu,0);
   printf("kernel execution time (Add1): %f (s)\n", (k_time * 1e-9f));
 
   memcpyH2D(deviceMem, hostMem, numFloats);
@@ -50,7 +50,7 @@ void test (const int repeat, const int numFloats)
   Add2<T><<< blocks, threads >>>(deviceMem, repeat, 10.0);
   cudaDeviceSynchronize();
   k_end = std::chrono::high_resolution_clock::now(); 
-  k_time = std::chrono::duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();
+  k_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();MY_STOP_CLOCK(cuda maxFlops-cuda main.cu,1);
   printf("kernel execution time (Add2): %f (s)\n", k_time * 1e-9f);
 
   memcpyH2D(deviceMem, hostMem, numFloats);
@@ -58,7 +58,7 @@ void test (const int repeat, const int numFloats)
   Add4<T><<< blocks, threads >>>(deviceMem, repeat, 10.0);
   cudaDeviceSynchronize();
   k_end = std::chrono::high_resolution_clock::now(); 
-  k_time = std::chrono::duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();
+  k_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();MY_STOP_CLOCK(cuda maxFlops-cuda main.cu,2);
   printf("kernel execution time (Add4): %f (s)\n", k_time * 1e-9f);
 
   memcpyH2D(deviceMem, hostMem, numFloats);
@@ -66,7 +66,7 @@ void test (const int repeat, const int numFloats)
   Add8<T><<< blocks, threads >>>(deviceMem, repeat, 10.0);
   cudaDeviceSynchronize();
   k_end = std::chrono::high_resolution_clock::now(); 
-  k_time = std::chrono::duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();
+  k_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();MY_STOP_CLOCK(cuda maxFlops-cuda main.cu,3);
   printf("kernel execution time (Add8): %f (s)\n", k_time * 1e-9f);
 
   // warmup
@@ -83,7 +83,7 @@ void test (const int repeat, const int numFloats)
   Mul1<T><<< blocks, threads >>>(deviceMem, repeat, 1.01);
   cudaDeviceSynchronize();
   k_end = std::chrono::high_resolution_clock::now(); 
-  k_time = std::chrono::duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();
+  k_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();MY_STOP_CLOCK(cuda maxFlops-cuda main.cu,4);
   printf("kernel execution time (Mul1): %f (s)\n", k_time * 1e-9f);
 
   memcpyH2D(deviceMem, hostMem, numFloats);
@@ -91,7 +91,7 @@ void test (const int repeat, const int numFloats)
   Mul2<T><<< blocks, threads >>>(deviceMem, repeat, 1.01);
   cudaDeviceSynchronize();
   k_end = std::chrono::high_resolution_clock::now(); 
-  k_time = std::chrono::duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();
+  k_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();MY_STOP_CLOCK(cuda maxFlops-cuda main.cu,5);
   printf("kernel execution time (Mul2): %f (s)\n", k_time * 1e-9f);
 
   memcpyH2D(deviceMem, hostMem, numFloats);
@@ -99,7 +99,7 @@ void test (const int repeat, const int numFloats)
   Mul4<T><<< blocks, threads >>>(deviceMem, repeat, 1.01);
   cudaDeviceSynchronize();
   k_end = std::chrono::high_resolution_clock::now(); 
-  k_time = std::chrono::duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();
+  k_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();MY_STOP_CLOCK(cuda maxFlops-cuda main.cu,6);
   printf("kernel execution time (Mul4): %f (s)\n", k_time * 1e-9f);
 
   memcpyH2D(deviceMem, hostMem, numFloats);
@@ -107,7 +107,7 @@ void test (const int repeat, const int numFloats)
   Mul8<T><<< blocks, threads >>>(deviceMem, repeat, 1.01);
   cudaDeviceSynchronize();
   k_end = std::chrono::high_resolution_clock::now(); 
-  k_time = std::chrono::duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();
+  k_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();MY_STOP_CLOCK(cuda maxFlops-cuda main.cu,7);
   printf("kernel execution time (Mul8): %f (s)\n", k_time * 1e-9f);
 
   // warmup
@@ -124,7 +124,7 @@ void test (const int repeat, const int numFloats)
   MAdd1<T><<< blocks, threads >>>(deviceMem, repeat, 10.0, 0.9899);
   cudaDeviceSynchronize();
   k_end = std::chrono::high_resolution_clock::now(); 
-  k_time = std::chrono::duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();
+  k_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();MY_STOP_CLOCK(cuda maxFlops-cuda main.cu,8);
   printf("kernel execution time (MAdd1): %f (s)\n", k_time * 1e-9f);
 
   memcpyH2D(deviceMem, hostMem, numFloats);
@@ -132,7 +132,7 @@ void test (const int repeat, const int numFloats)
   MAdd2<T><<< blocks, threads >>>(deviceMem, repeat, 10.0, 0.9899);
   cudaDeviceSynchronize();
   k_end = std::chrono::high_resolution_clock::now(); 
-  k_time = std::chrono::duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();
+  k_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();MY_STOP_CLOCK(cuda maxFlops-cuda main.cu,9);
   printf("kernel execution time (MAdd2): %f (s)\n", k_time * 1e-9f);
 
   memcpyH2D(deviceMem, hostMem, numFloats);
@@ -140,7 +140,7 @@ void test (const int repeat, const int numFloats)
   MAdd4<T><<< blocks, threads >>>(deviceMem, repeat, 10.0, 0.9899);
   cudaDeviceSynchronize();
   k_end = std::chrono::high_resolution_clock::now(); 
-  k_time = std::chrono::duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();
+  k_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(k_end - k_start).count();MY_STOP_CLOCK(cuda maxFlops-cuda main.cu,10);
   printf("kernel execution time (MAdd4): %f (s)\n", k_time * 1e-9f);
 
   memcpyH2D(deviceMem, hostMem, numFloats);

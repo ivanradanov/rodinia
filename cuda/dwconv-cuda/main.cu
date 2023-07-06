@@ -210,7 +210,7 @@ void dwconv2d_forward (const int m,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda dwconv-cuda main.cu,0);
   printf("Average execution time of dwconv2d_forward kernel: %f (ms)\n", 
           time * 1e-6f / repeat);
 

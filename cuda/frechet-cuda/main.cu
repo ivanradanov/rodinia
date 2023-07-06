@@ -94,7 +94,7 @@ void discrete_frechet_distance(const int s, const int n_1, const int n_2, const 
  
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda frechet-cuda main.cu,0);
   printf("Average kernel execution time %f (s)\n", (time * 1e-9f) / repeat);
 
   cudaMemcpy(ca, d_ca, ca_size, cudaMemcpyDeviceToHost);

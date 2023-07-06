@@ -116,7 +116,7 @@ int main(int argc, char **argv){
   cudaFree(o_lambda);
 
   auto end = std::chrono::high_resolution_clock::now();
-  const double elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() / Ntests;
+  const double elapsed = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count() / Ntests;MY_STOP_CLOCK(cuda axhelm-cuda main.cu,0);
 
   // verify
   dfloat maxDiff = 0;

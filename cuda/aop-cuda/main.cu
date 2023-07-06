@@ -1205,7 +1205,7 @@ int main(int argc, char **argv)
 
     auto end = std::chrono::high_resolution_clock::now();
     const float elapsed_time =
-       std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+       std::chrono:: duration_cast<std::chrono::milliseconds>(end - start).count();MY_STOP_CLOCK(cuda aop-cuda main.cu,0);
     total_elapsed_time += elapsed_time;
   }
 

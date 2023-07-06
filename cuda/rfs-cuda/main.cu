@@ -151,7 +151,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda rfs-cuda main.cu,0);
   printf("Average kernel execution time (sumArray): %f (s)\n", (time * 1e-9f) / nArrays);
 
   // bit accurate sum
@@ -166,7 +166,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda rfs-cuda main.cu,1);
   printf("Kernel execution time (sumArrays): %f (s)\n", time * 1e-9f);
 
   // bit accurate sum

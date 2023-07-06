@@ -10,7 +10,7 @@
 #include "benchmark.h"
 
 std::chrono::high_resolution_clock::time_point start,end;
-std::chrono::duration<double> elapsed;
+std::chrono:: duration<double> elapsed;
 std::chrono::high_resolution_clock timer;
 bool pause = false;
 

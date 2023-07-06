@@ -38,14 +38,14 @@ int main(int argc, char *argv[])
     auto t1 = std::chrono::high_resolution_clock::now();
     bc = bc_cpu(g,source_vertices);
     auto t2 = std::chrono::high_resolution_clock::now();
-    CPU_time = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+    CPU_time = std::chrono:: duration_cast<std::chrono::microseconds>(t2 - t1).count();
   }
 
   std::vector<float> bc_g;
-  auto t1 = std::chrono::high_resolution_clock::now();
+  auto t1 = std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda hbc-cuda main.cpp,1);
   bc_g = bc_gpu(g,max_threads_per_block,number_of_SMs,op,source_vertices);
   auto t2 = std::chrono::high_resolution_clock::now();
-  float GPU_time = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+  float GPU_time = std::chrono:: duration_cast<std::chrono::microseconds>(t2 - t1).count();MY_STOP_CLOCK(cuda hbc-cuda main.cpp,1);
 
   if(op.verify) verify(g,bc,bc_g);
   if(op.printBCscores) g.print_BC_scores(bc_g,op.scorefile);

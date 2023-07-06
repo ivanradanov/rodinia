@@ -211,7 +211,7 @@ void optimize(System &system) {
         writeXYZ(system, system.constants.output_traj, 0, step, 0, 0);
 
         std::chrono::steady_clock::time_point end= std::chrono::steady_clock::now();
-        double time_elapsed = (std::chrono::duration_cast<std::chrono::microseconds>(end - begin_opt).count()) /1000000.0;
+        double time_elapsed = (std::chrono:: duration_cast<std::chrono::microseconds>(end - begin_opt).count()) /1000000.0;MY_STOP_CLOCK(cuda mcmd-cuda optimize.cpp,0);
         double sec_per_step = time_elapsed/step;
 
         outputEnergies(system, step, Ef, delta_E, sec_per_step);
@@ -280,7 +280,7 @@ void optimize(System &system) {
       step++;
       writeXYZ(system, system.constants.output_traj, step, step, 0, 0);
       std::chrono::steady_clock::time_point end= std::chrono::steady_clock::now();
-      double time_elapsed = (std::chrono::duration_cast<std::chrono::microseconds>(end - begin_opt).count()) /1000000.0;
+      double time_elapsed = (std::chrono:: duration_cast<std::chrono::microseconds>(end - begin_opt).count()) /1000000.0;MY_STOP_CLOCK(cuda mcmd-cuda optimize.cpp,1);
       double sec_per_step = time_elapsed/step;
       outputEnergies(system, step, Ef, delta_E, sec_per_step);
 

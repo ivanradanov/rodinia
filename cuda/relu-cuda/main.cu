@@ -221,7 +221,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda relu-cuda main.cu,0);
   printf("Average execution time of ReluGrad_impl1 Kernel: %f (us)\n",
           (time * 1e-3f) / repeat);
 
@@ -249,7 +249,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda relu-cuda main.cu,1);
   printf("Average execution time of ReluGrad_impl2 Kernel: %f (us)\n",
           (time * 1e-3f) / repeat);
 
@@ -300,7 +300,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda relu-cuda main.cu,2);
   printf("Average execution time of Relu_impl1 Kernel : %f (us)\n",
           (time * 1e-3f) / repeat);
 
@@ -316,7 +316,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda relu-cuda main.cu,3);
   printf("Average execution time of Relu_impl2 Kernel: %f (us)\n",
           (time * 1e-3f) / repeat);
 

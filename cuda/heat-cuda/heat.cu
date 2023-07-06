@@ -50,7 +50,7 @@ double l2norm(const int n, const double * u, const int nsteps, const double dt, 
 int main(int argc, char *argv[]) {
 
   // Start the total program runtime timer
-  auto start=std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda heat-cuda heat.cu,0);
+  auto start=std::chrono::high_resolution_clock::now();
 
   // Problem size, forms an nxn grid
   int n = 1000;
@@ -147,6 +147,7 @@ int main(int argc, char *argv[]) {
 
   // Start the solve timer
   auto tic = std::chrono::high_resolution_clock::now();
+  MY_START_CLOCK(cuda heat-cuda heat.cu,5);
 
   for (int t = 0; t < nsteps; ++t) {
 
@@ -163,6 +164,7 @@ int main(int argc, char *argv[]) {
 
   // Stop solve timer
   cudaDeviceSynchronize();
+  MY_STOP_CLOCK(cuda heat-cuda heat.cu,5);
   auto toc = std::chrono::high_resolution_clock::now();
 
   // Get access to u on the host
@@ -186,9 +188,9 @@ int main(int argc, char *argv[]) {
   std::cout
     << "Results" << std::endl << std::endl
     << "Error (L2norm): " << norm << std::endl
-    << "Solve time (s): " << std::chrono::duration_cast<std::chrono::duration<double>>(toc-tic).count() << std::endl
-    << "Total time (s): " << std::chrono::duration_cast<std::chrono::duration<double>>(stop-start).count() << std::endl
-    << "Bandwidth (GB/s): " << 1.0E-9*2.0*n*n*nsteps*sizeof(double)/std::chrono::duration_cast<std::chrono::duration<double>>(toc-tic).count() << std::endl
+    << "Solve time (s): " << std::chrono:: duration_cast<std::chrono:: duration<double>>(toc-tic).count() << std::endl
+    << "Total time (s): " << std::chrono:: duration_cast<std::chrono:: duration<double>>(stop-start).count() << std::endl
+    << "Bandwidth (GB/s): " << 1.0E-9*2.0*n*n*nsteps*sizeof(double)/std::chrono:: duration_cast<std::chrono:: duration<double>>(toc-tic).count() << std::endl
     << LINE << std::endl;
 
   delete[] u_host;

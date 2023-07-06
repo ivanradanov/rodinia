@@ -153,7 +153,7 @@ void run_bfs_gpu(int no_of_nodes, Node *h_graph_nodes, int edge_list_size,
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda bfs-cuda bfs.cu,0);
 
     cudaMemcpy(&h_over, d_over, sizeof(char), cudaMemcpyDeviceToHost) ;
   } while(h_over);

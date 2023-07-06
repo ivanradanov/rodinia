@@ -489,7 +489,7 @@ int main(int argc, char *argv[])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda sph-cuda fluid.cu,0);
     printf("Average execution time of sph kernels: %f (ms)\n", (time * 1e-6f) / params.number_steps);
 
     cudaMemcpy(fluid_particles, d_fluid_particles, 

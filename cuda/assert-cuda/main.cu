@@ -106,13 +106,14 @@ bool runPerf(int argc, char **argv)
   perfKernel<<<dimGrid, dimBlock>>>();
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  std::chrono::duration<float> time = end - start;
+  std::chrono:: duration<float> time = end - start;MY_STOP_CLOCK(cuda assert-cuda main.cu,0);
   printf("Kernel time : %f\n", time.count());
 
   printf("Each thread in the kernel executes threadID assertions\n");
   start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda assert-cuda main.cu,1);
   perfKernel2<<<dimGrid, dimBlock>>>();
   cudaDeviceSynchronize();
+  MY_STOP_CLOCK(cuda assert-cuda main.cu,1);
   end = std::chrono::steady_clock::now();
   time = end - start;
   printf("Kernel time : %f\n", time.count());

@@ -73,14 +73,14 @@ void eval_remap(const int N, const int repeat) {
     thrust::device_vector<int> order1(N), order2(N);
 
     auto end = std::chrono::steady_clock::now();
-    alloc_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    alloc_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda remap-cuda main.cu,0);
 
     start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda remap-cuda main.cu,2);
 
     cudaMemcpy(d_input, h_input, input_size_bytes, cudaMemcpyHostToDevice);
 
     end = std::chrono::steady_clock::now();
-    copy_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    copy_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda remap-cuda main.cu,1);
 
     start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda remap-cuda main.cu,3);
 
@@ -88,7 +88,7 @@ void eval_remap(const int N, const int repeat) {
     thrust::sequence(order2.begin(), order2.end());
 
     end = std::chrono::steady_clock::now();
-    seq_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    seq_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda remap-cuda main.cu,2);
 
     // Sort the input along with order vector. So now we know where each element
     // is permutated to. For example:
@@ -103,7 +103,7 @@ void eval_remap(const int N, const int repeat) {
     thrust::sort_by_key(buffer, buffer + N, order1.begin());
 
     end = std::chrono::steady_clock::now();
-    sort_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    sort_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda remap-cuda main.cu,3);
 
     // Use consequent unique op to get another order_buffer
     //    input2 = 1,1,3,5,5,7,9
@@ -116,7 +116,7 @@ void eval_remap(const int N, const int repeat) {
     auto result = thrust::unique_by_key(buffer, buffer + N, order2.begin());
 
     end = std::chrono::steady_clock::now();
-    unique_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    unique_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda remap-cuda main.cu,4);
 
     int K = result.first - buffer;
 
@@ -135,14 +135,14 @@ void eval_remap(const int N, const int repeat) {
 
     cudaDeviceSynchronize();
     end = std::chrono::steady_clock::now();
-    kernel_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    kernel_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda remap-cuda main.cu,5);
 
     start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda remap-cuda main.cu,7);
 
     cudaMemcpy(h_output, d_output, output_size_bytes, cudaMemcpyDeviceToHost);
 
     end = std::chrono::steady_clock::now();
-    copy_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    copy_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda remap-cuda main.cu,6);
 
     start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda remap-cuda main.cu,8);
 
@@ -150,11 +150,11 @@ void eval_remap(const int N, const int repeat) {
     cudaFree(d_input);
 
     end = std::chrono::steady_clock::now();
-    dealloc_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    dealloc_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda remap-cuda main.cu,7);
   }
 
   auto offload_end = std::chrono::steady_clock::now();
-  auto offload_time = std::chrono::duration_cast<std::chrono::nanoseconds>(offload_end - offload_start).count();
+  auto offload_time = std::chrono:: duration_cast<std::chrono::nanoseconds>(offload_end - offload_start).count();MY_STOP_CLOCK(cuda remap-cuda main.cu,8);
 
   printf("Average offload time: %f (s)\n", offload_time * 1e-9f / repeat);
   printf("Average execution time of memory allocation : %f (us)\n", (alloc_time * 1e-3f) / repeat);

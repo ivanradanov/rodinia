@@ -211,7 +211,7 @@ int main(int argc, char* argv[]) {
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda vmc-cuda vmc.cu,0);
 
     struct {FLOAT r1, r2, r12, accept;} s;
     CHECK(cudaMemcpy(&s, statsum, sizeof(s), cudaMemcpyDeviceToHost));

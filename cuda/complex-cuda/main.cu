@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda complex-cuda main.cu,0);
   printf("Average kernel execution time (float) %f (s)\n", time * 1e-9f / repeat);
 
   cudaMemcpy(cs, d_cs, n, cudaMemcpyDeviceToHost);
@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda complex-cuda main.cu,1);
   printf("Average kernel execution time (double) %f (s)\n", time * 1e-9f / repeat);
 
   cudaMemcpy(cs, d_cs, n, cudaMemcpyDeviceToHost);

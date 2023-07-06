@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda fwt-cuda main.cu,0);
     total_time += time;
   }
   printf("Average device execution time %f (s)\n", (total_time * 1e-9f) / repeat);

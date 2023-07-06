@@ -47,7 +47,7 @@ public:
 
   void mark_as_finished()
   {
-    auto stamp = std::chrono::duration_cast<std::chrono::nanoseconds>(
+    auto stamp = std::chrono:: duration_cast<std::chrono::nanoseconds>(MY_STOP_CLOCK(mcuda-test mcuda cpucuda include cpucuda detail event.hpp,0);
         std::chrono::steady_clock::now().time_since_epoch()).count();
     // still report completion correctly on a system with broken steady_clock
     _record_timestamp = std::max<uint64_t>(static_cast<uint64_t>(stamp), 1u);

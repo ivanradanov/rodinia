@@ -226,7 +226,7 @@ template<class TData> int runTest(
   cudaDeviceSynchronize();
 
   auto end = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> elapsed_seconds = end - start;
+  std::chrono:: duration<double> elapsed_seconds = end - start;MY_STOP_CLOCK(cuda aligned-types-cuda main.cu,0);
   double gpuTime = (double)elapsed_seconds.count() / NUM_ITERATIONS;
 
   printf(

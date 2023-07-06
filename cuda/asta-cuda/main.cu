@@ -273,7 +273,7 @@ int main(int argc, char **argv) {
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
     if (rep >= p.n_warmup) 
-      time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+      time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda asta-cuda main.cu,0);
 
     cudaMemcpy(h_in_out, d_in_out, in_size_bytes, cudaMemcpyDeviceToHost);
   }

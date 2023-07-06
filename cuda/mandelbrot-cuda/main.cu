@@ -22,10 +22,12 @@ void Execute() {
   // Run and time the parallel version
 
   common::MyTimer t_par;
+  MY_START_CLOCK(cuda mandelbrot-cuda main.cu,1);
 
   for (int i = 0; i < repetitions; ++i) 
     kernel_time += m_par.Evaluate();
 
+  MY_STOP_CLOCK(cuda mandelbrot-cuda main.cu,1);
   common::Duration parallel_time = t_par.elapsed();
 
   // Print the results

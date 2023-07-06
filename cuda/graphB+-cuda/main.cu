@@ -264,7 +264,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> elapsed_seconds = end - start;
+  std::chrono:: duration<double> elapsed_seconds = end - start;MY_STOP_CLOCK(cuda graphB+-cuda main.cu,0);
   float runtime = elapsed_seconds.count();
   printf("Total graphB+ runtime:    %.6f s\n", runtime);
 

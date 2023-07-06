@@ -547,7 +547,7 @@ int main(int argc, char **argv) {
 
   // Final timing stats.
   auto end = std::chrono::steady_clock::now();
-  system.constants.time_elapsed = (std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) /1000000.0;
+  system.constants.time_elapsed = (std::chrono:: duration_cast<std::chrono::microseconds>(end - begin).count()) /1000000.0;MY_STOP_CLOCK(cuda mcmd-cuda main.cpp,0);
   printf("Total wall time = %f s\n",system.constants.time_elapsed);
 
   return 0;

@@ -198,7 +198,7 @@ int sptrsv_syncfree (
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
     if (i > 0)
-      time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+      time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda sptrsv-cuda sptrsv_syncfree.cu,0);
   }
 
   printf("Average kernel execution time: %f (us)\n", (time * 1e-3f) / repeat);

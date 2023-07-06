@@ -298,6 +298,7 @@ void run()
   // Declare timers
   std::chrono::high_resolution_clock::time_point t1, t2;
 
+  MY_START_CLOCK(cuda babelstream-cuda main.cu,0);MY_STOP_CLOCK(cuda babelstream-cuda main.cu,0);
   // Main loop
   for (unsigned int k = 0; k < num_times; k++)
   {
@@ -305,39 +306,40 @@ void run()
     t1 = std::chrono::high_resolution_clock::now();
     copy(da, dc);
     t2 = std::chrono::high_resolution_clock::now();
-    timings[0].push_back(std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count());
+    timings[0].push_back(std::chrono:: duration_cast<std::chrono:: duration<double> >(t2 - t1).count());
 
 
     // Execute Mul
     t1 = std::chrono::high_resolution_clock::now();
     mul(db, dc);
     t2 = std::chrono::high_resolution_clock::now();
-    timings[1].push_back(std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count());
+    timings[1].push_back(std::chrono:: duration_cast<std::chrono:: duration<double> >(t2 - t1).count());
 
     // Execute Add
     t1 = std::chrono::high_resolution_clock::now();
     add(da, db, dc);
     t2 = std::chrono::high_resolution_clock::now();
-    timings[2].push_back(std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count());
+    timings[2].push_back(std::chrono:: duration_cast<std::chrono:: duration<double> >(t2 - t1).count());
 
     // Execute Triad
     t1 = std::chrono::high_resolution_clock::now();
     triad(da, db, dc);
     t2 = std::chrono::high_resolution_clock::now();
-    timings[3].push_back(std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count());
+    timings[3].push_back(std::chrono:: duration_cast<std::chrono:: duration<double> >(t2 - t1).count());
 
     // Execute Dot
     t1 = std::chrono::high_resolution_clock::now();
     dot(da, db, dsum, sums);
     t2 = std::chrono::high_resolution_clock::now();
-    timings[4].push_back(std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count());
+    timings[4].push_back(std::chrono:: duration_cast<std::chrono:: duration<double> >(t2 - t1).count());
 
     // Execute NStream
     t1 = std::chrono::high_resolution_clock::now();
     nstream(da, db, dc);
     t2 = std::chrono::high_resolution_clock::now();
-    timings[5].push_back(std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count());
+    timings[5].push_back(std::chrono::duration_cast<std::chrono:: duration<double> >(t2 - t1).count());
   }
+  MY_STOP_CLOCK(cuda babelstream-cuda main.cu,0);MY_STOP_CLOCK(cuda babelstream-cuda main.cu,0);
 
   // Display timing results
   std::cout

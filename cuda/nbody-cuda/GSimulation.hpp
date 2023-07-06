@@ -72,11 +72,11 @@ class TimeInterval {
 
   double Elapsed() {
     auto now = std::chrono::steady_clock::now();
-    return std::chrono::duration_cast<Duration>(now - start_).count();
+    return std::chrono:: duration_cast<Duration>(now - start_).count();
   }
 
  private:
-  using Duration = std::chrono::duration<double>;
+  using Duration = std::chrono:: duration<double>;
   std::chrono::steady_clock::time_point start_;
 };
 

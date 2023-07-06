@@ -80,7 +80,7 @@ int main()
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda grrt-cuda main.cu,0);
   printf("Total kernel execution time (task1) %f (s)\n", time * 1e-9f);
   
 
@@ -121,7 +121,7 @@ int main()
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda grrt-cuda main.cu,1);
   printf("Total kernel execution time (task2) %f (s)\n", time * 1e-9f);
 
   cudaMemcpy(Results, d_ResultsPixel, sizeof(double) * IMAGE_SIZE * IMAGE_SIZE * 3, cudaMemcpyDeviceToHost);

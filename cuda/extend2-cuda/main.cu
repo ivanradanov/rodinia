@@ -278,7 +278,7 @@ float extend2(struct extend2_dat *d)
   cudaFree(d_score);
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda extend2-cuda main.cu,0);
 
   check(d->qle, qle, "qle");
   check(d->tle, tle, "tle");

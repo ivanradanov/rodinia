@@ -283,7 +283,7 @@ double GPUGaussianFilterRGBA(const unsigned int* uiInput,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda recursiveGaussian-cuda main.cu,0);
 
   cudaMemcpy(uiOutput, d_BufOut, szBuffBytes, cudaMemcpyDeviceToHost); 
   return time;

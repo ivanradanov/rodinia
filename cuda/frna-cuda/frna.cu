@@ -914,7 +914,7 @@ frna_t frna_new(const char *str, fparam_t par)
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda frna-cuda frna.cu,0);
   printf("Total kernel execution time %f (s)\n", time * 1e-9f);
 
   CU(cudaMemcpy(p->v, v, n*n*sizeof(int_t), cudaMemcpyDeviceToHost));

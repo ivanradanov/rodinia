@@ -81,7 +81,7 @@ int main (int argc, char* argv[]){
     }
 
     auto kend = std::chrono::steady_clock::now();
-    auto ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+    auto ktime = std::chrono:: duration_cast<std::chrono::nanoseconds>(kend - kstart).count();MY_STOP_CLOCK(cuda norm2-cuda main.cu,0);
     printf("#elements = %.2f M: average cublasSnrm2 execution time = %f (us), performance = %f (Gop/s)\n",
            n / (1024.f*1024.f), (ktime * 1e-3f) / repeat, 1.f * (2*n+1) * repeat / ktime);
 

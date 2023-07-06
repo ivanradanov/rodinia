@@ -551,7 +551,7 @@ int main(int argc, char** argv)
                                         &foundIndex, foundKey, foundDigest);
           }
           auto end = std::chrono::steady_clock::now();
-          auto t = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+          auto t = std::chrono:: duration_cast<std::chrono::milliseconds>(end - start).count();MY_STOP_CLOCK(cuda md5hash-cuda MD5Hash.cpp,0);
 
           //
           // Calculate the rate and add it to the results

@@ -22,7 +22,7 @@ void transpose_f64(int nrow, int ncol, int repeat) {
       matrixT[(j*nrow)+i] = matrix[(i*ncol)+j];
 
   auto end = std::chrono::steady_clock::now();
-  double time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  double time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda geam-cuda main.cu,0);
   printf("Host: serial matrix transpose time = %f (ms)\n", time * 1e-6f);
 
   cublasStatus_t stat;
@@ -56,7 +56,7 @@ void transpose_f64(int nrow, int ncol, int repeat) {
     cudaDeviceSynchronize(); // required for timing correctness
     if (i >= warmup) {
       end = std::chrono::steady_clock::now();
-      time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+      time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda geam-cuda main.cu,1);
     }
 
     if (stat != CUBLAS_STATUS_SUCCESS) {
@@ -103,7 +103,7 @@ void transpose_f32(int nrow, int ncol, int repeat) {
       matrixT[(j*nrow)+i] = matrix[(i*ncol)+j];
 
   auto end = std::chrono::steady_clock::now();
-  double time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  double time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda geam-cuda main.cu,2);
   printf("Host: serial matrix transpose time = %f (ms)\n", time * 1e-6f);
 
   cublasStatus_t stat;
@@ -136,7 +136,7 @@ void transpose_f32(int nrow, int ncol, int repeat) {
     cudaDeviceSynchronize(); // required for timing correctness
     if (i >= warmup) {
       end = std::chrono::steady_clock::now();
-      time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+      time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda geam-cuda main.cu,3);
     }
 
     if (stat != CUBLAS_STATUS_SUCCESS) {

@@ -95,7 +95,7 @@ int main(int argc, char const *argv[])
   }
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda thomas-cuda main.cu,0);
   printf("Average serial execution time: %f (ms)\n", (time * 1e-6f) / repeat);
 
   for (size_t i = 0; i < matrix_size; ++i) {
@@ -161,7 +161,7 @@ int main(int argc, char const *argv[])
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda thomas-cuda main.cu,1);
   printf("Average kernel execution time: %f (ms)\n", (time * 1e-6f) / repeat);
 
   cudaMemcpy(rhs_Thomas_host, rhs_device, matrix_size_bytes, cudaMemcpyDeviceToHost);

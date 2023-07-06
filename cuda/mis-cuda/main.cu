@@ -168,7 +168,7 @@ void computeMIS(const int nodes,
   cudaDeviceSynchronize();
 
   auto end = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> elapsed_seconds = end - start;
+  std::chrono:: duration<double> elapsed_seconds = end - start;MY_STOP_CLOCK(cuda mis-cuda main.cu,0);
   float runtime = (float)elapsed_seconds.count() / 100;
   printf("compute time: %.6f s\n", runtime);
   printf("throughput: %.6f Mnodes/s\n", nodes * 0.000001 / runtime);

@@ -219,7 +219,7 @@ int main(int argc, char* argv[])
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda doh-cuda main.cu,0);
   
   cudaMemcpy(output_img, d_output_img, img_size_bytes, cudaMemcpyDeviceToHost);
 

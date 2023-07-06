@@ -78,7 +78,7 @@ void malloc2D (int repeat, int width, int height) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda pitch-cuda main.cu,0);
 
   cudaFree(devPtr);
 
@@ -94,7 +94,7 @@ void malloc2D (int repeat, int width, int height) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  auto time2 = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time2 = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda pitch-cuda main.cu,1);
   printf("Average execution time (pitched vs simple): %f %f (us)\n",
           (time * 1e-3f) / repeat, (time2 * 1e-3f) / repeat);
 
@@ -122,7 +122,7 @@ void malloc3D (int repeat, int width, int height, int depth) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda pitch-cuda main.cu,2);
 
   cudaFree(devPitchedPtr.ptr);
 
@@ -139,7 +139,7 @@ void malloc3D (int repeat, int width, int height, int depth) {
 
   cudaDeviceSynchronize();
   end = std::chrono::steady_clock::now();
-  auto time2 = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time2 = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda pitch-cuda main.cu,3);
   printf("Average execution time (pitched vs simple): %f %f (us)\n",
           (time * 1e-3f) / repeat, (time2 * 1e-3f) / repeat);
 

@@ -107,7 +107,6 @@ grrt-cuda
 gru-cuda
 haccmk-cuda
 haversine-cuda
-heat-cuda
 hellinger-cuda
 henry-cuda
 hexciton-cuda
@@ -145,7 +144,6 @@ lombscargle-cuda
 loopback-cuda
 lrn-cuda
 lulesh-cuda
-mallocFree-cuda
 mandelbrot-cuda
 marchingCubes-cuda
 mask-cuda
@@ -450,3 +448,9 @@ urng-cuda
 vol2col-cuda
 voxelizer-cuda
 xsbench-cuda
+
+# not timing TODO
+heat-cuda
+
+# we dont care about this
+mallocFree-cuda

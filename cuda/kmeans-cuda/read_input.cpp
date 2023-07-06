@@ -213,7 +213,7 @@ int setup(int argc, char **argv) {
 			nloops);				/* number of iteration for each number of clusters */		
 
 	auto end = std::chrono::steady_clock::now();
-	auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+	auto time = std::chrono:: duration_cast<std::chrono::milliseconds>(end - start).count();MY_STOP_CLOCK(cuda kmeans-cuda read_input.cpp,0);
 	std::cout << "Kmeans core timing: " << time << " ms" <<  std::endl;
 
 

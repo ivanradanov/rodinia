@@ -118,7 +118,7 @@ void r_squared(linear_param_t *params, data_t *dataset, sum_t *linreg, result_t 
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda lr-cuda linear_par.cu,0);
     response->ktime += time;
   }
 
@@ -187,7 +187,7 @@ void parallelized_regression(linear_param_t *params, data_t *dataset, result_t *
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda lr-cuda linear_par.cu,1);
     response->ktime += time;
   }
 

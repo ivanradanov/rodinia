@@ -94,8 +94,6 @@ void kernel_128_1_in(double &time, double &ktime) {
   int nInput = 14*14*512, nOutput = 14*14*128, nWeights = 128*512;
   float result[nOutput];
 
-  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda resnet-kernels-cuda Kernel128_one.cu,0);
-
   cudaMalloc((void **) &input_, nInput<<2);
   cudaMalloc((void **) &output_, nOutput<<2);
   cudaMalloc((void **) &weight_, nWeights<<2);
@@ -115,7 +113,7 @@ void kernel_128_1_in(double &time, double &ktime) {
 
   cudaDeviceSynchronize();
   auto kend = std::chrono::steady_clock::now();
-  ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+  ktime = std::chrono:: duration_cast<std::chrono::nanoseconds>(kend - kstart).count();MY_STOP_CLOCK(cuda resnet-kernels-cuda Kernel128_one.cu,1);
 
   cudaMemcpy(result, output_, nOutput<<2, cudaMemcpyDeviceToHost);
 
@@ -126,7 +124,6 @@ void kernel_128_1_in(double &time, double &ktime) {
   cudaFree(weight_);
 
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
 
   #ifdef DEBUG
   double s = 0;
@@ -153,7 +150,7 @@ void kernel_128_1_out(double &time, double &ktime) {
   int nInput = 14*14*128, nOutput = 14*14*512, nWeights = 128*512;
   float result[nOutput];
 
-  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda resnet-kernels-cuda Kernel128_one.cu,2);
+  auto start=std::chrono::steady_clock::now();
 
   cudaMalloc((void **) &input_, nInput<<2);
   cudaMalloc((void **) &output_, nOutput<<2);
@@ -174,12 +171,12 @@ void kernel_128_1_out(double &time, double &ktime) {
 
   cudaDeviceSynchronize();
   auto kend = std::chrono::steady_clock::now();
-  ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+  ktime = std::chrono:: duration_cast<std::chrono::nanoseconds>(kend - kstart).count();MY_STOP_CLOCK(cuda resnet-kernels-cuda Kernel128_one.cu,3);
 
   cudaMemcpy(result, output_, nOutput<<2, cudaMemcpyDeviceToHost);
 
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
 
   cudaFree(input_);
   cudaFree(output_);

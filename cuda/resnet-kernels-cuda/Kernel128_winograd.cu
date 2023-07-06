@@ -227,7 +227,7 @@ void kernel_128(double &time, double &ktime) {
   bnBias = get_parameter(bnBias_winograd_Name128, 128);
   bnScale = get_parameter(bnScale_winograd_Name128, 128);
 
-  auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda resnet-kernels-cuda Kernel128_winograd.cu,0);
+  auto start=std::chrono::steady_clock::now();
 
   cudaMalloc((void **) &input, nInput<<2);
   cudaMalloc((void **) &output, nOutput<<2);
@@ -256,7 +256,7 @@ void kernel_128(double &time, double &ktime) {
 
   cudaDeviceSynchronize();
   auto kend = std::chrono::steady_clock::now();
-  ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+  ktime = std::chrono:: duration_cast<std::chrono::nanoseconds>(kend - kstart).count();MY_STOP_CLOCK(cuda resnet-kernels-cuda Kernel128_winograd.cu,1);
 
   cudaMemcpy(result, output, nOutput<<2, cudaMemcpyDeviceToHost);
 
@@ -269,7 +269,7 @@ void kernel_128(double &time, double &ktime) {
   cudaFree(l_bnBias);
 
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
 
   #ifdef DEBUG
   double s = 0;

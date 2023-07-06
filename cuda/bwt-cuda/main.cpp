@@ -53,13 +53,15 @@ int main(int argc, char const *argv[])
 
   // host run may take a while
   auto start = NOW;
+  MY_START_CLOCK(cuda bwt-cuda main.cpp,0);
   auto cpu_seq = bwt_cpu(sequence);
-  auto cpu_time = std::chrono::duration_cast<std::chrono::milliseconds>(NOW - start);
+  auto cpu_time = std::chrono:: duration_cast<std::chrono::milliseconds>(NOW - start);MY_STOP_CLOCK(cuda bwt-cuda main.cpp,0);
 
   // device run
   start = NOW;
+  MY_START_CLOCK(cuda bwt-cuda main.cpp,1);
   auto gpu_seq = bwt(sequence);
-  auto gpu_time = std::chrono::duration_cast<std::chrono::milliseconds>(NOW - start);
+  auto gpu_time = std::chrono:: duration_cast<std::chrono::milliseconds>(NOW - start);MY_STOP_CLOCK(cuda bwt-cuda main.cpp,1);
 
   std::cout << "Host time: " << cpu_time.count() << " ms" << std::endl;
   std::cout << "Device time: " << gpu_time.count() << " ms" << std::endl;

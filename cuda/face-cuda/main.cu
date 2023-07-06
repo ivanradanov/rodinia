@@ -87,7 +87,7 @@ int main (int argc, char *argv[])
   result = detectObjects(image, minSize, maxSize, cascade, scaleFactor, minNeighbours, total_nodes);
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda face-cuda main.cu,0);
   printf("Object detection time %f (s)\n", time * 1e-9f);
 
   for(unsigned int i = 0; i < result.size(); i++ )

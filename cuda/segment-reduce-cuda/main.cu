@@ -41,7 +41,7 @@ void segreduce (const size_t num_elements, const int repeat ) {
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda segment-reduce-cuda main.cu,0);
     printf("num_segments = %zu ", num_segments);
     printf("segment_size = %zu ", segment_size);
     printf("Throughput = %f (G/s)\n", 1.f * num_elements * repeat / time);

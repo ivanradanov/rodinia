@@ -139,7 +139,7 @@ int main(int argc, char* argv[]) {
         merge <<< grids, blocks >>> ( imgSize, d_Img, d_Img1, d_Img2, d_Tn, d_Bn );
         cudaDeviceSynchronize();
         auto end = std::chrono::steady_clock::now();
-        time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+        time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda background-subtract-cuda main.cu,0);
       }
       else {
         auto start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda background-subtract-cuda main.cu,1);
@@ -148,7 +148,7 @@ int main(int argc, char* argv[]) {
         updateThreshold <<< grids, blocks >>> ( imgSize, d_Img, d_Mp, d_Bn, d_Tn );
         cudaDeviceSynchronize();
         auto end = std::chrono::steady_clock::now();
-        time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+        time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda background-subtract-cuda main.cu,1);
       }
     }
   }

@@ -48,7 +48,7 @@ double runKernels(
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda tonemapping-cuda main.cu,0);
 
   cudaMemcpy(output, outputImageBuffer, sizeof(float) * width * height * numChannels,
              cudaMemcpyDeviceToHost);

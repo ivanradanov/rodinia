@@ -386,7 +386,7 @@ int main(int argc, char* argv[])
   cudaDeviceSynchronize();
 
   auto end = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> elapsed_seconds = end - start;
+  std::chrono:: duration<double> elapsed_seconds = end - start;MY_STOP_CLOCK(cuda gc-cuda main.cu,0);
   float runtime = elapsed_seconds.count() / repeat;
 
   printf("average runtime (%d runs):    %.6f s\n", repeat, runtime);

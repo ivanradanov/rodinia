@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
 #endif
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda xlqc-cuda main.cu,0);
     time_in_usec = time * 1e-3f;
     time_txt += "Time_Basis    = " + std::to_string(time_in_usec) + " usec\n";
     time_total += time_in_usec;
@@ -180,7 +180,7 @@ int main(int argc, char* argv[])
     }
 
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda xlqc-cuda main.cu,1);
     time_in_usec = time * 1e-3f;
     time_txt += "Time_1e_Ints  = " + std::to_string(time_in_usec) + " usec\n";
     time_total += time_in_usec;
@@ -261,7 +261,7 @@ int main(int argc, char* argv[])
 
 
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda xlqc-cuda main.cu,2);
     time_in_usec = time * 1e-3f;
     time_txt += "Time_2e_Prep  = " + std::to_string(time_in_usec) + " usec\n";
     time_total += time_in_usec;
@@ -382,7 +382,7 @@ int main(int argc, char* argv[])
             "Iter", "E_total", "delta_E", "rms_D", "delta_DIIS");
 
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda xlqc-cuda main.cu,3);
     time_in_usec = time * 1e-3f;
     time_txt += "Time_SCF_Init = " + std::to_string(time_in_usec) + " usec\n";
     time_total += time_in_usec;
@@ -441,7 +441,7 @@ int main(int argc, char* argv[])
 
         cudaDeviceSynchronize();
         auto kend = std::chrono::steady_clock::now();
-        auto ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+        auto ktime = std::chrono:: duration_cast<std::chrono::nanoseconds>(kend - kstart).count();MY_STOP_CLOCK(cuda xlqc-cuda main.cu,4);
         time_in_usec = ktime * 1e-3f;
         time_mat_J += time_in_usec;
 
@@ -459,7 +459,7 @@ int main(int argc, char* argv[])
 
         cudaDeviceSynchronize();
         kend = std::chrono::steady_clock::now();
-        ktime = std::chrono::duration_cast<std::chrono::nanoseconds>(kend - kstart).count();
+        ktime = std::chrono:: duration_cast<std::chrono::nanoseconds>(kend - kstart).count();MY_STOP_CLOCK(cuda xlqc-cuda main.cu,5);
         time_in_usec = ktime * 1e-3f;
         time_mat_K += time_in_usec;
 
@@ -574,7 +574,7 @@ int main(int argc, char* argv[])
 
 
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda xlqc-cuda main.cu,6);
     time_in_usec = time * 1e-3f;
     time_txt += "Time_SCF_Conv = " + std::to_string(time_in_usec) + " usec\n";
     time_total += time_in_usec;
@@ -686,7 +686,7 @@ int main(int argc, char* argv[])
     free(p_basis);
 
     end = std::chrono::steady_clock::now();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda xlqc-cuda main.cu,7);
     time_in_usec = time * 1e-3f;
     time_txt += "Time_Finalize = " + std::to_string(time_in_usec) + " usec\n";
     time_total += time_in_usec;

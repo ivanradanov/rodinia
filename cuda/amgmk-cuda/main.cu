@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
   del_wtime = t1 - t0;
 #else
   auto t1 = std::chrono::steady_clock::now();
-  std::chrono::duration<double> diff = t1 - t0;
+  std::chrono:: duration<double> diff = t1 - t0;MY_STOP_CLOCK(cuda amgmk-cuda main.cu,0);
   del_wtime = diff.count();
 #endif
 
@@ -177,7 +177,7 @@ void test_Matvec()
   totalWallTime += t1 - t0;
 #else
   auto t1 = std::chrono::steady_clock::now();
-  std::chrono::duration<double> tdiff = t1 - t0;
+  std::chrono:: duration<double> tdiff = t1 - t0;MY_STOP_CLOCK(cuda amgmk-cuda main.cu,1);
   totalWallTime += tdiff.count();
 #endif
 
@@ -307,7 +307,7 @@ void test_Relax()
   totalWallTime += t1 - t0;
 #else
   auto t1 = std::chrono::steady_clock::now();
-  std::chrono::duration<double> tdiff = t1 - t0;
+  std::chrono:: duration<double> tdiff = t1 - t0;MY_STOP_CLOCK(cuda amgmk-cuda main.cu,2);
   totalWallTime += tdiff.count();
 #endif
 
@@ -390,7 +390,7 @@ void test_Axpy()
 #ifdef _OPENMP
   totalWallTime += t1 - t0; 
 #else
-  std::chrono::duration<double> tdiff = t1 - t0;
+  std::chrono:: duration<double> tdiff = t1 - t0;MY_STOP_CLOCK(cuda amgmk-cuda main.cu,3);
   totalWallTime += tdiff.count();
 #endif
 

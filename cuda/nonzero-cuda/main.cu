@@ -105,7 +105,7 @@ void nonzero (int nrows, int ncols, int repeat) {
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    sum_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    sum_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda nonzero-cuda main.cu,0);
 
     cudaMemcpy(&h_nzeros, d_nzeros, sizeof(int64_t), cudaMemcpyDeviceToHost);
 
@@ -151,7 +151,7 @@ void nonzero (int nrows, int ncols, int repeat) {
 
       cudaDeviceSynchronize();
       auto end = std::chrono::steady_clock::now();
-      idx_time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+      idx_time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda nonzero-cuda main.cu,1);
     
       cudaMemcpy(h_out, d_out, d_out_size_bytes, cudaMemcpyDeviceToHost);
 

@@ -255,6 +255,7 @@ int main(int argc, char **argv) {
 
   printf("Starting trial iterations...\n");
   auto t0 = std::chrono::high_resolution_clock::now();
+  MY_START_CLOCK(cuda ising-cuda main.cu,0);
   for (int i = 0; i < niters; i++) {
     update(lattice_b, lattice_w, randvals, 
 #ifdef CURAND
@@ -266,7 +267,7 @@ int main(int argc, char **argv) {
   CHECK_CUDA(cudaDeviceSynchronize());
   auto t1 = std::chrono::high_resolution_clock::now();
 
-  double duration = (double) std::chrono::duration_cast<std::chrono::microseconds>(t1-t0).count();
+  double duration = (double) std::chrono:: duration_cast<std::chrono::microseconds>(t1-t0).count();MY_STOP_CLOCK(cuda ising-cuda main.cu,0);
   printf("REPORT:\n");
   printf("\tnGPUs: %d\n", 1);
   printf("\ttemperature: %f * %f\n", alpha, TCRIT);

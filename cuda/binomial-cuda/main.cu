@@ -83,7 +83,7 @@ int main(int argc, char **argv)
   binomialOptionsGPU(callValueGPU, optionData, OPT_N, NUM_ITERATIONS);
 
   auto end = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<real> elapsed_seconds = end - start;
+  std::chrono:: duration<real> elapsed_seconds = end - start;MY_STOP_CLOCK(cuda binomial-cuda main.cu,0);
   gpuTime = (real)elapsed_seconds.count();
 
   printf("Options count            : %i     \n", OPT_N);

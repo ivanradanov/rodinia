@@ -29,7 +29,7 @@ void testMin (T *h_ptr, T *d_ptr, const int repeat, const char* name) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda atomicCAS-cuda main.cu,0);
   printf("Atomic min for data type %s | ", name);
   printf("Average execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
@@ -48,7 +48,7 @@ void testMax (T *h_ptr, T *d_ptr, const int repeat, const char* name) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda atomicCAS-cuda main.cu,1);
   printf("Atomic max for data type %s | ", name);
   printf("Average execution time: %f (s)\n", (time * 1e-9f) / repeat);
 
@@ -67,7 +67,7 @@ void testAdd (T *h_ptr, T *d_ptr, const int repeat, const char* name) {
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda atomicCAS-cuda main.cu,2);
   printf("Atomic add for data type %s | ", name);
   printf("Average execution time: %f (s)\n", (time * 1e-9f) / repeat);
 

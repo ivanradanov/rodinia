@@ -129,7 +129,7 @@ int main(int argc, char* argv[]) {
   }
 
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda meanshift-cuda main.cu,0);
   std::cout << "\nAverage execution time of mean-shift (base) "
             << (time * 1e-6f) / mean_shift::gpu::NUM_ITER << " ms\n" << std::endl;
 
@@ -151,7 +151,7 @@ int main(int argc, char* argv[]) {
     mean_shift::gpu::utils::swap(d_data, d_data_next);
   }
   end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda meanshift-cuda main.cu,1);
   std::cout << "\nAverage execution time of mean-shift (opt) "
             << (time * 1e-6f) / mean_shift::gpu::NUM_ITER << " ms\n" << std::endl;
 

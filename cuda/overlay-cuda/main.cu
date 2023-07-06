@@ -84,7 +84,7 @@ int DetectionOverlay(
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda overlay-cuda main.cu,0);
   printf("Total kernel execution time: %f (s)\n", time * 1e-9f);
 
   return 0;

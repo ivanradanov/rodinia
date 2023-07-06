@@ -61,7 +61,7 @@ void testInit(size_t size, int type) {
     cudaHostAlloc(&Ad, size, cudaHostAllocMapped);
 
   auto end = Clock();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
 
   if (type == 0)
     printf("cudaMallocManaged(%zu) takes %lf us\n", size, time * 1e-3);
@@ -81,7 +81,7 @@ void testInit(size_t size, int type) {
     start = Clock();
     cudaFree(Ad);
     end = Clock();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
     printf("cudaFree(%zu) takes %lf us\n", size, time * 1e-3);
   }
 
@@ -113,7 +113,7 @@ int main(int argc, char* argv[])
       cudaMallocManaged(&Ad[j], size[i]);
     }
     auto end = Clock();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
     printf("cudaMallocManaged(%zu) takes %lf us\n", size[i], time * 1e-3  / NUM_ITER);
 
     start = Clock();
@@ -122,7 +122,7 @@ int main(int argc, char* argv[])
       Ad[j] = nullptr;
     }
     end = Clock();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
     printf("cudaFree(%zu) takes %lf us\n", size[i], time * 1e-3  / NUM_ITER);
   }
 
@@ -135,7 +135,7 @@ int main(int argc, char* argv[])
       cudaMalloc(&Ad[j], size[i]);
     }
     auto end = Clock();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
     printf("cudaMalloc(%zu) takes %lf us\n", size[i], time * 1e-3  / NUM_ITER);
 
     start = Clock();
@@ -144,7 +144,7 @@ int main(int argc, char* argv[])
       Ad[j] = nullptr;
     }
     end = Clock();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
     printf("cudaFree(%zu) takes %lf us\n", size[i], time * 1e-3  / NUM_ITER);
   }
 
@@ -157,7 +157,7 @@ int main(int argc, char* argv[])
       cudaHostAlloc(&Ad[j], size[i], cudaHostAllocMapped);
     }
     auto end = Clock();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
     printf("cudaHostAlloc(%zu) takes %lf us\n", size[i], time * 1e-3  / NUM_ITER);
 
     start = Clock();
@@ -166,7 +166,7 @@ int main(int argc, char* argv[])
       Ad[j] = nullptr;
     }
     end = Clock();
-    time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
     printf("cudaFreeHost(%zu) takes %lf us\n", size[i], time * 1e-3  / NUM_ITER);
   }
 

@@ -321,7 +321,7 @@ static void computeCC(const int repeat,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> elapsed_seconds = end - start;
+  std::chrono:: duration<double> elapsed_seconds = end - start;MY_STOP_CLOCK(cuda cc-cuda main.cu,0);
   float runtime = elapsed_seconds.count() / repeat;
 
   printf("Average kernel execution time: %.4f s\n", runtime);

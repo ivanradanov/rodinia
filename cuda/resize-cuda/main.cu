@@ -198,7 +198,7 @@ void resize_image (
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda resize-cuda main.cu,0);
   printf("Average kernel execution time: %lf (us)    Perf: %lf (GB/s)\n",
          time * 1e-3 / repeat, (in_size_bytes + out_size_bytes) * repeat * 1.0 / time);
   

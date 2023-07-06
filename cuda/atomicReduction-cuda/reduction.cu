@@ -129,14 +129,14 @@ int main(int argc, char** argv)
   cudaDeviceSynchronize();
 
   // start timing
-  t1 = std::chrono::high_resolution_clock::now();
+  t1 = std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda atomicReduction-cuda reduction.cu,0);
   for(int i=0;i<N;i++) {
     cudaMemsetAsync(out,0,sizeof(int));
     atomic_reduction<<< dim3(blocks), dim3(threads) >>>(in,out,arrayLength);
   }
   cudaDeviceSynchronize();
   t2 = std::chrono::high_resolution_clock::now();
-  double times =  std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count();
+  double times =  std::chrono:: duration_cast<std::chrono:: duration<double> >(t2 - t1).count();MY_STOP_CLOCK(cuda atomicReduction-cuda reduction.cu,0);
   float GB=(float)arrayLength*sizeof(int)*N;
   std::cout << "The average performance of reduction is "<< 1.0E-09 * GB/times<<" GBytes/sec"<<std::endl;
 
@@ -148,6 +148,7 @@ int main(int argc, char** argv)
   else
     std::cout<<"VERIFICATION: result is INCORRECT!!"<<std::endl<<std::endl;
 
+  MY_START_CLOCK(cuda atomicReduction-cuda reduction.cu,1);
   t1 = std::chrono::high_resolution_clock::now();
   for(int i=0;i<N;i++) {
     cudaMemsetAsync(out,0,sizeof(int));
@@ -155,7 +156,7 @@ int main(int argc, char** argv)
   }
   cudaDeviceSynchronize();
   t2 = std::chrono::high_resolution_clock::now();
-  times =  std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count();
+  times =  std::chrono:: duration_cast<std::chrono:: duration<double> >(t2 - t1).count();MY_STOP_CLOCK(cuda atomicReduction-cuda reduction.cu,1);
   GB=(float)arrayLength*sizeof(int)*N;
   std::cout << "The average performance of reduction is "<< 1.0E-09 * GB/times<<" GBytes/sec"<<std::endl;
 
@@ -166,14 +167,14 @@ int main(int argc, char** argv)
   else
     std::cout<<"VERIFICATION: result is INCORRECT!!"<<std::endl<<std::endl;
   t1 = std::chrono::high_resolution_clock::now();
-
+  MY_START_CLOCK(cuda atomicReduction-cuda reduction.cu,2);
   for(int i=0;i<N;i++) {
     cudaMemsetAsync(out,0,sizeof(int));
     atomic_reduction_v4<<< dim3(blocks/4), dim3(threads) >>>(in,out,arrayLength);
   }
   cudaDeviceSynchronize();
   t2 = std::chrono::high_resolution_clock::now();
-  times =  std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count();
+  times =  std::chrono:: duration_cast<std::chrono:: duration<double> >(t2 - t1).count();MY_STOP_CLOCK(cuda atomicReduction-cuda reduction.cu,2);
   GB=(float)arrayLength*sizeof(int)*N;
   std::cout << "The average performance of reduction is "<< 1.0E-09 * GB/times<<" GBytes/sec"<<std::endl;
 
@@ -183,7 +184,7 @@ int main(int argc, char** argv)
     std::cout<<"VERIFICATION: result is CORRECT"<<std::endl<<std::endl;
   else
     std::cout<<"VERIFICATION: result is INCORRECT!!"<<std::endl<<std::endl;
-
+  MY_START_CLOCK(cuda atomicReduction-cuda reduction.cu,3);
   t1 = std::chrono::high_resolution_clock::now();
   for(int i=0;i<N;i++) {
     cudaMemsetAsync(out,0,sizeof(int));
@@ -191,7 +192,7 @@ int main(int argc, char** argv)
   }
   cudaDeviceSynchronize();
   t2 = std::chrono::high_resolution_clock::now();
-  times =  std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count();
+  times =  std::chrono:: duration_cast<std::chrono:: duration<double> >(t2 - t1).count();MY_STOP_CLOCK(cuda atomicReduction-cuda reduction.cu,3);
   GB=(float)arrayLength*sizeof(int)*N;
   std::cout << "The average performance of reduction is "<< 1.0E-09 * GB/times<<" GBytes/sec"<<std::endl;
 
@@ -202,14 +203,14 @@ int main(int argc, char** argv)
   else
     std::cout<<"VERIFICATION: result is INCORRECT!!"<<std::endl<<std::endl;
 
-  t1 = std::chrono::high_resolution_clock::now();
+  t1 = std::chrono::high_resolution_clock::now();MY_START_CLOCK(cuda atomicReduction-cuda reduction.cu,4);
   for(int i=0;i<N;i++) {
     cudaMemsetAsync(out,0,sizeof(int));
     atomic_reduction_v16<<< dim3(blocks/16), dim3(threads) >>>(in,out,arrayLength);
   }
   cudaDeviceSynchronize();
   t2 = std::chrono::high_resolution_clock::now();
-  times =  std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count();
+  times =  std::chrono:: duration_cast<std::chrono:: duration<double> >(t2 - t1).count();MY_STOP_CLOCK(cuda atomicReduction-cuda reduction.cu,4);
   GB=(float)arrayLength*sizeof(int)*N;
   std::cout << "The average performance of reduction is "<< 1.0E-09 * GB/times<<" GBytes/sec"<<std::endl;
 

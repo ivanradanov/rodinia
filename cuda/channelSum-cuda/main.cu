@@ -131,7 +131,7 @@ void ComputeChannelSumNCHW (
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda channelSum-cuda main.cu,0);
 }
 
 void ComputeChannelSumNHWC (
@@ -152,7 +152,7 @@ void ComputeChannelSumNHWC (
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda channelSum-cuda main.cu,1);
 }
 
 

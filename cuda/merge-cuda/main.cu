@@ -93,7 +93,7 @@ void mergeType(const uint64_t size, const uint32_t runs) {
 
     cudaDeviceSynchronize();
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    auto time = std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda merge-cuda main.cu,0);
     total_time += time;
   
     // Test for errors

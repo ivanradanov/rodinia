@@ -107,7 +107,7 @@ void perplexity_search(const value_t* __restrict__ distances,
 
   cudaDeviceSynchronize();
   auto end = std::chrono::steady_clock::now();
-  time += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda perplexity-cuda main.cu,0);
 }
 
 int main(int argc, char* argv[]) {
