@@ -45,7 +45,6 @@ d2q9-bgk-cuda
 d3q19-bgk-cuda
 damage-cuda
 dct8x8-cuda
-ddbp-cuda
 debayer-cuda
 degrid-cuda
 dense-embedding-cuda
@@ -450,7 +449,6 @@ nn-cuda
 nw-cuda
 pathfinder-cuda
 heartwall-cuda
-hybridsort-cuda
 kmeans-cuda
 leukocyte-cuda
 
