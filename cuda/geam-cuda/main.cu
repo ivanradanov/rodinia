@@ -44,9 +44,10 @@ void transpose_f64(int nrow, int ncol, int repeat) {
   time = 0.0;
   const int warmup = 4;
 
+  MY_START_CLOCK(cuda geam-cuda main.cu,1);
   for (int i = 0; i < repeat + warmup; i++) {
     if (i >= warmup) {
-      start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda geam-cuda main.cu,1);
+      start=std::chrono::steady_clock::now();
     }
     stat = cublasDgeam(handle, CUBLAS_OP_T, CUBLAS_OP_N,
                        nrow, ncol,
@@ -56,7 +57,7 @@ void transpose_f64(int nrow, int ncol, int repeat) {
     cudaDeviceSynchronize(); // required for timing correctness
     if (i >= warmup) {
       end = std::chrono::steady_clock::now();
-      time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda geam-cuda main.cu,1);
+      time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
     }
 
     if (stat != CUBLAS_STATUS_SUCCESS) {
@@ -65,6 +66,7 @@ void transpose_f64(int nrow, int ncol, int repeat) {
       break;
     }
   }
+  MY_STOP_CLOCK(cuda geam-cuda main.cu,1);
 
   printf("Device: average matrix transpose time = %f (ms)\n", (time * 1e-6f) / repeat);
 
@@ -123,10 +125,10 @@ void transpose_f32(int nrow, int ncol, int repeat) {
 
   time = 0.0;
   const int warmup = 4;
-
+  MY_START_CLOCK(cuda geam-cuda main.cu,3);
   for (int i = 0; i < repeat + warmup; i++) {
     if (i >= warmup) {
-      start=std::chrono::steady_clock::now();MY_START_CLOCK(cuda geam-cuda main.cu,3);
+      start=std::chrono::steady_clock::now();
     }
     stat = cublasSgeam(handle, CUBLAS_OP_T, CUBLAS_OP_N,
                        nrow, ncol,
@@ -136,7 +138,7 @@ void transpose_f32(int nrow, int ncol, int repeat) {
     cudaDeviceSynchronize(); // required for timing correctness
     if (i >= warmup) {
       end = std::chrono::steady_clock::now();
-      time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();MY_STOP_CLOCK(cuda geam-cuda main.cu,3);
+      time += std::chrono:: duration_cast<std::chrono::nanoseconds>(end - start).count();
     }
 
     if (stat != CUBLAS_STATUS_SUCCESS) {
@@ -145,7 +147,7 @@ void transpose_f32(int nrow, int ncol, int repeat) {
       break;
     }
   }
-
+  MY_STOP_CLOCK(cuda geam-cuda main.cu,3);
   printf("Device: average matrix transpose time = %f (ms)\n", (time * 1e-6f) / repeat);
 
   cudaMemcpy(h_matrixT, d_matrixT, size_byte, cudaMemcpyDeviceToHost);

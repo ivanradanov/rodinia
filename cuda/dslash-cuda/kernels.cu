@@ -179,8 +179,8 @@ double dslash_fn(
 
     cudaDeviceSynchronize();
   } // end of iteration loop
-  double ttotal = std::chrono:: duration_cast<std::chrono::microseconds>(MY_STOP_CLOCK(cuda dslash-cuda kernels.cu,2);
-      Clock::now()-tstart).count();
+  double ttotal = std::chrono:: duration_cast<std::chrono::microseconds>(
+      Clock::now()-tstart).count();MY_STOP_CLOCK(cuda dslash-cuda kernels.cu,2);
 
   // Move the result back to the host
   copy_start = Clock::now();

@@ -76,6 +76,7 @@ double su3_mat_nn(thrust::host_vector<site> &a, thrust::host_vector<su3_matrix> 
 
   // benchmark loop
   auto tstart = Clock::now();
+  MY_START_CLOCK(cuda su3-cuda mat_nn_cuda.hpp,0);
   for (int iters=0; iters<iterations+warmups; ++iters) {
     if (iters == warmups) {
       cudaDeviceSynchronize();
