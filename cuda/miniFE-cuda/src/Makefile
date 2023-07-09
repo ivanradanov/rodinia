@@ -1,4 +1,4 @@
-include ../../common/make.config
+include ../../../common/make.config
 #-----------------------------------------------------------------------
 # This file compiles for OpenMP and MPI hybrid operations using the GNU
 # compile chain.
@@ -14,20 +14,9 @@ MINIFE_MATRIX_TYPE = -DMINIFE_CSR_MATRIX
 
 #-----------------------------------------------------------------------
 
-ARCH   = sm_60
-HEC_NVCC_FLAGS = -v  
-#	-S -emit-llvm
-#\
-#	-S -emit-llvm
-#-mllvm -regalloc=pbqp
-#HEC_NVCC_FLAGS = -qreport  -fopenmp -mcpu=power8 -mtune=power8
-
-CXXFLAGS = -I. -I../utils -I../fem $(MINIFE_TYPES)  -x cu \
+NVCC_FLAGS += -I. -I../utils -I../fem $(MINIFE_TYPES)  -x cu \
 	 \
 	$(MINIFE_MATRIX_TYPE) \
-#            -DMINIFE_DEBUG \
-#	-DHAVE_MPI -DMPICH_IGNORE_CXX_SEEK \
-#	-DMINIFE_REPORT_RUSAGE
 
 LINKER_FLAGS +=
 LIBS=
@@ -43,8 +32,6 @@ LIBS=
 
 #CXX=icpc
 #CC=icc
-
-CXX=nvcc
 
 #CXX=xlC
 #CC=xlc
