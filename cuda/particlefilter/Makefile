@@ -16,13 +16,13 @@ all: $(EXE) $(EXE2)
 
 
 $(EXE): $(OBJ)
-	$(SYSTEM_LINKER) $(OBJ) -o $(EXE) $(SYSTEM_LINKER_FLAGS)
+	$(LINKER) $(OBJ) -o $(EXE) $(LINKER_FLAGS)
 
 $(OBJ): $(SRC)
 	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 $(EXE2): $(OBJ2)
-	$(SYSTEM_LINKER) $(OBJ2) -o $(EXE2) $(SYSTEM_LINKER_FLAGS)
+	$(LINKER) $(OBJ2) -o $(EXE2) $(LINKER_FLAGS)
 
 $(OBJ2): $(SRC2)
 	$(NVCC) $(NVCC_FLAGS) -c $< -o $@

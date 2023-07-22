@@ -7,8 +7,11 @@ MIC_OMP_NUM_THREADS = 216
 
 all: euler3d_cpu #euler3d_cpu_double pre_euler3d_cpu pre_euler3d_cpu_double euler3d_cpu_offload
 
-euler3d_cpu: euler3d_cpu.cpp
-	$(CXX) -Dblock_length=$(OMP_NUM_THREADS) euler3d_cpu.cpp -o euler3d_cpu $(CC_FLAGS) $(LINKER_FLAGS)
+euler3d_cpu: euler3d_cpu.o
+	$(LINKER) euler3d_cpu.o -o euler3d_cpu $(LINKER_FLAGS) -lstdc++
+
+euler3d_cpu.o: euler3d_cpu.cpp
+	$(CXX) -Dblock_length=$(OMP_NUM_THREADS) -c euler3d_cpu.cpp -o euler3d_cpu.o $(CXX_FLAGS)
 
 euler3d_cpu_offload:
 	icc -g -DOMP_OFFLOAD -Dblock_length=$(MIC_OMP_NUM_THREADS) -fopenmp -offload-option,mic,compiler,"-no-opt-prefetch" euler3d_cpu.cpp -o euler3d_cpu_offload

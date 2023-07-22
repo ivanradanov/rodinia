@@ -19,7 +19,7 @@ override TESTING = -DCACHECWLUT
 endif
 
 pavle: $(OBJ)  main_test_cu.o cpuencode.o
-	$(SYSTEM_LINKER) $(TESTING) $(CACHECWLUT) cpuencode.o main_test_cu.o $(OBJ) -o $(EXE) $(SYSTEM_LINKER_FLAGS)
+	$(LINKER) $(TESTING) $(CACHECWLUT) cpuencode.o main_test_cu.o $(OBJ) -o $(EXE) $(LINKER_FLAGS)
 
 vlc_kernel_sm64huff.o: vlc_kernel_sm64huff.cu 
 	$(NVCC) $(TESTING) $(NVCC_FLAGS) -c vlc_kernel_sm64huff.cu -o $@

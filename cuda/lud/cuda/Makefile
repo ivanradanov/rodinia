@@ -44,7 +44,7 @@ clang: $(SRC)
 		-L/usr/local/cuda/lib64 -lcudart_static -ldl -lrt -pthread -DTIMING
 
 $(EXECUTABLE) : $(OBJS)
-	$(SYSTEM_LINKER) -o $@  $? $(SYSTEM_LINKER_FLAGS) 
+	$(LINKER) -o $@  $? $(LINKER_FLAGS) 
 
 clean:
 	rm -f $(EXECUTABLE) $(OBJS) *.linkinfo

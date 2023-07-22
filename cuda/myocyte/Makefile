@@ -10,7 +10,7 @@ include ../../common/make.config
 
 # link objects(binaries) together
 myocyte.out:		main.o
-	$(SYSTEM_LINKER) main.o -o myocyte.out $(SYSTEM_LINKER_FLAGS)
+	$(LINKER) main.o -o myocyte.out $(LINKER_FLAGS)
 
 # compile main function file into object (binary)
 main.o:	define.c \

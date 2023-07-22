@@ -22,7 +22,7 @@ include ../../common/make.config
 
 
 backprop: backprop.o facetrain.o imagenet.o backprop_cuda.o
-	$(SYSTEM_LINKER) backprop.o facetrain.o imagenet.o backprop_cuda.o -o backprop $(SYSTEM_LINKER_FLAGS)
+	$(LINKER) backprop.o facetrain.o imagenet.o backprop_cuda.o -o backprop $(LINKER_FLAGS)
 
 %.o: %.[ch]
 	$(CC) $(CC_FLAGS) $< -c -o $@

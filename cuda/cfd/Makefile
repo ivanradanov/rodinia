@@ -18,7 +18,7 @@ CUDA_SDK_PATH = $(CUDA_SAMPLES_PATH)
 all: euler3d # euler3d_double  pre_euler3d  pre_euler3d_double 
 
 euler3d: euler3d.o
-	$(SYSTEM_LINKER) euler3d.o -o euler3d $(SYSTEM_LINKER_FLAGS)
+	$(LINKER) euler3d.o -o euler3d $(LINKER_FLAGS)
 
 
 euler3d.o: euler3d.cu
