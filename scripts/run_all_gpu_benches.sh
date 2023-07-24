@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+ORIGINAL_ARGS="$@"
+
 VALID_ARGS=$(getopt -o h --long dry-run,targets:,clang,nvcc,nruns:,pgo-prof-nruns:,pgo-prof:,pgo-opt:,host:,configs: -- "$@")
 if [[ $? -ne 0 ]]; then
   exit 1;
@@ -102,6 +104,8 @@ mkdir -p "$COMPILATION_LOG_DIR"
 PGO_RESULT_DIR="$RESULTS_DIR/pgo/"
 mkdir -p "$PGO_RESULT_DIR"
 
+echo "$ORIGINAL_ARGS" > "$RESULTS_DIR/cmd"
+
 ./scripts/enable-config.sh common/host.make.config common/$HOST.polygeist.host.make.config
 
 if [ "1" = "$RUN_CLANG" ]; then
@@ -184,7 +188,7 @@ RESULTS="rodinia_results_$HOSTNAME_$(date -Ins)"
 mkdir -p "$HOME/rodinia_results/$RESULTS"
 cp -a "$RESULTS_DIR" "$HOME/rodinia_results/$RESULTS"
 cd "$HOME/rodinia_results/"
-zip -r "$RESULTS" "$RESULTS/results/cuda/out/"
+#zip -r "$RESULTS" "$RESULTS/results/cuda/out/"
 
 echo Finished "$RESULTS"
 
