@@ -2,7 +2,7 @@
 
 ORIGINAL_ARGS="$@"
 
-VALID_ARGS=$(getopt -o h --long dry-run,targets:,clang,nvcc,nruns:,pgo-prof-nruns:,pgo-prof:,pgo-opt:,host:,configs: -- "$@")
+VALID_ARGS=$(getopt -o h --long dry-run,targets:,clang,nvcc,nruns:,pgo-prof-nruns:,pgo-configs:,host:,configs: -- "$@")
 if [[ $? -ne 0 ]]; then
   exit 1;
 fi
@@ -24,16 +24,10 @@ while [ : ]; do
       TARGETS="$2"
       shift 2
       ;;
-    --pgo-prof)
-      echo "Run PGO profiling on '$2'"
+    --pgo-configs)
+      echo "Run PGO profile and optimize '$2'"
       PGO_PROF="1"
-      PGO_PROF_CONFIGS="$2"
-      shift 2
-      ;;
-    --pgo-opt)
-      echo "Optimize '$2' using PGO"
-      PGO_OPT="1"
-      PGO_OPT_CONFIGS="$2"
+      PGO_CONFIGS="$2"
       shift 2
       ;;
     --host)
@@ -134,7 +128,7 @@ for target in $TARGETS; do
   done
 
   if [ "$PGO_PROF" == "1" ]; then
-    for i in $PGO_PROF_CONFIGS; do
+    for i in $PGO_CONFIGS; do
       PGO_DIR="$PGO_RESULT_DIR/$target/$i/"
       mkdir -p "$PGO_DIR"
       echo Compiling polygeist configuration $i for profiling...
@@ -152,7 +146,7 @@ for target in $TARGETS; do
   fi
 
   if [ "$PGO_OPT" == "1" ]; then
-    for i in $PGO_OPT_CONFIGS; do
+    for i in $PGO_CONFIGS; do
       PGO_DIR="$PGO_RESULT_DIR/$target/$i/"
       echo Compiling polygeist configuration $i pgo...
       make cuda_clean &> /dev/null
