@@ -27,6 +27,7 @@ while [ : ]; do
     --pgo-configs)
       echo "Run PGO profile and optimize '$2'"
       PGO_PROF="1"
+      PGO_OPT="1"
       PGO_CONFIGS="$2"
       shift 2
       ;;
