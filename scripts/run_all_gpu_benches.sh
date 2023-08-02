@@ -135,7 +135,7 @@ for target in $TARGETS; do
       echo Compiling polygeist configuration $i for profiling...
       make cuda_clean &> /dev/null
       COMPILATION_LOG="$COMPILATION_LOG_DIR/polygeist_pgo_prof-$target-$i.log"
-      MAX_ALTS=$(POLYGEIST_GPU_ALTERNATIVES_PRINT_INFO=1 make POLYGEIST_ALTERNATIVES_MODE=pgo_prof CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -O -kj 2>&1 | tee "$COMPILATION_LOG" | grep -E "Generated ([0-9]+) alternatives" | sed --expression='s/Generated //' | sed --expression='s/ alternatives//' | sort -n | tail -1)
+      MAX_ALTS=$(POLYGEIST_GPU_ALTERNATIVES_PRINT_INFO=1 make POLYGEIST_ALTERNATIVES_MODE=pgo_prof CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -Orecurse -kj 2>&1 | tee "$COMPILATION_LOG" | grep -E "Generated ([0-9]+) alternatives" | sed --expression='s/Generated //' | sed --expression='s/ alternatives//' | sort -n | tail -1)
       ALTS=$(seq 0 $(($MAX_ALTS - 1)))
       echo Will profile $MAX_ALTS alternatives
       for j in $ALTS; do
@@ -153,7 +153,7 @@ for target in $TARGETS; do
       make cuda_clean &> /dev/null
       COMPILATION_LOG="$COMPILATION_LOG_DIR/polygeist_pgo_opt-$target-$i.log"
       POLYGEIST_PGO_DATA_DIR="$PGO_DIR" \
-        make POLYGEIST_ALTERNATIVES_MODE=pgo_opt CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -O -kj &> "$COMPILATION_LOG"
+        make POLYGEIST_ALTERNATIVES_MODE=pgo_opt CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -Orecurse -kj &> "$COMPILATION_LOG"
       echo Running polygeist configuration $i pgo...
       ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL
     done
