@@ -100,6 +100,8 @@ PGO_RESULT_DIR="$RESULTS_DIR/pgo/"
 mkdir -p "$PGO_RESULT_DIR"
 
 echo "$ORIGINAL_ARGS" > "$RESULTS_DIR/cmd"
+echo "Benchmarks:" >> "$RESULTS_DIR/cmd"
+./scripts/cuda_apps.sh >> "$RESULTS_DIR/cmd"
 
 ./scripts/enable-config.sh common/host.make.config common/$HOST.polygeist.host.make.config
 
