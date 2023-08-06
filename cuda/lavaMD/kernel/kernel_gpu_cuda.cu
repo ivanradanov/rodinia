@@ -139,26 +139,16 @@ __global__ void kernel_gpu_cuda(par_str d_par_gpu,
             // loop for the number of particles in the home box
             // for (int i=0; i<nTotal_i; i++){
             while(wtx<NUMBER_PAR_PER_BOX){
-
-                // loop for the number of particles in the current nei box
                 for (j=0; j<NUMBER_PAR_PER_BOX; j++){
-                    vij= a2;
-
-                    fA[wtx].v +=  vij;
-                    fA[wtx].x +=  vij;
-                    fA[wtx].y +=  vij;
-                    fA[wtx].z +=  vij;
+                    r2 = (fp)rA_shared[wtx].v;
+                    fA[wtx].v +=  r2;
+                    fA[wtx].x +=  r2;
+                    fA[wtx].y +=  r2;
+                    fA[wtx].z +=  r2;
                 }
-
-                // increment work thread index
                 wtx = wtx + NUMBER_THREADS;
-
             }
-
-            // reset work index
             wtx = tx;
-
-            // synchronize after finishing force contributions from current nei box not to cause conflicts when starting next box
             __syncthreads();
 
             //----------------------------------------------------------------------------------------------------------------------------------140
