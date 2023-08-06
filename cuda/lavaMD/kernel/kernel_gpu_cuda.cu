@@ -142,9 +142,7 @@ __global__ void kernel_gpu_cuda(par_str d_par_gpu,
 
                 // loop for the number of particles in the current nei box
                 for (j=0; j<NUMBER_PAR_PER_BOX; j++){
-                    r2 = (fp)rA_shared[wtx].v + (fp)rB_shared[j].v - DOT((fp)rA_shared[wtx],(fp)rB_shared[j]);
-                    u2 = a2*r2;
-                    vij= (-u2);
+                    vij= a2;
 
                     fA[wtx].v +=  vij;
                     fA[wtx].x +=  vij;
