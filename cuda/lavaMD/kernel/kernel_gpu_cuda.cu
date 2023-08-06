@@ -131,15 +131,12 @@ __global__ void kernel_gpu_cuda(par_str d_par_gpu,
 
             // synchronize threads because in next section each thread accesses data brought in by different threads here
             __syncthreads();
-
-            //----------------------------------------------------------------------------------------------------------------------------------140
-            //	Calculation
-            //----------------------------------------------------------------------------------------------------------------------------------140
-
-            // loop for the number of particles in the home box
-            // for (int i=0; i<nTotal_i; i++){
             while(wtx<NUMBER_PAR_PER_BOX){
+                // [1]
+                //r2 = (fp)rA_shared[wtx].v;
                 for (j=0; j<NUMBER_PAR_PER_BOX; j++){
+                    // POLYGEIST IS ABLE TO HOIST THIS LOAD to [1], doing that
+                    // manually brings the clang performance up to par
                     r2 = (fp)rA_shared[wtx].v;
                     fA[wtx].v +=  r2;
                     fA[wtx].x +=  r2;
