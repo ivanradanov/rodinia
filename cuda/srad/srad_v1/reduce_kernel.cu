@@ -13,8 +13,6 @@ __global__ void reduce(	long d_Ne,											// number of elements in array
     __shared__ fp d_psum[NUMBER_THREADS];								// data for block calculations allocated by every block in its shared memory
     __shared__ fp d_psum2[NUMBER_THREADS];
 
-    int i;
-
     if(ei<d_no){															// do only for the number of elements, omit extra threads
 
         d_psum[tx] = d_sums[ei*d_mul];
@@ -23,7 +21,7 @@ __global__ void reduce(	long d_Ne,											// number of elements in array
     }
     __syncthreads();
     if(bx != (gridDim.x - 1)){											//
-        for(i=2; i<=NUMBER_THREADS; i=2*i){								//
+        for(int i=2; i<=NUMBER_THREADS; i=2*i){								//
             if((tx+1) % i == 0){										// every ith
                 d_psum[tx] = d_psum[tx] + d_psum[tx-i/2];
                 d_psum2[tx] = d_psum2[tx] + d_psum2[tx-i/2];
