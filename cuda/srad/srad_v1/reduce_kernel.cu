@@ -31,26 +31,7 @@ __global__ void reduce(	long d_Ne,											// number of elements in array
     __syncthreads();
     // end Lingjie Zhang's modification
 
-	// reduction of sums if all blocks are full (rare case)	
-	if(nf == NUMBER_THREADS){
-		// sum of every 2, 4, ..., NUMBER_THREADS elements
-		for(i=2; i<=NUMBER_THREADS; i=2*i){
-			// sum of elements
-			if((tx+1) % i == 0){											// every ith
-				d_psum[tx] = d_psum[tx] + d_psum[tx-i/2];
-				d_psum2[tx] = d_psum2[tx] + d_psum2[tx-i/2];
-			}
-			// synchronization
-			__syncthreads();
-		}
-		// final sumation by last thread in every block
-		if(tx==(NUMBER_THREADS-1)){											// block result stored in global memory
-			d_sums[bx*d_mul*NUMBER_THREADS] = d_psum[tx];
-			d_sums2[bx*d_mul*NUMBER_THREADS] = d_psum2[tx];
-		}
-	}
-	// reduction of sums if last block is not full (common case)
-	else{ 
+	{
 		// for full blocks (all except for last block)
 		if(bx != (gridDim.x - 1)){											//
 			// sum of every 2, 4, ..., NUMBER_THREADS elements
