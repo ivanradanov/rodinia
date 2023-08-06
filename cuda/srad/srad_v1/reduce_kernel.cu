@@ -30,9 +30,5 @@ __global__ void reduce(	long d_Ne,											// number of elements in array
             }
             __syncthreads();											//
         }
-        if(tx==(NUMBER_THREADS-1)){										// block result stored in global memory
-            d_sums[bx*d_mul*NUMBER_THREADS] = d_psum[tx];
-            d_sums2[bx*d_mul*NUMBER_THREADS] = d_psum2[tx];
-        }
     }
 }
