@@ -251,7 +251,7 @@ kernel_gpu_cuda_wrapper(par_str par_cpu,
 
 	time5 = get_time();
 
-	MY_VERIFY_DOUBLE_CUSTOM(fv_cpu, dim_cpu.space_mem / sizeof(fp), 1e-13, 1);
+	MY_VERIFY_DOUBLE_EXACT(fv_cpu, dim_cpu.space_mem / sizeof(fp));
 
 	//======================================================================================================================================================150
 	//	GPU MEMORY DEALLOCATION

@@ -58,7 +58,6 @@ __global__ void kernel_gpu_cuda(par_str d_par_gpu,
         fp fxij;
         fp fyij;
         fp fzij;
-        THREE_VECTOR d;
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------160
         //	Home box
@@ -143,43 +142,14 @@ __global__ void kernel_gpu_cuda(par_str d_par_gpu,
 
                 // loop for the number of particles in the current nei box
                 for (j=0; j<NUMBER_PAR_PER_BOX; j++){
-
-                    // r2 = rA[wtx].v + rB[j].v - DOT(rA[wtx],rB[j]);
-                    // u2 = a2*r2;
-                    // vij= exp(-u2);
-                    // fs = 2.*vij;
-
-                    // d.x = rA[wtx].x  - rB[j].x;
-                    // fxij=fs*d.x;
-                    // d.y = rA[wtx].y  - rB[j].y;
-                    // fyij=fs*d.y;
-                    // d.z = rA[wtx].z  - rB[j].z;
-                    // fzij=fs*d.z;
-
-                    // fA[wtx].v +=  qB[j]*vij;
-                    // fA[wtx].x +=  qB[j]*fxij;
-                    // fA[wtx].y +=  qB[j]*fyij;
-                    // fA[wtx].z +=  qB[j]*fzij;
-
-
-
                     r2 = (fp)rA_shared[wtx].v + (fp)rB_shared[j].v - DOT((fp)rA_shared[wtx],(fp)rB_shared[j]);
                     u2 = a2*r2;
-                    vij= exp(-u2);
-                    fs = 2*vij;
+                    vij= (-u2);
 
-                    d.x = (fp)rA_shared[wtx].x  - (fp)rB_shared[j].x;
-                    fxij=fs*d.x;
-                    d.y = (fp)rA_shared[wtx].y  - (fp)rB_shared[j].y;
-                    fyij=fs*d.y;
-                    d.z = (fp)rA_shared[wtx].z  - (fp)rB_shared[j].z;
-                    fzij=fs*d.z;
-
-                    fA[wtx].v +=  (double)((fp)qB_shared[j]*vij);
-                    fA[wtx].x +=  (double)((fp)qB_shared[j]*fxij);
-                    fA[wtx].y +=  (double)((fp)qB_shared[j]*fyij);
-                    fA[wtx].z +=  (double)((fp)qB_shared[j]*fzij);
-
+                    fA[wtx].v +=  vij;
+                    fA[wtx].x +=  vij;
+                    fA[wtx].y +=  vij;
+                    fA[wtx].z +=  vij;
                 }
 
                 // increment work thread index
