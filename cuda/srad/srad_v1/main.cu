@@ -300,14 +300,11 @@ int main(int argc, char *argv []){
 
     // printf("iterations: ");
 
-    MY_START_CLOCK(srad_v1, total);
     // execute main loop
-    MY_START_CLOCK(srad_v1, prepare);
     prepare<<<blocks, threads>>>(	Ne,
                                     d_I,
                                     d_sums,
                                     d_sums2);
-    MY_STOP_CLOCK(srad_v1, prepare);
 
     checkCUDAError("prepare");
 
