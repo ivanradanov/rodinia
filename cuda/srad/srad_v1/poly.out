@@ -1,0 +1,949 @@
+main.cu:167:20: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+    read_graphics(      "../../../data/srad/image.pgm",
+                        ^
+main.cu:167:20: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+    read_graphics(      "../../../data/srad/image.pgm",
+                        ^
+Unoptimized GPU LLVM module for: "__polygeist_gpu_module"
+; ModuleID = '__polygeist_gpu_module'
+source_filename = "__polygeist_gpu_module"
+target datalayout = "e-i64:64-i128:128-v16:16-v32:32-n16:32:64"
+target triple = "nvptx64-nvidia-cuda"
+
+@shared_mem_94871595394128 = addrspace(3) global [512 x float] undef
+@shared_mem_94871595392944 = addrspace(3) global [512 x float] undef
+
+declare i8* @malloc(i64)
+
+declare void @free(i8*)
+
+define void @main_kernel94871591299440(i64 %0, float* %1) !dbg !6 {
+  call void @_Z22__device_stub__extractlPf(i64 %0, float* %1), !dbg !10
+  ret void, !dbg !10
+}
+
+declare float @__nv_expf(float)
+
+define void @_Z22__device_stub__extractlPf(i64 %0, float* %1) !dbg !12 {
+  %3 = call i32 @llvm.nvvm.read.ptx.sreg.ctaid.x(), !dbg !14
+  %4 = sext i32 %3 to i64, !dbg !14
+  %5 = trunc i64 %4 to i32, !dbg !14
+  %6 = call i32 @llvm.nvvm.read.ptx.sreg.tid.x(), !dbg !19
+  %7 = sext i32 %6 to i64, !dbg !19
+  %8 = trunc i64 %7 to i32, !dbg !19
+  %9 = mul i32 %5, 512, !dbg !20
+  %10 = add i32 %9, %8, !dbg !21
+  %11 = sext i32 %10 to i64, !dbg !21
+  %12 = sext i32 %10 to i64, !dbg !22
+  %13 = icmp slt i64 %12, %0, !dbg !23
+  br i1 %13, label %14, label %20, !dbg !24
+
+14:                                               ; preds = %2
+  %15 = getelementptr float, float* %1, i64 %11, !dbg !25
+  %16 = load float, float* %15, align 4, !dbg !25
+  %17 = fdiv float %16, 2.550000e+02, !dbg !26
+  %18 = call float @__nv_expf(float %17), !dbg !27
+  %19 = getelementptr float, float* %1, i64 %11, !dbg !28
+  store float %18, float* %19, align 4, !dbg !28
+  br label %20, !dbg !24
+
+20:                                               ; preds = %14, %2
+  ret void, !dbg !16
+}
+
+define void @main_kernel94871590788112(i64 %0, float* %1, float* %2, float* %3) !dbg !29 {
+  call void @_Z22__device_stub__preparelPfS_S_(i64 %0, float* %1, float* %2, float* %3), !dbg !30
+  ret void, !dbg !30
+}
+
+define void @_Z22__device_stub__preparelPfS_S_(i64 %0, float* %1, float* %2, float* %3) !dbg !32 {
+  %5 = call i32 @llvm.nvvm.read.ptx.sreg.ctaid.x(), !dbg !34
+  %6 = sext i32 %5 to i64, !dbg !34
+  %7 = trunc i64 %6 to i32, !dbg !34
+  %8 = call i32 @llvm.nvvm.read.ptx.sreg.tid.x(), !dbg !38
+  %9 = sext i32 %8 to i64, !dbg !38
+  %10 = trunc i64 %9 to i32, !dbg !38
+  %11 = mul i32 %7, 512, !dbg !39
+  %12 = add i32 %11, %10, !dbg !40
+  %13 = sext i32 %12 to i64, !dbg !40
+  %14 = sext i32 %12 to i64, !dbg !41
+  %15 = icmp slt i64 %14, %0, !dbg !42
+  br i1 %15, label %16, label %24, !dbg !43
+
+16:                                               ; preds = %4
+  %17 = getelementptr float, float* %1, i64 %13, !dbg !44
+  %18 = load float, float* %17, align 4, !dbg !44
+  %19 = getelementptr float, float* %2, i64 %13, !dbg !45
+  store float %18, float* %19, align 4, !dbg !45
+  %20 = getelementptr float, float* %1, i64 %13, !dbg !46
+  %21 = load float, float* %20, align 4, !dbg !46
+  %22 = fmul float %21, %21, !dbg !47
+  %23 = getelementptr float, float* %3, i64 %13, !dbg !48
+  store float %22, float* %23, align 4, !dbg !48
+  br label %24, !dbg !43
+
+24:                                               ; preds = %16, %4
+  ret void, !dbg !36
+}
+
+define void @main_kernel94871588470640(i64 %0, i32 %1, i32 %2, float* %3, float* %4) !dbg !49 {
+  call void @_Z21__device_stub__reduceliiPfS_(i64 %0, i32 %1, i32 %2, float* %3, float* %4), !dbg !50
+  ret void, !dbg !50
+}
+
+define void @_Z21__device_stub__reduceliiPfS_(i64 %0, i32 %1, i32 %2, float* %3, float* %4) !dbg !52 {
+  call void @_Z6reduceliiPfS_(i64 %0, i32 %1, i32 %2, float* %3, float* %4), !dbg !54
+  ret void, !dbg !54
+}
+
+define void @_Z6reduceliiPfS_(i64 %0, i32 %1, i32 %2, float* %3, float* %4) !dbg !56 {
+  %6 = call i32 @llvm.nvvm.read.ptx.sreg.ctaid.x(), !dbg !57
+  %7 = sext i32 %6 to i64, !dbg !57
+  %8 = trunc i64 %7 to i32, !dbg !57
+  %9 = call i32 @llvm.nvvm.read.ptx.sreg.tid.x(), !dbg !59
+  %10 = sext i32 %9 to i64, !dbg !59
+  %11 = trunc i64 %10 to i32, !dbg !59
+  %12 = mul i32 %8, 512, !dbg !60
+  %13 = add i32 %12, %11, !dbg !61
+  %14 = mul i32 %13, %2, !dbg !62
+  %15 = sext i32 %14 to i64, !dbg !62
+  %16 = icmp slt i32 %13, %1, !dbg !63
+  br i1 %16, label %17, label %24, !dbg !64
+
+17:                                               ; preds = %5
+  %18 = getelementptr float, float* %3, i64 %15, !dbg !65
+  %19 = load float, float* %18, align 4, !dbg !65
+  %20 = getelementptr float, float addrspace(3)* getelementptr inbounds ([512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i32 0, i32 0), i64 %10, !dbg !66
+  store float %19, float addrspace(3)* %20, align 4, !dbg !66
+  %21 = getelementptr float, float* %4, i64 %15, !dbg !67
+  %22 = load float, float* %21, align 4, !dbg !67
+  %23 = getelementptr float, float addrspace(3)* getelementptr inbounds ([512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i32 0, i32 0), i64 %10, !dbg !68
+  store float %22, float addrspace(3)* %23, align 4, !dbg !68
+  br label %24, !dbg !64
+
+24:                                               ; preds = %17, %5
+  call void @llvm.nvvm.barrier0(), !dbg !69
+  %25 = call i32 @llvm.nvvm.read.ptx.sreg.nctaid.x(), !dbg !70
+  %26 = sext i32 %25 to i64, !dbg !70
+  %27 = trunc i64 %26 to i32, !dbg !70
+  %28 = add i32 %27, -1, !dbg !71
+  %29 = icmp ne i32 %8, %28, !dbg !72
+  br i1 %29, label %30, label %58
+
+30:                                               ; preds = %24
+  %31 = add i32 %11, 1, !dbg !73
+  br label %32, !dbg !74
+
+32:                                               ; preds = %55, %30
+  %33 = phi i32 [ %56, %55 ], [ 2, %30 ]
+  %34 = icmp sle i32 %33, 512, !dbg !74
+  br i1 %34, label %35, label %57, !dbg !75
+
+35:                                               ; preds = %32
+  %36 = phi i32 [ %33, %32 ]
+  %37 = srem i32 %31, %36, !dbg !76
+  %38 = icmp eq i32 %37, 0, !dbg !77
+  br i1 %38, label %39, label %55, !dbg !78
+
+39:                                               ; preds = %35
+  %40 = getelementptr float, float addrspace(3)* getelementptr inbounds ([512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i32 0, i32 0), i64 %10, !dbg !79
+  %41 = load float, float addrspace(3)* %40, align 4, !dbg !79
+  %42 = sdiv i32 %36, 2, !dbg !80
+  %43 = sub i32 %11, %42, !dbg !81
+  %44 = sext i32 %43 to i64, !dbg !82
+  %45 = getelementptr float, float addrspace(3)* getelementptr inbounds ([512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i32 0, i32 0), i64 %44, !dbg !83
+  %46 = load float, float addrspace(3)* %45, align 4, !dbg !83
+  %47 = fadd float %41, %46, !dbg !84
+  %48 = getelementptr float, float addrspace(3)* getelementptr inbounds ([512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i32 0, i32 0), i64 %10, !dbg !85
+  store float %47, float addrspace(3)* %48, align 4, !dbg !85
+  %49 = getelementptr float, float addrspace(3)* getelementptr inbounds ([512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i32 0, i32 0), i64 %10, !dbg !86
+  %50 = load float, float addrspace(3)* %49, align 4, !dbg !86
+  %51 = getelementptr float, float addrspace(3)* getelementptr inbounds ([512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i32 0, i32 0), i64 %44, !dbg !87
+  %52 = load float, float addrspace(3)* %51, align 4, !dbg !87
+  %53 = fadd float %50, %52, !dbg !88
+  %54 = getelementptr float, float addrspace(3)* getelementptr inbounds ([512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i32 0, i32 0), i64 %10, !dbg !89
+  store float %53, float addrspace(3)* %54, align 4, !dbg !89
+  br label %55, !dbg !78
+
+55:                                               ; preds = %39, %35
+  call void @llvm.nvvm.barrier0(), !dbg !90
+  %56 = mul i32 %36, 2, !dbg !91
+  br label %32, !dbg !75
+
+57:                                               ; preds = %32
+  br label %58
+
+58:                                               ; preds = %57, %24
+  ret void, !dbg !92
+}
+
+; Function Attrs: nocallback nofree nosync nounwind readnone speculatable willreturn
+declare i32 @llvm.nvvm.read.ptx.sreg.ctaid.x() #0
+
+; Function Attrs: nocallback nofree nosync nounwind readnone speculatable willreturn
+declare i32 @llvm.nvvm.read.ptx.sreg.tid.x() #0
+
+; Function Attrs: convergent nocallback nounwind
+declare void @llvm.nvvm.barrier0() #1
+
+; Function Attrs: nocallback nofree nosync nounwind readnone speculatable willreturn
+declare i32 @llvm.nvvm.read.ptx.sreg.nctaid.x() #0
+
+attributes #0 = { nocallback nofree nosync nounwind readnone speculatable willreturn }
+attributes #1 = { convergent nocallback nounwind }
+
+!llvm.dbg.cu = !{!0}
+!llvm.module.flags = !{!2}
+!nvvm.annotations = !{!3, !4, !5}
+
+!0 = distinct !DICompileUnit(language: DW_LANG_C, file: !1, producer: "mlir", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug)
+!1 = !DIFile(filename: "__polygeist_gpu_module", directory: "/")
+!2 = !{i32 2, !"Debug Info Version", i32 3}
+!3 = !{void (i64, float*)* @main_kernel94871591299440, !"kernel", i32 1}
+!4 = !{void (i64, float*, float*, float*)* @main_kernel94871590788112, !"kernel", i32 1}
+!5 = !{void (i64, i32, i32, float*, float*)* @main_kernel94871588470640, !"kernel", i32 1}
+!6 = distinct !DISubprogram(name: "main_kernel94871591299440", linkageName: "main_kernel94871591299440", scope: null, file: !7, line: 290, type: !8, scopeLine: 290, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !9)
+!7 = !DIFile(filename: "main.cu", directory: "/scr/ivan/src/rodinia/cuda/srad/srad_v1")
+!8 = !DISubroutineType(types: !9)
+!9 = !{}
+!10 = !DILocation(line: 290, column: 5, scope: !11)
+!11 = !DILexicalBlockFile(scope: !6, file: !7, discriminator: 0)
+!12 = distinct !DISubprogram(name: "_Z22__device_stub__extractlPf", linkageName: "_Z22__device_stub__extractlPf", scope: null, file: !13, line: 2, type: !8, scopeLine: 2, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !9)
+!13 = !DIFile(filename: "./extract_kernel.cu", directory: "/scr/ivan/src/rodinia/cuda/srad/srad_v1")
+!14 = !DILocation(line: 6, column: 11, scope: !15, inlinedAt: !16)
+!15 = !DILexicalBlockFile(scope: !12, file: !13, discriminator: 0)
+!16 = !DILocation(line: 96, column: 9, scope: !17)
+!17 = !DILexicalBlockFile(scope: !12, file: !18, discriminator: 0)
+!18 = !DIFile(filename: "/usr/local/cuda-11.4//include/crt/host_defines.h", directory: "")
+!19 = !DILocation(line: 7, column: 11, scope: !15, inlinedAt: !16)
+!20 = !DILocation(line: 8, column: 14, scope: !15, inlinedAt: !16)
+!21 = !DILocation(line: 8, column: 30, scope: !15, inlinedAt: !16)
+!22 = !DILocation(line: 11, column: 5, scope: !15, inlinedAt: !16)
+!23 = !DILocation(line: 11, column: 7, scope: !15, inlinedAt: !16)
+!24 = !DILocation(line: 11, column: 2, scope: !15, inlinedAt: !16)
+!25 = !DILocation(line: 13, column: 17, scope: !15, inlinedAt: !16)
+!26 = !DILocation(line: 13, column: 24, scope: !15, inlinedAt: !16)
+!27 = !DILocation(line: 13, column: 13, scope: !15, inlinedAt: !16)
+!28 = !DILocation(line: 13, column: 11, scope: !15, inlinedAt: !16)
+!29 = distinct !DISubprogram(name: "main_kernel94871590788112", linkageName: "main_kernel94871590788112", scope: null, file: !7, line: 304, type: !8, scopeLine: 304, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !9)
+!30 = !DILocation(line: 304, column: 5, scope: !31)
+!31 = !DILexicalBlockFile(scope: !29, file: !7, discriminator: 0)
+!32 = distinct !DISubprogram(name: "_Z22__device_stub__preparelPfS_S_", linkageName: "_Z22__device_stub__preparelPfS_S_", scope: null, file: !33, line: 2, type: !8, scopeLine: 2, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !9)
+!33 = !DIFile(filename: "./prepare_kernel.cu", directory: "/scr/ivan/src/rodinia/cuda/srad/srad_v1")
+!34 = !DILocation(line: 8, column: 11, scope: !35, inlinedAt: !36)
+!35 = !DILexicalBlockFile(scope: !32, file: !33, discriminator: 0)
+!36 = !DILocation(line: 96, column: 9, scope: !37)
+!37 = !DILexicalBlockFile(scope: !32, file: !18, discriminator: 0)
+!38 = !DILocation(line: 9, column: 11, scope: !35, inlinedAt: !36)
+!39 = !DILocation(line: 10, column: 14, scope: !35, inlinedAt: !36)
+!40 = !DILocation(line: 10, column: 30, scope: !35, inlinedAt: !36)
+!41 = !DILocation(line: 13, column: 5, scope: !35, inlinedAt: !36)
+!42 = !DILocation(line: 13, column: 7, scope: !35, inlinedAt: !36)
+!43 = !DILocation(line: 13, column: 2, scope: !35, inlinedAt: !36)
+!44 = !DILocation(line: 15, column: 16, scope: !35, inlinedAt: !36)
+!45 = !DILocation(line: 15, column: 14, scope: !35, inlinedAt: !36)
+!46 = !DILocation(line: 16, column: 17, scope: !35, inlinedAt: !36)
+!47 = !DILocation(line: 16, column: 24, scope: !35, inlinedAt: !36)
+!48 = !DILocation(line: 16, column: 15, scope: !35, inlinedAt: !36)
+!49 = distinct !DISubprogram(name: "main_kernel94871588470640", linkageName: "main_kernel94871588470640", scope: null, file: !7, line: 317, type: !8, scopeLine: 317, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !9)
+!50 = !DILocation(line: 317, column: 5, scope: !51)
+!51 = !DILexicalBlockFile(scope: !49, file: !7, discriminator: 0)
+!52 = distinct !DISubprogram(name: "_Z21__device_stub__reduceliiPfS_", linkageName: "_Z21__device_stub__reduceliiPfS_", scope: null, file: !53, line: 2, type: !8, scopeLine: 2, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !9)
+!53 = !DIFile(filename: "./reduce_kernel.cu", directory: "/scr/ivan/src/rodinia/cuda/srad/srad_v1")
+!54 = !DILocation(line: 96, column: 9, scope: !55)
+!55 = !DILexicalBlockFile(scope: !52, file: !18, discriminator: 0)
+!56 = distinct !DISubprogram(name: "_Z6reduceliiPfS_", linkageName: "_Z6reduceliiPfS_", scope: null, file: !53, line: 2, type: !8, scopeLine: 2, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !9)
+!57 = !DILocation(line: 7, column: 14, scope: !58)
+!58 = !DILexicalBlockFile(scope: !56, file: !53, discriminator: 0)
+!59 = !DILocation(line: 8, column: 14, scope: !58)
+!60 = !DILocation(line: 9, column: 17, scope: !58)
+!61 = !DILocation(line: 9, column: 33, scope: !58)
+!62 = !DILocation(line: 18, column: 31, scope: !58)
+!63 = !DILocation(line: 16, column: 10, scope: !58)
+!64 = !DILocation(line: 16, column: 5, scope: !58)
+!65 = !DILocation(line: 18, column: 22, scope: !58)
+!66 = !DILocation(line: 18, column: 20, scope: !58)
+!67 = !DILocation(line: 19, column: 23, scope: !58)
+!68 = !DILocation(line: 19, column: 21, scope: !58)
+!69 = !DILocation(line: 22, column: 5, scope: !58)
+!70 = !DILocation(line: 23, column: 15, scope: !58)
+!71 = !DILocation(line: 23, column: 25, scope: !58)
+!72 = !DILocation(line: 23, column: 11, scope: !58)
+!73 = !DILocation(line: 25, column: 19, scope: !58)
+!74 = !DILocation(line: 24, column: 23, scope: !58)
+!75 = !DILocation(line: 24, column: 9, scope: !58)
+!76 = !DILocation(line: 25, column: 23, scope: !58)
+!77 = !DILocation(line: 25, column: 27, scope: !58)
+!78 = !DILocation(line: 25, column: 13, scope: !58)
+!79 = !DILocation(line: 26, column: 30, scope: !58)
+!80 = !DILocation(line: 26, column: 54, scope: !58)
+!81 = !DILocation(line: 26, column: 52, scope: !58)
+!82 = !DILocation(line: 26, column: 56, scope: !58)
+!83 = !DILocation(line: 26, column: 43, scope: !58)
+!84 = !DILocation(line: 26, column: 41, scope: !58)
+!85 = !DILocation(line: 26, column: 28, scope: !58)
+!86 = !DILocation(line: 27, column: 31, scope: !58)
+!87 = !DILocation(line: 27, column: 45, scope: !58)
+!88 = !DILocation(line: 27, column: 43, scope: !58)
+!89 = !DILocation(line: 27, column: 29, scope: !58)
+!90 = !DILocation(line: 29, column: 13, scope: !58)
+!91 = !DILocation(line: 24, column: 44, scope: !58)
+!92 = !DILocation(line: 32, column: 1, scope: !58)
+
+Optimized GPU LLVM module for: "__polygeist_gpu_module"
+; ModuleID = '__polygeist_gpu_module'
+source_filename = "__polygeist_gpu_module"
+target datalayout = "e-i64:64-i128:128-v16:16-v32:32-n16:32:64"
+target triple = "nvptx64-nvidia-cuda"
+
+@shared_mem_94871595394128 = internal unnamed_addr addrspace(3) global [512 x float] undef
+@shared_mem_94871595392944 = internal unnamed_addr addrspace(3) global [512 x float] undef
+
+; Function Attrs: argmemonly mustprogress nofree nosync nounwind willreturn
+define void @main_kernel94871591299440(i64 %0, float* nocapture %1) local_unnamed_addr #0 {
+  %3 = tail call i32 @llvm.nvvm.read.ptx.sreg.ctaid.x()
+  %4 = tail call i32 @llvm.nvvm.read.ptx.sreg.tid.x()
+  %5 = shl i32 %3, 9
+  %6 = add i32 %5, %4
+  %7 = sext i32 %6 to i64
+  %8 = icmp slt i64 %7, %0
+  br i1 %8, label %9, label %_Z22__device_stub__extractlPf.exit
+
+9:                                                ; preds = %2
+  %10 = getelementptr inbounds float, float* %1, i64 %7
+  %11 = load float, float* %10, align 4
+  %12 = fdiv contract float %11, 2.550000e+02
+  %13 = tail call contract float @llvm.fma.f32(float %12, float 0x3F777313A0000000, float 5.000000e-01)
+  %14 = tail call contract float @llvm.nvvm.saturate.f(float %13) #1
+  %15 = tail call contract float @llvm.nvvm.fma.rm.f(float %14, float 2.520000e+02, float 0x4168000020000000) #1
+  %16 = fadd contract float %15, 0xC168000FE0000000
+  %17 = fneg contract float %16
+  %18 = tail call contract float @llvm.fma.f32(float %12, float 0x3FF7154760000000, float %17)
+  %19 = tail call contract float @llvm.fma.f32(float %12, float 0x3E54AE0C00000000, float %18)
+  %20 = bitcast float %15 to i32
+  %21 = shl i32 %20, 23
+  %22 = bitcast i32 %21 to float
+  %23 = tail call contract float @llvm.nvvm.ex2.approx.ftz.f(float %19) #1
+  %24 = fmul contract float %23, %22
+  store float %24, float* %10, align 4
+  br label %_Z22__device_stub__extractlPf.exit
+
+_Z22__device_stub__extractlPf.exit:               ; preds = %2, %9
+  ret void
+}
+
+; Function Attrs: argmemonly mustprogress nofree nosync nounwind willreturn
+define void @main_kernel94871590788112(i64 %0, float* nocapture readonly %1, float* nocapture writeonly %2, float* nocapture writeonly %3) local_unnamed_addr #0 {
+  %5 = tail call i32 @llvm.nvvm.read.ptx.sreg.ctaid.x()
+  %6 = tail call i32 @llvm.nvvm.read.ptx.sreg.tid.x()
+  %7 = shl i32 %5, 9
+  %8 = add i32 %7, %6
+  %9 = sext i32 %8 to i64
+  %10 = icmp slt i64 %9, %0
+  br i1 %10, label %11, label %_Z22__device_stub__preparelPfS_S_.exit
+
+11:                                               ; preds = %4
+  %12 = getelementptr inbounds float, float* %1, i64 %9
+  %13 = load float, float* %12, align 4
+  %14 = getelementptr inbounds float, float* %2, i64 %9
+  store float %13, float* %14, align 4
+  %15 = load float, float* %12, align 4
+  %16 = fmul contract float %15, %15
+  %17 = getelementptr inbounds float, float* %3, i64 %9
+  store float %16, float* %17, align 4
+  br label %_Z22__device_stub__preparelPfS_S_.exit
+
+_Z22__device_stub__preparelPfS_S_.exit:           ; preds = %4, %11
+  ret void
+}
+
+; Function Attrs: nounwind
+define void @main_kernel94871588470640(i64 %0, i32 %1, i32 %2, float* nocapture readonly %3, float* nocapture readonly %4) local_unnamed_addr #1 {
+  %6 = tail call i32 @llvm.nvvm.read.ptx.sreg.ctaid.x()
+  %7 = tail call i32 @llvm.nvvm.read.ptx.sreg.tid.x()
+  %8 = sext i32 %7 to i64
+  %9 = shl i32 %6, 9
+  %10 = add i32 %9, %7
+  %11 = icmp slt i32 %10, %1
+  br i1 %11, label %12, label %21
+
+12:                                               ; preds = %5
+  %13 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i64 0, i64 %8
+  %14 = mul i32 %10, %2
+  %15 = sext i32 %14 to i64
+  %16 = getelementptr inbounds float, float* %4, i64 %15
+  %17 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i64 0, i64 %8
+  %18 = getelementptr inbounds float, float* %3, i64 %15
+  %19 = load float, float* %18, align 4
+  store float %19, float addrspace(3)* %17, align 4
+  %20 = load float, float* %16, align 4
+  store float %20, float addrspace(3)* %13, align 4
+  br label %21
+
+21:                                               ; preds = %12, %5
+  tail call void @llvm.nvvm.barrier0()
+  %22 = tail call i32 @llvm.nvvm.read.ptx.sreg.nctaid.x()
+  %23 = add i32 %22, -1
+  %.not.i.i = icmp eq i32 %6, %23
+  br i1 %.not.i.i, label %_Z21__device_stub__reduceliiPfS_.exit, label %24
+
+24:                                               ; preds = %21
+  %25 = add i32 %7, 1
+  %26 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i64 0, i64 %8
+  %27 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i64 0, i64 %8
+  %28 = and i32 %25, 1
+  %29 = icmp eq i32 %28, 0
+  br i1 %29, label %30, label %41
+
+30:                                               ; preds = %24
+  %31 = load float, float addrspace(3)* %26, align 4
+  %32 = add i32 %7, -1
+  %33 = sext i32 %32 to i64
+  %34 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i64 0, i64 %33
+  %35 = load float, float addrspace(3)* %34, align 4
+  %36 = fadd contract float %31, %35
+  store float %36, float addrspace(3)* %26, align 4
+  %37 = load float, float addrspace(3)* %27, align 4
+  %38 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i64 0, i64 %33
+  %39 = load float, float addrspace(3)* %38, align 4
+  %40 = fadd contract float %37, %39
+  store float %40, float addrspace(3)* %27, align 4
+  br label %41
+
+41:                                               ; preds = %30, %24
+  tail call void @llvm.nvvm.barrier0()
+  %42 = and i32 %25, 3
+  %43 = icmp eq i32 %42, 0
+  br i1 %43, label %44, label %55
+
+44:                                               ; preds = %41
+  %45 = load float, float addrspace(3)* %26, align 4
+  %46 = add i32 %7, -2
+  %47 = sext i32 %46 to i64
+  %48 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i64 0, i64 %47
+  %49 = load float, float addrspace(3)* %48, align 4
+  %50 = fadd contract float %45, %49
+  store float %50, float addrspace(3)* %26, align 4
+  %51 = load float, float addrspace(3)* %27, align 4
+  %52 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i64 0, i64 %47
+  %53 = load float, float addrspace(3)* %52, align 4
+  %54 = fadd contract float %51, %53
+  store float %54, float addrspace(3)* %27, align 4
+  br label %55
+
+55:                                               ; preds = %44, %41
+  tail call void @llvm.nvvm.barrier0()
+  %56 = and i32 %25, 7
+  %57 = icmp eq i32 %56, 0
+  br i1 %57, label %58, label %69
+
+58:                                               ; preds = %55
+  %59 = load float, float addrspace(3)* %26, align 4
+  %60 = add i32 %7, -4
+  %61 = sext i32 %60 to i64
+  %62 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i64 0, i64 %61
+  %63 = load float, float addrspace(3)* %62, align 4
+  %64 = fadd contract float %59, %63
+  store float %64, float addrspace(3)* %26, align 4
+  %65 = load float, float addrspace(3)* %27, align 4
+  %66 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i64 0, i64 %61
+  %67 = load float, float addrspace(3)* %66, align 4
+  %68 = fadd contract float %65, %67
+  store float %68, float addrspace(3)* %27, align 4
+  br label %69
+
+69:                                               ; preds = %58, %55
+  tail call void @llvm.nvvm.barrier0()
+  %70 = and i32 %25, 15
+  %71 = icmp eq i32 %70, 0
+  br i1 %71, label %72, label %83
+
+72:                                               ; preds = %69
+  %73 = load float, float addrspace(3)* %26, align 4
+  %74 = add i32 %7, -8
+  %75 = sext i32 %74 to i64
+  %76 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i64 0, i64 %75
+  %77 = load float, float addrspace(3)* %76, align 4
+  %78 = fadd contract float %73, %77
+  store float %78, float addrspace(3)* %26, align 4
+  %79 = load float, float addrspace(3)* %27, align 4
+  %80 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i64 0, i64 %75
+  %81 = load float, float addrspace(3)* %80, align 4
+  %82 = fadd contract float %79, %81
+  store float %82, float addrspace(3)* %27, align 4
+  br label %83
+
+83:                                               ; preds = %72, %69
+  tail call void @llvm.nvvm.barrier0()
+  %84 = and i32 %25, 31
+  %85 = icmp eq i32 %84, 0
+  br i1 %85, label %86, label %97
+
+86:                                               ; preds = %83
+  %87 = load float, float addrspace(3)* %26, align 4
+  %88 = add i32 %7, -16
+  %89 = sext i32 %88 to i64
+  %90 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i64 0, i64 %89
+  %91 = load float, float addrspace(3)* %90, align 4
+  %92 = fadd contract float %87, %91
+  store float %92, float addrspace(3)* %26, align 4
+  %93 = load float, float addrspace(3)* %27, align 4
+  %94 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i64 0, i64 %89
+  %95 = load float, float addrspace(3)* %94, align 4
+  %96 = fadd contract float %93, %95
+  store float %96, float addrspace(3)* %27, align 4
+  br label %97
+
+97:                                               ; preds = %86, %83
+  tail call void @llvm.nvvm.barrier0()
+  %98 = and i32 %25, 63
+  %99 = icmp eq i32 %98, 0
+  br i1 %99, label %100, label %111
+
+100:                                              ; preds = %97
+  %101 = load float, float addrspace(3)* %26, align 4
+  %102 = add i32 %7, -32
+  %103 = sext i32 %102 to i64
+  %104 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i64 0, i64 %103
+  %105 = load float, float addrspace(3)* %104, align 4
+  %106 = fadd contract float %101, %105
+  store float %106, float addrspace(3)* %26, align 4
+  %107 = load float, float addrspace(3)* %27, align 4
+  %108 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i64 0, i64 %103
+  %109 = load float, float addrspace(3)* %108, align 4
+  %110 = fadd contract float %107, %109
+  store float %110, float addrspace(3)* %27, align 4
+  br label %111
+
+111:                                              ; preds = %100, %97
+  tail call void @llvm.nvvm.barrier0()
+  %112 = and i32 %25, 127
+  %113 = icmp eq i32 %112, 0
+  br i1 %113, label %114, label %125
+
+114:                                              ; preds = %111
+  %115 = load float, float addrspace(3)* %26, align 4
+  %116 = add i32 %7, -64
+  %117 = sext i32 %116 to i64
+  %118 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i64 0, i64 %117
+  %119 = load float, float addrspace(3)* %118, align 4
+  %120 = fadd contract float %115, %119
+  store float %120, float addrspace(3)* %26, align 4
+  %121 = load float, float addrspace(3)* %27, align 4
+  %122 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i64 0, i64 %117
+  %123 = load float, float addrspace(3)* %122, align 4
+  %124 = fadd contract float %121, %123
+  store float %124, float addrspace(3)* %27, align 4
+  br label %125
+
+125:                                              ; preds = %114, %111
+  tail call void @llvm.nvvm.barrier0()
+  %126 = and i32 %25, 255
+  %127 = icmp eq i32 %126, 0
+  br i1 %127, label %128, label %139
+
+128:                                              ; preds = %125
+  %129 = load float, float addrspace(3)* %26, align 4
+  %130 = add i32 %7, -128
+  %131 = sext i32 %130 to i64
+  %132 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i64 0, i64 %131
+  %133 = load float, float addrspace(3)* %132, align 4
+  %134 = fadd contract float %129, %133
+  store float %134, float addrspace(3)* %26, align 4
+  %135 = load float, float addrspace(3)* %27, align 4
+  %136 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i64 0, i64 %131
+  %137 = load float, float addrspace(3)* %136, align 4
+  %138 = fadd contract float %135, %137
+  store float %138, float addrspace(3)* %27, align 4
+  br label %139
+
+139:                                              ; preds = %128, %125
+  tail call void @llvm.nvvm.barrier0()
+  %140 = and i32 %25, 511
+  %141 = icmp eq i32 %140, 0
+  br i1 %141, label %142, label %.loopexit.loopexit.i.i
+
+142:                                              ; preds = %139
+  %143 = load float, float addrspace(3)* %26, align 4
+  %144 = add i32 %7, -256
+  %145 = sext i32 %144 to i64
+  %146 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595392944, i64 0, i64 %145
+  %147 = load float, float addrspace(3)* %146, align 4
+  %148 = fadd contract float %143, %147
+  store float %148, float addrspace(3)* %26, align 4
+  %149 = load float, float addrspace(3)* %27, align 4
+  %150 = getelementptr inbounds [512 x float], [512 x float] addrspace(3)* @shared_mem_94871595394128, i64 0, i64 %145
+  %151 = load float, float addrspace(3)* %150, align 4
+  %152 = fadd contract float %149, %151
+  store float %152, float addrspace(3)* %27, align 4
+  br label %.loopexit.loopexit.i.i
+
+.loopexit.loopexit.i.i:                           ; preds = %142, %139
+  tail call void @llvm.nvvm.barrier0()
+  br label %_Z21__device_stub__reduceliiPfS_.exit
+
+_Z21__device_stub__reduceliiPfS_.exit:            ; preds = %21, %.loopexit.loopexit.i.i
+  ret void
+}
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind readnone speculatable willreturn
+declare i32 @llvm.nvvm.read.ptx.sreg.ctaid.x() #2
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind readnone speculatable willreturn
+declare i32 @llvm.nvvm.read.ptx.sreg.tid.x() #2
+
+; Function Attrs: convergent nocallback nounwind
+declare void @llvm.nvvm.barrier0() #3
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind readnone speculatable willreturn
+declare i32 @llvm.nvvm.read.ptx.sreg.nctaid.x() #2
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind readnone willreturn
+declare float @llvm.nvvm.ex2.approx.ftz.f(float) #4
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind readnone speculatable willreturn
+declare float @llvm.nvvm.saturate.f(float) #2
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind readnone speculatable willreturn
+declare float @llvm.nvvm.fma.rm.f(float, float, float) #2
+
+; Function Attrs: nocallback nofree nosync nounwind readnone speculatable willreturn
+declare float @llvm.fma.f32(float, float, float) #5
+
+attributes #0 = { argmemonly mustprogress nofree nosync nounwind willreturn }
+attributes #1 = { nounwind }
+attributes #2 = { mustprogress nocallback nofree nosync nounwind readnone speculatable willreturn }
+attributes #3 = { convergent nocallback nounwind }
+attributes #4 = { mustprogress nocallback nofree nosync nounwind readnone willreturn }
+attributes #5 = { nocallback nofree nosync nounwind readnone speculatable willreturn }
+
+!llvm.module.flags = !{!0}
+!nvvm.annotations = !{!1, !2, !3}
+!llvm.ident = !{!4}
+!nvvmir.version = !{!5}
+
+!0 = !{i32 2, !"Debug Info Version", i32 3}
+!1 = !{void (i64, float*)* @main_kernel94871591299440, !"kernel", i32 1}
+!2 = !{void (i64, float*, float*, float*)* @main_kernel94871590788112, !"kernel", i32 1}
+!3 = !{void (i64, i32, i32, float*, float*)* @main_kernel94871588470640, !"kernel", i32 1}
+!4 = !{!"clang version 3.8.0 (tags/RELEASE_380/final)"}
+!5 = !{i32 2, i32 0}
+
+PTX module for: "__polygeist_gpu_module"
+//
+// Generated by LLVM NVPTX Back-End
+//
+
+.version 7.4
+.target sm_86
+.address_size 64
+
+	// .globl	main_kernel94871591299440
+// shared_mem_94871595394128 has been demoted
+// shared_mem_94871595392944 has been demoted
+
+.visible .entry main_kernel94871591299440(
+	.param .u64 main_kernel94871591299440_param_0,
+	.param .u64 main_kernel94871591299440_param_1
+)
+{
+	.reg .pred 	%p<2>;
+	.reg .b32 	%r<7>;
+	.reg .f32 	%f<15>;
+	.reg .b64 	%rd<7>;
+
+	ld.param.u64 	%rd3, [main_kernel94871591299440_param_0];
+	mov.u32 	%r1, %ctaid.x;
+	mov.u32 	%r2, %tid.x;
+	shl.b32 	%r3, %r1, 9;
+	add.s32 	%r4, %r3, %r2;
+	cvt.s64.s32 	%rd2, %r4;
+	setp.ge.s64 	%p1, %rd2, %rd3;
+	@%p1 bra 	$L__BB0_2;
+	ld.param.u64 	%rd4, [main_kernel94871591299440_param_1];
+	cvta.to.global.u64 	%rd1, %rd4;
+	shl.b64 	%rd5, %rd2, 2;
+	add.s64 	%rd6, %rd1, %rd5;
+	ld.global.f32 	%f1, [%rd6];
+	div.rn.f32 	%f2, %f1, 0f437F0000;
+	fma.rn.f32 	%f3, %f2, 0f3BBB989D, 0f3F000000;
+	cvt.sat.f32.f32 	%f4, %f3;
+	mov.f32 	%f5, 0f4B400001;
+	mov.f32 	%f6, 0f437C0000;
+	fma.rm.f32 	%f7, %f4, %f6, %f5;
+	add.rn.f32 	%f8, %f7, 0fCB40007F;
+	neg.f32 	%f9, %f8;
+	fma.rn.f32 	%f10, %f2, 0f3FB8AA3B, %f9;
+	fma.rn.f32 	%f11, %f2, 0f32A57060, %f10;
+	mov.b32 	%r5, %f7;
+	shl.b32 	%r6, %r5, 23;
+	mov.b32 	%f12, %r6;
+	ex2.approx.ftz.f32 	%f13, %f11;
+	mul.rn.f32 	%f14, %f13, %f12;
+	st.global.f32 	[%rd6], %f14;
+$L__BB0_2:
+	ret;
+
+}
+	// .globl	main_kernel94871590788112
+.visible .entry main_kernel94871590788112(
+	.param .u64 main_kernel94871590788112_param_0,
+	.param .u64 main_kernel94871590788112_param_1,
+	.param .u64 main_kernel94871590788112_param_2,
+	.param .u64 main_kernel94871590788112_param_3
+)
+{
+	.reg .pred 	%p<2>;
+	.reg .b32 	%r<5>;
+	.reg .f32 	%f<4>;
+	.reg .b64 	%rd<13>;
+
+	ld.param.u64 	%rd5, [main_kernel94871590788112_param_0];
+	mov.u32 	%r1, %ctaid.x;
+	mov.u32 	%r2, %tid.x;
+	shl.b32 	%r3, %r1, 9;
+	add.s32 	%r4, %r3, %r2;
+	cvt.s64.s32 	%rd4, %r4;
+	setp.ge.s64 	%p1, %rd4, %rd5;
+	@%p1 bra 	$L__BB1_2;
+	ld.param.u64 	%rd6, [main_kernel94871590788112_param_3];
+	cvta.to.global.u64 	%rd1, %rd6;
+	ld.param.u64 	%rd7, [main_kernel94871590788112_param_1];
+	ld.param.u64 	%rd8, [main_kernel94871590788112_param_2];
+	cvta.to.global.u64 	%rd2, %rd8;
+	cvta.to.global.u64 	%rd3, %rd7;
+	shl.b64 	%rd9, %rd4, 2;
+	add.s64 	%rd10, %rd3, %rd9;
+	ld.global.f32 	%f1, [%rd10];
+	add.s64 	%rd11, %rd2, %rd9;
+	st.global.f32 	[%rd11], %f1;
+	ld.global.f32 	%f2, [%rd10];
+	mul.rn.f32 	%f3, %f2, %f2;
+	add.s64 	%rd12, %rd1, %rd9;
+	st.global.f32 	[%rd12], %f3;
+$L__BB1_2:
+	ret;
+
+}
+	// .globl	main_kernel94871588470640
+.visible .entry main_kernel94871588470640(
+	.param .u64 main_kernel94871588470640_param_0,
+	.param .u32 main_kernel94871588470640_param_1,
+	.param .u32 main_kernel94871588470640_param_2,
+	.param .u64 main_kernel94871588470640_param_3,
+	.param .u64 main_kernel94871588470640_param_4
+)
+{
+	.reg .pred 	%p<14>;
+	.reg .b32 	%r<29>;
+	.reg .f32 	%f<57>;
+	.reg .b64 	%rd<58>;
+	// demoted variable
+	.shared .align 4 .b8 shared_mem_94871595394128[2048];
+	// demoted variable
+	.shared .align 4 .b8 shared_mem_94871595392944[2048];
+	ld.param.u32 	%r4, [main_kernel94871588470640_param_1];
+	mov.u32 	%r1, %ctaid.x;
+	mov.u32 	%r2, %tid.x;
+	shl.b32 	%r6, %r1, 9;
+	add.s32 	%r7, %r6, %r2;
+	setp.ge.s32 	%p1, %r7, %r4;
+	mul.wide.s32 	%rd9, %r2, 4;
+	mov.u64 	%rd10, shared_mem_94871595394128;
+	add.s64 	%rd1, %rd10, %rd9;
+	mov.u64 	%rd12, shared_mem_94871595392944;
+	add.s64 	%rd3, %rd12, %rd9;
+	@%p1 bra 	$L__BB2_2;
+	ld.param.u64 	%rd5, [main_kernel94871588470640_param_4];
+	cvta.to.global.u64 	%rd6, %rd5;
+	ld.param.u64 	%rd7, [main_kernel94871588470640_param_3];
+	cvta.to.global.u64 	%rd8, %rd7;
+	ld.param.u32 	%r5, [main_kernel94871588470640_param_2];
+	mul.lo.s32 	%r8, %r7, %r5;
+	mul.wide.s32 	%rd11, %r8, 4;
+	add.s64 	%rd2, %rd6, %rd11;
+	add.s64 	%rd4, %rd8, %rd11;
+	ld.global.f32 	%f1, [%rd4];
+	st.shared.f32 	[%rd3], %f1;
+	ld.global.f32 	%f2, [%rd2];
+	st.shared.f32 	[%rd1], %f2;
+$L__BB2_2:
+	bar.sync 	0;
+	mov.u32 	%r9, %nctaid.x;
+	add.s32 	%r10, %r9, -1;
+	setp.eq.s32 	%p2, %r1, %r10;
+	@%p2 bra 	$L__BB2_22;
+	add.s32 	%r3, %r2, 1;
+	and.b32  	%r11, %r3, 1;
+	setp.eq.b32 	%p3, %r11, 1;
+	mov.pred 	%p4, 0;
+	xor.pred  	%p5, %p3, %p4;
+	@%p5 bra 	$L__BB2_5;
+	ld.shared.f32 	%f3, [%rd3];
+	add.s32 	%r12, %r2, -1;
+	mul.wide.s32 	%rd13, %r12, 4;
+	add.s64 	%rd15, %rd12, %rd13;
+	ld.shared.f32 	%f4, [%rd15];
+	add.rn.f32 	%f5, %f3, %f4;
+	st.shared.f32 	[%rd3], %f5;
+	ld.shared.f32 	%f6, [%rd1];
+	add.s64 	%rd17, %rd10, %rd13;
+	ld.shared.f32 	%f7, [%rd17];
+	add.rn.f32 	%f8, %f6, %f7;
+	st.shared.f32 	[%rd1], %f8;
+$L__BB2_5:
+	bar.sync 	0;
+	and.b32  	%r13, %r3, 3;
+	setp.ne.s32 	%p6, %r13, 0;
+	@%p6 bra 	$L__BB2_7;
+	ld.shared.f32 	%f9, [%rd3];
+	add.s32 	%r14, %r2, -2;
+	mul.wide.s32 	%rd18, %r14, 4;
+	add.s64 	%rd20, %rd12, %rd18;
+	ld.shared.f32 	%f10, [%rd20];
+	add.rn.f32 	%f11, %f9, %f10;
+	st.shared.f32 	[%rd3], %f11;
+	ld.shared.f32 	%f12, [%rd1];
+	add.s64 	%rd22, %rd10, %rd18;
+	ld.shared.f32 	%f13, [%rd22];
+	add.rn.f32 	%f14, %f12, %f13;
+	st.shared.f32 	[%rd1], %f14;
+$L__BB2_7:
+	bar.sync 	0;
+	and.b32  	%r15, %r3, 7;
+	setp.ne.s32 	%p7, %r15, 0;
+	@%p7 bra 	$L__BB2_9;
+	ld.shared.f32 	%f15, [%rd3];
+	add.s32 	%r16, %r2, -4;
+	mul.wide.s32 	%rd23, %r16, 4;
+	add.s64 	%rd25, %rd12, %rd23;
+	ld.shared.f32 	%f16, [%rd25];
+	add.rn.f32 	%f17, %f15, %f16;
+	st.shared.f32 	[%rd3], %f17;
+	ld.shared.f32 	%f18, [%rd1];
+	add.s64 	%rd27, %rd10, %rd23;
+	ld.shared.f32 	%f19, [%rd27];
+	add.rn.f32 	%f20, %f18, %f19;
+	st.shared.f32 	[%rd1], %f20;
+$L__BB2_9:
+	bar.sync 	0;
+	and.b32  	%r17, %r3, 15;
+	setp.ne.s32 	%p8, %r17, 0;
+	@%p8 bra 	$L__BB2_11;
+	ld.shared.f32 	%f21, [%rd3];
+	add.s32 	%r18, %r2, -8;
+	mul.wide.s32 	%rd28, %r18, 4;
+	add.s64 	%rd30, %rd12, %rd28;
+	ld.shared.f32 	%f22, [%rd30];
+	add.rn.f32 	%f23, %f21, %f22;
+	st.shared.f32 	[%rd3], %f23;
+	ld.shared.f32 	%f24, [%rd1];
+	add.s64 	%rd32, %rd10, %rd28;
+	ld.shared.f32 	%f25, [%rd32];
+	add.rn.f32 	%f26, %f24, %f25;
+	st.shared.f32 	[%rd1], %f26;
+$L__BB2_11:
+	bar.sync 	0;
+	and.b32  	%r19, %r3, 31;
+	setp.ne.s32 	%p9, %r19, 0;
+	@%p9 bra 	$L__BB2_13;
+	ld.shared.f32 	%f27, [%rd3];
+	add.s32 	%r20, %r2, -16;
+	mul.wide.s32 	%rd33, %r20, 4;
+	add.s64 	%rd35, %rd12, %rd33;
+	ld.shared.f32 	%f28, [%rd35];
+	add.rn.f32 	%f29, %f27, %f28;
+	st.shared.f32 	[%rd3], %f29;
+	ld.shared.f32 	%f30, [%rd1];
+	add.s64 	%rd37, %rd10, %rd33;
+	ld.shared.f32 	%f31, [%rd37];
+	add.rn.f32 	%f32, %f30, %f31;
+	st.shared.f32 	[%rd1], %f32;
+$L__BB2_13:
+	bar.sync 	0;
+	and.b32  	%r21, %r3, 63;
+	setp.ne.s32 	%p10, %r21, 0;
+	@%p10 bra 	$L__BB2_15;
+	ld.shared.f32 	%f33, [%rd3];
+	add.s32 	%r22, %r2, -32;
+	mul.wide.s32 	%rd38, %r22, 4;
+	add.s64 	%rd40, %rd12, %rd38;
+	ld.shared.f32 	%f34, [%rd40];
+	add.rn.f32 	%f35, %f33, %f34;
+	st.shared.f32 	[%rd3], %f35;
+	ld.shared.f32 	%f36, [%rd1];
+	add.s64 	%rd42, %rd10, %rd38;
+	ld.shared.f32 	%f37, [%rd42];
+	add.rn.f32 	%f38, %f36, %f37;
+	st.shared.f32 	[%rd1], %f38;
+$L__BB2_15:
+	bar.sync 	0;
+	and.b32  	%r23, %r3, 127;
+	setp.ne.s32 	%p11, %r23, 0;
+	@%p11 bra 	$L__BB2_17;
+	ld.shared.f32 	%f39, [%rd3];
+	add.s32 	%r24, %r2, -64;
+	mul.wide.s32 	%rd43, %r24, 4;
+	add.s64 	%rd45, %rd12, %rd43;
+	ld.shared.f32 	%f40, [%rd45];
+	add.rn.f32 	%f41, %f39, %f40;
+	st.shared.f32 	[%rd3], %f41;
+	ld.shared.f32 	%f42, [%rd1];
+	add.s64 	%rd47, %rd10, %rd43;
+	ld.shared.f32 	%f43, [%rd47];
+	add.rn.f32 	%f44, %f42, %f43;
+	st.shared.f32 	[%rd1], %f44;
+$L__BB2_17:
+	bar.sync 	0;
+	and.b32  	%r25, %r3, 255;
+	setp.ne.s32 	%p12, %r25, 0;
+	@%p12 bra 	$L__BB2_19;
+	ld.shared.f32 	%f45, [%rd3];
+	add.s32 	%r26, %r2, -128;
+	mul.wide.s32 	%rd48, %r26, 4;
+	add.s64 	%rd50, %rd12, %rd48;
+	ld.shared.f32 	%f46, [%rd50];
+	add.rn.f32 	%f47, %f45, %f46;
+	st.shared.f32 	[%rd3], %f47;
+	ld.shared.f32 	%f48, [%rd1];
+	add.s64 	%rd52, %rd10, %rd48;
+	ld.shared.f32 	%f49, [%rd52];
+	add.rn.f32 	%f50, %f48, %f49;
+	st.shared.f32 	[%rd1], %f50;
+$L__BB2_19:
+	bar.sync 	0;
+	and.b32  	%r27, %r3, 511;
+	setp.ne.s32 	%p13, %r27, 0;
+	@%p13 bra 	$L__BB2_21;
+	ld.shared.f32 	%f51, [%rd3];
+	add.s32 	%r28, %r2, -256;
+	mul.wide.s32 	%rd53, %r28, 4;
+	add.s64 	%rd55, %rd12, %rd53;
+	ld.shared.f32 	%f52, [%rd55];
+	add.rn.f32 	%f53, %f51, %f52;
+	st.shared.f32 	[%rd3], %f53;
+	ld.shared.f32 	%f54, [%rd1];
+	add.s64 	%rd57, %rd10, %rd53;
+	ld.shared.f32 	%f55, [%rd57];
+	add.rn.f32 	%f56, %f54, %f55;
+	st.shared.f32 	[%rd1], %f56;
+$L__BB2_21:
+	bar.sync 	0;
+$L__BB2_22:
+	ret;
+
+}
+
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function 'main_kernel94871588470640' for 'sm_86'
+ptxas info    : Function properties for main_kernel94871588470640
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 10 registers, 4096 bytes smem, 384 bytes cmem[0]
+ptxas info    : Compiling entry function 'main_kernel94871590788112' for 'sm_86'
+ptxas info    : Function properties for main_kernel94871590788112
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 14 registers, 384 bytes cmem[0]
+ptxas info    : Compiling entry function 'main_kernel94871591299440' for 'sm_86'
+ptxas info    : Function properties for main_kernel94871591299440
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 14 registers, 368 bytes cmem[0]
