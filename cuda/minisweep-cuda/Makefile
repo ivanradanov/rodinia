@@ -47,7 +47,7 @@ $(program): $(obj) Makefile
 	$(LINKER) $(obj) -o $@ $(LINKER_FLAGS)
 
 %.o: %.cu kernels.cu utils.cu utils.h Makefile
-	$(NVCC) $(HEC_NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(HEC_NVCC_FLAGS) $(POLYGEIST_LLVM_STRUCT_ABI_0) -c $< -o $@
 
 clean:
 	rm -rf $(program) $(obj)
