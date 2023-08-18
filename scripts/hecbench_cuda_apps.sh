@@ -88,7 +88,6 @@ kalman-cuda
 keccaktreehash-cuda
 laplace3d-cuda
 laplace-cuda
-lavaMD-cuda
 loopback-cuda
 mask-cuda
 memcpy-cuda
@@ -474,6 +473,7 @@ pathfinder-cuda
 heartwall-cuda
 kmeans-cuda
 leukocyte-cuda
+lavaMD-cuda
 
 # not timing TODO
 heat-cuda
