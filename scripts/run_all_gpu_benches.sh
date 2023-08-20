@@ -103,89 +103,85 @@ echo "$ORIGINAL_ARGS" > "$RESULTS_DIR/cmd"
 echo "Benchmarks:" >> "$RESULTS_DIR/cmd"
 ./scripts/cuda_apps.sh >> "$RESULTS_DIR/cmd"
 
+LOGFILE="$RESULTS_DIR/logfile"
+
 ./scripts/enable-config.sh common/host.make.config common/$HOST.polygeist.host.make.config
 
 if [ "1" = "$RUN_CLANG" ]; then
-  echo Starting clang "$(date -Ins)"
-  echo Compiling clang
+  echo Starting clang "$(date -Ins)" | tee $LOGFILE
+  echo Compiling clang | tee $LOGFILE
   make cuda_clean &> /dev/null
   make CONFIG=0 MY_VERIFICATION_DISABLE=1 cuda -kj &> /dev/null
 
-  echo Running clang...
-  ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL
+  echo Running clang... | tee $LOGFILE
+  ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL | tee $LOGFILE
 
-  echo Finished clang cuda "$(date -Ins)"
+  echo Finished clang cuda "$(date -Ins)" | tee $LOGFILE
 fi
 
 
 for target in $TARGETS; do
-  echo Starting target $target "$(date -Ins)"
+  echo Starting target $target "$(date -Ins)" | tee $LOGFILE
 
   for i in $TEST_CONFIGS; do
-    echo Compiling polygeist configuration $i...
+    echo Compiling polygeist configuration $i... | tee $LOGFILE
     make cuda_clean &> /dev/null
     make CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -kj &> /dev/null
 
-    echo Running polygeist configuration $i...
-    ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL
+    echo Running polygeist configuration $i... | tee $LOGFILE
+    ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL | tee $LOGFILE
   done
 
   if [ "$PGO_PROF" == "1" ]; then
     for i in $PGO_CONFIGS; do
       PGO_DIR="$PGO_RESULT_DIR/$target/$i/"
       mkdir -p "$PGO_DIR"
-      echo Compiling polygeist configuration $i for profiling...
+      echo Compiling polygeist configuration $i for profiling... | tee $LOGFILE
       make cuda_clean &> /dev/null
       COMPILATION_LOG="$COMPILATION_LOG_DIR/polygeist_pgo_prof-$target-$i.log"
       MAX_ALTS=$(POLYGEIST_GPU_ALTERNATIVES_PRINT_INFO=1 make POLYGEIST_ALTERNATIVES_MODE=pgo_prof CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -Orecurse -kj 2>&1 | tee "$COMPILATION_LOG" | grep -E "Generated ([0-9]+) alternatives" | sed --expression='s/Generated //' | sed --expression='s/ alternatives//' | sort -n | tail -1)
       ALTS=$(seq 0 $(($MAX_ALTS - 1)))
-      echo Will profile $MAX_ALTS alternatives
-      for j in $ALTS; do
-        echo Profiling polygeist configuration $i alternative $j...
-        POLYGEIST_PGO_DATA_DIR="$PGO_DIR" POLYGEIST_PGO_ALTERNATIVE="$j" \
-          ./scripts/run_timed_cuda_big_n_times.sh $PGO_PROF_NRUNS 2>&1 | grep -B2 FAIL
-      done
+      POLYGEIST_PGO_DATA_DIR="$PGO_DIR" ./scripts/profile_alts_n_times.py --nruns $PGO_PROF_NRUNS --command ./run_big --compilation_log "$COMPILATION_LOG" | tee $LOGFILE
     done
   fi
 
   if [ "$PGO_OPT" == "1" ]; then
     for i in $PGO_CONFIGS; do
       PGO_DIR="$PGO_RESULT_DIR/$target/$i/"
-      echo Compiling polygeist configuration $i pgo...
+      echo Compiling polygeist configuration $i pgo... | tee $LOGFILE
       make cuda_clean &> /dev/null
       COMPILATION_LOG="$COMPILATION_LOG_DIR/polygeist_pgo_opt-$target-$i.log"
       POLYGEIST_PGO_DATA_DIR="$PGO_DIR" \
         make POLYGEIST_ALTERNATIVES_MODE=pgo_opt CONFIG="$i" TARGET=$target MY_VERIFICATION_DISABLE=1 cuda -Orecurse -kj &> "$COMPILATION_LOG"
-      echo Running polygeist configuration $i pgo...
-      ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL
+      echo Running polygeist configuration $i pgo... | tee $LOGFILE
+      ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL | tee $LOGFILE
     done
   fi
 
-  echo Finished target $target "$(date -Ins)"
+  echo Finished target $target "$(date -Ins)" | tee $LOGFILE
 
 done
 
-echo Finished polygeist and clang cuda "$(date -Ins)"
+echo Finished polygeist and clang cuda "$(date -Ins)" | tee $LOGFILE
 
 if [ "1" = "$RUN_NVCC" ]; then
   ./scripts/enable-config.sh common/host.make.config common/$HOST.nvcc.host.make.config
 
-  echo Compiling nvcc
+  echo Compiling nvcc | tee $LOGFILE
   make cuda_clean &> /dev/null
   make MY_VERIFICATION_DISABLE=1 cuda -kj &> /dev/null
 
-  echo Running nvcc...
-  ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL
+  echo Running nvcc... | tee $LOGFILE
+  ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL | tee $LOGFILE
 
-  echo Finished nvcc cuda "$(date -Ins)"
+  echo Finished nvcc cuda "$(date -Ins)" | tee $LOGFILE
 fi
 
-echo COPYING RESULTS, DONT QUIT
+echo COPYING RESULTS, DONT QUIT | tee $LOGFILE
 RESULTS="rodinia_results_$HOSTNAME_$(date -Ins)"
 mkdir -p "$HOME/rodinia_results/$RESULTS"
 cp -a "$RESULTS_DIR" "$HOME/rodinia_results/$RESULTS"
 cd "$HOME/rodinia_results/"
 #zip -r "$RESULTS" "$RESULTS/results/cuda/out/"
 
-echo Finished "$RESULTS"
-
+echo Finished "$RESULTS" | tee $LOGFILE
