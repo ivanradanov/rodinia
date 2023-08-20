@@ -165,7 +165,7 @@ int main(int argc, char *argv []){
 
 	image_ori = (fp*)malloc(sizeof(fp) * image_ori_elem);
 
-	read_graphics(	"../../../data/srad/image.pgm",
+	read_graphics(	"../../data/srad/image.pgm",
 								image_ori,
 								image_ori_rows,
 								image_ori_cols,

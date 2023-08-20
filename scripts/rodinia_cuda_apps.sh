@@ -14,7 +14,7 @@ echo myocyte
 echo nn
 echo nw
 echo pathfinder
-echo srad/srad_v1
+echo srad_v1
 exit
 
 # Mem2Reg hang
@@ -25,7 +25,7 @@ echo huffman
 
 # Undeterministic behaviour, thus excluded
 echo dwt2d
-echo srad/srad_v2
+echo srad_v2
 
 # Buggy code - race condition
 echo b+tree
