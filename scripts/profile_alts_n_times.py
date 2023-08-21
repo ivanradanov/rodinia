@@ -5,7 +5,9 @@ import sys
 import os
 import re
 import subprocess
+import functools
 
+print = functools.partial(print, flush=True)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--nruns', type=int)
