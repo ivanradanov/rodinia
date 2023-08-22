@@ -50,6 +50,10 @@ for dim in dims:
         setattr(args, key, [int(x) for x in factors.split(' ')])
 
 print(args)
+cmd_fn = os.path_join(args.output_dir, 'cmd')
+cmd_f = open(cmd_fn, 'w')
+cmd_f.write(args)
+cmd_f.close()
 
 
 # list monad implementation
