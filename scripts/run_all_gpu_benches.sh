@@ -2,7 +2,7 @@
 
 ORIGINAL_ARGS="$@"
 
-VALID_ARGS=$(getopt -o h --long dry-run,targets:,clang,nvcc,nruns:,pgo-prof-nruns:,pgo-configs:,host:,configs: -- "$@")
+VALID_ARGS=$(getopt -o h --long dry-run,targets:,clang,hip-clang,nvcc,nruns:,pgo-prof-nruns:,pgo-configs:,host:,configs: -- "$@")
 if [[ $? -ne 0 ]]; then
   exit 1;
 fi
@@ -56,6 +56,11 @@ while [ : ]; do
       RUN_CLANG=1
       shift
       ;;
+    --hip-clang)
+      echo "Run hip compiled by clang"
+      RUN_HIP_CLANG=1
+      shift
+      ;;
     --nvcc)
       echo "Run nvcc"
       RUN_NVCC=1
@@ -75,8 +80,12 @@ while [ : ]; do
   esac
 done
 
-echo -n "Run the following benchmarks: "
+echo -n "Run the following CUDA benchmarks: "
 ./scripts/cuda_apps.sh
+echo
+
+echo -n "Run the following HIP benchmarks: "
+./scripts/hip_apps.sh
 echo
 
 if [ "$DRY_RUN" == "1" ]; then
@@ -100,8 +109,10 @@ PGO_RESULT_DIR="$RESULTS_DIR/pgo/"
 mkdir -p "$PGO_RESULT_DIR"
 
 echo "$ORIGINAL_ARGS" > "$RESULTS_DIR/cmd"
-echo "Benchmarks:" >> "$RESULTS_DIR/cmd"
+echo "CUDA Benchmarks:" >> "$RESULTS_DIR/cmd"
 ./scripts/cuda_apps.sh >> "$RESULTS_DIR/cmd"
+echo "HIP Benchmarks:" >> "$RESULTS_DIR/cmd"
+./scripts/hip_apps.sh >> "$RESULTS_DIR/cmd"
 
 LOGFILE="$RESULTS_DIR/logfile"
 
@@ -117,6 +128,18 @@ if [ "1" = "$RUN_CLANG" ]; then
   ./scripts/run_timed_cuda_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL | tee $LOGFILE
 
   echo Finished clang cuda "$(date -Ins)" | tee $LOGFILE
+fi
+
+if [ "1" = "$RUN_HIP_CLANG" ]; then
+  echo Starting hip-clang "$(date -Ins)" | tee $LOGFILE
+  echo Compiling hip-clang | tee $LOGFILE
+  make hip_clean &> /dev/null
+  make CONFIG=0 API=HIP MY_VERIFICATION_DISABLE=1 hip -kj &> /dev/null
+
+  echo Running hip-clang... | tee $LOGFILE
+  ./scripts/run_hip_big_n_times.sh $NRUNS 2>&1 | grep -B2 FAIL | tee $LOGFILE
+
+  echo Finished hip-clang "$(date -Ins)" | tee $LOGFILE
 fi
 
 
