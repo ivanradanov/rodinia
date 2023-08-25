@@ -26,6 +26,8 @@
 #include <sys/resource.h>
 #include <limits.h>
 
+#define __HIP_PLATFORM_AMD__
+
 #include <hip/hip_runtime.h>
 
 #ifdef ENABLE_PARSEC_HOOKS
