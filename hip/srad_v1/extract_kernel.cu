@@ -1,3 +1,4 @@
+#include "hip/hip_runtime.h"
 // statistical kernel
 __global__ void extract(	long d_Ne,
 											fp *d_I){										// pointer to input image (DEVICE GLOBAL MEMORY)

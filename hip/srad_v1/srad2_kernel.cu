@@ -1,3 +1,4 @@
+#include "hip/hip_runtime.h"
 // BUG IN SRAD APPLICATIONS SEEMS TO BE SOMEWHERE IN THIS CODE, MEMORY CORRUPTION
 
 // srad kernel

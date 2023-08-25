@@ -43,8 +43,8 @@ void master(fp timeinst,
 	int d_com_mem;
 	d_com_mem = 3 * sizeof(fp);
 
-	cudaMemcpy(d_initvalu, initvalu, d_initvalu_mem, cudaMemcpyHostToDevice);
-	cudaMemcpy(d_params, parameter, d_params_mem, cudaMemcpyHostToDevice);
+	hipMemcpy(d_initvalu, initvalu, d_initvalu_mem, hipMemcpyHostToDevice);
+	hipMemcpy(d_params, parameter, d_params_mem, hipMemcpyHostToDevice);
 
 	threads.x = NUMBER_THREADS;
 	threads.y = 1;
@@ -58,8 +58,8 @@ void master(fp timeinst,
 															d_com);
 	MY_STOP_CLOCK(myocyte, kernel);
 
-	cudaMemcpy(finavalu, d_finavalu, d_finavalu_mem, cudaMemcpyDeviceToHost);
-	cudaMemcpy(com, d_com, d_com_mem, cudaMemcpyDeviceToHost);
+	hipMemcpy(finavalu, d_finavalu, d_finavalu_mem, hipMemcpyDeviceToHost);
+	hipMemcpy(com, d_com, d_com_mem, hipMemcpyDeviceToHost);
 
 	//=====================================================================
 	//	FINAL KERNEL

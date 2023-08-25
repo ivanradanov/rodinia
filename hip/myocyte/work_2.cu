@@ -114,37 +114,37 @@ int work_2(	int xmax,
 
 	y_mem = workload * (xmax+1) * EQUATIONS * sizeof(fp);
 	y= (fp *) malloc(y_mem);
-	cudaMalloc((void **)&d_y, y_mem);
+	hipMalloc((void **)&d_y, y_mem);
 
 	x_mem = workload * (xmax+1) * sizeof(fp);
 	x= (fp *) malloc(x_mem);
-	cudaMalloc((void **)&d_x, x_mem);
+	hipMalloc((void **)&d_x, x_mem);
 
 	params_mem = workload * PARAMETERS * sizeof(fp);
 	params= (fp *) malloc(params_mem);
-	cudaMalloc((void **)&d_params, params_mem);
+	hipMalloc((void **)&d_params, params_mem);
 
 	//========================================40
 	//		TEMPORARY SOLVER VARIABLES
 	//========================================40
 
 	com_mem = workload * 3 * sizeof(fp);
-	cudaMalloc((void **)&d_com, com_mem);
+	hipMalloc((void **)&d_com, com_mem);
 
 	err_mem = workload * EQUATIONS * sizeof(fp);
-	cudaMalloc((void **)&d_err, err_mem);
+	hipMalloc((void **)&d_err, err_mem);
 
 	scale_mem = workload * EQUATIONS * sizeof(fp);
-	cudaMalloc((void **)&d_scale, scale_mem);
+	hipMalloc((void **)&d_scale, scale_mem);
 
 	yy_mem = workload * EQUATIONS * sizeof(fp);
-	cudaMalloc((void **)&d_yy, yy_mem);
+	hipMalloc((void **)&d_yy, yy_mem);
 
 	initvalu_temp_mem = workload * EQUATIONS * sizeof(fp);
-	cudaMalloc((void **)&d_initvalu_temp, initvalu_temp_mem);
+	hipMalloc((void **)&d_initvalu_temp, initvalu_temp_mem);
 
 	finavalu_temp_mem = workload * 13* EQUATIONS * sizeof(fp);
-	cudaMalloc((void **)&d_finavalu_temp, finavalu_temp_mem);
+	hipMalloc((void **)&d_finavalu_temp, finavalu_temp_mem);
 
 	time2 = get_time();
 
@@ -160,7 +160,7 @@ int work_2(	int xmax,
 		pointer = i * (xmax+1) + 0;
 		x[pointer] = 0;
 	}
-	cudaMemcpy(d_x, x, x_mem, cudaMemcpyHostToDevice);
+	hipMemcpy(d_x, x, x_mem, hipMemcpyHostToDevice);
 
 	//========================================40
 	//		Y
@@ -174,7 +174,7 @@ int work_2(	int xmax,
 					1,
 					0);
 	}
-	cudaMemcpy(d_y, y, y_mem, cudaMemcpyHostToDevice);
+	hipMemcpy(d_y, y, y_mem, hipMemcpyHostToDevice);
 
 	//========================================40
 	//		PARAMS
@@ -188,7 +188,7 @@ int work_2(	int xmax,
 					1,
 					0);
 	}
-	cudaMemcpy(d_params, params, params_mem, cudaMemcpyHostToDevice);
+	hipMemcpy(d_params, params, params_mem, hipMemcpyHostToDevice);
 
 	time3 = get_time();
 
@@ -229,8 +229,8 @@ int work_2(	int xmax,
 																d_finavalu_temp);
 	MY_STOP_CLOCK(myocyte, solver_2);
 
-	// cudaThreadSynchronize();
-	// printf("CUDA error: %s\n", cudaGetErrorString(cudaGetLastError()));
+	// hipDeviceSynchronize();
+	// printf("CUDA error: %s\n", hipGetErrorString(hipGetLastError()));
 
 	time4 = get_time();
 
@@ -238,8 +238,8 @@ int work_2(	int xmax,
 	//		COPY DATA BACK TO CPU
 	//================================================================================80
 
-	cudaMemcpy(x, d_x, x_mem, cudaMemcpyDeviceToHost);
-	cudaMemcpy(y, d_y, y_mem, cudaMemcpyDeviceToHost);
+	hipMemcpy(x, d_x, x_mem, hipMemcpyDeviceToHost);
+	hipMemcpy(y, d_y, y_mem, hipMemcpyDeviceToHost);
 
 	time5 = get_time();
 
@@ -276,26 +276,26 @@ int work_2(	int xmax,
 	//============================================================60
 
 	free(y);
-	cudaFree(d_y);
+	hipFree(d_y);
 
 	free(x);
-	cudaFree(d_x);
+	hipFree(d_x);
 
 	free(params);
-	cudaFree(d_params);
+	hipFree(d_params);
 
 	//============================================================60
 	//		TEMPORARY SOLVER VARIABLES
 	//============================================================60
 
-	cudaFree(d_com);
+	hipFree(d_com);
 
-	cudaFree(d_err);
-	cudaFree(d_scale);
-	cudaFree(d_yy);
+	hipFree(d_err);
+	hipFree(d_scale);
+	hipFree(d_yy);
 
-	cudaFree(d_initvalu_temp);
-	cudaFree(d_finavalu_temp);
+	hipFree(d_initvalu_temp);
+	hipFree(d_finavalu_temp);
 
 	time6= get_time();
 

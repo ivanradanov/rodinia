@@ -1,3 +1,4 @@
+#include "hip/hip_runtime.h"
 /*-----------------------------------------------------------
  ** gaussian.cu -- The program is to solve a linear system Ax = b
  **   by using Gaussian Elimination. The algorithm on page 101
@@ -15,7 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include "cuda.h"
+#include "hip/hip_runtime.h"
 #include <string.h>
 #include <math.h>
 
@@ -219,15 +220,15 @@ int main(int argc, char *argv[])
  **-----------------------------------------------------
  */
 void PrintDeviceProperties(){
-	cudaDeviceProp deviceProp;  
+	hipDeviceProp_t deviceProp;  
 	int nDevCount = 0;  
 	
-	cudaGetDeviceCount( &nDevCount );  
+	hipGetDeviceCount( &nDevCount );  
 	printf( "Total Device found: %d", nDevCount );  
 	for (int nDeviceIdx = 0; nDeviceIdx < nDevCount; ++nDeviceIdx )  
 	{  
 	    memset( &deviceProp, 0, sizeof(deviceProp));  
-	    if( cudaSuccess == cudaGetDeviceProperties(&deviceProp, nDeviceIdx))  
+	    if( hipSuccess == hipGetDeviceProperties(&deviceProp, nDeviceIdx))  
 	        {
 				printf( "\nDevice Name \t\t - %s ", deviceProp.name );  
 			    printf( "\n**************************************");  
@@ -247,7 +248,7 @@ void PrintDeviceProperties(){
 			    printf( "\nNumber of Multi processors \t\t - %d\n\n", deviceProp.multiProcessorCount );  
 			}  
 	    else  
-	        printf( "\n%s", cudaGetErrorString(cudaGetLastError()));  
+	        printf( "\n%s", hipGetErrorString(hipGetLastError()));  
 	}  
 }
  
@@ -349,16 +350,16 @@ void ForwardSub()
     float *m_cuda,*a_cuda,*b_cuda;
 	
 	// allocate memory on GPU
-	cudaMalloc((void **) &m_cuda, Size * Size * sizeof(float));
+	hipMalloc((void **) &m_cuda, Size * Size * sizeof(float));
 	 
-	cudaMalloc((void **) &a_cuda, Size * Size * sizeof(float));
+	hipMalloc((void **) &a_cuda, Size * Size * sizeof(float));
 	
-	cudaMalloc((void **) &b_cuda, Size * sizeof(float));	
+	hipMalloc((void **) &b_cuda, Size * sizeof(float));	
 
 	// copy memory to GPU
-	cudaMemcpy(m_cuda, m, Size * Size * sizeof(float),cudaMemcpyHostToDevice );
-	cudaMemcpy(a_cuda, a, Size * Size * sizeof(float),cudaMemcpyHostToDevice );
-	cudaMemcpy(b_cuda, b, Size * sizeof(float),cudaMemcpyHostToDevice );
+	hipMemcpy(m_cuda, m, Size * Size * sizeof(float),hipMemcpyHostToDevice );
+	hipMemcpy(a_cuda, a, Size * Size * sizeof(float),hipMemcpyHostToDevice );
+	hipMemcpy(b_cuda, b, Size * sizeof(float),hipMemcpyHostToDevice );
 	
 	int block_size,grid_size;
 	
@@ -388,9 +389,9 @@ void ForwardSub()
     MY_START_CLOCK(gaussian, );
 	for (t=0; t<(Size-1); t++) {
 		Fan1<<<dimGrid,dimBlock>>>(m_cuda,a_cuda,Size,t);
-		cudaThreadSynchronize();
+		hipDeviceSynchronize();
 		Fan2<<<dimGridXY,dimBlockXY>>>(m_cuda,a_cuda,b_cuda,Size,Size-t,t);
-		cudaThreadSynchronize();
+		hipDeviceSynchronize();
 		//checkCUDAError("Fan2");
 	}
 	MY_STOP_CLOCK(gaussian, );
@@ -405,18 +406,18 @@ void ForwardSub()
 #endif
 
 	// copy memory back to CPU
-	cudaMemcpy(m, m_cuda, Size * Size * sizeof(float),cudaMemcpyDeviceToHost );
-	cudaMemcpy(a, a_cuda, Size * Size * sizeof(float),cudaMemcpyDeviceToHost );
-	cudaMemcpy(b, b_cuda, Size * sizeof(float),cudaMemcpyDeviceToHost );
+	hipMemcpy(m, m_cuda, Size * Size * sizeof(float),hipMemcpyDeviceToHost );
+	hipMemcpy(a, a_cuda, Size * Size * sizeof(float),hipMemcpyDeviceToHost );
+	hipMemcpy(b, b_cuda, Size * sizeof(float),hipMemcpyDeviceToHost );
 
 	MY_VERIFY_FLOAT_EXACT(m, Size * Size);
 	MY_VERIFY_FLOAT_CUSTOM(a, Size * Size, 2.0e-08, 1);
 	MY_VERIFY_FLOAT_EXACT(b, Size);
 
 
-	cudaFree(m_cuda);
-	cudaFree(a_cuda);
-	cudaFree(b_cuda);
+	hipFree(m_cuda);
+	hipFree(a_cuda);
+	hipFree(b_cuda);
 }
 
 /*------------------------------------------------------
@@ -496,11 +497,11 @@ void PrintAry(float *ary, int ary_size)
 }
 void checkCUDAError(const char *msg)
 {
-    cudaError_t err = cudaGetLastError();
-    if( cudaSuccess != err) 
+    hipError_t err = hipGetLastError();
+    if( hipSuccess != err) 
     {
         fprintf(stderr, "Cuda error: %s: %s.\n", msg, 
-                                  cudaGetErrorString( err) );
+                                  hipGetErrorString( err) );
         exit(EXIT_FAILURE);
     }                         
 }

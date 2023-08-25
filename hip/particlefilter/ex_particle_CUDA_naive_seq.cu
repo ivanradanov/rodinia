@@ -1,3 +1,4 @@
+#include "hip/hip_runtime.h"
 /**
  * @file ex_particle_OPENMP_seq.c
  * @author Michael Trotter & Matt Goodrum
@@ -55,9 +56,9 @@ float elapsed_time(long long start_time, long long end_time) {
 * Checks for CUDA errors and prints them to the screen to help with
 * debugging of CUDA related programming
 *****************************/
-void check_error(cudaError e) {
-     if (e != cudaSuccess) {
-     	printf("\nCUDA error: %s\n", cudaGetErrorString(e));
+void check_error(hipError_t e) {
+     if (e != hipSuccess) {
+     	printf("\nCUDA error: %s\n", hipGetErrorString(e));
 	    exit(1);
      }
 }
@@ -464,12 +465,12 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 	double * u_GPU;
 	
 	//CUDA memory allocation
-	check_error(cudaMalloc((void **) &arrayX_GPU, sizeof(double)*Nparticles));
-	check_error(cudaMalloc((void **) &arrayY_GPU, sizeof(double)*Nparticles));
-	check_error(cudaMalloc((void **) &xj_GPU, sizeof(double)*Nparticles));
-	check_error(cudaMalloc((void **) &yj_GPU, sizeof(double)*Nparticles));
-	check_error(cudaMalloc((void **) &CDF_GPU, sizeof(double)*Nparticles));
-	check_error(cudaMalloc((void **) &u_GPU, sizeof(double)*Nparticles));
+	check_error(hipMalloc((void **) &arrayX_GPU, sizeof(double)*Nparticles));
+	check_error(hipMalloc((void **) &arrayY_GPU, sizeof(double)*Nparticles));
+	check_error(hipMalloc((void **) &xj_GPU, sizeof(double)*Nparticles));
+	check_error(hipMalloc((void **) &yj_GPU, sizeof(double)*Nparticles));
+	check_error(hipMalloc((void **) &CDF_GPU, sizeof(double)*Nparticles));
+	check_error(hipMalloc((void **) &u_GPU, sizeof(double)*Nparticles));
 	
 	for(x = 0; x < Nparticles; x++){
 		arrayX[x] = xe;
@@ -563,12 +564,12 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		printf("TIME TO CALC U TOOK: %f\n", elapsed_time(cum_sum, u_time));
 		long long start_copy = get_time();
 		//CUDA memory copying from CPU memory to GPU memory
-		cudaMemcpy(arrayX_GPU, arrayX, sizeof(double)*Nparticles, cudaMemcpyHostToDevice);
-		cudaMemcpy(arrayY_GPU, arrayY, sizeof(double)*Nparticles, cudaMemcpyHostToDevice);
-		cudaMemcpy(xj_GPU, xj, sizeof(double)*Nparticles, cudaMemcpyHostToDevice);
-		cudaMemcpy(yj_GPU, yj, sizeof(double)*Nparticles, cudaMemcpyHostToDevice);
-		cudaMemcpy(CDF_GPU, CDF, sizeof(double)*Nparticles, cudaMemcpyHostToDevice);
-		cudaMemcpy(u_GPU, u, sizeof(double)*Nparticles, cudaMemcpyHostToDevice);
+		hipMemcpy(arrayX_GPU, arrayX, sizeof(double)*Nparticles, hipMemcpyHostToDevice);
+		hipMemcpy(arrayY_GPU, arrayY, sizeof(double)*Nparticles, hipMemcpyHostToDevice);
+		hipMemcpy(xj_GPU, xj, sizeof(double)*Nparticles, hipMemcpyHostToDevice);
+		hipMemcpy(yj_GPU, yj, sizeof(double)*Nparticles, hipMemcpyHostToDevice);
+		hipMemcpy(CDF_GPU, CDF, sizeof(double)*Nparticles, hipMemcpyHostToDevice);
+		hipMemcpy(u_GPU, u, sizeof(double)*Nparticles, hipMemcpyHostToDevice);
 		long long end_copy = get_time();
 		//Set number of threads
 		int num_blocks = ceil((double) Nparticles/(double) threads_per_block);
@@ -577,11 +578,11 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		MY_START_CLOCK(particlefilter, naive);
 		kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, CDF_GPU, u_GPU, xj_GPU, yj_GPU, Nparticles);
 		MY_STOP_CLOCK(particlefilter, naive);
-                cudaThreadSynchronize();
+                hipDeviceSynchronize();
                 long long start_copy_back = get_time();
 		//CUDA memory copying back from GPU to CPU memory
-		cudaMemcpy(yj, yj_GPU, sizeof(double)*Nparticles, cudaMemcpyDeviceToHost);
-		cudaMemcpy(xj, xj_GPU, sizeof(double)*Nparticles, cudaMemcpyDeviceToHost);
+		hipMemcpy(yj, yj_GPU, sizeof(double)*Nparticles, hipMemcpyDeviceToHost);
+		hipMemcpy(xj, xj_GPU, sizeof(double)*Nparticles, hipMemcpyDeviceToHost);
 		long long end_copy_back = get_time();
 		printf("SENDING TO GPU TOOK: %lf\n", elapsed_time(start_copy, end_copy));
 		printf("CUDA EXEC TOOK: %lf\n", elapsed_time(end_copy, start_copy_back));
@@ -603,12 +604,12 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 	}
 	
 	//CUDA freeing of memory
-	cudaFree(u_GPU);
-	cudaFree(CDF_GPU);
-	cudaFree(yj_GPU);
-	cudaFree(xj_GPU);
-	cudaFree(arrayY_GPU);
-	cudaFree(arrayX_GPU);
+	hipFree(u_GPU);
+	hipFree(CDF_GPU);
+	hipFree(yj_GPU);
+	hipFree(xj_GPU);
+	hipFree(arrayY_GPU);
+	hipFree(arrayX_GPU);
 	
 	//free memory
 	free(disk);

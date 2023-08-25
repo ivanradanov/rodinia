@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <cuda.h>
+#include <hip/hip_runtime.h>
 
 #ifdef TIMING
 #include "timing.h"
@@ -151,27 +151,27 @@ void BFSGraph( int argc, char** argv)
 #endif
 	//Copy the Node list to device memory
 	Node* d_graph_nodes;
-	cudaMalloc( (void**) &d_graph_nodes, sizeof(Node)*no_of_nodes) ;
-	cudaMemcpy( d_graph_nodes, h_graph_nodes, sizeof(Node)*no_of_nodes, cudaMemcpyHostToDevice) ;
+	hipMalloc( (void**) &d_graph_nodes, sizeof(Node)*no_of_nodes) ;
+	hipMemcpy( d_graph_nodes, h_graph_nodes, sizeof(Node)*no_of_nodes, hipMemcpyHostToDevice) ;
 
 	//Copy the Edge List to device Memory
 	int* d_graph_edges;
-	cudaMalloc( (void**) &d_graph_edges, sizeof(int)*edge_list_size) ;
-	cudaMemcpy( d_graph_edges, h_graph_edges, sizeof(int)*edge_list_size, cudaMemcpyHostToDevice) ;
+	hipMalloc( (void**) &d_graph_edges, sizeof(int)*edge_list_size) ;
+	hipMemcpy( d_graph_edges, h_graph_edges, sizeof(int)*edge_list_size, hipMemcpyHostToDevice) ;
 
 	//Copy the Mask to device memory
 	bool* d_graph_mask;
-	cudaMalloc( (void**) &d_graph_mask, sizeof(bool)*no_of_nodes) ;
-	cudaMemcpy( d_graph_mask, h_graph_mask, sizeof(bool)*no_of_nodes, cudaMemcpyHostToDevice) ;
+	hipMalloc( (void**) &d_graph_mask, sizeof(bool)*no_of_nodes) ;
+	hipMemcpy( d_graph_mask, h_graph_mask, sizeof(bool)*no_of_nodes, hipMemcpyHostToDevice) ;
 
 	bool* d_updating_graph_mask;
-	cudaMalloc( (void**) &d_updating_graph_mask, sizeof(bool)*no_of_nodes) ;
-	cudaMemcpy( d_updating_graph_mask, h_updating_graph_mask, sizeof(bool)*no_of_nodes, cudaMemcpyHostToDevice) ;
+	hipMalloc( (void**) &d_updating_graph_mask, sizeof(bool)*no_of_nodes) ;
+	hipMemcpy( d_updating_graph_mask, h_updating_graph_mask, sizeof(bool)*no_of_nodes, hipMemcpyHostToDevice) ;
 
 	//Copy the Visited nodes array to device memory
 	bool* d_graph_visited;
-	cudaMalloc( (void**) &d_graph_visited, sizeof(bool)*no_of_nodes) ;
-	cudaMemcpy( d_graph_visited, h_graph_visited, sizeof(bool)*no_of_nodes, cudaMemcpyHostToDevice) ;
+	hipMalloc( (void**) &d_graph_visited, sizeof(bool)*no_of_nodes) ;
+	hipMemcpy( d_graph_visited, h_graph_visited, sizeof(bool)*no_of_nodes, hipMemcpyHostToDevice) ;
 
 	// allocate mem for the result on host side
 	int* h_cost = (int*) malloc( sizeof(int)*no_of_nodes);
@@ -181,12 +181,12 @@ void BFSGraph( int argc, char** argv)
 	
 	// allocate device memory for result
 	int* d_cost;
-	cudaMalloc( (void**) &d_cost, sizeof(int)*no_of_nodes);
-	cudaMemcpy( d_cost, h_cost, sizeof(int)*no_of_nodes, cudaMemcpyHostToDevice) ;
+	hipMalloc( (void**) &d_cost, sizeof(int)*no_of_nodes);
+	hipMemcpy( d_cost, h_cost, sizeof(int)*no_of_nodes, hipMemcpyHostToDevice) ;
 
 	//make a bool to check if the execution is over
 	bool *d_over;
-	cudaMalloc( (void**) &d_over, sizeof(bool));
+	hipMalloc( (void**) &d_over, sizeof(bool));
 #ifdef  TIMING
     gettimeofday(&tv_mem_alloc_end, NULL);
     tvsub(&tv_mem_alloc_end, &tv_total_start, &tv);
@@ -212,7 +212,7 @@ void BFSGraph( int argc, char** argv)
 #ifdef  TIMING
 		gettimeofday(&tv_h2d_start, NULL);
 #endif
-		cudaMemcpy( d_over, &stop, sizeof(bool), cudaMemcpyHostToDevice) ;
+		hipMemcpy( d_over, &stop, sizeof(bool), hipMemcpyHostToDevice) ;
 #ifdef  TIMING
 		gettimeofday(&tv_h2d_end, NULL);
 		tvsub(&tv_h2d_end, &tv_h2d_start, &tv);
@@ -226,13 +226,13 @@ void BFSGraph( int argc, char** argv)
 		// check if kernel execution generated and error
 
 #ifdef  TIMING
-		cudaDeviceSynchronize();
+		hipDeviceSynchronize();
 		gettimeofday(&tv_kernel_end, NULL);
 		tvsub(&tv_kernel_end, &tv_h2d_end, &tv);
 		kernel_time += tv.tv_sec * 1000.0 + (float) tv.tv_usec / 1000.0;
 #endif
 
-		cudaMemcpy( &stop, d_over, sizeof(bool), cudaMemcpyDeviceToHost) ;
+		hipMemcpy( &stop, d_over, sizeof(bool), hipMemcpyDeviceToHost) ;
 #ifdef  TIMING
 		gettimeofday(&tv_d2h_end, NULL);
 		tvsub(&tv_d2h_end, &tv_kernel_end, &tv);
@@ -251,7 +251,7 @@ void BFSGraph( int argc, char** argv)
 #ifdef  TIMING
 	gettimeofday(&tv_d2h_start, NULL);
 #endif
-	cudaMemcpy( h_cost, d_cost, sizeof(int)*no_of_nodes, cudaMemcpyDeviceToHost) ;
+	hipMemcpy( h_cost, d_cost, sizeof(int)*no_of_nodes, hipMemcpyDeviceToHost) ;
 #ifdef  TIMING
 	gettimeofday(&tv_d2h_end, NULL);
 	tvsub(&tv_d2h_end, &tv_d2h_start, &tv);
@@ -281,12 +281,12 @@ void BFSGraph( int argc, char** argv)
 #ifdef  TIMING
     gettimeofday(&tv_close_start, NULL);
 #endif
-	cudaFree(d_graph_nodes);
-	cudaFree(d_graph_edges);
-	cudaFree(d_graph_mask);
-	cudaFree(d_updating_graph_mask);
-	cudaFree(d_graph_visited);
-	cudaFree(d_cost);
+	hipFree(d_graph_nodes);
+	hipFree(d_graph_edges);
+	hipFree(d_graph_mask);
+	hipFree(d_updating_graph_mask);
+	hipFree(d_graph_visited);
+	hipFree(d_cost);
 
 #ifdef  TIMING
 	gettimeofday(&tv_close_end, NULL);

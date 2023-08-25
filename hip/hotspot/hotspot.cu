@@ -1,3 +1,4 @@
+#include "hip/hip_runtime.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -320,24 +321,24 @@ void run(int argc, char** argv)
     readinput(FilesavingPower, grid_rows, grid_cols, pfile);
 
     float *MatrixTemp[2], *MatrixPower;
-    cudaMalloc((void**)&MatrixTemp[0], sizeof(float)*size);
-    cudaMalloc((void**)&MatrixTemp[1], sizeof(float)*size);
-    cudaMemcpy(MatrixTemp[0], FilesavingTemp, sizeof(float)*size, cudaMemcpyHostToDevice);
+    hipMalloc((void**)&MatrixTemp[0], sizeof(float)*size);
+    hipMalloc((void**)&MatrixTemp[1], sizeof(float)*size);
+    hipMemcpy(MatrixTemp[0], FilesavingTemp, sizeof(float)*size, hipMemcpyHostToDevice);
 
-    cudaMalloc((void**)&MatrixPower, sizeof(float)*size);
-    cudaMemcpy(MatrixPower, FilesavingPower, sizeof(float)*size, cudaMemcpyHostToDevice);
+    hipMalloc((void**)&MatrixPower, sizeof(float)*size);
+    hipMemcpy(MatrixPower, FilesavingPower, sizeof(float)*size, hipMemcpyHostToDevice);
     printf("Start computing the transient temperature\n");
     int ret = compute_tran_temp(MatrixPower,MatrixTemp,grid_cols,grid_rows, \
 	 total_iterations,pyramid_height, blockCols, blockRows, borderCols, borderRows);
 	printf("Ending simulation\n");
-    cudaMemcpy(MatrixOut, MatrixTemp[ret], sizeof(float)*size, cudaMemcpyDeviceToHost);
+    hipMemcpy(MatrixOut, MatrixTemp[ret], sizeof(float)*size, hipMemcpyDeviceToHost);
 
     MY_VERIFY_FLOAT_EXACT(MatrixOut, size);
 
     writeoutput(MatrixOut,grid_rows, grid_cols, ofile);
 
-    cudaFree(MatrixPower);
-    cudaFree(MatrixTemp[0]);
-    cudaFree(MatrixTemp[1]);
+    hipFree(MatrixPower);
+    hipFree(MatrixTemp[0]);
+    hipFree(MatrixTemp[1]);
     free(MatrixOut);
 }

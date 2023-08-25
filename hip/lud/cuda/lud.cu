@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include <cuda.h>
+#include <hip/hip_runtime.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <getopt.h>
@@ -141,13 +141,13 @@ main ( int argc, char *argv[] )
     matrix_duplicate(m, &mm, matrix_dim);
   }
 
-  cudaMalloc((void**)&d_m, 
+  hipMalloc((void**)&d_m, 
              matrix_dim*matrix_dim*sizeof(float));
 
   /* beginning of timing point */
   stopwatch_start(&sw);
-  cudaMemcpy(d_m, m, matrix_dim*matrix_dim*sizeof(float), 
-	     cudaMemcpyHostToDevice);
+  hipMemcpy(d_m, m, matrix_dim*matrix_dim*sizeof(float), 
+	     hipMemcpyHostToDevice);
 
 #ifdef  TIMING
   gettimeofday(&tv_kernel_start, NULL);
@@ -161,8 +161,8 @@ main ( int argc, char *argv[] )
   kernel_time += tv.tv_sec * 1000.0 + (float) tv.tv_usec / 1000.0;
 #endif
 
-  cudaMemcpy(m, d_m, matrix_dim*matrix_dim*sizeof(float), 
-	     cudaMemcpyDeviceToHost);
+  hipMemcpy(m, d_m, matrix_dim*matrix_dim*sizeof(float), 
+	     hipMemcpyDeviceToHost);
 
   MY_VERIFY_FLOAT_CUSTOM(m, matrix_dim * matrix_dim, 0.0007, 1);
 
@@ -170,7 +170,7 @@ main ( int argc, char *argv[] )
   stopwatch_stop(&sw);
   printf("Time consumed(ms): %lf\n", 1000*get_interval_by_sec(&sw));
 
-  cudaFree(d_m);
+  hipFree(d_m);
 
 
   if (do_verify){

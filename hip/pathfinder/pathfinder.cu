@@ -1,3 +1,4 @@
+#include "hip/hip_runtime.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -186,7 +187,7 @@ int calc_path(int *gpuWall, int *gpuResult[2], int rows, int cols, \
                 cols,rows, t, borderCols);
 
             // for the measurement fairness
-            cudaDeviceSynchronize();
+            hipDeviceSynchronize();
 	}
 	MY_STOP_CLOCK(pathfinder, );
         return dst;
@@ -195,8 +196,8 @@ int calc_path(int *gpuWall, int *gpuResult[2], int rows, int cols, \
 int main(int argc, char** argv)
 {
     int num_devices;
-    cudaGetDeviceCount(&num_devices);
-    if (num_devices > 1) cudaSetDevice(DEVICE);
+    hipGetDeviceCount(&num_devices);
+    if (num_devices > 1) hipSetDevice(DEVICE);
 
     run(argc,argv);
 
@@ -218,11 +219,11 @@ void run(int argc, char** argv)
     int *gpuWall, *gpuResult[2];
     int size = rows*cols;
 
-    cudaMalloc((void**)&gpuResult[0], sizeof(int)*cols);
-    cudaMalloc((void**)&gpuResult[1], sizeof(int)*cols);
-    cudaMemcpy(gpuResult[0], data, sizeof(int)*cols, cudaMemcpyHostToDevice);
-    cudaMalloc((void**)&gpuWall, sizeof(int)*(size-cols));
-    cudaMemcpy(gpuWall, data+cols, sizeof(int)*(size-cols), cudaMemcpyHostToDevice);
+    hipMalloc((void**)&gpuResult[0], sizeof(int)*cols);
+    hipMalloc((void**)&gpuResult[1], sizeof(int)*cols);
+    hipMemcpy(gpuResult[0], data, sizeof(int)*cols, hipMemcpyHostToDevice);
+    hipMalloc((void**)&gpuWall, sizeof(int)*(size-cols));
+    hipMemcpy(gpuWall, data+cols, sizeof(int)*(size-cols), hipMemcpyHostToDevice);
 
 #ifdef  TIMING
     gettimeofday(&tv_kernel_start, NULL);
@@ -237,7 +238,7 @@ void run(int argc, char** argv)
     kernel_time += tv.tv_sec * 1000.0 + (float) tv.tv_usec / 1000.0;
 #endif
 
-    cudaMemcpy(result, gpuResult[final_ret], sizeof(int)*cols, cudaMemcpyDeviceToHost);
+    hipMemcpy(result, gpuResult[final_ret], sizeof(int)*cols, hipMemcpyDeviceToHost);
 
     MY_VERIFY_INT(result, cols);
 
@@ -250,9 +251,9 @@ void run(int argc, char** argv)
     printf("\n") ;
 #endif
 
-    cudaFree(gpuWall);
-    cudaFree(gpuResult[0]);
-    cudaFree(gpuResult[1]);
+    hipFree(gpuWall);
+    hipFree(gpuResult[0]);
+    hipFree(gpuResult[1]);
 
     delete [] data;
     delete [] wall;

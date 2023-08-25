@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <cuda.h>
+#include <hip/hip_runtime.h>
 #include <sys/time.h>
 
 // includes, kernels
@@ -96,11 +96,11 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
     }
   }
   
-  cudaMalloc((void**) &input_cuda, (in + 1) * sizeof(float));
-  cudaMalloc((void**) &output_hidden_cuda, (hid + 1) * sizeof(float));
-  cudaMalloc((void**) &input_hidden_cuda, (in + 1) * (hid + 1) * sizeof(float));
-  cudaMalloc((void**) &hidden_partial_sum, num_blocks * WIDTH * sizeof(float));
-  cudaMemset(hidden_partial_sum, 0, num_blocks * WIDTH * sizeof(float));
+  hipMalloc((void**) &input_cuda, (in + 1) * sizeof(float));
+  hipMalloc((void**) &output_hidden_cuda, (hid + 1) * sizeof(float));
+  hipMalloc((void**) &input_hidden_cuda, (in + 1) * (hid + 1) * sizeof(float));
+  hipMalloc((void**) &hidden_partial_sum, num_blocks * WIDTH * sizeof(float));
+  hipMemset(hidden_partial_sum, 0, num_blocks * WIDTH * sizeof(float));
 
 #endif
 
@@ -117,8 +117,8 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
   
   //printf("in= %d, hid = %d, numblocks = %d\n", in, hid, num_blocks);
   
-  cudaMemcpy(input_cuda, net->input_units, (in + 1) * sizeof(float), cudaMemcpyHostToDevice);
-  cudaMemcpy(input_hidden_cuda, input_weights_one_dim, (in + 1) * (hid + 1) * sizeof(float), cudaMemcpyHostToDevice);
+  hipMemcpy(input_cuda, net->input_units, (in + 1) * sizeof(float), hipMemcpyHostToDevice);
+  hipMemcpy(input_hidden_cuda, input_weights_one_dim, (in + 1) * (hid + 1) * sizeof(float), hipMemcpyHostToDevice);
 
   
   
@@ -130,16 +130,16 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 											  in,
 											  hid);
  
-  cudaThreadSynchronize();
+  hipDeviceSynchronize();
   MY_STOP_CLOCK(backprop, layerforwardcu);
   
-  cudaError_t error = cudaGetLastError();
-	if (error != cudaSuccess) {
-		printf("bpnn kernel error: %s\n", cudaGetErrorString(error));
+  hipError_t error = hipGetLastError();
+	if (error != hipSuccess) {
+		printf("bpnn kernel error: %s\n", hipGetErrorString(error));
 		//exit(EXIT_FAILURE);
 	}
   
-  cudaMemcpy(partial_sum, hidden_partial_sum, num_blocks * WIDTH * sizeof(float), cudaMemcpyDeviceToHost);
+  hipMemcpy(partial_sum, hidden_partial_sum, num_blocks * WIDTH * sizeof(float), hipMemcpyDeviceToHost);
 
   MY_VERIFY_FLOAT_EXACT(partial_sum, num_blocks * WIDTH);
      
@@ -167,12 +167,12 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 
 #ifdef GPU
 
-  cudaMalloc((void**) &hidden_delta_cuda, (hid + 1) * sizeof(float));
-  cudaMalloc((void**) &input_prev_weights_cuda, (in + 1) * (hid + 1) * sizeof(float));
+  hipMalloc((void**) &hidden_delta_cuda, (hid + 1) * sizeof(float));
+  hipMalloc((void**) &input_prev_weights_cuda, (in + 1) * (hid + 1) * sizeof(float));
 
-  cudaMemcpy(hidden_delta_cuda, net->hidden_delta, (hid + 1) * sizeof(float), cudaMemcpyHostToDevice);
-  cudaMemcpy(input_prev_weights_cuda, input_weights_prev_one_dim, (in + 1) * (hid + 1) * sizeof(float), cudaMemcpyHostToDevice);
-  cudaMemcpy(input_hidden_cuda, input_weights_one_dim, (in + 1) * (hid + 1) * sizeof(float), cudaMemcpyHostToDevice);
+  hipMemcpy(hidden_delta_cuda, net->hidden_delta, (hid + 1) * sizeof(float), hipMemcpyHostToDevice);
+  hipMemcpy(input_prev_weights_cuda, input_weights_prev_one_dim, (in + 1) * (hid + 1) * sizeof(float), hipMemcpyHostToDevice);
+  hipMemcpy(input_hidden_cuda, input_weights_one_dim, (in + 1) * (hid + 1) * sizeof(float), hipMemcpyHostToDevice);
 
 
   MY_START_CLOCK(backprop, adjust_weights);
@@ -185,18 +185,18 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 												);
   MY_STOP_CLOCK(backprop, adjust_weights);
 
-  cudaMemcpy(net->input_units, input_cuda, (in + 1) * sizeof(float), cudaMemcpyDeviceToHost);
-  cudaMemcpy(input_weights_one_dim, input_hidden_cuda, (in + 1) * (hid + 1) * sizeof(float), cudaMemcpyDeviceToHost);
+  hipMemcpy(net->input_units, input_cuda, (in + 1) * sizeof(float), hipMemcpyDeviceToHost);
+  hipMemcpy(input_weights_one_dim, input_hidden_cuda, (in + 1) * (hid + 1) * sizeof(float), hipMemcpyDeviceToHost);
 
   MY_VERIFY_FLOAT_EXACT(net->input_units, atoi(global_argv[1]) + 1);
   MY_VERIFY_FLOAT_EXACT(input_weights_one_dim, (in + 1) * (hid + 1));
     
-  cudaFree(input_cuda);
-  cudaFree(output_hidden_cuda);
-  cudaFree(input_hidden_cuda);
-  cudaFree(hidden_partial_sum);
-  cudaFree(input_prev_weights_cuda);
-  cudaFree(hidden_delta_cuda);
+  hipFree(input_cuda);
+  hipFree(output_hidden_cuda);
+  hipFree(input_hidden_cuda);
+  hipFree(hidden_partial_sum);
+  hipFree(input_prev_weights_cuda);
+  hipFree(hidden_delta_cuda);
   
   free(partial_sum);
   free(input_weights_one_dim);

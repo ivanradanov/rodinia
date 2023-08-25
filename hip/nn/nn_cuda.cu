@@ -1,3 +1,4 @@
+#include "hip/hip_runtime.h"
 /*
  * nn.cu
  * Nearest Neighbor
@@ -8,7 +9,7 @@
 #include <sys/time.h>
 #include <float.h>
 #include <vector>
-#include "cuda.h"
+#include "hip/hip_runtime.h"
 
 #ifdef TIMING
 #include "timing.h"
@@ -109,15 +110,15 @@ int main(int argc, char* argv[])
 
 
 	// Scaling calculations - added by Sam Kauffman
-	cudaDeviceProp deviceProp;
-	cudaGetDeviceProperties( &deviceProp, 0 );
-	cudaThreadSynchronize();
+	hipDeviceProp_t deviceProp;
+	hipGetDeviceProperties( &deviceProp, 0 );
+	hipDeviceSynchronize();
 	unsigned long maxGridX = deviceProp.maxGridSize[0];
 	unsigned long threadsPerBlock = min( deviceProp.maxThreadsPerBlock, DEFAULT_THREADS_PER_BLOCK );
 	size_t totalDeviceMemory;
 	size_t freeDeviceMemory;
-	cudaMemGetInfo(  &freeDeviceMemory, &totalDeviceMemory );
-	cudaThreadSynchronize();
+	hipMemGetInfo(  &freeDeviceMemory, &totalDeviceMemory );
+	hipDeviceSynchronize();
 	unsigned long usableDeviceMemory = freeDeviceMemory * 85 / 100; // 85% arbitrary throttle to compensate for known CUDA bug
 	unsigned long maxThreads = usableDeviceMemory / 12; // 4 bytes in 3 vectors per thread
 	if ( numRecords > maxThreads )
@@ -149,13 +150,13 @@ int main(int argc, char* argv[])
 	* Allocate memory on host and device
 	*/
 	distances = (float *)malloc(sizeof(float) * numRecords);
-	cudaMalloc((void **) &d_locations,sizeof(LatLong) * numRecords);
-	cudaMalloc((void **) &d_distances,sizeof(float) * numRecords);
+	hipMalloc((void **) &d_locations,sizeof(LatLong) * numRecords);
+	hipMalloc((void **) &d_distances,sizeof(float) * numRecords);
 
    /**
     * Transfer data from host to device
     */
-    cudaMemcpy( d_locations, &locations[0], sizeof(LatLong) * numRecords, cudaMemcpyHostToDevice);
+    hipMemcpy( d_locations, &locations[0], sizeof(LatLong) * numRecords, hipMemcpyHostToDevice);
 
     /**
     * Execute kernel
@@ -168,7 +169,7 @@ int main(int argc, char* argv[])
   MY_START_CLOCK(nn, euclid);
     euclid<<< gridDim, threadsPerBlock >>>(d_locations,d_distances,numRecords,lat,lng);
     MY_STOP_CLOCK(nn, euclid);
-    cudaThreadSynchronize();
+    hipDeviceSynchronize();
 
 #ifdef  TIMING
     gettimeofday(&tv_kernel_end, NULL);
@@ -177,7 +178,7 @@ int main(int argc, char* argv[])
 #endif
 
     //Copy data from device memory to host memory
-    cudaMemcpy( distances, d_distances, sizeof(float)*numRecords, cudaMemcpyDeviceToHost );
+    hipMemcpy( distances, d_distances, sizeof(float)*numRecords, hipMemcpyDeviceToHost );
 
     MY_VERIFY_FLOAT_EXACT(distances, numRecords);
 
@@ -192,8 +193,8 @@ int main(int argc, char* argv[])
     }
     free(distances);
     //Free memory
-	cudaFree(d_locations);
-	cudaFree(d_distances);
+	hipFree(d_locations);
+	hipFree(d_distances);
 
 #ifdef  TIMING
     printf("Exec: %f\n", kernel_time);

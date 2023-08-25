@@ -98,22 +98,22 @@ int work(	int xmax,
 	int d_initvalu_mem;
 	d_initvalu_mem = EQUATIONS * sizeof(fp);
 	fp* d_initvalu;
-	cudaMalloc((void **)&d_initvalu, d_initvalu_mem);
+	hipMalloc((void **)&d_initvalu, d_initvalu_mem);
 
 	int d_finavalu_mem;
 	d_finavalu_mem = EQUATIONS * sizeof(fp);
 	fp* d_finavalu;
-	cudaMalloc((void **)&d_finavalu, d_finavalu_mem);
+	hipMalloc((void **)&d_finavalu, d_finavalu_mem);
 
 	int d_params_mem;
 	d_params_mem = PARAMETERS * sizeof(fp);
 	fp* d_params;
-	cudaMalloc((void **)&d_params, d_params_mem);
+	hipMalloc((void **)&d_params, d_params_mem);
 
 	int d_com_mem;
 	d_com_mem = 3 * sizeof(fp);
 	fp* d_com;
-	cudaMalloc((void **)&d_com, d_com_mem);
+	hipMalloc((void **)&d_com, d_com_mem);
 
 	time2 = get_time();
 
@@ -223,10 +223,10 @@ int work(	int xmax,
 	free(com);
 
 	// GPU memory
-	cudaFree(d_initvalu);
-	cudaFree(d_finavalu);
-	cudaFree(d_params);
-	cudaFree(d_com);
+	hipFree(d_initvalu);
+	hipFree(d_finavalu);
+	hipFree(d_params);
+	hipFree(d_com);
 
 	//================================================================================80
 	//		DISPLAY TIMING

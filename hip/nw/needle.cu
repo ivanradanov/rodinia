@@ -4,7 +4,7 @@
 #include <string.h>
 #include <math.h>
 #include "needle.h"
-#include <cuda.h>
+#include <hip/hip_runtime.h>
 #include <sys/time.h>
 
 // includes, kernels
@@ -152,11 +152,11 @@ void runTest( int argc, char** argv)
 
 
     size = max_cols * max_rows;
-	cudaMalloc((void**)& referrence_cuda, sizeof(int)*size);
-	cudaMalloc((void**)& matrix_cuda, sizeof(int)*size);
+	hipMalloc((void**)& referrence_cuda, sizeof(int)*size);
+	hipMalloc((void**)& matrix_cuda, sizeof(int)*size);
 	
-	cudaMemcpy(referrence_cuda, referrence, sizeof(int) * size, cudaMemcpyHostToDevice);
-	cudaMemcpy(matrix_cuda, input_itemsets, sizeof(int) * size, cudaMemcpyHostToDevice);
+	hipMemcpy(referrence_cuda, referrence, sizeof(int) * size, hipMemcpyHostToDevice);
+	hipMemcpy(matrix_cuda, input_itemsets, sizeof(int) * size, hipMemcpyHostToDevice);
 
     dim3 dimGrid;
 	dim3 dimBlock(BLOCK_SIZE, 1);
@@ -195,7 +195,7 @@ void runTest( int argc, char** argv)
     kernel_time += tv.tv_sec * 1000.0 + (float) tv.tv_usec / 1000.0;
 #endif
 
-    cudaMemcpy(output_itemsets, matrix_cuda, sizeof(int) * size, cudaMemcpyDeviceToHost);
+    hipMemcpy(output_itemsets, matrix_cuda, sizeof(int) * size, hipMemcpyDeviceToHost);
 
     MY_VERIFY_INT(output_itemsets, size);
 	
@@ -260,8 +260,8 @@ void runTest( int argc, char** argv)
 
 #endif
 
-	cudaFree(referrence_cuda);
-	cudaFree(matrix_cuda);
+	hipFree(referrence_cuda);
+	hipFree(matrix_cuda);
 
 	free(referrence);
 	free(input_itemsets);

@@ -26,7 +26,7 @@
 #include <sys/resource.h>
 #include <limits.h>
 
-#include <cuda.h>
+#include <hip/hip_runtime.h>
 
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>

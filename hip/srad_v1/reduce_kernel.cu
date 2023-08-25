@@ -1,3 +1,4 @@
+#include "hip/hip_runtime.h"
 // statistical kernel
 __global__ void reduce(	long d_Ne,											// number of elements in array
 										int d_no,											// number of sums to reduce

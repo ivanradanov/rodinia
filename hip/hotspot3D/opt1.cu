@@ -1,3 +1,4 @@
+#include "hip/hip_runtime.h"
 long long get_time() {
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
@@ -70,13 +71,13 @@ void hotspot_opt1(float *p, float *tIn, float *tOut,
 
     size_t s = sizeof(float) * nx * ny * nz;  
     float  *tIn_d, *tOut_d, *p_d;
-    cudaMalloc((void**)&p_d,s);
-    cudaMalloc((void**)&tIn_d,s);
-    cudaMalloc((void**)&tOut_d,s);
-    cudaMemcpy(tIn_d, tIn, s, cudaMemcpyHostToDevice);
-    cudaMemcpy(p_d, p, s, cudaMemcpyHostToDevice);
+    hipMalloc((void**)&p_d,s);
+    hipMalloc((void**)&tIn_d,s);
+    hipMalloc((void**)&tOut_d,s);
+    hipMemcpy(tIn_d, tIn, s, hipMemcpyHostToDevice);
+    hipMemcpy(p_d, p, s, hipMemcpyHostToDevice);
 
-    cudaFuncSetCacheConfig(hotspotOpt1, cudaFuncCachePreferL1);
+    hipFuncSetCacheConfig(hotspotOpt1, hipFuncCachePreferL1);
 
     dim3 block_dim(64, 4, 1);
     dim3 grid_dim(nx / 64, ny / 4, 1);
@@ -91,16 +92,16 @@ void hotspot_opt1(float *p, float *tIn, float *tOut,
         tOut_d = t;
     }
     MY_STOP_CLOCK(hotspot3D, );
-    cudaDeviceSynchronize();
+    hipDeviceSynchronize();
     long long stop = get_time();
     float time = (float)((stop - start)/(1000.0 * 1000.0));
     printf("Time: %.3f (s)\n",time);
-    cudaMemcpy(tOut, tOut_d, s, cudaMemcpyDeviceToHost);
+    hipMemcpy(tOut, tOut_d, s, hipMemcpyDeviceToHost);
     MY_VERIFY_FLOAT_EXACT(tOut, s / sizeof(float));
 
-    cudaFree(p_d);
-    cudaFree(tIn_d);
-    cudaFree(tOut_d);
+    hipFree(p_d);
+    hipFree(tIn_d);
+    hipFree(tOut_d);
     return;
 }
 

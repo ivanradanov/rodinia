@@ -1,3 +1,4 @@
+#include "hip/hip_runtime.h"
 // Copyright 2009, Andrew Corrigan, acorriga@gmu.edu
 // This code is from the AIAA-2009-4001 paper
 
@@ -102,32 +103,32 @@ template <typename T>
 T* alloc(int N)
 {
 	T* t;
-	checkCudaErrors(cudaMalloc((void**)&t, sizeof(T)*N));
+	checkCudaErrors(hipMalloc((void**)&t, sizeof(T)*N));
 	return t;
 }
 
 template <typename T>
 void dealloc(T* array)
 {
-	checkCudaErrors(cudaFree((void*)array));
+	checkCudaErrors(hipFree((void*)array));
 }
 
 template <typename T>
 void copy(T* dst, T* src, int N)
 {
-	checkCudaErrors(cudaMemcpy((void*)dst, (void*)src, N*sizeof(T), cudaMemcpyDeviceToDevice));
+	checkCudaErrors(hipMemcpy((void*)dst, (void*)src, N*sizeof(T), hipMemcpyDeviceToDevice));
 }
 
 template <typename T>
 void upload(T* dst, T* src, int N)
 {
-	checkCudaErrors(cudaMemcpy((void*)dst, (void*)src, N*sizeof(T), cudaMemcpyHostToDevice));
+	checkCudaErrors(hipMemcpy((void*)dst, (void*)src, N*sizeof(T), hipMemcpyHostToDevice));
 }
 
 template <typename T>
 void download(T* dst, T* src, int N)
 {
-	checkCudaErrors(cudaMemcpy((void*)dst, (void*)src, N*sizeof(T), cudaMemcpyDeviceToHost));
+	checkCudaErrors(hipMemcpy((void*)dst, (void*)src, N*sizeof(T), hipMemcpyDeviceToHost));
 }
 
 void dump(float* variables, int nel, int nelr)
@@ -429,12 +430,12 @@ int main(int argc, char** argv)
 	}
 	const char* data_file_name = argv[1];
 	
-	cudaDeviceProp prop;
+	hipDeviceProp_t prop;
 	int dev;
 	
-	//checkCudaErrors(cudaSetDevice(0));
-	//checkCudaErrors(cudaGetDevice(&dev));
-	//checkCudaErrors(cudaGetDeviceProperties(&prop, dev));
+	//checkCudaErrors(hipSetDevice(0));
+	//checkCudaErrors(hipGetDevice(&dev));
+	//checkCudaErrors(hipGetDeviceProperties(&prop, dev));
 	
 	//printf("Name:                     %s\n", prop.name);
 
@@ -471,12 +472,12 @@ int main(int argc, char** argv)
 		compute_flux_contribution(h_ff_variable[VAR_DENSITY], h_ff_momentum, h_ff_variable[VAR_DENSITY_ENERGY], ff_pressure, ff_velocity, h_ff_flux_contribution_momentum_x, h_ff_flux_contribution_momentum_y, h_ff_flux_contribution_momentum_z, h_ff_flux_contribution_density_energy);
 
 		// copy far field conditions to the gpu
-		checkCudaErrors( cudaMemcpyToSymbol(ff_variable,          h_ff_variable,          NVAR*sizeof(float)) );
-		checkCudaErrors( cudaMemcpyToSymbol(ff_flux_contribution_momentum_x, &h_ff_flux_contribution_momentum_x, sizeof(float3)) );
-		checkCudaErrors( cudaMemcpyToSymbol(ff_flux_contribution_momentum_y, &h_ff_flux_contribution_momentum_y, sizeof(float3)) );
-		checkCudaErrors( cudaMemcpyToSymbol(ff_flux_contribution_momentum_z, &h_ff_flux_contribution_momentum_z, sizeof(float3)) );
+		checkCudaErrors( hipMemcpyToSymbol(HIP_SYMBOL(ff_variable),          h_ff_variable,          NVAR*sizeof(float)) );
+		checkCudaErrors( hipMemcpyToSymbol(HIP_SYMBOL(ff_flux_contribution_momentum_x), &h_ff_flux_contribution_momentum_x, sizeof(float3)) );
+		checkCudaErrors( hipMemcpyToSymbol(HIP_SYMBOL(ff_flux_contribution_momentum_y), &h_ff_flux_contribution_momentum_y, sizeof(float3)) );
+		checkCudaErrors( hipMemcpyToSymbol(HIP_SYMBOL(ff_flux_contribution_momentum_z), &h_ff_flux_contribution_momentum_z, sizeof(float3)) );
 		
-		checkCudaErrors( cudaMemcpyToSymbol(ff_flux_contribution_density_energy, &h_ff_flux_contribution_density_energy, sizeof(float3)) );		
+		checkCudaErrors( hipMemcpyToSymbol(HIP_SYMBOL(ff_flux_contribution_density_energy), &h_ff_flux_contribution_density_energy, sizeof(float3)) );		
 	}
 	int nel;
 	int nelr;
@@ -552,9 +553,9 @@ int main(int argc, char** argv)
 	// make sure all memory is floatly allocated before we start timing
 	initialize_variables(nelr, old_variables);
 	initialize_variables(nelr, fluxes);
-	cudaMemset( (void*) step_factors, 0, sizeof(float)*nelr );
+	hipMemset( (void*) step_factors, 0, sizeof(float)*nelr );
 	// make sure CUDA isn't still doing something before we start timing
-	cudaThreadSynchronize();
+	hipDeviceSynchronize();
 
 	// these need to be computed the first time in order to compute time step
 	//std::cout << "Starting..." << std::endl;
@@ -593,7 +594,7 @@ int main(int argc, char** argv)
 	}
 	MY_STOP_CLOCK(cfd, );
 
-	cudaThreadSynchronize();
+	hipDeviceSynchronize();
 	//	CUT_SAFE_CALL( cutStopTimer(timer) );  
 	//sdkStopTimer(&timer); 
 

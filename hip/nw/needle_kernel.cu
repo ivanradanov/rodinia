@@ -1,3 +1,4 @@
+#include "hip/hip_runtime.h"
 
 #include "needle.h"
 #include <stdio.h>
