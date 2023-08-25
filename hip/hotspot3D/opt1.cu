@@ -77,7 +77,7 @@ void hotspot_opt1(float *p, float *tIn, float *tOut,
     hipMemcpy(tIn_d, tIn, s, hipMemcpyHostToDevice);
     hipMemcpy(p_d, p, s, hipMemcpyHostToDevice);
 
-    hipFuncSetCacheConfig(hotspotOpt1, hipFuncCachePreferL1);
+    hipFuncSetCacheConfig((void*)hotspotOpt1, hipFuncCachePreferL1);
 
     dim3 block_dim(64, 4, 1);
     dim3 grid_dim(nx / 64, ny / 4, 1);
