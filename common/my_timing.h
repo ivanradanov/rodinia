@@ -9,8 +9,10 @@
 #include <errno.h>
 
 
-#ifdef _MY_IS_NOT_CUDA_
+#ifdef _MY_IS_OPENMP
 #define CUDA_DEVICE_SYNCHRONIZE do { } while(0)
+#elifdef _MY_IS_HIP
+#define CUDA_DEVICE_SYNCHRONIZE hipDeviceSynchronize()
 #else
 #define CUDA_DEVICE_SYNCHRONIZE cudaDeviceSynchronize()
 #endif

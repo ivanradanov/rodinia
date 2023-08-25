@@ -10,7 +10,7 @@ TIMED_CUDA_DIRS := $(shell $(RODINIA_BASE_DIR)/scripts/cuda_apps.sh)
 TIMED_CUDA_DIRS := $(addprefix cuda/,$(TIMED_CUDA_DIRS))
 
 HIP_DIRS := $(shell $(RODINIA_BASE_DIR)/scripts/hip_apps.sh)
-HIP_DIRS := $(addprefix cuda/,$(HIP_DIRS))
+HIP_DIRS := $(addprefix hip/,$(HIP_DIRS))
 
 TIMED_OPENMP_DIRS := backprop \
        bfs \
