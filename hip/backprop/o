@@ -1,0 +1,37 @@
+~/git/Polygeist/build/bin/mlir-clang --function=* -resource-dir=/home/wmoses/git/Polygeist/mlir-build/lib/clang/14.0.0/ -I/home/wmoses/git/Polygeist/mlir-build/projects/openmp/runtime/src/ -I/mnt/Data/git/Polygeist/proj/rodinia/common// -include my_timing.h -include my_verification.h -D_MY_COMPILER_NAME_=\"polygeist\" backprop.c -c -o backprop.o
+backprop.c:102:31: warning: implicit conversion from 'int' to 'float' changes value from 2147483647 to 2147483648 [-Wimplicit-const-int-float-conversion]
+     w[i][j] = (float) rand()/RAND_MAX;
+                             ~^~~~~~~~
+/usr/include/stdlib.h:86:18: note: expanded from macro 'RAND_MAX'
+#define RAND_MAX        2147483647
+                        ^~~~~~~~~~
+~/git/Polygeist/build/bin/mlir-clang --function=* -resource-dir=/home/wmoses/git/Polygeist/mlir-build/lib/clang/14.0.0/ -I/home/wmoses/git/Polygeist/mlir-build/projects/openmp/runtime/src/ -I/mnt/Data/git/Polygeist/proj/rodinia/common// -include my_timing.h -include my_verification.h -D_MY_COMPILER_NAME_=\"polygeist\" --cuda-gpu-arch=sm_60 --cuda-path=/usr/local/cuda-11.2/ --cuda-lower --cpuify="distribute" -I/mnt/Data/git/Polygeist/proj/rodinia/common// -include my_timing.h -include my_verification.h -D_MY_COMPILER_NAME_=\"polygeist\" -c backprop_cuda.cu -o backprop_cuda.o
+backprop_cuda.cu:133:3: warning: 'cudaThreadSynchronize' is deprecated [-Wdeprecated-declarations]
+  cudaThreadSynchronize();
+  ^
+/usr/local/cuda-11.2//include/cuda_runtime_api.h:1011:8: note: 'cudaThreadSynchronize' has been explicitly marked deprecated here
+extern __CUDA_DEPRECATED __host__ cudaError_t CUDARTAPI cudaThreadSynchronize(void);
+       ^
+/usr/local/cuda-11.2//include/cuda_runtime_api.h:255:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+backprop_cuda.cu:133:3: warning: 'cudaThreadSynchronize' is deprecated [-Wdeprecated-declarations]
+  cudaThreadSynchronize();
+  ^
+/usr/local/cuda-11.2//include/cuda_runtime_api.h:1011:8: note: 'cudaThreadSynchronize' has been explicitly marked deprecated here
+extern __CUDA_DEPRECATED __host__ cudaError_t CUDARTAPI cudaThreadSynchronize(void);
+       ^
+/usr/local/cuda-11.2//include/cuda_runtime_api.h:255:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+warning: argument unused during compilation: '--cuda-gpu-arch=sm_60'
+warning: overriding the module target triple with x86_64-unknown-linux-gnu [-Woverride-module]
+1 warning generated.
+~/git/Polygeist/build/bin/mlir-clang backprop.o facetrain.o imagenet.o backprop_cuda.o -o backprop --function=* -resource-dir=/home/wmoses/git/Polygeist/mlir-build/lib/clang/14.0.0/ -I/home/wmoses/git/Polygeist/mlir-build/projects/openmp/runtime/src/ -I/mnt/Data/git/Polygeist/proj/rodinia/common// -include my_timing.h -include my_verification.h -D_MY_COMPILER_NAME_=\"polygeist\" -lcudart_static -ldl -lrt -lpthread -lm -L/usr/local/cuda-11.2/lib64/ -L/home/wmoses/git/Polygeist/mlir-build/lib
+warning: overriding the module target triple with x86_64-unknown-linux-gnu [-Woverride-module]
+1 warning generated.
+/usr/lib/x86_64-linux-gnu/crt1.o: In function `_start':
+(.text+0x20): undefined reference to `main'
+error: linker command failed with exit code 1 (use -v to see invocation)
+Makefile:25: recipe for target 'backprop' failed
+make: *** [backprop] Error 1
