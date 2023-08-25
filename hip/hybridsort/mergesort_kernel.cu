@@ -1,11 +1,12 @@
+#include "hip/hip_runtime.h"
 #ifndef _MATRIXMUL_KERNEL_H_
 #define _MATRIXMUL_KERNEL_H_
 
 #include <stdio.h>
 
 // declare texture reference for 1D float texture
-texture<float4, 1, cudaReadModeElementType> tex;
-texture<float, 1, cudaReadModeElementType> txt; 
+texture<float4, 1, hipReadModeElementType> tex;
+texture<float, 1, hipReadModeElementType> txt; 
 
 __device__ float4 sortElem(float4 r) {
 	float4 nr;

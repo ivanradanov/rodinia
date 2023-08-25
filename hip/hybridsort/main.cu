@@ -182,10 +182,10 @@ void cudaSort(float *origList, float minimum, float maximum,
 	int mem_size = (numElements + DIVISIONS * 4) * sizeof(float); 
 	sdkStartTimer(&uploadTimer);
 	{
-		cudaMalloc((void**) &d_input, mem_size);
-		cudaMalloc((void**) &d_output, mem_size);
-		cudaMemcpy((void *) d_input, (void *)origList, numElements * sizeof(float),
-				   cudaMemcpyHostToDevice);
+		hipMalloc((void**) &d_input, mem_size);
+		hipMalloc((void**) &d_output, mem_size);
+		hipMemcpy((void *) d_input, (void *)origList, numElements * sizeof(float),
+				   hipMemcpyHostToDevice);
 		init_bucketsort(numElements); 
 	}
 	sdkStopTimer(&uploadTimer); 
@@ -212,18 +212,18 @@ void cudaSort(float *origList, float minimum, float maximum,
 		
 		float4 *mergeresult = runMergeSort(	newlistsize, DIVISIONS, d_origList, d_resultList, 
 			sizes, nullElements, origOffsets); //d_origList; 
-		cudaThreadSynchronize(); 
+		hipDeviceSynchronize(); 
 	sdkStopTimer(&mergeTimer); 
 	sdkStopTimer(&totalTimer); 
 
 	// Download result
 	sdkStartTimer(&downloadTimer); 
-		checkCudaErrors(	cudaMemcpy((void *) resultList, 
-				(void *)mergeresult, numElements * sizeof(float), cudaMemcpyDeviceToHost) );
+		checkCudaErrors(	hipMemcpy((void *) resultList, 
+				(void *)mergeresult, numElements * sizeof(float), hipMemcpyDeviceToHost) );
 	sdkStopTimer(&downloadTimer); 
 
 	// Clean up
 	finish_bucketsort(); 
-	cudaFree(d_input); cudaFree(d_output); 
+	hipFree(d_input); hipFree(d_output); 
 	free(nullElements); free(sizes); 
 }

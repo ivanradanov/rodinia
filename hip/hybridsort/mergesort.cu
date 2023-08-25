@@ -33,10 +33,10 @@ float4* runMergeSort(int listsize, int divisions,
 	largestSize *= 4; 
 
 	// Setup texture
-	cudaChannelFormatDesc channelDesc = cudaCreateChannelDesc(32, 32, 32, 32, cudaChannelFormatKindFloat);
-	tex.addressMode[0] = cudaAddressModeWrap;
-	tex.addressMode[1] = cudaAddressModeWrap;
-	tex.filterMode = cudaFilterModePoint;
+	hipChannelFormatDesc channelDesc = hipCreateChannelDesc(32, 32, 32, 32, hipChannelFormatKindFloat);
+	tex.addressMode[0] = hipAddressModeWrap;
+	tex.addressMode[1] = hipAddressModeWrap;
+	tex.filterMode = hipFilterModePoint;
 	tex.normalized = false;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -50,15 +50,15 @@ float4* runMergeSort(int listsize, int divisions,
 	dim3 threads(THREADS, 1);
 	int blocks = ((listsize/4)%THREADS == 0) ? (listsize/4)/THREADS : (listsize/4)/THREADS + 1; 
 	dim3 grid(blocks, 1);
-	cudaBindTexture(0,tex, d_origList, channelDesc, listsize*sizeof(float)); 
+	hipBindTexture(0,tex, d_origList, channelDesc, listsize*sizeof(float)); 
 	mergeSortFirst<<< grid, threads >>>(d_resultList, listsize);
 
 	////////////////////////////////////////////////////////////////////////////
 	// Then, go level by level
 	////////////////////////////////////////////////////////////////////////////
-	cudaMemcpyToSymbol(constStartAddr, startaddr, (divisions + 1)*sizeof(int)); 
-	cudaMemcpyToSymbol(finalStartAddr, origOffsets, (divisions + 1)*sizeof(int)); 
-	cudaMemcpyToSymbol(nullElems, nullElements, (divisions)*sizeof(int)); 
+	hipMemcpyToSymbol(HIP_SYMBOL(constStartAddr), startaddr, (divisions + 1)*sizeof(int)); 
+	hipMemcpyToSymbol(HIP_SYMBOL(finalStartAddr), origOffsets, (divisions + 1)*sizeof(int)); 
+	hipMemcpyToSymbol(HIP_SYMBOL(nullElems), nullElements, (divisions)*sizeof(int)); 
 	int nrElems = 2;
 	while(true){
 		int floatsperthread = (nrElems*4); 
@@ -82,7 +82,7 @@ float4* runMergeSort(int listsize, int divisions,
 		float4 *tempList = d_origList; 
 		d_origList = d_resultList; 
 		d_resultList = tempList; 
-		cudaBindTexture(0,tex, d_origList, channelDesc, listsize*sizeof(float)); 
+		hipBindTexture(0,tex, d_origList, channelDesc, listsize*sizeof(float)); 
 		mergeSortPass <<< grid, threads >>>(d_resultList, nrElems, threadsPerDiv); 
 		nrElems *= 2; 
 		floatsperthread = (nrElems*4); 
