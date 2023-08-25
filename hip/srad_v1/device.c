@@ -13,26 +13,26 @@ void setdevice(void){
 	int device;
 
 	// work
-	cudaGetDeviceCount(&num_devices);
+	hipGetDeviceCount(&num_devices);
 	if (num_devices > 1) {
 		
 		// variables
 		int max_multiprocessors; 
 		int max_device;
-		cudaDeviceProp properties;
+		hipDeviceProp_t properties;
 
 		// initialize variables
 		max_multiprocessors = 0;
 		max_device = 0;
 		
 		for (device = 0; device < num_devices; device++) {
-			cudaGetDeviceProperties(&properties, device);
+			hipGetDeviceProperties(&properties, device);
 			if (max_multiprocessors < properties.multiProcessorCount) {
 				max_multiprocessors = properties.multiProcessorCount;
 				max_device = device;
 			}
 		}
-		cudaSetDevice(max_device);
+		hipSetDevice(max_device);
 	}
 
 }
@@ -43,10 +43,10 @@ void setdevice(void){
 
 void checkCUDAError(const char *msg)
 {
-	cudaError_t err = cudaGetLastError();
-	if( cudaSuccess != err) {
-		// fprintf(stderr, "Cuda error: %s: %s.\n", msg, cudaGetErrorString( err) );
-		printf("Cuda error: %s: %s.\n", msg, cudaGetErrorString( err) );
+	hipError_t err = hipGetLastError();
+	if( hipSuccess != err) {
+		// fprintf(stderr, "Cuda error: %s: %s.\n", msg, hipGetErrorString( err) );
+		printf("Cuda error: %s: %s.\n", msg, hipGetErrorString( err) );
 		fflush(NULL);
 		//exit(EXIT_FAILURE);
 	}
