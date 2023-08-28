@@ -65,7 +65,48 @@ def mult(a, b):
 
 if (args.thread_factors_total != [1] or
     args.block_factors_total != [1]):
-    assert(False and 'TODO impl')
+    s = [[]]
+    for ty in bt:
+        key = '{}_factors_total'.format(ty, dim)
+        factors = getattr(args, key)
+        s = mult(s, factors)
+    os.chdir(args.benchmark)
+    env = os.environ
+    for factors in s:
+        block_factors = factors[0]
+        thread_factors = factors[1]
+        print('Testing block factors {} and thread factors {}'.
+              format(block_factors, thread_factors))
+        subprocess.run(['make', 'clean'],
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL,
+                       )
+        env['POLYGEIST_GPU_KERNEL_COARSEN_BLOCKS'] = '{}'.format(
+            block_factors)
+        env['POLYGEIST_GPU_KERNEL_COARSEN_THREADS'] = '{}'.format(
+            thread_factors)
+        subprocess.run(['make',
+                        'CONFIG={}'.format(args.config),
+                        'TARGET={}'.format(args.target),
+                        'MY_VERIFICATION_DISABLE=1',
+                        ],
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL,
+                       )
+        log = open(
+            os.path.join(
+                args.output_dir,
+                'timing-{}-{}'.format(
+                    block_factors, thread_factors)),
+            'a')
+        for _ in range(args.nruns):
+            subprocess.run([args.command],
+                           stdout=log,
+                           stderr=log,
+                           shell=True)
+        log.close()
+
+    print(s)
 else:
 
     dims = ('x', 'y', 'z')
