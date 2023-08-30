@@ -63,6 +63,108 @@ def start(l):
 def mult(a, b):
     return sum([[x + [y] for y in b] for x in a], [])
 
+
+dims = ('x', 'y', 'z')
+
+def do_runs(s, get_factors):
+    def get_factor_env_str(f):
+        return ','.join([str(x) for x in f])
+
+    os.chdir(args.benchmark)
+    env = os.environ
+    for factors in s:
+        block_factors, thread_factors = get_factors(factors)
+        print('Testing block factors {} and thread factors {}'.
+              format(block_factors, thread_factors))
+        subprocess.run(['make', 'clean'],
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL,
+                       )
+        env['POLYGEIST_GPU_KERNEL_COARSEN_BLOCKS'] = get_factor_env_str(block_factors)
+        env['POLYGEIST_GPU_KERNEL_COARSEN_THREADS'] = get_factor_env_str(thread_factors)
+        subprocess.run(['make',
+                        'CONFIG={}'.format(args.config),
+                        'TARGET={}'.format(args.target),
+                        'MY_VERIFICATION_DISABLE=1',
+                        ],
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL,
+                       )
+        log = open(
+            os.path.join(
+                args.output_dir,
+                'timing-{}-{}'.format(
+                    get_factor_env_str(block_factors), get_factor_env_str(thread_factors))),
+            'a')
+        for _ in range(args.nruns):
+            subprocess.run([args.command],
+                           stdout=log,
+                           stderr=log,
+                           shell=True)
+        log.close()
+
+
+if (args.thread_factors_total != [1] and
+    args.block_factors_total != [1]):
+    s = [[]]
+    for ty in bt:
+        key = '{}_factors_total'.format(ty)
+        factors = getattr(args, key)
+        s = mult(s, factors)
+
+    def get_blockt_threadt(factors):
+        return factors[0:1], factors[1:2]
+    do_runs(s, get_blockt_threadt)
+elif (args.thread_factors_total != [1] and
+      args.block_factors_total == [1]):
+    s = [[]]
+    for dim in dims:
+        key = 'block_factors_{}'.format(dim)
+        factors = getattr(args, key)
+        s = mult(s, factors)
+    key = 'thread_factors_total'
+    factors = getattr(args, key)
+    s = mult(s, factors)
+
+    def get_blockxyz_threadt(factors):
+        return factors[0:3], factors[3:4]
+    do_runs(s, get_blockxyz_threadt)
+elif (args.thread_factors_total == [1] and
+      args.block_factors_total != [1]):
+    s = [[]]
+    key = 'block_factors_total'
+    factors = getattr(args, key)
+    s = mult(s, factors)
+    for dim in dims:
+        key = 'thread_factors_{}'.format(dim)
+        factors = getattr(args, key)
+        s = mult(s, factors)
+
+    def get_blockt_threadxyz(factors):
+        return factors[0:1], factors[1:2]
+    do_runs(s, get_blockt_threadxyz)
+elif (args.thread_factors_total == [1] and
+      args.block_factors_total == [1]):
+    s = [[]]
+    for ty  in bt:
+        for dim in dims:
+            key = '{}_factors_{}'.format(ty, dim)
+            factors = getattr(args, key)
+            s = mult(s, factors)
+
+    def get_blockxyz_threadxyz(factors):
+        return factors[0:3], factors[3:4]
+    do_runs(s, get_blockxyz_threadxyz)
+else:
+    assert('what?')
+
+exit(0)
+
+
+
+
+
+
 if (args.thread_factors_total != [1] or
     args.block_factors_total != [1]):
     s = [[]]
