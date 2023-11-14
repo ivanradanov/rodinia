@@ -2,7 +2,7 @@
 
 ORIGINAL_ARGS="$@"
 
-VALID_ARGS=$(getopt -o h --long dry-run,targets:,clang,hip-clang,nvcc,nruns:,pgo-prof-nruns:,pgo-configs:,host:,configs: -- "$@")
+VALID_ARGS=$(getopt -o h --long dry-run,targets:,clang,hip-clang,nvcc,nruns:,pgo-prof-nruns:,pgo-configs:,host:,configs:,benchmarks: -- "$@")
 if [[ $? -ne 0 ]]; then
   exit 1;
 fi
@@ -10,6 +10,8 @@ fi
 # Default vals
 NRUNS=5
 PGO_PROF_NRUNS=3
+HIP_BENCHMARK_FILE=/dev/null
+CUDA_BENCHMARK_FILE=/dev/null
 
 eval set -- "$VALID_ARGS"
 while [ : ]; do
@@ -17,6 +19,16 @@ while [ : ]; do
     --pgo-prof-nruns)
       echo "Do $2 PGO profiling runs"
       PGO_PROF_NRUNS="$2"
+      shift 2
+      ;;
+    --hip-benchmarks)
+      echo "HIP benchmark file: $2"
+      HIP_BENCHMARK_FILE="$2"
+      shift 2
+      ;;
+    --cuda-benchmarks)
+      echo "CUDA benchmark file: $2"
+      CUDA_BENCHMARK_FILE="$2"
       shift 2
       ;;
     --targets)
@@ -79,6 +91,15 @@ while [ : ]; do
       ;;
   esac
 done
+
+
+CUDA_APPS_SH="./scripts/cuda_apps.sh"
+HIP_APPS_SH="./scripts/hip_apps.sh"
+
+rm "$CUDA_APPS_SH"
+ln -s "$CUDA_BENCHMARK_FILE" "$CUDA_APPS_SH"
+rm "$HIP_APPS_SH"
+ln -s "$HIP_BENCHMARK_FILE" "$HIP_APPS_SH"
 
 echo -n "Run the following CUDA benchmarks: "
 ./scripts/cuda_apps.sh
