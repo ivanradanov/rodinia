@@ -2,7 +2,7 @@
 
 ORIGINAL_ARGS="$@"
 
-VALID_ARGS=$(getopt -o h --long dry-run,targets:,clang,hip-clang,nvcc,nruns:,pgo-prof-nruns:,pgo-configs:,host:,configs:,benchmarks: -- "$@")
+VALID_ARGS=$(getopt -o h --long dry-run,targets:,clang,hip-clang,nvcc,nruns:,pgo-prof-nruns:,pgo-configs:,host:,configs:,cuda-benchmarks:,hip-benchmarks: -- "$@")
 if [[ $? -ne 0 ]]; then
   exit 1;
 fi
@@ -96,17 +96,17 @@ done
 CUDA_APPS_SH="./scripts/cuda_apps.sh"
 HIP_APPS_SH="./scripts/hip_apps.sh"
 
-rm "$CUDA_APPS_SH"
-ln -s "$CUDA_BENCHMARK_FILE" "$CUDA_APPS_SH"
-rm "$HIP_APPS_SH"
-ln -s "$HIP_BENCHMARK_FILE" "$HIP_APPS_SH"
+rm "$CUDA_APPS_SH" &> /dev/null || true
+ln -s $(readlink -f "$CUDA_BENCHMARK_FILE") "$CUDA_APPS_SH"
+rm "$HIP_APPS_SH" &> /dev/null || true
+ln -s "$(readlink -f "$HIP_BENCHMARK_FILE")" "$HIP_APPS_SH"
 
-echo -n "Run the following CUDA benchmarks: "
-./scripts/cuda_apps.sh
+echo "Run the following CUDA benchmarks:"
+./scripts/cuda_apps.sh 2> /dev/null
 echo
 
-echo -n "Run the following HIP benchmarks: "
-./scripts/hip_apps.sh
+echo "Run the following HIP benchmarks:"
+./scripts/hip_apps.sh 2> /dev/null
 echo
 
 if [ "$DRY_RUN" == "1" ]; then
