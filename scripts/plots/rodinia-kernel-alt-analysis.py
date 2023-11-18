@@ -498,6 +498,8 @@ def getoriginal(x):
     #print(x)
     index = x[(x['thread_factor'] == 1) & (x['block_factor'] == 1)].index
     original = x.loc[index]['timing']
+    if len(original) == 0:
+        return None
     original = original[0]
     original = pd.Series(index=x.index.droplevel([0,1,2]), data=([original] * len(x)))
     #print(original)
@@ -654,9 +656,9 @@ def plot_aall(df, speedup_threshold = 1.01, title=None):
         def plot_df(df, ax):
             a = pd.DataFrame(df.groupby(index_cols[1:])[['original_norm_timing','original_norm_timing_only_block', 'original_norm_timing_only_thread']].apply(max)).sort_values('original_norm_timing')
             def print_gmean(a):
-                geomean = gmean(list(a['original_norm_timing']))
-                geomean_only_thread = gmean(list(a['original_norm_timing_only_thread']))
-                geomean_only_block = gmean(list(a['original_norm_timing_only_block']))
+                geomean = gmean(list(a['original_norm_timing'].dropna()))
+                geomean_only_thread = gmean(list(a['original_norm_timing_only_thread'].dropna()))
+                geomean_only_block = gmean(list(a['original_norm_timing_only_block'].dropna()))
                 print('number:', len(a))
                 print('geomean:', geomean)
                 print('geomean_only_thread:', geomean_only_thread)
