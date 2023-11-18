@@ -19,7 +19,7 @@ figures_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)),'figures'
 if not os.path.isdir(figures_dir):
     os.mkdir(figures_dir)
 
-parser = argparse.ArgumentParser(description='Benchmarks comparisons')
+parser = argparse.ArgumentParser(description='Experiment 1 figure')
 
 parser.add_argument('input', nargs='*',
                     help='Benchmark result dir to use')
