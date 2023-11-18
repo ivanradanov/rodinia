@@ -15,8 +15,9 @@ import math
 import re
 import argparse
 
-if not os.path.isdir('figures'):
-    os.mkdir('figures')
+figures_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)),'figures')
+if not os.path.isdir(figures_dir):
+    os.mkdir(figures_dir)
 
 parser = argparse.ArgumentParser(description='Benchmarks comparisons')
 
@@ -707,4 +708,4 @@ def plot_aall(df, speedup_threshold = 1.01, title=None):
         if lengroupby != 1:
             ax.set_title(gpu)
 plot_aall(df, title='Sorted by block+thread coarsening')
-plt.savefig(getuniqfn('figures/kernel_speedup_thread_vs_block_coarsening', 'pdf'), bbox_inches='tight')
+plt.savefig(getuniqfn(os.path.join(figures_dir, 'kernel_speedup_thread_vs_block_coarsening'), 'pdf'), bbox_inches='tight')
