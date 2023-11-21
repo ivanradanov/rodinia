@@ -14,6 +14,9 @@ import statistics
 import math
 import re
 import argparse
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
 
 figures_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)),'figures')
 if not os.path.isdir(figures_dir):
