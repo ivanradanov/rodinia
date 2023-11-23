@@ -474,7 +474,6 @@ fig, ax = drawcomparison(dfmed2, dfstdev2, baseline, configs, log = True, hostna
 
 def handle_axis(ax1):
     ax1.set_yscale('log')
-    ax1.minorticks_off()
 handle_axis(ax)
 
 # non broken axis
@@ -485,5 +484,7 @@ handle_axis(ax)
 # ax.set_yticklabels(ytickslabels)
 #fig.suptitle('', y=1.20, fontsize='medium')
 
-plt.savefig(getuniqfn(os.path.join(figures_dir,'{}rodinia-cuda-clang-2-11-comparison'.format(hostname_)), 'pdf'), bbox_inches='tight')
+fn = getuniqfn(os.path.join(figures_dir,'{}rodinia-cuda-clang-2-11-comparison'.format(hostname_)), 'pdf')
+print('Saving figure to', fn)
+plt.savefig(fn, bbox_inches='tight')
 

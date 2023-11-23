@@ -713,4 +713,7 @@ def plot_aall(df, speedup_threshold = 1.01, title=None):
         if lengroupby != 1:
             ax.set_title(gpu)
 plot_aall(df, title='Sorted by block+thread coarsening')
-plt.savefig(getuniqfn(os.path.join(figures_dir, 'kernel_speedup_thread_vs_block_coarsening'), 'pdf'), bbox_inches='tight')
+
+fn = getuniqfn(os.path.join(figures_dir, 'kernel_speedup_thread_vs_block_coarsening'), 'pdf')
+print('Saving figure to', fn)
+plt.savefig(fn, bbox_inches='tight')
