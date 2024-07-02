@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
-#include <omp.h>
 #include <errno.h>
 #include <float.h>
 #include <sys/stat.h>

@@ -5,11 +5,11 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
-#include <omp.h>
 #include <errno.h>
 
 
 #ifdef _MY_IS_OPENMP
+#include <omp.h>
 #define CUDA_DEVICE_SYNCHRONIZE do { } while(0)
 #elif defined _MY_IS_HIP
 #define CUDA_DEVICE_SYNCHRONIZE hipDeviceSynchronize()
@@ -55,7 +55,11 @@ static inline void MY_WRITE_TIME_TO_FILE(const char *app_id, const char *clock_i
   if (!hostname)
     hostname = empty;
 
+#ifdef _MY_IS_OPENMP
   int omp_threads = omp_get_max_threads();
+#else
+  int omp_threads = 1;
+#endif
 
 #ifdef _MY_COMPILER_NAME_
   const char *compilername = _MY_COMPILER_NAME_;
