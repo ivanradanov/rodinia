@@ -88,10 +88,10 @@ stencil3d-cuda
 surfel-cuda
 zerocopy-cuda
 "
-exit
 
 ##### POLYGEIST RUNTIME ERROR OR VERF FAIL #####
 
+echo -n "
 asta-cuda
 atomicAggregate-cuda
 atomicCAS-cuda
@@ -119,13 +119,17 @@ particle-diffusion-cuda
 perlin-cuda
 thomas-cuda
 wedford-cuda
+"
 
 ##### Originally buggy - syncthreads in divergent branches #####
+echo -n "
 matern-cuda
+"
 
 
 ##### POLYGEIST FAILS TO COMPILE BELOW #####
 
+echo -n "
 accuracy-cuda
 ace-cuda
 addBiasResidualLayerNorm-cuda
@@ -266,16 +270,23 @@ wlcpow-cuda
 wyllie-cuda
 zeropoint-cuda
 zmddft-cuda
+"
 
 
 # Affine map error
+echo -n "
 chi2-cuda
+"
 
 # found mlir loop with more than one exit, skipping.
+echo -n "
 lanczos-cuda
+"
 
 # we failed to emit call to builtin function __nvvm_shfl_sync_down_f32
+echo -n "
 warpsort-cuda
+"
 
 # Unhandled:
 # `__builtin_clzl'
@@ -285,9 +296,12 @@ warpsort-cuda
 # `__builtin_unreachable'
 # `__builtin_memcmp'
 # `__builtin_memcmp
+echo -n "
 histogram-cuda
+"
 
 # Take too long
+echo -n "
 contract-cuda
 crs-cuda
 ddbp-cuda
@@ -310,11 +324,13 @@ reaction-cuda
 scan2-cuda
 quicksort-cuda
 frechet-cuda
+"
 
 
 ##### CLANG FAILS TO COMPILE BENCHMARKS BELOW #####
 
 # Failing with the __noinline__ problem
+echo -n "
 mmcsf-cuda
 ans-cuda
 boxfilter-cuda
@@ -336,31 +352,45 @@ scan3-cuda
 segment-reduce-cuda
 wordcount-cuda
 minibude-cuda
+"
 
 # nvcc -dc
+echo -n "
 xlqc-cuda
+"
 
 # No input file
+echo -n "
 cmp-cuda
+"
 
 # --default-stream unsupported
+echo -n "
 bmf-cuda
+"
 
 # mpi
+echo -n "
 halo-finder-cuda
+"
 
 # shuffle
+echo -n "
 bm3d-cuda
+"
 
 # textures
+echo -n "
 miniWeather-cuda
 multimaterial-cuda
 permutate-cuda
 pso-cuda
 rodrigues-cuda
 wsm5-cuda
+"
 
 # Other compilation failures
+echo -n "
 axhelm-cuda
 daphne-cuda
 aes-cuda
@@ -426,10 +456,12 @@ urng-cuda
 vol2col-cuda
 voxelizer-cuda
 xsbench-cuda
+"
 
 ##### COMPILATION FAILURES END #####
 
 ##### POLYGEIST RUNTIME FAILURE #####
+echo -n "
 attentionMultiHead-cuda
 bonds-cuda
 ccsd-trpdrv-cuda
@@ -457,6 +489,9 @@ sheath-cuda
 shuffle-cuda
 simpleMultiDevice-cuda
 vote-cuda
+"
+
+exit
 
 # rodinia dupes
 b+tree-cuda
