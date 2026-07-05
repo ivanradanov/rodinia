@@ -150,7 +150,7 @@ int main(int argc, char *argv []) {
   image_ori_elem = image_ori_rows * image_ori_cols;
   image_ori = (fp*)malloc(sizeof(fp) * image_ori_elem);
 
-  const char* input_image_path = "../data/srad/image.pgm";
+  const char* input_image_path = "../../data/srad/image.pgm";
   if ( !read_graphics(input_image_path, image_ori, image_ori_rows, image_ori_cols, 1) ) { 
     printf("ERROR: failed to read input image at %s\n", input_image_path);
     if (image_ori != NULL) free(image_ori);
@@ -411,7 +411,7 @@ int main(int argc, char *argv []) {
   //================================================================================80
 
   write_graphics(
-          "image_out.pgm",
+          "/dev/null",
           image,
           Nr,
           Nc,

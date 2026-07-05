@@ -182,17 +182,20 @@ int main(int argc, char** argv)
   cudaFree(d_tOut);
   long long stop = get_time();
 
-  float* answer = (float*)calloc(size, sizeof(float));
-  computeTempCPU(pIn, tCopy, answer, numCols, numRows, layers, Cap, Rx, Ry, Rz, dt, amb_temp, iterations);
-
-  float acc = accuracy(tOut,answer,numRows*numCols*layers);
   float time = (float)((stop - start)/(1000.0 * 1000.0));
   printf("Device offloading time: %.3f (s)\n",time);
-  printf("Root-mean-square error: %e\n",acc);
+
+  float* answer = NULL;
+  if (iterations <= 10000) {
+    answer = (float*)calloc(size, sizeof(float));
+    computeTempCPU(pIn, tCopy, answer, numCols, numRows, layers, Cap, Rx, Ry, Rz, dt, amb_temp, iterations);
+    float acc = accuracy(tOut, answer, numRows * numCols * layers);
+    printf("Root-mean-square error: %e\n", acc);
+  }
 
   writeoutput(tOut,numRows,numCols,layers,ofile);
 
-  free(answer);
+  if (answer) free(answer);
   free(tIn);
   free(pIn);
   free(tCopy);
