@@ -77,7 +77,7 @@ kernel_gpu_cuda_wrapper_2(	knode *knodes,
 	//	INITIAL DRIVER OVERHEAD
 	//====================================================================================================100
 
-	cudaThreadSynchronize();
+	cudaDeviceSynchronize();
 
 	//====================================================================================================100
 	//	EXECUTION PARAMETERS
@@ -274,7 +274,7 @@ kernel_gpu_cuda_wrapper_2(	knode *knodes,
 												ansDStart,
 												ansDLength);
 	MY_STOP_CLOCK(b+tree, findRangeK);
-	cudaThreadSynchronize();
+	cudaDeviceSynchronize();
 	checkCUDAError("findRangeK");
 
 	time4 = get_time();

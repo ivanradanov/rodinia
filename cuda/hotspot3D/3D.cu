@@ -134,7 +134,7 @@ float accuracy(float *arr1, float *arr2, int len)
 
 void usage(int argc, char **argv)
 {
-    fprintf(stderr, "Usage: %s <rows/cols> <layers> <iterations> <powerFile> <tempFile> <outputFile>\n", argv[0]);
+    fprintf(stderr, "Usage: %s <rows/cols> <layers> <iterations> <powerFile> <tempFile> <outputFile> <printAcc>\n", argv[0]);
     fprintf(stderr, "\t<rows/cols>  - number of rows/cols in the grid (positive integer)\n");
     fprintf(stderr, "\t<layers>  - number of layers in the grid (positive integer)\n");
 

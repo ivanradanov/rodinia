@@ -155,7 +155,7 @@ void runVLCTest(char *file_name, uint num_block_threads, uint num_blocks) {
         MY_DEVICE_VERIFY_INT(d_cw32idx, mem_size / sizeof(int));
         MY_DEVICE_VERIFY_INT(d_codewords, NUM_SYMBOLS * symbol_type_size / sizeof(int));
         MY_DEVICE_VERIFY_INT(d_codewordlens, NUM_SYMBOLS * symbol_type_size / sizeof(int));
-    cudaThreadSynchronize();
+    cudaDeviceSynchronize();
     cudaEventRecord( stop, 0 ) ;
     cudaEventSynchronize( stop ) ;
     float   elapsedTime;

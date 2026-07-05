@@ -22,7 +22,7 @@ euler3d: euler3d.o
 
 
 euler3d.o: euler3d.cu
-	$(NVCC) $(KERNEL_DIM) -c euler3d.cu -o euler3d.o -I$(CUDA_SDK_PATH)/common/inc  -L$(CUDA_SDK_PATH)/lib $(CUTIL_LIB) -lstdc++ -I ../hybridsort
+	$(NVCC) $(KERNEL_DIM) -arch=native -c euler3d.cu -o euler3d.o -I$(CUDA_SDK_PATH)/common/inc  -L$(CUDA_SDK_PATH)/lib $(CUTIL_LIB) -lstdc++ -I ../hybridsort
 
 euler3d_double: euler3d_double.cu
 	$(NVCC) -Xptxas -v euler3d_double.cu -o euler3d_double -I$(CUDA_SDK_PATH)/common/inc  -L$(CUDA_SDK_PATH)/lib $(CUTIL_LIB) -I ../hybridsort

@@ -63,7 +63,7 @@ kernel_gpu_cuda_wrapper(par_str par_cpu,
 	//	INITIAL DRIVER OVERHEAD
 	//====================================================================================================100
 
-	cudaThreadSynchronize();
+	cudaDeviceSynchronize();
 
 	//====================================================================================================100
 	//	VARIABLES
@@ -195,7 +195,7 @@ kernel_gpu_cuda_wrapper(par_str par_cpu,
 	MY_STOP_CLOCK(lavaMD, );
 
 	checkCUDAError("Start");
-	cudaThreadSynchronize();
+	cudaDeviceSynchronize();
 
 	time4 = get_time();
 

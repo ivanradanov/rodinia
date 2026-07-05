@@ -112,3 +112,6 @@ openmp/srad/srad_v2/srad
 common/opencl.host.make.config
 common/openmp.host.make.config
 
+data/bfs/graph5M.txt
+data/bfs/graph10M.txt
+data/bfs/inputGen/graph*.txt

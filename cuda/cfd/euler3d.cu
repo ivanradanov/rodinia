@@ -554,7 +554,7 @@ int main(int argc, char** argv)
 	initialize_variables(nelr, fluxes);
 	cudaMemset( (void*) step_factors, 0, sizeof(float)*nelr );
 	// make sure CUDA isn't still doing something before we start timing
-	cudaThreadSynchronize();
+	cudaDeviceSynchronize();
 
 	// these need to be computed the first time in order to compute time step
 	//std::cout << "Starting..." << std::endl;
@@ -593,7 +593,7 @@ int main(int argc, char** argv)
 	}
 	MY_STOP_CLOCK(cfd, );
 
-	cudaThreadSynchronize();
+	cudaDeviceSynchronize();
 	//	CUT_SAFE_CALL( cutStopTimer(timer) );  
 	//sdkStopTimer(&timer); 
 

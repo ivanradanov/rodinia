@@ -241,9 +241,9 @@ void PrintDeviceProperties(){
 			    printf( "\nMaximum Thread Dimension (grid) \t - %d %d %d", deviceProp.maxGridSize[0], deviceProp.maxGridSize[1], deviceProp.maxGridSize[2] );  
 			    printf( "\nTotal constant memory \t\t\t - %zu bytes", deviceProp.totalConstMem );  
 			    printf( "\nCUDA ver \t\t\t\t - %d.%d", deviceProp.major, deviceProp.minor );  
-			    printf( "\nClock rate \t\t\t\t - %d KHz", deviceProp.clockRate );  
+			    printf( "\nClock rate \t\t\t\t - %d KHz", 0 );  
 			    printf( "\nTexture Alignment \t\t\t - %zu bytes", deviceProp.textureAlignment );  
-			    printf( "\nDevice Overlap \t\t\t\t - %s", deviceProp. deviceOverlap?"Allowed":"Not Allowed" );  
+			    printf( "\nDevice Overlap \t\t\t\t - %s", "Not Allowed" );  
 			    printf( "\nNumber of Multi processors \t\t - %d\n\n", deviceProp.multiProcessorCount );  
 			}  
 	    else  
@@ -388,9 +388,9 @@ void ForwardSub()
     MY_START_CLOCK(gaussian, );
 	for (t=0; t<(Size-1); t++) {
 		Fan1<<<dimGrid,dimBlock>>>(m_cuda,a_cuda,Size,t);
-		cudaThreadSynchronize();
+		cudaDeviceSynchronize();
 		Fan2<<<dimGridXY,dimBlockXY>>>(m_cuda,a_cuda,b_cuda,Size,Size-t,t);
-		cudaThreadSynchronize();
+		cudaDeviceSynchronize();
 		//checkCUDAError("Fan2");
 	}
 	MY_STOP_CLOCK(gaussian, );

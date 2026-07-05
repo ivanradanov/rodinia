@@ -16,7 +16,7 @@ OUTPUT =
 	$(CC) $(OUTPUT) $(CC_FLAGS) -c $< -o $@
 
 %.cu.o: %.cu
-	$(NVCC) $(OUTPUT) $(NVCC_FLAGS) -c $< -o $@
+	$(NVCC) $(OUTPUT) $(NVCC_FLAGS) -arch=native -c $< -o $@
 
 %.cpp.o: %.cpp
 	$(CXX) $(OUTPUT) $(CXX_FLAGS) -c $< -o $@
@@ -26,4 +26,3 @@ $(EXECUTABLE): $(COBJS) $(CXXOBJS) $(CUOBJS)
 
 clean:
 	rm -f $(COBJS) $(CXXOBJS) $(CUOBJS) $(EXECUTABLE)
-

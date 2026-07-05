@@ -32,13 +32,6 @@ float4* runMergeSort(int listsize, int divisions,
 	}
 	largestSize *= 4; 
 
-	// Setup texture
-	cudaChannelFormatDesc channelDesc = cudaCreateChannelDesc(32, 32, 32, 32, cudaChannelFormatKindFloat);
-	tex.addressMode[0] = cudaAddressModeWrap;
-	tex.addressMode[1] = cudaAddressModeWrap;
-	tex.filterMode = cudaFilterModePoint;
-	tex.normalized = false;
-
 	////////////////////////////////////////////////////////////////////////////
 	// First sort all float4 elements internally
 	////////////////////////////////////////////////////////////////////////////
@@ -50,8 +43,7 @@ float4* runMergeSort(int listsize, int divisions,
 	dim3 threads(THREADS, 1);
 	int blocks = ((listsize/4)%THREADS == 0) ? (listsize/4)/THREADS : (listsize/4)/THREADS + 1; 
 	dim3 grid(blocks, 1);
-	cudaBindTexture(0,tex, d_origList, channelDesc, listsize*sizeof(float)); 
-	mergeSortFirst<<< grid, threads >>>(d_resultList, listsize);
+	mergeSortFirst<<< grid, threads >>>(d_resultList, listsize, d_origList);
 
 	////////////////////////////////////////////////////////////////////////////
 	// Then, go level by level
@@ -82,8 +74,7 @@ float4* runMergeSort(int listsize, int divisions,
 		float4 *tempList = d_origList; 
 		d_origList = d_resultList; 
 		d_resultList = tempList; 
-		cudaBindTexture(0,tex, d_origList, channelDesc, listsize*sizeof(float)); 
-		mergeSortPass <<< grid, threads >>>(d_resultList, nrElems, threadsPerDiv); 
+		mergeSortPass <<< grid, threads >>>(d_resultList, nrElems, threadsPerDiv, d_origList); 
 		nrElems *= 2; 
 		floatsperthread = (nrElems*4); 
 		if(threadsPerDiv == 1) break; 

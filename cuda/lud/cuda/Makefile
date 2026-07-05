@@ -7,7 +7,7 @@ DEFS += \
 		-DGPU_TIMER \
 		$(SPACE)
 
-NVCC_FLAGS += -I../common \
+NVCC_FLAGS += -arch=native -I../common \
 			 \
 			 -lm \
 			 $(SPACE)

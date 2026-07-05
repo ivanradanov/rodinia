@@ -1,0 +1,62 @@
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ ./run -p 1 -d 0
+run_gpu.sh: line 21: ./run: No such file or directory
+++ echo
+
+++ echo
+

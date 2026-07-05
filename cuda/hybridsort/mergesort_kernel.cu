@@ -3,10 +3,6 @@
 
 #include <stdio.h>
 
-// declare texture reference for 1D float texture
-texture<float4, 1, cudaReadModeElementType> tex;
-texture<float, 1, cudaReadModeElementType> txt; 
-
 __device__ float4 sortElem(float4 r) {
 	float4 nr;
 
@@ -52,20 +48,20 @@ __constant__ int finalStartAddr[DIVISIONS + 1];
 __constant__ int nullElems[DIVISIONS]; 
 
 __global__ void
-mergeSortFirst(float4 *result, int listsize) 
+mergeSortFirst(float4 *result, int listsize, float4 *origList) 
 {
     // Block index
     int bx = blockIdx.x;
     // Thread index
     //int tx = threadIdx.x;
 		if(bx*blockDim.x + threadIdx.x < listsize/4){
-			float4 r = tex1Dfetch(tex, (int)(bx*blockDim.x + threadIdx.x));
+			float4 r = origList[bx*blockDim.x + threadIdx.x];
 			result[bx * blockDim.x + threadIdx.x] = sortElem(r); 
 		}
 }
 
 __global__ void
-mergeSortPass(float4 *result, int nrElems, int threadsPerDiv) 
+mergeSortPass(float4 *result, int nrElems, int threadsPerDiv, float4 *origList) 
 {
 	int tid = (blockIdx.x * blockDim.x) + threadIdx.x; 
 	// The division to work on
@@ -83,7 +79,7 @@ mergeSortPass(float4 *result, int nrElems, int threadsPerDiv)
 	if(Bstart >= constStartAddr[division + 1]){
 		for(int i=0; i<(constStartAddr[division + 1] - Astart); i++)
 		{
-			resStart[i] = tex1Dfetch(tex, Astart + i); 
+			resStart[i] = origList[Astart + i]; 
 		}
 		return; 
 	}
@@ -92,17 +88,13 @@ mergeSortPass(float4 *result, int nrElems, int threadsPerDiv)
 	int bidx = 0; 
 	int outidx = 0; 
 	float4 a, b;
-	a = tex1Dfetch(tex, Astart + aidx);  
-	b = tex1Dfetch(tex, Bstart + bidx); 
+	a = origList[Astart + aidx];  
+	b = origList[Bstart + bidx]; 
 	
 	while(true)//aidx < nrElems/2)// || (bidx < nrElems/2  && (Bstart + bidx < constEndAddr[division])))
 	{
-		/**
-		 * For some reason, it's faster to do the texture fetches here than
-		 * after the merge
-		 */
-		float4 nextA = tex1Dfetch(tex, Astart + aidx + 1); 
-		float4 nextB = tex1Dfetch(tex, Bstart + bidx + 1); 
+		float4 nextA = origList[Astart + aidx + 1]; 
+		float4 nextB = origList[Bstart + bidx + 1]; 
 
 		float4 na = getLowest(a,b); 
 		float4 nb = getHighest(a,b); 

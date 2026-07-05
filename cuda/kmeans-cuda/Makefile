@@ -23,7 +23,7 @@ kmeans: cluster.o getopt.o read_input.o rmse.o kmeans.cpp
 	$(LINKER) $(KERNEL_DIM) $^ -o kmeans $(LINKER_FLAGS)
 
 %.o: %.cpp
-	$(CXX) $(HEC_NVCC_FLAGS) $< -c
+	$(NVCC) -x cu $(HEC_NVCC_FLAGS) $< -c
 
 cluster.o: cluster.cu kmeans.h
 	$(NVCC) $(HEC_NVCC_FLAGS) cluster.cu -c
@@ -38,8 +38,8 @@ clean:
 	rm -f *.o *~ kmeans *.linkinfo
 
 run: kmeans
-	./kmeans -r -n 5 -m 15 -l 10 -o -i ../data/kmeans/kdd_cup
+	./kmeans -r -n 5 -m 15 -l 10 -o -i ../../data/kmeans/kdd_cup
 run_no_build:
-	./kmeans -r -n 5 -m 15 -l 10 -o -i ../data/kmeans/kdd_cup
+	./kmeans -r -n 5 -m 15 -l 10 -o -i ../../data/kmeans/kdd_cup
 
 

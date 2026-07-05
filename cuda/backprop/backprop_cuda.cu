@@ -130,7 +130,7 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 											  in,
 											  hid);
  
-  cudaThreadSynchronize();
+  cudaDeviceSynchronize();
   MY_STOP_CLOCK(backprop, layerforwardcu);
   
   cudaError_t error = cudaGetLastError();

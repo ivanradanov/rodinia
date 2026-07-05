@@ -248,7 +248,7 @@ runTest( int argc, char** argv)
 
  MY_STOP_CLOCK(srad_v2, total);
 
-    cudaThreadSynchronize();
+    cudaDeviceSynchronize();
 
 #ifdef OUTPUT
     //Printing output	

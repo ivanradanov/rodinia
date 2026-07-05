@@ -2145,10 +2145,10 @@ main(	int argc,
 			{
 
 				// get # of queries from user
-				int count;
-				sscanf(commandPointer, "%d", &count);
-				while(*commandPointer!=32 && commandPointer!='\n')
-				  commandPointer++;
+				int count, n;
+				sscanf(commandPointer, "%d%n", &count, &n);
+				commandPointer += n;
+				if (*commandPointer == 32) commandPointer++;
 
 				printf("\n ******command: k count=%d \n",count);
 				// if(count > 65535){
@@ -2275,15 +2275,13 @@ main(	int argc,
 			{
 
 				// get # of queries from user
-				int count;
-				sscanf(commandPointer, "%d", &count);
-				while(*commandPointer!=32 && commandPointer!='\n')
-				  commandPointer++;
-
-				int rSize;
-				sscanf(commandPointer, "%d", &rSize);
-				while(*commandPointer!=32 && commandPointer!='\n')
-				  commandPointer++;
+				int count, rSize, n;
+				sscanf(commandPointer, "%d%n", &count, &n);
+				commandPointer += n;
+				if (*commandPointer == 32) commandPointer++;
+				sscanf(commandPointer, "%d%n", &rSize, &n);
+				commandPointer += n;
+				if (*commandPointer == 32) commandPointer++;
 
 				printf("\n******command: j count=%d, rSize=%d \n",count, rSize);
 				if(rSize > size || rSize < 0) {

@@ -229,7 +229,7 @@ int work_2(	int xmax,
 																d_finavalu_temp);
 	MY_STOP_CLOCK(myocyte, solver_2);
 
-	// cudaThreadSynchronize();
+	// cudaDeviceSynchronize();
 	// printf("CUDA error: %s\n", cudaGetErrorString(cudaGetLastError()));
 
 	time4 = get_time();

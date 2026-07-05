@@ -122,7 +122,7 @@ int main(int argc, char **argv) {
 
   // time execution with nkernels streams
   long total_clocks = 0;
-  long time_clocks = (long)(kernel_time * deviceProp.clockRate);
+  long time_clocks = 0;
   printf("time clocks = %ld\n", time_clocks);
 
   // queue nkernels in separate streams and record when they are done

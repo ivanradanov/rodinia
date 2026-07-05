@@ -34,9 +34,9 @@ inline void __cudaSafeCall( cudaError err, const char *file, const int line )
 
 inline void __cudaSafeThreadSync( const char *file, const int line )
 {
-    cudaError err = cudaThreadSynchronize();
+    cudaError err = cudaDeviceSynchronize();
     if ( cudaSuccess != err) {
-        fprintf(stderr, "cudaThreadSynchronize() Driver API error in file '%s' in line %i : %s.\n",
+        fprintf(stderr, "cudaDeviceSynchronize() Driver API error in file '%s' in line %i : %s.\n",
                 file, line, cudaGetErrorString( err) );
         exit(-1);
     }
@@ -51,9 +51,9 @@ inline void __cutilCheckMsg( const char *errorMessage, const char *file, const i
         exit(-1);
     }
 #ifdef _DEBUG
-    err = cudaThreadSynchronize();
+    err = cudaDeviceSynchronize();
     if( cudaSuccess != err) {
-        fprintf(stderr, "cutilCheckMsg cudaThreadSynchronize error: %s in file <%s>, line %i : %s.\n",
+        fprintf(stderr, "cutilCheckMsg cudaDeviceSynchronize error: %s in file <%s>, line %i : %s.\n",
                 errorMessage, file, line, cudaGetErrorString( err) );
         exit(-1);
     }

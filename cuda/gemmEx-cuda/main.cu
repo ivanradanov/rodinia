@@ -106,7 +106,7 @@ int main(int argc, char* argv[]) {
   }
   const int iteration = atoi(argv[1]);
 
-  const int m = 4096, n = 8192, k = 1024;
+  const int m = 8192, n = 16384, k = 4096;
   printf("shape: (%d, %d) x (%d, %d)\n", m, k, k, n);
   int start_algo = CUBLAS_GEMM_DEFAULT;
   int end_algo = CUBLAS_GEMM_DEFAULT;

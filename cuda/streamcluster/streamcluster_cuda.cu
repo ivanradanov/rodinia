@@ -256,7 +256,7 @@ float pgain(long x, Points *points, float z, long int *numcenters, int kmax, boo
 															switch_membership_d		// out:  changes in membership
 															);
 	MY_STOP_CLOCK(streamcluster, kernel_compute_cost);
-	cudaThreadSynchronize();
+	cudaDeviceSynchronize();
 	
 	// error check
 	error = cudaGetLastError();

@@ -105,7 +105,7 @@ time_kernels(OperatorType& A,
     waxpby(one, x, zero, x, p);
   }
 #ifdef MINIFE_HAVE_CUDA
-  cudaThreadSynchronize();
+  cudaDeviceSynchronize();
 #endif
   TOCK(tWAXPY);
 
@@ -114,7 +114,7 @@ time_kernels(OperatorType& A,
     matvec(A, p, x);
   }
 #ifdef MINIFE_HAVE_CUDA
-  cudaThreadSynchronize();
+  cudaDeviceSynchronize();
 #endif
   TOCK(tMATVEC);
 
@@ -124,7 +124,7 @@ time_kernels(OperatorType& A,
     xdotp += dot(x, p);
   }
 #ifdef MINIFE_HAVE_CUDA
-  cudaThreadSynchronize();
+  cudaDeviceSynchronize();
 #endif
   TOCK(tDOT);
 

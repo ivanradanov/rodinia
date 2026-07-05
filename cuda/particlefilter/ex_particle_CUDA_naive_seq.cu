@@ -577,7 +577,7 @@ void particleFilter(int * I, int IszX, int IszY, int Nfr, int * seed, int Nparti
 		MY_START_CLOCK(particlefilter, naive);
 		kernel <<< num_blocks, threads_per_block >>> (arrayX_GPU, arrayY_GPU, CDF_GPU, u_GPU, xj_GPU, yj_GPU, Nparticles);
 		MY_STOP_CLOCK(particlefilter, naive);
-                cudaThreadSynchronize();
+                cudaDeviceSynchronize();
                 long long start_copy_back = get_time();
 		//CUDA memory copying back from GPU to CPU memory
 		cudaMemcpy(yj, yj_GPU, sizeof(double)*Nparticles, cudaMemcpyDeviceToHost);
